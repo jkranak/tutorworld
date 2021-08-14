@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import {ApplicationI, emptyApplication } from '../interfaces/Application';
+import { emptyApplication } from '../interfaces/Application';
 import languageDict from '../assets/languageDictionary.json';
 import subjectDict from '../assets/subjectDictionary.json';
+import {AfterApplication} from '../components/AfterApplication';
+import {Link} from 'react-router-dom';
 
 interface Props {
   
@@ -9,7 +11,7 @@ interface Props {
 
 export const Application = (props: Props) => {
   const [newApplicant, setNewApplicant] = useState(emptyApplication)
-  console.log(newApplicant['subjects'])
+  const [submitted, setSubmitted] = useState(false);
   
   function handleChange (event: {target: {name: string, value: any}}) {
     const newApplicantFill: any = {...newApplicant}
@@ -24,10 +26,14 @@ export const Application = (props: Props) => {
     setNewApplicant(newApplicantFill)
   }
   
-  function handleSubmit () {}
-  const login = '/'
-  return (
-    <div>
+  function handleSubmit () {
+    setSubmitted(true);
+  }
+
+  return ( 
+    <>
+    {submitted ? <AfterApplication /> :
+      <div>
       <form onSubmit={handleSubmit}>
         <label>First name</label>
         <input type="text" id="fname" name="firstName" required onChange={handleChange} value={newApplicant.firstName}/>
@@ -49,8 +55,8 @@ export const Application = (props: Props) => {
          <button>Attach Resume</button>
         <button type="submit">Apply</button>
       </form>
-      
-      <p>Already have an account? Login <a href={login}>here</a></p>
-    </div>
+    </div>}
+    <Link to={'/'}>Go to Home</Link>
+    </>
   )
 }

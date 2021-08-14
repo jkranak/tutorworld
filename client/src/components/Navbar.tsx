@@ -1,4 +1,4 @@
-// import profileIcon from '../Assets/profile.svg';
+import profileIcon from '../assets/profile.svg';
 
 interface Props {
   
@@ -11,8 +11,7 @@ export const Navbar = (props: Props) => {
       <button className="dashbuttons">Conversations</button>
       <button className="dashbuttons">Calendar</button>
       <button className="dashbuttons">Find a Tutor</button>
-      {/* <button className="dashbuttons"><img src={profileIcon} height="20px" alt="profile"></img></button> */}
-      
+      <button className="dashbuttons"><img src={profileIcon} height="20px" alt="profile"></img></button>
     </div>
   )
 }

@@ -1,5 +1,6 @@
-import { LandingPage } from "./LandingPage/LandingPage";
-import { Navbar } from './Navbar/Navbar'
+import { LandingPage } from "./pages/LandingPage";
+import { Navbar } from './components/Navbar'
+import './sass/main.scss'
 
 function App() {
   return (

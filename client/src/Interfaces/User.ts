@@ -1,8 +1,16 @@
-export interface User {
+export interface UserLogin {
+  email: string,
+  password: string
+}
+
+export const emptyUserLogin: UserLogin = {
+  email: '',
+  password: ''
+}
+
+export interface User extends UserLogin {
   firstName: string,
   lastName: string,
-  email: string,
-  password: string,
   passwordConfirm?: string
 }
 

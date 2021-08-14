@@ -1,6 +1,7 @@
 // import chalkboard from '../Assets/chalkboard.jpg'
 // import remote from '../Assets/remote.png'
 // import book from '../Assets/book.jpg'
+import {Application} from './Application'
 
 interface Props {
   
@@ -28,6 +29,7 @@ export const LandingPage = (props: Props) => {
           <p>Earn money tutoring. Set your own availability and hourly rate</p>
         </div> */}
       </div>
+      <Application/>
     </div>
   )
 }

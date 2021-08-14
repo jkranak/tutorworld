@@ -1,4 +1,6 @@
-import { LandingPage } from "./Pages/LandingPage";
+import { LandingPage } from "./pages/LandingPage";
+import { Navbar } from './components/Navbar'
+import './sass/main.scss'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 function App() {

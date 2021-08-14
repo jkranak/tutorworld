@@ -1,10 +1,10 @@
-#landingheader {
+.landing-page__header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.landing {
+.landing-page__el {
   display: flex;
   flex-direction: row;
   align-items: center;

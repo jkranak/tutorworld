@@ -1,5 +1,6 @@
-import React from 'react'
-import profileIcon from '../Assets/profile.svg'
+import React from 'react';
+import profileIcon from '../Assets/profile.svg';
+import signOutIcon from '../Assets/signout.png';
 import './Navbar.css';
 
 interface Props {
@@ -8,13 +9,13 @@ interface Props {
 
 export const Navbar = (props: Props) => {
   return (
-    <div id="navbar">
-      <button className="dashbuttons">Dashboard</button>
-      <button className="dashbuttons">Conversations</button>
-      <button className="dashbuttons">Calendar</button>
-      <button className="dashbuttons">Find a Tutor</button>
-      <button className="dashbuttons"><img src={profileIcon} height="20px" alt="profile"></img></button>
-      
+    <div className="navbar">
+      <button className="navbar__button">Dashboard</button>
+      <button className="navbar__button">Conversations</button>
+      <button className="navbar__button">Calendar</button>
+      <button className="navbar__button">Find a Tutor</button>
+      <button className="navbar__button"><img src={profileIcon} height="20px" alt="profile"></img></button>
+      <button className="navbar__button"><img src={signOutIcon} height="20px" alt="profile"></img></button>
     </div>
   )
 }

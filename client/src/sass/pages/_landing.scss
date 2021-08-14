@@ -1,0 +1,10 @@
+.landing {
+  background-color: antiquewhite;
+  min-height: 100vh;
+  &__header{
+    height: 8vh;
+    @include flex-row;
+
+    background-color: aqua;
+  } 
+}

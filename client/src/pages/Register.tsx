@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {User, emptyUser } from '../Interfaces/User'
+import {User, emptyUser } from '../interfaces/User'
 
 interface Props {
   
@@ -24,9 +24,9 @@ export const Register = (props: Props) => {
         <label>Email</label>
         <input type="text" id="email" name="email" required onChange={handleChange} value={newUser.email}/>
         <label>Password</label>
-        <input type="text" id="password" name="password" required onChange={handleChange}/>
+        <input type="password" id="password" name="password" required onChange={handleChange} value={newUser.password}/>
         <label>Confirm Password</label>
-        <input type="text" id="passwordConfirm" name="passwordConfirm" required onChange={handleChange}/>
+        <input type="password" id="passwordConfirm" name="passwordConfirm" required onChange={handleChange} value={newUser.passwordConfirm}/>
         <button type="submit">Register</button>
       </form>
       <p>Already have an account? Login <a href={login}>here</a></p>

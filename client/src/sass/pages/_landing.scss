@@ -1,0 +1,16 @@
+.landing {
+  min-height: 100vh;
+  max-width: 100vw;
+
+  &__header{
+    height: 8vh;
+    max-width: 100%;
+
+    padding: 0 3rem;
+    @include flex-row;
+    justify-content: space-between;
+    &--right-box {
+      @include flex-row;
+    }
+  } 
+}

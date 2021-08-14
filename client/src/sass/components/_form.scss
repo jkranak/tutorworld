@@ -1,0 +1,25 @@
+.form{
+  @include flex-column;
+  font-size: 2rem;
+  form {
+    width: 30vw;
+    @include flex-column;
+  }
+  &--toggle{
+    margin-top: 2rem;
+    width: 50%;
+    @include flex-row;
+    justify-content: space-between;
+    &-btn{
+      text-decoration: underline;
+    }
+  }
+  &--title {
+    @include flex-row;
+  }
+  &--btn{
+    width: 50%;
+    height: 5rem;
+    margin-top: 1rem;
+  }
+}

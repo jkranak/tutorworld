@@ -9,5 +9,8 @@
     padding: 0 3rem;
     @include flex-row;
     justify-content: space-between;
+    &--right-box {
+      @include flex-row;
+    }
   } 
 }

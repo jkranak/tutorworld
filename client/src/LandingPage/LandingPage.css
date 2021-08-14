@@ -1,0 +1,12 @@
+#landingheader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.landing {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 2%;
+}

@@ -12,6 +12,9 @@
     justify-content: space-between;
     &-btn{
       text-decoration: underline;
+      &:hover {
+        color: $beige;
+      }
     }
   }
   &--title {

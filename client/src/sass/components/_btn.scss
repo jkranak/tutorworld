@@ -1,0 +1,26 @@
+.btn {
+  text-decoration: none;
+  font-size: 2rem;
+  color: $font-light;
+  letter-spacing: 2px;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  margin: 0 2rem;
+
+  transition: all .5s;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.btn--blue{
+  background-color: $blue;
+}
+
+.btn--clear {
+  color: black;
+  &:hover{
+    background-color: $light-blue;
+  }
+}

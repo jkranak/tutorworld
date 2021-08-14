@@ -1,12 +1,13 @@
-import { LandingPage } from "./LandingPage/LandingPage";
-import { Navbar } from './Navbar/Navbar'
+import { LandingPage } from "./Pages/LandingPage";
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <LandingPage />
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact component={LandingPage} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 

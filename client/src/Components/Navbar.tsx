@@ -1,7 +1,6 @@
-import React from 'react';
 import profileIcon from '../Assets/profile.svg';
 import signOutIcon from '../Assets/signout.png';
-import './Navbar.css';
+import '../Css/Navbar.css';
 
 interface Props {
   

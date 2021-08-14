@@ -1,8 +1,8 @@
-import React from 'react';
 import chalkboard from '../Assets/chalkboard.jpg'
 import remote from '../Assets/remote.png'
 import book from '../Assets/book.jpg'
-import './LandingPage.css';
+import '../Css/LandingPage.css';
+import {Register} from './Register';
 
 interface Props {
   
@@ -10,6 +10,7 @@ interface Props {
 
 export const LandingPage = (props: Props) => {
   return (
+    <>
     <div>
       <div className="landing-page__header">
         <p>About Us</p>
@@ -31,5 +32,7 @@ export const LandingPage = (props: Props) => {
         </div>
       </div>
     </div>
+    <Register/>
+    </>
   )
 }

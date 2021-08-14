@@ -1,6 +1,5 @@
-import profileIcon from '../Assets/profile.svg';
-import signOutIcon from '../Assets/signout.png';
-import '../Css/Navbar.css';
+import profileIcon from '../assets/profile.svg';
+import signOutIcon from '../assets/signout.png';
 
 interface Props {
   

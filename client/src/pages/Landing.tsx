@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { About } from "../components/About";
 import { LandingBody } from "../components/LandingBody";
 import { FaUser } from 'react-icons/fa';
-import { AfterApplication } from "./AfterApplication";
 
 export const Landing = () => {
   const [toggle, setToggle] = useState<string>('home');

@@ -22,4 +22,10 @@ a {
 
 button {
   border: none;
+  background-color: inherit;
+  color: inherit;
+  font-size: inherit;
+  &:hover {
+    cursor: pointer;
+  }
 }

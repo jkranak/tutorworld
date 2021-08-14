@@ -14,19 +14,17 @@
   &:hover{
     cursor: pointer;
   }
-}
-
-.btn--blue{
-  background-color: $blue;
-  letter-spacing: 1px;
-  &:hover{
-    background-color: $dark-blue;
+  &--blue{
+    background-color: $blue;
+    letter-spacing: 1px;
+    &:hover{
+      background-color: $dark-blue;
+    }
   }
-}
-
-.btn--clear {
-  color: black;
-  &:hover{
-    background-color: $light-blue;
+  &--clear {
+    color: black;
+    &:hover{
+      background-color: $light-blue;
+    }
   }
 }

@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { emptyUserLogin, UserLogin } from "../Interfaces/User"
+import { FaSignInAlt } from "react-icons/fa";
+import { emptyUserLogin, UserLogin } from "../interfaces/User"
 
 interface Props {
   setToggle: Function
@@ -14,19 +15,24 @@ export const LoginForm = ({setToggle}: Props) => {
   function handleSubmit () {}
   
   return (
-    <div className="login-form">
+    <div className="form login-form">
+      <div className="form--title">
+        <h1 className="before-icon">Sign In</h1>
+        <FaSignInAlt />
+      </div>
       <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input type="text" id="email" name="email" required onChange={handleChange} value={userLogin.email}/>
-        <label>Password</label>
-        <input type="password" id="password" name="password" required onChange={handleChange} value={userLogin.password}/>
-        <button type="submit">Login</button>
+        <input type="text" id="email" name="email" required onChange={handleChange} value={userLogin.email} placeholder="E-mail address*" className="text-input text-input--blue"/>
+        <input type="password" id="password" name="password" placeholder="Password*" required onChange={handleChange} value={userLogin.password}
+        className="text-input text-input--blue"
+        />
+        <button className="btn btn--blue form--btn" type="submit">SIGN IN</button>
       </form>
-      <p>If you don't have an account, 
-        <button onClick={() => setToggle('register')}>
+      <div className="form--toggle">
+        <span>Don't have an account?</span>
+        <button onClick={() => setToggle('register')} className="form--toggle-btn">
           Register
         </button>
-      </p>
+      </div>
     </div>
   )
 }

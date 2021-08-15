@@ -3,10 +3,12 @@
 
 @import 'base/base';
 @import 'base/typography';
+@import 'base/utilities';
 
 @import 'components/btn';
-@import 'components/fi_icon';
+@import 'components/lib_icon';
 @import 'components/form';
+@import 'components/select_input';
 @import 'components/text_input';
 
 @import 'pages/application';

@@ -22,10 +22,23 @@
   }
   &--btn{
     width: 50%;
-    height: 5rem;
+    height: 6rem;
     margin-top: 1rem;
   }
   &--icon{
     font-size: 3rem;
+  }
+  &--multi-select{
+    padding: 2rem;
+    max-width: 100%;
+    @include flex-row;
+    flex-wrap: wrap;
+  }
+  &--select-tag {
+    background-color: $beige;
+    margin: 1rem 1rem 0 0;
+    padding: 1rem;
+    @include flex-row;
+    border-radius: .8rem;
   }
 }

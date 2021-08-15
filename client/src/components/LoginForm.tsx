@@ -18,7 +18,7 @@ export const LoginForm = ({setToggle}: Props) => {
     <div className="form login-form">
       <div className="form--title">
         <h1 className="before-icon">Sign In</h1>
-        <FaSignInAlt className="fa-icon form--icon"/>
+        <FaSignInAlt className="lib-icon form--icon"/>
       </div>
       <form onSubmit={handleSubmit}>
         <input type="text" id="email" name="email" required onChange={handleChange} value={userLogin.email} placeholder="E-mail address*" className="text-input text-input--blue"/>

@@ -9,17 +9,15 @@ export const Application = () => {
   const [submitted, setSubmitted] = useState(false);
   
   function handleChange (event: {target: {name: string, value: any}}) {
-    console.log('change')
-    const newApplicantFill: any = {...newApplicant}
     if (event.target.name === 'languages') {
-      newApplicantFill.languages.push(Number(event.target.value));
+      setNewApplicant(current => ({...current, languages: [...current.languages, event.target.value]}))
     }
     else if (event.target.name === 'subjects' && !newApplicant.subjects.includes(event.target.value)) {
-      newApplicantFill.subjects.push(event.target.value);
+      setNewApplicant(current => ({...current, subjects: [...current.subjects, event.target.value]}))
     } else {
-      newApplicantFill[event.target.name] = event.target.value;
+      setNewApplicant(current => ({...current, [event.target.name]: event.target.value}))
     }
-    setNewApplicant(newApplicantFill)
+    console.log(newApplicant);
   }
 
   const removeSubject = (index: number) => {
@@ -41,14 +39,14 @@ export const Application = () => {
           <input type="text" id="email" name="email" required onChange={handleChange} value={newApplicant.email} placeholder="E-mail*" className="text-input text-input--blue"/>
           {newApplicant['languages'] && newApplicant['languages']}
           <select name="languages" onChange={handleChange}
-          className="select-input select-input--blue">
-            <option value="" selected disabled hidden>Choose Language</option>
+          className="select-input select-input--blue" defaultValue="">
+            <option value="" disabled>Choose Language</option>
             {Object.entries(languageDict).map(([key, value]) => (
               <option key={key} value={key}>{value}</option>
             ))}
           </select>
-          <select name="subjects" onChange={handleChange} className="select-input select-input--blue">
-              <option value="" selected disabled hidden>Choose subjects</option>
+          <select name="subjects" onChange={handleChange} className="select-input select-input--blue" defaultValue="">
+              <option value="" disabled>Choose Subjects</option>
               {subjectsDict.map((subject) => (
                 <option key={subject.id} value={subject.subject}>{subject.subject}</option>
               ))}

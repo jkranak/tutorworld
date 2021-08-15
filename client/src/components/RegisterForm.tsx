@@ -41,7 +41,7 @@ export const RegisterForm = ({setToggle}: Props) => {
         className="text-input text-input--blue"
         placeholder="Confirm Password*"
         />
-        <button type="submit" className="btn btn--beige form--btn">REGISTER</button>
+        <button type="submit" className="btn btn--blue form--btn">REGISTER</button>
       </form>
       <div className="form--toggle">
         <span>Already have an account?</span>

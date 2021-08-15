@@ -25,7 +25,7 @@ export const LoginForm = ({setToggle}: Props) => {
         <input type="password" id="password" name="password" placeholder="Password*" required onChange={handleChange} value={userLogin.password}
         className="text-input text-input--blue"
         />
-        <button className="btn btn--beige form--btn" type="submit">SIGN IN</button>
+        <button className="btn btn--blue form--btn" type="submit">SIGN IN</button>
       </form>
       <div className="form--toggle">
         <span>Don't have an account?</span>

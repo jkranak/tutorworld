@@ -2,6 +2,10 @@
   padding-right: 1rem;
 }
 
+.text-and-icon{
+  @include flex-row;
+}
+
 .link {
   &:hover {
     cursor: pointer;

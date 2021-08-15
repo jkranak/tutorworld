@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { FaSignInAlt } from "react-icons/fa"
-import { emptyUser, User } from "../interfaces/User"
+import { emptyUser, User } from "../Interfaces/User"
 
 interface Props {
   setToggle: Function
@@ -18,7 +18,7 @@ export const RegisterForm = ({setToggle}: Props) => {
     <div className="form register-form">
       <div className="form--title">
         <h1 className="before-icon">Register</h1>
-        <FaSignInAlt />
+        <FaSignInAlt className="fa-icon form--icon"/>
       </div>
       <form onSubmit={handleSubmit}>
         <input type="text" id="fname" name="firstName" required onChange={handleChange} value={newUser.firstName}
@@ -41,7 +41,7 @@ export const RegisterForm = ({setToggle}: Props) => {
         className="text-input text-input--blue"
         placeholder="Confirm Password*"
         />
-        <button type="submit" className="btn btn--blue form--btn">REGISTER</button>
+        <button type="submit" className="btn btn--beige form--btn">REGISTER</button>
       </form>
       <div className="form--toggle">
         <span>Already have an account?</span>

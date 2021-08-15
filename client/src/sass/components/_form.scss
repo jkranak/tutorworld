@@ -19,6 +19,7 @@
   }
   &--title {
     @include flex-row;
+    padding-bottom: 1rem;
   }
   &--btn{
     width: 50%;

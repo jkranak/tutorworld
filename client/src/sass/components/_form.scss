@@ -12,6 +12,9 @@
     justify-content: space-between;
     &-btn{
       text-decoration: underline;
+      &:hover {
+        color: $beige;
+      }
     }
   }
   &--title {
@@ -21,5 +24,8 @@
     width: 50%;
     height: 5rem;
     margin-top: 1rem;
+  }
+  &--icon{
+    font-size: 3rem;
   }
 }

@@ -27,4 +27,11 @@
       background-color: $light-blue;
     }
   }
+  &--beige {
+    background-color: $dark-beige;
+    letter-spacing: 1px;
+    &:hover{
+      background-color: $beige;
+    }
+  }
 }

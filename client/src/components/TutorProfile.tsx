@@ -7,7 +7,7 @@ export const TutorProfile = () => {
   const [tutor, setTutor] = useState(emptyTutor);
   return (
     <div>
-      <img src={tutorInfo.imageURL} />
+      <img src={tutorInfo.imageURL} alt="profile picture" />
       <h3>{tutor.firstName} {tutor.lastName}</h3>
       <p>{tutorInfo.description}</p>
       <p>Rate: ${tutorInfo.price}/hour</p>

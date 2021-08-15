@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { FaSignInAlt } from "react-icons/fa"
-import { emptyUser, User } from "../Interfaces/User"
+import { emptyUser, User } from "../interfaces/User"
 
 interface Props {
   setToggle: Function

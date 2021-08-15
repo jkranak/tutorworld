@@ -3,7 +3,7 @@ export interface ApplicationI {
   lastName: string,
   email: string,
   languages: number[],
-  subjects: string[],
+  subjects: number[],
   about: string
 }
 

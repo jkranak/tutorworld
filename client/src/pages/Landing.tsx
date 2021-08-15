@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { About } from "../components/About";
 import { LandingBody } from "../components/LandingBody";
 import { FaUser } from 'react-icons/fa';
-import {Application} from './Application';
 
 export const Landing = () => {
   const [toggle, setToggle] = useState<string>('home');
@@ -32,10 +31,8 @@ export const Landing = () => {
           </Link>
         </div>
       </header>
-
       {toggle === 'home' && <LandingBody/>}
       {toggle === 'about' && <About />}
-      <Application />
     </div>
   )
 }

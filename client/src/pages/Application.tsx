@@ -6,7 +6,7 @@ import { FiBookOpen, FiX } from 'react-icons/fi';
 
 export const Application = () => {
   const [newApplicant, setNewApplicant] = useState(emptyApplication)
-  console.log(newApplicant['subjects'])
+  const [submitted, setSubmitted] = useState(false);
   
   function handleChange (event: {target: {name: string, value: any}}) {
     console.log('change')

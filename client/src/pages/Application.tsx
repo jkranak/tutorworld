@@ -36,9 +36,9 @@ export const Application = (props: Props) => {
       <div>
       <form onSubmit={handleSubmit}>
         <label>First name</label>
-        <input type="text" id="fname" name="firstName" required onChange={handleChange} value={newApplicant.firstName}/>
+        <input type="text" id="firstname" name="firstName" required onChange={handleChange} value={newApplicant.firstName}/>
         <label>Last name</label>
-        <input type="text" id="lname" name="lastName" required onChange={handleChange} value={newApplicant.lastName}/>
+        <input type="text" id="lastname" name="lastName" required onChange={handleChange} value={newApplicant.lastName}/>
         <label>Email</label>
         <input type="text" id="email" name="email" required onChange={handleChange} value={newApplicant.email}/>
         {newApplicant['languages'] && newApplicant['languages']}
@@ -52,6 +52,8 @@ export const Application = (props: Props) => {
               <option key={value} value={key}>{value}</option>
             ))}
          </select>
+         <label>Tell us about yourself</label>
+         <input type="text" id="about" name="about" required onChange={handleChange} value={newApplicant.about}/>
          <button>Attach Resume</button>
         <button type="submit">Apply</button>
       </form>

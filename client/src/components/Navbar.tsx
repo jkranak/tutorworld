@@ -1,15 +1,11 @@
 import profileIcon from '../assets/profile.svg';
 import signOutIcon from '../assets/signout.png';
-import '../Css/Navbar.css';
+import {Link} from 'react-router-dom';
 
-interface Props {
-  
-}
-
-export const Navbar = (props: Props) => {
+export const Navbar = () => {
   return (
     <div className="navbar">
-      <button className="navbar__button">Dashboard</button>
+      <Link to='/dashboard'>Dashboard</Link>
       <button className="navbar__button">Conversations</button>
       <button className="navbar__button">Calendar</button>
       <button className="navbar__button">Find a Tutor</button>

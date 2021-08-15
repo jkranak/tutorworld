@@ -1,7 +1,7 @@
-import { useState } from "react"
-import { Link } from "react-router-dom";
-import { About } from "../components/About";
-import { LandingBody } from "../components/LandingBody";
+import { useState } from 'react'
+import { Link } from 'react-router-dom';
+import { About } from '../components/About';
+import { LandingBody } from '../components/LandingBody';
 import { FaUser } from 'react-icons/fa';
 
 export const Landing = () => {

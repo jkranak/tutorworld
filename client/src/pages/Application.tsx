@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import {Link} from 'react-router-dom';
 import { emptyApplication } from '../interfaces/Application';
 import languageDict from '../assets/languageDictionary.json';
 import subjectsDict from '../assets/subjectDictionary.json';
@@ -8,24 +9,34 @@ export const Application = () => {
   const [newApplicant, setNewApplicant] = useState(emptyApplication)
   const [submitted, setSubmitted] = useState(false);
   
-  function handleChange (event: {target: {name: string, value: any}}) {
-    if (event.target.name === 'languages') {
+  function handleSelect (event: {target: {name: string, value: any}}) {
+    if (event.target.name === 'languages' && !newApplicant.languages.includes(event.target.value)) {
       setNewApplicant(current => ({...current, languages: [...current.languages, event.target.value]}))
     }
     else if (event.target.name === 'subjects' && !newApplicant.subjects.includes(event.target.value)) {
       setNewApplicant(current => ({...current, subjects: [...current.subjects, event.target.value]}))
-    } else {
-      setNewApplicant(current => ({...current, [event.target.name]: event.target.value}))
     }
+    console.log(newApplicant);
+  }
+
+  const handleChange = (event: {target: {name: string, value: any}}) => {
+    setNewApplicant(current => ({...current, [event.target.name]: event.target.value}))
     console.log(newApplicant);
   }
 
   const removeSubject = (index: number) => {
     setNewApplicant(current => ({...current, subjects: current.subjects.filter((_, ind)=> ind !== index )}))
   }
+
+  const removeLanguage = (index: number) => {
+    setNewApplicant(current => ({...current, languages: current.languages.filter((_, ind)=> ind !== index )}))
+  }
   
-  function handleSubmit () {}
-  const login = '/'
+  
+  function handleSubmit () {
+    setSubmitted(true);
+  }
+ 
   return (
     <div className="application">
       <div className="form application-form">
@@ -37,16 +48,24 @@ export const Application = () => {
           <input type="text" id="fname" name="firstName" required onChange={handleChange} value={newApplicant.firstName} placeholder="First Name*" className="text-input text-input--blue"/>
           <input type="text" id="lname" name="lastName" required onChange={handleChange} value={newApplicant.lastName} placeholder="Last Name*" className="text-input text-input--blue"/>
           <input type="text" id="email" name="email" required onChange={handleChange} value={newApplicant.email} placeholder="E-mail*" className="text-input text-input--blue"/>
-          {newApplicant['languages'] && newApplicant['languages']}
-          <select name="languages" onChange={handleChange}
-          className="select-input select-input--blue" defaultValue="">
-            <option value="" disabled>Choose Language</option>
-            {Object.entries(languageDict).map(([key, value]) => (
-              <option key={key} value={key}>{value}</option>
-            ))}
+          <select name="languages" onChange={handleSelect} className="select-input select-input--blue" defaultValue="">
+              <option value="" disabled>Choose languages*</option>
+              {languageDict.map((language) => (
+                <option key={language.id} value={language.language}>{language.language}</option>
+              ))}
           </select>
-          <select name="subjects" onChange={handleChange} className="select-input select-input--blue" defaultValue="">
-              <option value="" disabled>Choose Subjects</option>
+          <div className="form--multi-select">
+            {newApplicant.languages.map((language, index): any => 
+            <div key={language} className="form--select-tag">
+              <span className="before-icon">
+                {language}
+              </span>
+              <FiX onClick={() => removeLanguage(index)} className="lib-icon link"/>
+            </div>)}
+          </div>
+
+          <select name="subjects" onChange={handleSelect} className="select-input select-input--blue" defaultValue="">
+              <option value="" disabled>Choose subjects*</option>
               {subjectsDict.map((subject) => (
                 <option key={subject.id} value={subject.subject}>{subject.subject}</option>
               ))}
@@ -64,7 +83,8 @@ export const Application = () => {
           <button type="submit">Apply</button>
         </form>
         
-        <p>Already have an account? Login <a href={login}>here</a></p>
+        <p>Already have an account? Login <Link to={'/login'}>here</Link></p>
+        <Link to={'/'} className="btn btn--blue">Home</Link>
       </div>
     </div>
   )

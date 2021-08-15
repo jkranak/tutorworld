@@ -55,11 +55,11 @@ export const Application = () => {
         setThankYou('flex');
         // reset form information to default
         setNewApplicant(emptyApplication);
-        // redirect to home after 1 minute
+        // redirect to home after 5 seconds
         setTimeout(() => {
           setThankYou('none');
           history.push('/')
-        }, 60000)
+        }, 5000)
       }
     } else {
       alert(`Please fill out the entire form`)
@@ -73,7 +73,7 @@ export const Application = () => {
           <h1 className="before-icon">Application</h1>
           <FiBookOpen className="lib-icon form--icon"/>
         </div>
-        <div className="application-form__thank-you" style={{display: `${thankYou}`}}> Thank you for your application. We will contact you soon. </div>
+        <div className="application-form__thank-you" style={{display: `${thankYou}`}}> <strong>Thank you for your application. We will contact you soon. </strong> </div>
         <form onSubmit={handleSubmit}>
           <input type="text" id="fname" name="firstName" required onChange={handleChange} value={newApplicant.firstName} placeholder="First Name*" className="text-input text-input--blue"/>
           <input type="text" id="lname" name="lastName" required onChange={handleChange} value={newApplicant.lastName} placeholder="Last Name*" className="text-input text-input--blue"/>
@@ -112,9 +112,10 @@ export const Application = () => {
           <div className="text-and-icon">
             <span className="before-icon">Resume: </span>
             <Widget publicKey={uploadCareKey} onFileSelect={(file) => handleAttachment(file)}
-            inputAcceptTypes={".odt,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"}/>
+            inputAcceptTypes={".odt,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"}
+            />
           </div>
-          <button type="submit" className="btn btn--beige form--btn">Apply</button>
+          <button type="submit" className="btn btn--blue form--btn">Apply</button>
         </form>
         
         {/* <p>Already have an account? Login <Link to={'/login'}>here</Link></p>

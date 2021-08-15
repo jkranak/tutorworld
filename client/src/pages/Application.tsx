@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { emptyApplication } from '../Interfaces/Application';
+import { emptyApplication } from '../interfaces/Application';
 import languageDict from '../assets/languageDictionary.json';
 import subjectsDict from '../assets/subjectDictionary.json';
 import { FiBookOpen, FiX } from 'react-icons/fi';

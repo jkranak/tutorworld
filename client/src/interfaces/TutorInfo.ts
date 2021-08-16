@@ -15,7 +15,7 @@ export const emptyTutorInfo: TutorInfo = {
   experience: '',
   imageURL: '',
   resumeURL: '',
-  rating: 0,
+  rating: 4.2,
   education: '',
   price: 0
 }

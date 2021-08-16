@@ -34,7 +34,7 @@ export const Application = () => {
   function handleSubmit () {
     setSubmitted(true);
   }
- 
+
   return (
     <div className="application">
       <div className="form application-form">
@@ -45,17 +45,17 @@ export const Application = () => {
         <form onSubmit={handleSubmit}>
           <input type="text" id="fname" name="firstName" required onChange={handleChange} value={newApplicant.firstName} placeholder="First Name*" className="text-input text-input--blue"/>
           <input type="text" id="lname" name="lastName" required onChange={handleChange} value={newApplicant.lastName} placeholder="Last Name*" className="text-input text-input--blue"/>
-          <input type="text" id="email" name="email" required onChange={handleChange} value={newApplicant.email} placeholder="E-mail*" className="text-input text-input--blue"/>
+          <input type="email" id="email" name="email" required onChange={handleChange} value={newApplicant.email} placeholder="E-mail*" className="text-input text-input--blue"/>
           <select name="languages" onChange={handleChange}>
               <option value="" selected disabled hidden>Choose languages</option>
               {languageDict.map((language) => (
-                <option key={language.id} value={language.language}>{language.language}</option>
+                <option key={language.id} value={language.id}>{language.language}</option>
               ))}
           </select>
           {newApplicant.languages.map((language, index): any => 
           <div key={language}>
             <span>
-              {language}
+              {languageDict[language - 1].language}
             </span>
             <FiX onClick={() => removeLanguage(index)}/>
           </div>)}
@@ -63,17 +63,18 @@ export const Application = () => {
           <select name="subjects" onChange={handleChange}>
               <option value="" selected disabled hidden>Choose subjects</option>
               {subjectsDict.map((subject) => (
-                <option key={subject.id} value={subject.subject}>{subject.subject}</option>
+                <option key={subject.id} value={subject.id}>{subject.subject}</option>
               ))}
           </select>
           {newApplicant.subjects.map((subject, index): any => 
           <div key={subject}>
             <span>
-              {subject}
+            {subjectsDict[subject - 1].subject}
             </span>
             <FiX onClick={() => removeSubject(index)}/>
           </div>)}
-          <button>Attach Resume</button>
+          <label>Attach Resume</label>
+          <input type="file" id="resume" accept=".doc, .docx, .pdf"/>
           <button type="submit">Apply</button>
         </form>
         

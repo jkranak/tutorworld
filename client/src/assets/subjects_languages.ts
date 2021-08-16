@@ -5,7 +5,8 @@ export const languages = [
   "Portuguese",
   "German",
   "Mandarin",
-  "Hindi"
+  "Hindi",
+  "Turkish"
 ]
 
 export const subjects = [
@@ -29,5 +30,6 @@ export const subjects = [
   "Chemistry - High School",
   "Chemistry - University",
   "Physics - High School",
-  "Physics - University"
+  "Physics - University",
+  "Philosophy"
 ]

@@ -119,8 +119,7 @@ export const Application = () => {
             />
           </div>
           <button type="submit" className="btn btn--blue form--btn">Apply</button>
-        </form>     
-        <Link to={'/'} className="btn btn--blue">Home</Link>
+        </form>
         <p>Already have an account? Login <Link to={'/login'}>here</Link></p>
       </div>
     </div>

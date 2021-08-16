@@ -1,24 +1,16 @@
 import { useState } from 'react';
-import {TutorInfo, emptyTutorInfo } from '../interfaces/TutorInfo';
-import {Tutor, emptyTutor} from '../interfaces/Tutor';
+import { emptyTutorInfo } from '../interfaces/TutorInfo';
+import { emptyTutor} from '../interfaces/Tutor';
 import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
 import { starRating } from '../services/starRating';
 
-interface Props {
-  setEditing: (editing: boolean) => void
-}
-
-export const TutorProfile = ({setEditing}: Props) => {
+export const TutorProfile = () => {
   const [tutorInfo, setTutorInfo] = useState(emptyTutorInfo);
   const [tutor, setTutor] = useState(emptyTutor);
   const [tutorSubjects, setTutorSubjects] = useState([]);
   const [tutorLanguages, setTutorLanguages] = useState([])
 
   const starArr: number[] = starRating(tutorInfo.rating);
-
-  function editClick () {
-    setEditing(true);
-  }
 
   return (
     <div>
@@ -40,7 +32,6 @@ export const TutorProfile = ({setEditing}: Props) => {
       ))}
       <h3>Experience</h3>
       {tutorInfo.experience}
-      <button onClick={editClick}>Edit Profile</button>
     </div>
   )
 }

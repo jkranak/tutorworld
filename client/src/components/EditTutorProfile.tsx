@@ -43,10 +43,6 @@ export function EditTutorProfile ({setEditing}: Props) {
     setTutorLanguages(newLanguageList);
   }
 
-  function editClick () {
-    setEditing(false);
-  }
-
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setEditing(false);
@@ -56,17 +52,17 @@ export function EditTutorProfile ({setEditing}: Props) {
     <div>
       <form onSubmit={handleSubmit}>
         <label>Change First Name</label>
-        <input type="text" id="fname" name="firstName" onChange={handleTutorChange} value={tutor.firstName} placeholder="First Name" />
+        <input type="text" id="fname" name="firstName" onChange={handleTutorChange} value={tutor.firstName} placeholder="First Name" required/>
         <label>Change Last Name</label>
-        <input type="text" id="lname" name="lastName" onChange={handleTutorChange}  value={tutor.lastName} placeholder="Last Name"/>
+        <input type="text" id="lname" name="lastName" onChange={handleTutorChange}  value={tutor.lastName} placeholder="Last Name"required/>
         <label>Change Email</label>
-        <input type="email" id="email" name="email" onChange={handleTutorChange} value={tutor.email} placeholder="Email" />
+        <input type="email" id="email" name="email" onChange={handleTutorChange} value={tutor.email} placeholder="Email" required/>
         <label>Change Brief Description</label>
-        <input type="text" id="description" name="description" onChange={handleTutorInfoChange} value={tutorInfo.description} placeholder="Description"/>
-        <label>Change Hourly Rate [$]</label>
-        <input type="number" min="0" id="price" name="price" onChange={handleTutorInfoChange} value={tutorInfo.price} placeholder="Hourly Rate $/hr"/>
+        <input type="text" id="description" name="description" onChange={handleTutorInfoChange} value={tutorInfo.description} placeholder="Description" required/>
+        <label>Change Hourly Rate [$/hour]</label>
+        <input type="number" min="0" id="price" name="price" onChange={handleTutorInfoChange} value={tutorInfo.price} placeholder="Hourly Rate $/hr" required/>
         <label>Change Education</label>
-        <input type="text" id="education" name="education" onChange={handleTutorInfoChange} value={tutorInfo.education} placeholder="Education"/>
+        <input type="text" id="education" name="education" onChange={handleTutorInfoChange} value={tutorInfo.education} placeholder="Education" required/>
         <select name="subjects" onChange={handleSelect} defaultValue="Add subjects" >
           <option value="Add subjects" disabled hidden>Add subjects</option>
           {subjects.map((subject, index) => (
@@ -88,10 +84,9 @@ export function EditTutorProfile ({setEditing}: Props) {
             {tutorLanguages[0].length > 0 && <FiX onClick={() => removeLanguage(index)}/>}
           </div>)}
           <label>Change Experience</label>
-          <input type="text" id="experience" name="experience" onChange={handleTutorInfoChange} value={tutorInfo.experience} placeholder="Experience"/>
+          <input type="text" id="experience" name="experience" onChange={handleTutorInfoChange} value={tutorInfo.experience} placeholder="Experience" required/>
           <button type="submit">Submit</button>
       </form>
-      <button onClick={editClick}>Exit Edit Profile</button>
     </div>
   )
 }

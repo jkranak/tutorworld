@@ -76,7 +76,7 @@ export const Application = () => {
         <form onSubmit={handleSubmit}>
           <input type="text" id="fname" name="firstName" required onChange={handleChange} value={newApplicant.firstName} placeholder="First Name*" className="text-input text-input--blue"/>
           <input type="text" id="lname" name="lastName" required onChange={handleChange} value={newApplicant.lastName} placeholder="Last Name*" className="text-input text-input--blue"/>
-          <input type="text" id="email" name="email" required onChange={handleChange} value={newApplicant.email} placeholder="E-mail*" className="text-input text-input--blue" />
+          <input type="email" id="email" name="email" required onChange={handleChange} value={newApplicant.email} placeholder="E-mail*" className="text-input text-input--blue" />
           <select name="languages" onChange={handleSelect} className="select-input select-input--blue" defaultValue="" required>
               <option value="" selected disabled hidden>Choose languages</option>
               {languages.map((language, index) => (

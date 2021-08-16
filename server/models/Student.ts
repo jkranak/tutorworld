@@ -44,6 +44,9 @@ module.exports = (sequelize:any, DataTypes:any) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    imageUrl: {
+      type: DataTypes.STRING
+    },
   }, {
     sequelize,
     modelName: 'Student',

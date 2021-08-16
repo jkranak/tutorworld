@@ -18,18 +18,18 @@ export const RegisterForm = ({setToggle}: Props) => {
     <div className="form register-form">
       <div className="form--title">
         <h1 className="before-icon">Register</h1>
-        <FaSignInAlt />
+        <FaSignInAlt className="fa-icon form--icon"/>
       </div>
       <form onSubmit={handleSubmit}>
-        <input type="text" id="fname" name="firstName" required onChange={handleChange} value={newUser.firstName}
+        <input type="text" id="firstname" name="firstName" required onChange={handleChange} value={newUser.firstName}
         className="text-input text-input--blue"
         placeholder="First Name*"
         />
-        <input type="text" id="lname" name="lastName" required onChange={handleChange} value={newUser.lastName}
+        <input type="text" id="lastname" name="lastName" required onChange={handleChange} value={newUser.lastName}
         className="text-input text-input--blue"
         placeholder="Last Name*"
         />
-        <input type="text" id="email" name="email" required onChange={handleChange} value={newUser.email}
+        <input type="email" id="email" name="email" required onChange={handleChange} value={newUser.email}
         className="text-input text-input--blue"
         placeholder="E-mail address*"
         />

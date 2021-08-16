@@ -1,5 +1,4 @@
 import bcrypt from 'bcrypt';
-import { TimeoutError } from 'sequelize/types';
 import Models from '../../models';
 import { generateToken } from '../generateToken';
 

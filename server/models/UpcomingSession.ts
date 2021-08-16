@@ -11,18 +11,16 @@ module.exports = (sequelize:any, DataTypes:any) => {
      */
     static associate({Tutor, Student}:any) {
       // define association here
-      this.belongsTo(Tutor, {foreignKey: 'tutorId'})
-      this.belongsTo(Student, {foreignKey: 'studentId'})
+      this.belongsTo(Tutor)
+      this.belongsTo(Student)
     }
   };
   UpcomingSession.init({
-    studentId: {
-      type: DataTypes.INTEGER,
+    id: {
       allowNull: false,
-    },
-    tutorId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.BIGINT
     },
     datetime: {
       type: DataTypes.DATE,

@@ -1,12 +1,12 @@
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import router from './routes/router';
 import db from '../models';
-dotenv.config();
+require('dotenv').config();
 
 const app = express();
-
+console.log(process.env.PORT)
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());// allows server to interact with the client side
@@ -15,9 +15,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(router);
 
-(async () =>{
-  app.listen(PORT);
-  console.log(`Server listening on port ${PORT}`); // eslint-disable-line no-console
-  await db.sequelize.authenticate();
-  console.log('Database Connected');
+(() =>{
+  app.listen(PORT, ()=>{
+    console.log(`Server listening on port ${PORT}`); // eslint-disable-line no-console
+  });
+  db.sequelize.sync({alter:true}).then(()=>{
+    console.log('Database Connected');
+  });
 })();

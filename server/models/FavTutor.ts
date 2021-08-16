@@ -9,18 +9,19 @@ module.exports = (sequelize:any, DataTypes:any) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models:any) {
+    static associate({Student, Tutor}:any) {
       // define association here
+      this.belongsTo(Student)
+      this.belongsTo(Tutor)
+
     }
   };
   Favtutor.init({
-    studentId: {
-      type: DataTypes.INTEGER,
+    id: {
       allowNull: false,
-    },
-    tutorId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.BIGINT
     }
   }, {
     sequelize,

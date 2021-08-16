@@ -28,6 +28,7 @@ export const createStudent = async (req:any, res:any) => {
       token: generateToken(email),
     });
   } catch (error) {
+    console.log(error)
     res.status(500);
     res.send(error);
   }

@@ -9,16 +9,18 @@ module.exports = (sequelize:any, DataTypes:any) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({Tutor, Language, Subject}:any) {
+    static associate({Tutor, Language, Subject, subjectTutorInfo}:any) {
       // define association here
-      this.belongsTo(Tutor, {foreignKey: 'tutorId'})
-      this.hasMany(Language, {foreignKey: 'tutorInfoId'})
+      this.belongsTo(Tutor)
+
     }
   };
   TutorInfo.init({
-    tutorId: {
-      type: DataTypes.INTEGER,
+    id: {
       allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.BIGINT
     },
     description: {
       type: DataTypes.TEXT,
@@ -46,6 +48,14 @@ module.exports = (sequelize:any, DataTypes:any) => {
     },
     price: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    subjectLevels: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+    },
+    languages: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     }
   }, {

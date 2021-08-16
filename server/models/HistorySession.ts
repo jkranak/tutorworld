@@ -11,8 +11,8 @@ module.exports = (sequelize:any, DataTypes:any) => {
      */
     static associate({Tutor, Student}:any) {
       // define association here
-      this.belongsTo(Tutor, {foreignKey: 'tutorId'})
-      this.belongsTo(Student, {foreignKey: 'studentId'})
+      this.belongsTo(Tutor)
+      this.belongsTo(Student)
     }
   };
   HistorySession.init({
@@ -20,15 +20,7 @@ module.exports = (sequelize:any, DataTypes:any) => {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER
-    },
-    studentId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    tutorId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      type: DataTypes.BIGINT
     },
     datetime: {
       type: DataTypes.DATE,

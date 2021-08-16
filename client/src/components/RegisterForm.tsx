@@ -20,12 +20,11 @@ export const RegisterForm = ({setToggle}: Props) => {
   }
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    const { firstName, lastName, email, password, passwordConfirm } = newUser;
+    const { firstName, lastName, email, password, confirmPassword } = newUser;
 
     // confirming is passwords match
-    if (password === passwordConfirm) {
-      const res = await createUser({ firstName, lastName, email, password, passwordConfirm })
-
+    if (password === confirmPassword) {
+      const res = await createUser({ firstName, lastName, email, password, confirmPassword })
       if (res.error) {
         alert(`${res.message}`)
         setNewUser(emptyUser);
@@ -65,7 +64,7 @@ export const RegisterForm = ({setToggle}: Props) => {
         className="text-input text-input--blue"
         placeholder="Password*"
         />
-        <input type="password" id="passwordConfirm" name="passwordConfirm" required onChange={handleChange} value={newUser.passwordConfirm}
+        <input type="password" id="confirmPassword" name="confirmPassword" required onChange={handleChange} value={newUser.confirmPassword}
         className="text-input text-input--blue"
         placeholder="Confirm Password*"
         />

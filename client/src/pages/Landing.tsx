@@ -10,6 +10,19 @@ import { authenticate } from '../redux/actions/authenticate';
 export const Landing = () => {
   const [toggle, setToggle] = useState<string>('home');
   // TO-DO fix typescript any
+  const auth = useSelector((state: any) => state.authenticate);
+  const [ isAuthenticated, setIsAuthenticated ] = useState<boolean>(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('x-auth-token');
+    if (token) {
+      setIsAuthenticated(true)
+      console.log(token);
+      // dispatch(authenticate())
+    };
+  }, [auth])
 
   return (
     <div className="landing">
@@ -40,3 +53,7 @@ export const Landing = () => {
     </div>
   )
 }
+function jwtDecode(token: string) {
+  throw new Error('Function not implemented.');
+}
+

@@ -27,7 +27,7 @@ export const Landing = () => {
           <Link to={'/application'} className="btn btn--clear">Apply to be a Tutor</Link>
           <Link to={'/login'} className="btn btn--blue">
             <span className="before-icon">SIGN IN</span>
-            <FaUser className="fa-icon"/>
+            <FaUser className="lib-icon"/>
           </Link>
         </div>
       </header>

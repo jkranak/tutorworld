@@ -4,7 +4,11 @@ import {Tutor, emptyTutor} from '../interfaces/Tutor';
 import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
 import { starRating } from '../services/starRating';
 
-export const TutorProfile = () => {
+interface Props {
+  setEditing: (editing: boolean) => void
+}
+
+export const TutorProfile = ({setEditing}: Props) => {
   const [tutorInfo, setTutorInfo] = useState(emptyTutorInfo);
   const [tutor, setTutor] = useState(emptyTutor);
   const [tutorSubjects, setTutorSubjects] = useState([]);
@@ -12,10 +16,13 @@ export const TutorProfile = () => {
 
   const starArr: number[] = starRating(tutorInfo.rating);
 
+  function editClick () {
+    setEditing(true);
+  }
 
   return (
     <div>
-      <img src={tutorInfo.imageURL} alt="profile" />
+      <img src={tutorInfo.imageURL} alt={`${tutor.firstName} ${tutor.lastName}`} />
       <h3>{tutor.firstName} {tutor.lastName}</h3>
       <p>{tutorInfo.description}</p>
       <p>Rate: ${tutorInfo.price}/hour</p>
@@ -33,6 +40,7 @@ export const TutorProfile = () => {
       ))}
       <h3>Experience</h3>
       {tutorInfo.experience}
+      <button onClick={editClick}>Edit Profile</button>
     </div>
   )
 }

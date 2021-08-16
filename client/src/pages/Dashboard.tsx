@@ -15,25 +15,46 @@ export const Dashboard = () => {
             <div className="dashboard__content--display--info">
               <h1 className="dashboard__content--display--title">Unread Messages</h1>
               <div className="dashboard__content--display--top--box">
-                <p>message</p>
+                <p>messages</p>
               </div>
             </div>
             <div className="dashboard__content--display--info">
               <h1 className="dashboard__content--display--title">Upcoming Sessions</h1>
               <div className="dashboard__content--display--top--box">
-                  <p>message</p>
+                  <p>sessions</p>
               </div>
             </div>
           </div>
           {role === 'tutor' ? 
             <div className="dashboard__content--display--bottom">
-              <h1 className="dashboard__content--display--title">History</h1> 
-              <h1 className="dashboard__content--display--title">Earnings Owned</h1>
+              <div className="dashboard__content--display--info">
+                <h1 className="dashboard__content--display--title">History</h1>
+                <div className="dashboard__content--display--top--box">
+                  <p>previous sessions</p>
+                </div>
+              </div>
+
+              <div className="dashboard__content--display--info">
+                <h1 className="dashboard__content--display--title">Earnings Owned</h1>
+                <div className="dashboard__content--display--bottom--box">
+                  <p>earnings</p>
+                </div>
+              </div>
             </div>
             :
             <div className="dashboard__content--display--bottom">
-              <h1 className="dashboard__content--display--title">History</h1> 
-              <h1 className="dashboard__content--display--title">Favorite Tutors</h1>
+              <div className="dashboard__content--display--info">
+                <h1 className="dashboard__content--display--title">History</h1> 
+                <div className="dashboard__content--display--bottom--box">
+                  <p>previous sessions</p>
+                </div>
+              </div>
+              <div className="dashboard__content--display--info">
+                <h1 className="dashboard__content--display--title">Favorite Tutors</h1>
+                <div className="dashboard__content--display--bottom--box">
+                  <p>tutors</p>
+                </div>
+              </div>
             </div>  
           }
         </div>

@@ -1,5 +1,5 @@
 import express from 'express';
-import { createStudent } from '../controllers/authController';
+import { createStudent, createTutor, login } from '../controllers/authController';
 
 const router = express.Router();
 
@@ -10,7 +10,9 @@ router.get('/', (req, res) => {
 })
 
 //auth routes
-router.post('/users', createStudent)
+router.post('/students', createStudent);
+router.post('/users/login', login);
+router.post('/tutors', createTutor);
 
 
 export default router;

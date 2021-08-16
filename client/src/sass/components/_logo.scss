@@ -1,0 +1,8 @@
+.logo-box{
+  height: 100%;
+  padding: 1rem;
+  &__image {
+    height: 100%;
+    object-fit: contain;
+  }
+}

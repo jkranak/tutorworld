@@ -6,6 +6,7 @@ import { FiBookOpen, FiX } from 'react-icons/fi';
 import { submitForm } from '../services/formSubmission';
 import { Widget } from "@uploadcare/react-widget";
 import dotenv from 'dotenv';
+import Logo from '../components/Logo';
 dotenv.config();
 
 export const Application = () => {
@@ -67,6 +68,9 @@ export const Application = () => {
 
   return (
     <div className="application">
+      <header>
+        <Logo />
+      </header>
       <div className="form application-form">
         <div className="form--title">
           <h1 className="before-icon">Application</h1>

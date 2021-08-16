@@ -1,0 +1,38 @@
+.dashboard {
+  max-width: 100vw;
+  &__content {
+    width: 100%;
+    height: 90vh;
+    @include flex-row;
+    &--display {
+      width: 85%;
+      height: 90vh;
+      padding: 3rem;
+
+      &--top {
+        @include flex-column;
+        &--box {
+          width: 100%;
+          height: 10rem;
+          border: 1px solid $darkest-pink;
+        }
+      }
+      &--info {
+       width: 70%;
+       @include flex-column;
+      }
+      &--title {
+        padding: 2rem;
+      }
+      &--bottom {
+        @include flex-row;
+        width: 100%;
+        &--box {
+          width: 70%;
+          height: 10rem;
+          border: 1px solid $darkest-pink;
+        }
+      }
+    }
+  }
+}

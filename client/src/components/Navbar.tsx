@@ -1,20 +1,22 @@
-import profileIcon from '../assets/profile.svg';
-import signOutIcon from '../assets/signout.png';
-import '../Css/Navbar.css';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { FaSignOutAlt, FaUserAlt } from 'react-icons/fa'
 
-interface Props {
-  
-}
+export const Navbar = () => {
+  const [role, setRole] = useState('student');
 
-export const Navbar = (props: Props) => {
   return (
     <div className="navbar">
-      <button className="navbar__button">Dashboard</button>
-      <button className="navbar__button">Conversations</button>
-      <button className="navbar__button">Calendar</button>
-      <button className="navbar__button">Find a Tutor</button>
-      <button className="navbar__button"><img src={profileIcon} height="20px" alt="profile"></img></button>
-      <button className="navbar__button"><img src={signOutIcon} height="20px" alt="profile"></img></button>
+      <div className="navbar--left-box">
+        <Link to='/dashboard' className="btn btn--clear">Dashboard</Link>
+        <button className="btn btn--clear">Conversations</button>
+        <button className="btn btn--clear">Calendar</button>
+        {role === 'student' && <Link to={'/search'} className="btn btn--clear">Find a Tutor</Link>}
+      </div>
+      <div className="navbar--right-box">
+        <Link to={'/profile'} className="btn btn--clear"><FaUserAlt/></Link>
+        <button className="btn btn--clear"><FaSignOutAlt/></button>
+      </div>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-.text-input{
+.select-input{
   padding: 1.5rem;
   margin: 2rem 0;
   height: 6rem;
@@ -15,8 +15,16 @@
     &:hover {
       border: 1px solid $light-blue;
     }
+    option {
+      background-color: $font-light;
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
-  
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 // to avoid autofill background color and font color

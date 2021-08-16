@@ -9,6 +9,22 @@
       width: 85%;
       height: 90vh;
       background-color: pink;
+      padding: 3rem;
+      &--top {
+        background-color: plum;
+        @include flex-column;
+        &--box {
+          background-color: rosybrown;
+        }
+      }
+      &--info {
+       background-color: aqua;
+       width: 70%; 
+      }
+      &--bottom {
+        background-color: purple;
+        @include flex-row;
+      }
     }
   }
 }

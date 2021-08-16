@@ -6,14 +6,18 @@ export const Dashboard = () => {
   const [role, setRole] = useState('student');
 
   return (
-    <div>
+    <div className="dashboard">
       <Navbar/>
-      <Sidebar/>
-      <h2>Unread Messages</h2>
-      <h2>Upcoming Sessions</h2>
-      {role === 'tutor' 
-      ? <h2>History</h2> 
-      : <h2>Favorite Users</h2>}
+      <div className="dashboard__content">
+        <Sidebar/>
+        <div className="dashboard__content--display">
+          <h2>Unread Messages</h2>
+          <h2>Upcoming Sessions</h2>
+          {role === 'tutor' 
+          ? <h2>History</h2> 
+          : <h2>Favorite Users</h2>}
+        </div>
+      </div>
     </div>
   )
 }

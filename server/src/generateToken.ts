@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-export const generateToken = (email:any) => {
+export const generateToken = (id:any) => {
   return jwt.sign(
     {
-      email,
+      id,
     },
     process.env.JWT_SECRET,
     {

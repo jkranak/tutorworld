@@ -12,10 +12,6 @@ export function EditStudentProfile ({setEditing}: Props): ReactElement {
     setStudent(current => ({...current, [event.target.name]: event.target.value}))
   }
 
-  function editClick () {
-    setEditing(false);
-  }
-
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setEditing(false);
@@ -25,14 +21,13 @@ export function EditStudentProfile ({setEditing}: Props): ReactElement {
     <div>
       <form onSubmit={handleSubmit}>
         <label>Change First Name</label>
-        <input type="text" id="fname" name="firstName" onChange={handleStudentChange} value={student.firstName} placeholder="First Name" />
+        <input type="text" id="fname" name="firstName" onChange={handleStudentChange} value={student.firstName} placeholder="First Name" required />
         <label>Change Last Name</label>
-        <input type="text" id="lname" name="lastName" onChange={handleStudentChange}  value={student.lastName} placeholder="Last Name"/>
+        <input type="text" id="lname" name="lastName" onChange={handleStudentChange}  value={student.lastName} placeholder="Last Name" required/>
         <label>Change Email</label>
-        <input type="email" id="email" name="email" onChange={handleStudentChange} value={student.email} placeholder="Email" />
+        <input type="email" id="email" name="email" onChange={handleStudentChange} value={student.email} placeholder="Email" required />
         <button type="submit">Submit</button>
       </form>
-      <button onClick={editClick}>Exit Edit Profile</button>
     </div>
   )
 }

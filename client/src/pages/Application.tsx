@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { useHistory} from 'react-router-dom';
+import { useHistory, Link} from 'react-router-dom';
 import { emptyApplication } from '../interfaces/Application';
 import languageDict from '../assets/languageDictionary.json';
 import subjectsDict from '../assets/subjectDictionary.json';
@@ -116,8 +116,8 @@ export const Application = () => {
           </div>
           <button type="submit" className="btn btn--blue form--btn">Apply</button>
         </form>     
-        {<p>Already have an account? Login <Link to={'/login'}>here</Link></p>
-        <Link to={'/'} className="btn btn--blue">Home</Link>}
+        <Link to={'/'} className="btn btn--blue">Home</Link>
+        <p>Already have an account? Login <Link to={'/login'}>here</Link></p>
       </div>
     </div>
   )

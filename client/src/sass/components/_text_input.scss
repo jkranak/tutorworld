@@ -1,7 +1,7 @@
 .text-input{
   padding: 1.5rem;
   margin: 2rem 0;
-  height: 5rem;
+  height: 6rem;
   width: 100%;
 
   font-size: 1.8rem;
@@ -11,11 +11,12 @@
   &--blue{
     background-color: transparent;
     border: gray 1px solid;
-    color: $font-light;
+    // color: $font-light;
     &:hover {
       border: 1px solid $light-blue;
     }
   }
+  
 }
 
 // to avoid autofill background color and font color
@@ -24,5 +25,5 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
-  -webkit-text-fill-color: $font-light;
+  -webkit-text-fill-color: inherit;
 }

@@ -1,0 +1,37 @@
+.select-input{
+  padding: 1.5rem;
+  margin: 2rem 0;
+  height: 6rem;
+  width: 100%;
+
+  font-size: 1.8rem;
+
+  border-radius: .5rem;
+  transition: all .5s;
+  &--blue{
+    background-color: transparent;
+    border: gray 1px solid;
+    // color: $font-light;
+    &:hover {
+      border: 1px solid $light-blue;
+    }
+    option {
+      background-color: $font-light;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+// to avoid autofill background color and font color
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: inherit;
+}

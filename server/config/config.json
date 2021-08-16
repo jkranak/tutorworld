@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "tutorworld",
+    "password": "codeworkstutor",
+    "database": "tutorworld",
+    "host": "tutor-world.cn25eycafh47.us-east-2.rds.amazonaws.com",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "tutorworld",
+    "password": "codeworkstutor",
+    "database": "tutorworld",
+    "host": "tutor-world.cn25eycafh47.us-east-2.rds.amazonaws.com",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "tutorworld",
+    "password": "codeworkstutor",
+    "database": "tutorworld",
+    "host": "tutor-world.cn25eycafh47.us-east-2.rds.amazonaws.com",
+    "dialect": "postgres"
+  }
+}
+

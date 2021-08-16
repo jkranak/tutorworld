@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../assets/tutor_world.png';
+import logo from '../assets/tutor_world.svg';
 
 export default function Logo() {
   // if authenticated the logo link will be dashboard

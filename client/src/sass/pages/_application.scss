@@ -3,17 +3,33 @@
   max-width: 100vw;
   min-height: 100vh;
   
-  padding-top: 10rem;
-  @include flex-row;
-  align-items: flex-start;
-}
-.application-form{
-  &__thank-you{
-    background-color: green;
+  @include flex-column;
+  justify-content: flex-start;
+  header {
     width: 100%;
-    height: 5rem;
+    height: 10rem;
+    padding: 1rem;
+  }
+  &__after {
+    width: 40%;
+    border: 1px solid green;
     border-radius: 1rem;
-    padding: 0 1rem;
-    @include flex-row;
+    @include flex-column;
+    padding: 3rem;
+    &--title{
+      font-size: 5rem;
+    }
+    &--description {
+      padding: 2rem;
+      font-size: 3rem;
+    }
+    &--image-box {
+      height: 30rem;
+      img {
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
   }
 }

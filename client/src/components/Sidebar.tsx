@@ -5,11 +5,11 @@ export const Sidebar = () => {
   const [role, setRole] = useState('student');
 
   return (
-    <div>
-      <Link to={'/profile'}>Profile</Link>
-      {role === 'tutor' && <button>Availability</button>}
-      <button>Conversations</button>
-      <button>Calendar</button>
+    <div className="sidebar">
+      <Link to={'/profile'} className="btn btn--clear">Profile</Link>
+      {role === 'tutor' && <button className="btn btn--clear">Availability</button>}
+      <button className="btn btn--clear">Conversations</button>
+      <button className="btn btn--clear">Calendar</button>
     </div>
   )
 }

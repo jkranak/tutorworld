@@ -7,12 +7,16 @@ export const Navbar = () => {
 
   return (
     <div className="navbar">
-      <Link to='/dashboard'>Dashboard</Link>
-      <button className="navbar__button">Conversations</button>
-      <button className="navbar__button">Calendar</button>
-      {role === 'student' && <Link to={'/search'}>Find a tutor</Link>}
-      <Link to={'/profile'}><FaUserAlt/></Link>
-      <button className="navbar__button"><FaSignOutAlt/></button>
+      <div className="navbar--left-box">
+        <Link to='/dashboard' className="btn btn--clear">Dashboard</Link>
+        <button className="btn btn--clear">Conversations</button>
+        <button className="btn btn--clear">Calendar</button>
+        {role === 'student' && <Link to={'/search'} className="btn btn--clear">Find a Tutor</Link>}
+      </div>
+      <div className="navbar--right-box">
+        <Link to={'/profile'} className="btn btn--clear"><FaUserAlt/></Link>
+        <button className="btn btn--clear"><FaSignOutAlt/></button>
+      </div>
     </div>
   )
 }

@@ -1,18 +1,19 @@
 import { FormEvent, useState } from 'react';
-import { useHistory, Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { emptyApplication } from '../interfaces/Application';
 import { languages, subjects } from '../assets/subjects_languages';
 import { FiBookOpen, FiX } from 'react-icons/fi';
 import { submitForm } from '../services/formSubmission';
 import { Widget } from "@uploadcare/react-widget";
 import dotenv from 'dotenv';
+import Logo from '../components/Logo';
+import { AfterApplication } from '../components/AfterApplication';
 dotenv.config();
 
 export const Application = () => {
-  const history = useHistory();
   const uploadCareKey = process.env.REACT_APP_UPLOADCARE_KEY || '';
   const [newApplicant, setNewApplicant] = useState(emptyApplication)
-  const [thankYou, setThankYou] = useState<string>('none');
+  const [submitted, setSubmitted] = useState<boolean>(false);
   
   function handleSelect (event: {target: {name: string, value: any}}) {
     if (event.target.name === 'languages' && !newApplicant.languages.includes(event.target.value)) {
@@ -50,15 +51,9 @@ export const Application = () => {
         // form did not post
         alert(`not successful`)
       } else {
-        // display thank you message on top of the form
-        setThankYou('flex');
         // reset form information to default
         setNewApplicant(emptyApplication);
-        // redirect to home after 5 seconds
-        setTimeout(() => {
-          setThankYou('none');
-          history.push('/')
-        }, 5000)
+        setSubmitted(true);
       }
     } else {
       alert(`Please fill out the entire form`)
@@ -66,13 +61,23 @@ export const Application = () => {
   }
 
   return (
+    submitted ? 
+      <div className="application">
+        <header>
+          <Logo />
+        </header>
+        <AfterApplication />
+      </div>
+    :
     <div className="application">
+      <header>
+        <Logo />
+      </header>
       <div className="form application-form">
         <div className="form--title">
           <h1 className="before-icon">Application</h1>
           <FiBookOpen className="lib-icon form--icon"/>
         </div>
-        <div className="application-form__thank-you" style={{display: `${thankYou}`}}> <strong>Thank you for your application. We will contact you soon. </strong> </div>
         <form onSubmit={handleSubmit}>
           <input type="text" id="fname" name="firstName" required onChange={handleChange} value={newApplicant.firstName} placeholder="First Name*" className="text-input text-input--blue"/>
           <input type="text" id="lname" name="lastName" required onChange={handleChange} value={newApplicant.lastName} placeholder="Last Name*" className="text-input text-input--blue"/>

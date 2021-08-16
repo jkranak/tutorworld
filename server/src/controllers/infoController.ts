@@ -32,7 +32,7 @@ export const getAllTutorInfo = async (req:any, res:any) => {
   try {
     const { id } = req.body.user;
 
-    const tutorInfo = await Models.Tutor.findOne({where: {id}, include: Models.TutorInfo});
+    const tutorInfo = await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id}, include: Models.TutorInfo});
 
     res.send(tutorInfo);
     res.status(200);

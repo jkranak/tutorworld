@@ -1,12 +1,15 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { About } from '../components/About';
 import { LandingBody } from '../components/LandingBody';
 import { FaUser } from 'react-icons/fa';
 import Logo from '../components/Logo';
+import { authenticate } from '../redux/actions/authenticate';
 
 export const Landing = () => {
   const [toggle, setToggle] = useState<string>('home');
+  // TO-DO fix typescript any
 
   return (
     <div className="landing">

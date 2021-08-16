@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import {Navbar} from '../components/Navbar';
 import { TutorProfile } from '../components/TutorProfile';
 import { StudentProfile } from '../components/StudentProfile'
 import { EditTutorProfile } from '../components/EditTutorProfile';
@@ -23,6 +24,7 @@ export const Profile = () => {
   
   return (
     <div>
+      <Navbar />
       {editing 
       ? role === 'tutor' ? <EditTutorProfile setEditing={setEditing}/> : <EditStudentProfile setEditing={setEditing}/> 
       : role === 'tutor' ? <TutorProfile /> : <StudentProfile />}

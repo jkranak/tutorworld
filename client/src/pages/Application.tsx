@@ -1,8 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { useHistory, Link} from 'react-router-dom';
 import { emptyApplication } from '../interfaces/Application';
-import languageDict from '../assets/languageDictionary.json';
-import subjectsDict from '../assets/subjectDictionary.json';
+import { languages, subjects } from '../assets/subjects_languages';
 import { FiBookOpen, FiX } from 'react-icons/fi';
 import { submitForm } from '../services/formSubmission';
 import { Widget } from "@uploadcare/react-widget";
@@ -80,30 +79,30 @@ export const Application = () => {
           <input type="text" id="email" name="email" required onChange={handleChange} value={newApplicant.email} placeholder="E-mail*" className="text-input text-input--blue" />
           <select name="languages" onChange={handleSelect} className="select-input select-input--blue" defaultValue="" required>
               <option value="" selected disabled hidden>Choose languages</option>
-              {languageDict.map((language) => (
-                <option key={language.id} value={language.id}>{language.language}</option>
+              {languages.map((language, index) => (
+                <option key={index} value={language}>{language}</option>
               ))}
           </select>
           <div className="form--multi-select">
             {newApplicant.languages.map((language, index): any => 
             <div key={language} className="form--select-tag">
               <span className="before-icon">
-                {languageDict[language - 1].language}
+                {language}
               </span>
               <FiX onClick={() => removeLanguage(index)} className="lib-icon link"/>
             </div>)}
           </div>
           <select name="subjects" onChange={handleSelect} className="select-input select-input--blue" defaultValue="" required>
-              <option value="" disabled>Choose subjects*</option>
-              {subjectsDict.map((subject) => (
-                <option key={subject.id} value={subject.id}>{subject.subject}</option>
+              <option value="" disabled>Choose subjects/level*</option>
+              {subjects.map((subject, index) => (
+                <option key={index} value={subject}>{subject}</option>
               ))}
           </select>
           <div className="form--multi-select">
             {newApplicant.subjects.map((subject, index): any => 
             <div key={subject} className="form--select-tag">
               <span className="before-icon">
-                {subjectsDict[subject - 1].subject}
+                {subject}
               </span>
               <FiX onClick={() => removeSubject(index)} className="lib-icon link"/>
             </div>)}

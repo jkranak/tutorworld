@@ -1,6 +1,5 @@
-import profileIcon from '../assets/profile.svg';
-import signOutIcon from '../assets/signout.png';
 import {Link} from 'react-router-dom';
+import {FaSignOutAlt, FaUserAlt} from 'react-icons/fa'
 
 export const Navbar = () => {
   return (
@@ -9,8 +8,8 @@ export const Navbar = () => {
       <button className="navbar__button">Conversations</button>
       <button className="navbar__button">Calendar</button>
       <button className="navbar__button">Find a Tutor</button>
-      <button className="navbar__button"><img src={profileIcon} height="20px" alt="profile"></img></button>
-      <button className="navbar__button"><img src={signOutIcon} height="20px" alt="profile"></img></button>
+      <button className="navbar__button"><FaUserAlt/></button>
+      <button className="navbar__button"><FaSignOutAlt/></button>
     </div>
   )
 }

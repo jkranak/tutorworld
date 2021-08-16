@@ -20,10 +20,10 @@ export const createStudent = async (req:any, res:any) => {
     const newUser = await Models.Student.create({email, firstName, lastName, password: hashedPassword});
     res.status(201).send({
       user: {
-        email,
+        id: newUser.id,
         role: 'student',
       },
-      token: generateToken(email),
+      token: generateToken(newUser.id),
     });
   } catch (error) {
     console.log(error)
@@ -52,10 +52,10 @@ export const login = async (req:any, res:any) => {
       res.status(200).send(
         {
           user: {
-            email,
+            id: user.id,
             role: user===student? 'student':'tutor',
           },
-          token: generateToken(email),
+          token: generateToken(user.id),
         },
       );
     } else {

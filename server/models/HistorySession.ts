@@ -27,7 +27,7 @@ module.exports = (sequelize:any, DataTypes:any) => {
       allowNull: false,
     },
     cost: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.REAL,
       allowNull: false,
     },
     sessionContent: {
@@ -39,7 +39,7 @@ module.exports = (sequelize:any, DataTypes:any) => {
       allowNull: false,
     },
     starRating: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.REAL,
       allowNull: false,
     },
 

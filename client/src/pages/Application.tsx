@@ -65,7 +65,7 @@ export const Application = () => {
       alert(`Please fill out the entire form`)
     }
   }
- 
+
   return (
     <div className="application">
       <div className="form application-form">
@@ -79,32 +79,31 @@ export const Application = () => {
           <input type="text" id="lname" name="lastName" required onChange={handleChange} value={newApplicant.lastName} placeholder="Last Name*" className="text-input text-input--blue"/>
           <input type="text" id="email" name="email" required onChange={handleChange} value={newApplicant.email} placeholder="E-mail*" className="text-input text-input--blue" />
           <select name="languages" onChange={handleSelect} className="select-input select-input--blue" defaultValue="" required>
-              <option value="" disabled>Choose languages*</option>
+              <option value="" selected disabled hidden>Choose languages</option>
               {languageDict.map((language) => (
-                <option key={language.id} value={language.language}>{language.language}</option>
+                <option key={language.id} value={language.id}>{language.language}</option>
               ))}
           </select>
           <div className="form--multi-select">
             {newApplicant.languages.map((language, index): any => 
             <div key={language} className="form--select-tag">
               <span className="before-icon">
-                {language}
+                {languageDict[language - 1].language}
               </span>
               <FiX onClick={() => removeLanguage(index)} className="lib-icon link"/>
             </div>)}
           </div>
-
           <select name="subjects" onChange={handleSelect} className="select-input select-input--blue" defaultValue="" required>
               <option value="" disabled>Choose subjects*</option>
               {subjectsDict.map((subject) => (
-                <option key={subject.id} value={subject.subject}>{subject.subject}</option>
+                <option key={subject.id} value={subject.id}>{subject.subject}</option>
               ))}
           </select>
           <div className="form--multi-select">
             {newApplicant.subjects.map((subject, index): any => 
             <div key={subject} className="form--select-tag">
               <span className="before-icon">
-                {subject}
+                {subjectsDict[subject - 1].subject}
               </span>
               <FiX onClick={() => removeSubject(index)} className="lib-icon link"/>
             </div>)}
@@ -116,10 +115,9 @@ export const Application = () => {
             />
           </div>
           <button type="submit" className="btn btn--blue form--btn">Apply</button>
-        </form>
-        
-        {/* <p>Already have an account? Login <Link to={'/login'}>here</Link></p>
-        <Link to={'/'} className="btn btn--blue">Home</Link> */}
+        </form>     
+        {<p>Already have an account? Login <Link to={'/login'}>here</Link></p>
+        <Link to={'/'} className="btn btn--blue">Home</Link>}
       </div>
     </div>
   )

@@ -29,7 +29,7 @@ export const RegisterForm = ({setToggle}: Props) => {
         className="text-input text-input--blue"
         placeholder="Last Name*"
         />
-        <input type="text" id="email" name="email" required onChange={handleChange} value={newUser.email}
+        <input type="email" id="email" name="email" required onChange={handleChange} value={newUser.email}
         className="text-input text-input--blue"
         placeholder="E-mail address*"
         />

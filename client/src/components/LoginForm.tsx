@@ -21,7 +21,7 @@ export const LoginForm = ({setToggle}: Props) => {
         <FaSignInAlt className="lib-icon form--icon"/>
       </div>
       <form onSubmit={handleSubmit}>
-        <input type="text" id="email" name="email" required onChange={handleChange} value={userLogin.email} placeholder="E-mail address*" className="text-input text-input--blue"/>
+        <input type="email" id="email" name="email" required onChange={handleChange} value={userLogin.email} placeholder="E-mail address*" className="text-input text-input--blue"/>
         <input type="password" id="password" name="password" placeholder="Password*" required onChange={handleChange} value={userLogin.password}
         className="text-input text-input--blue"
         />

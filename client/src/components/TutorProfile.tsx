@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { emptyTutorAndInfo} from '../interfaces/Tutor';
 import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
 import { starRating } from '../services/starRating';
 
-export const TutorProfile = () => {
+export const TutorProfile: FC = () => {
   const [tutor, setTutor] = useState(emptyTutorAndInfo);
   const [tutorSubjects, setTutorSubjects] = useState([]);
   const [tutorLanguages, setTutorLanguages] = useState([])

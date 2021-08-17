@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useState, FC } from 'react'
 import { LoginForm } from '../components/LoginForm'
 import Logo from '../components/Logo'
 import { RegisterForm } from '../components/RegisterForm'
 
-export const Login = () => {
+export const Login: FC = () => {
   const [toggle, setToggle] = useState<string>('login')
   return (
     <div className="login">

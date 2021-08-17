@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import {Navbar} from '../components/Navbar';
 import { TutorProfile } from '../components/TutorProfile';
 import { StudentProfile } from '../components/StudentProfile'
@@ -7,7 +7,7 @@ import { EditStudentProfile } from '../components/EditStudentProfile';
 import { ChangePassword } from '../components/ChangePassword';
 
 
-export const Profile = () => {
+export const Profile: FC = () => {
   const [role, setRole] = useState('student');
   const [editing, setEditing] = useState(false);
   const [changePassword, setChangePassword] = useState(false);

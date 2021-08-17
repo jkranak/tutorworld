@@ -1,16 +1,16 @@
-import { FormEvent, useState } from "react"
-import { FaSignInAlt } from "react-icons/fa";
-import { emptyUserLogin, UserLogin } from "../interfaces/User"
+import { FormEvent, useState, FC } from 'react';
+import { FaSignInAlt } from 'react-icons/fa';
+import { emptyUserLogin, UserLogin } from '../interfaces/User';
 import { useDispatch } from 'react-redux';
-import { login } from "../services/apiUser";
-import { authenticate } from "../redux/actions/authenticate";
-import { useHistory } from "react-router-dom";
+import { login } from '../services/apiUser';
+import { authenticate } from '../redux/actions/authenticate';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   setToggle: Function
 }
 
-export const LoginForm = ({setToggle}: Props) => {
+export const LoginForm: FC<Props> = ({setToggle}: Props) => {
   const [userLogin, setUserLogin] = useState<UserLogin>(emptyUserLogin);
   const dispatch = useDispatch();
   const history = useHistory();

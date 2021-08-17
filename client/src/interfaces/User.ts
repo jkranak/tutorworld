@@ -11,7 +11,7 @@ export const emptyUserLogin: UserLogin = {
 export interface User extends UserLogin {
   firstName: string,
   lastName: string,
-  passwordConfirm?: string
+  confirmPassword?: string
 }
 
 export const emptyUser: User = {
@@ -19,5 +19,5 @@ export const emptyUser: User = {
   lastName: '',
   email: '',
   password: '',
-  passwordConfirm: ''
+  confirmPassword: ''
 }

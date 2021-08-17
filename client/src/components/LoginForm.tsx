@@ -1,6 +1,10 @@
-import { useState } from "react"
+import { FormEvent, useState } from "react"
 import { FaSignInAlt } from "react-icons/fa";
 import { emptyUserLogin, UserLogin } from "../interfaces/User"
+import { useDispatch } from 'react-redux';
+import { login } from "../services/apiUser";
+import { authenticate } from "../redux/actions/authenticate";
+import { useHistory } from "react-router-dom";
 
 interface Props {
   setToggle: Function
@@ -8,11 +12,34 @@ interface Props {
 
 export const LoginForm = ({setToggle}: Props) => {
   const [userLogin, setUserLogin] = useState<UserLogin>(emptyUserLogin);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-  function handleChange (event: any) {
+  const handleChange = (event: any) => {
     setUserLogin(user => ({...user, [event.target.name]: event.target.value}))
   }
-  function handleSubmit () {}
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    const { email, password } = userLogin;
+
+    // confirming if fields aren't empty
+    if (password && email) {
+      const res = await login({ email, password })
+      if (res.error) {
+        alert(`${res.message}`)
+        setUserLogin(emptyUserLogin);
+      } else {
+        // getting token from back-end
+        const { token, user } = res;
+        // setting token to header
+        localStorage.setItem('x-auth-token', token);
+        // set global state to authenticated
+        dispatch(authenticate(user));
+        // redirect to dashboard
+        history.push('/dashboard');
+      }
+    } else alert(`Please insert your e-mail and password.`);
+  }
   
   return (
     <div className="form login-form">

@@ -93,3 +93,28 @@ export const createTutor = async (req:any, res:any) => {
     res.send(error);
   }
 };
+
+export const verifyUser = async (req: any, res: any) => {
+  const { id, role } = req.body.user;
+
+  try {
+    if (role === 'student') {
+      const student = await Models.Student.findOne({where: {id}});
+      if (student) {
+        res.status(200).send({user: {id, role} })
+      } else {
+        console.log(`Could not find student`);
+      }
+    } else if (role === 'tutor') {
+      const tutor = await Models.Tutor.findOne({where: {id}});
+      if (tutor) {
+        res.status(200).send({user: {id, role} })
+      } else {
+        console.log(`Could not find tutor`);
+      }
+    }
+  } catch (error) {
+    res.status(500);
+    res.send(error);
+  }
+};

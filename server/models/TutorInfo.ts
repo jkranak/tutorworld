@@ -40,7 +40,6 @@ module.exports = (sequelize:any, DataTypes:any) => {
     },
     rating: {
       type: DataTypes.REAL,
-      allowNull: false,
     },
     education: {
       type: DataTypes.TEXT,

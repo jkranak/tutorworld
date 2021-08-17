@@ -1,27 +1,18 @@
-import { useEffect, useState, FC } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useState, FC } from 'react';
 import { About } from '../components/About';
 import { LandingBody } from '../components/LandingBody';
 import { FaUser } from 'react-icons/fa';
-import Logo from '../components/Logo';
+import { Logo } from '../components/Logo';
 import { authenticate } from '../redux/actions/authenticate';
 import { verifyUser } from '../services/apiUser';
+import { useSelector } from 'react-redux';
+
 
 export const Landing: FC = () => {
+  const auth = useSelector((state: any) => state.authenticate);
   const [toggle, setToggle] = useState<string>('home');
-  const history = useHistory();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    verifyUser().then(res => {
-      if (res.user) {
-        dispatch(authenticate(res.user));
-        history.push('/dashboard');
-      }
-    })
-  }, [])
-
+ 
   return (
     <div className="landing">
       <header className="landing__header">
@@ -39,10 +30,16 @@ export const Landing: FC = () => {
             </div>
           }
           <Link to={'/application'} className="btn btn--clear">Apply to be a Tutor</Link>
-          <Link to={'/login'} className="btn btn--blue">
-            <span className="before-icon">SIGN IN</span>
-            <FaUser className="lib-icon"/>
-          </Link>
+          {auth && Object.keys(auth).length ? 
+            <Link to={'/dashboard'} className="btn btn--blue">
+              <span>DASHBOARD</span>
+            </Link>
+          :
+            <Link to={'/login'} className="btn btn--blue">
+              <span className="before-icon">SIGN IN</span>
+              <FaUser className="lib-icon"/>
+            </Link>
+          }
         </div>
       </header>
       {toggle === 'home' && <LandingBody/>}

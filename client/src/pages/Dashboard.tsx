@@ -4,13 +4,13 @@ import { useState } from 'react';
 
 export const Dashboard = () => {
   const [role, setRole] = useState('student');
-  
+  // TO-DO create component for repeated code
   return (
     <div className="dashboard">
       <Navbar/>
       <div className="dashboard__content">
         <Sidebar/>
-        <div className="dashboard__content--display">
+        <main className="dashboard__content--display">
           <div className="dashboard__content--display--top">
             <div className="dashboard__content--display--info">
               <h1 className="dashboard__content--display--title">Unread Messages</h1>
@@ -57,7 +57,7 @@ export const Dashboard = () => {
               </div>
             </div>  
           }
-        </div>
+        </main>
       </div>
     </div>
   )

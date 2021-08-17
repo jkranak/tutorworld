@@ -6,7 +6,7 @@ import { FiBookOpen, FiX } from 'react-icons/fi';
 import { submitForm } from '../services/formSubmission';
 import { Widget } from "@uploadcare/react-widget";
 import dotenv from 'dotenv';
-import Logo from '../components/Logo';
+import { Logo } from '../components/Logo';
 import { AfterApplication } from '../components/AfterApplication';
 dotenv.config();
 

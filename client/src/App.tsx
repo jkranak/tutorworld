@@ -7,6 +7,7 @@ import { Dashboard } from './pages/Dashboard';
 import { Profile } from './pages/Profile';
 import { Search } from './pages/Search';
 import { Checkout } from './pages/Checkout';
+import { Schedule } from './pages/Schedule';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/profile" exact component={Profile}/>
         <Route path="/search" exact component={Search}/>
         <Route path="/checkout" exact component={Checkout}/>
+        <Route path="/schedule" exact component={Schedule}/>
       </Switch>
     </BrowserRouter>
   );

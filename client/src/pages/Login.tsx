@@ -1,6 +1,6 @@
 import { useState, FC } from 'react'
 import { LoginForm } from '../components/LoginForm'
-import Logo from '../components/Logo'
+import { Logo } from '../components/Logo'
 import { RegisterForm } from '../components/RegisterForm'
 
 export const Login: FC = () => {

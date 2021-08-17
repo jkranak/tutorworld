@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { About } from '../components/About';
 import { LandingBody } from '../components/LandingBody';
 import { FaUser } from 'react-icons/fa';
-import Logo from '../components/Logo';
+import { Logo } from '../components/Logo';
 import { authenticate } from '../redux/actions/authenticate';
 import { verifyUser } from '../services/apiUser';
 

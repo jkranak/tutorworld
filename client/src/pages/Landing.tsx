@@ -1,27 +1,13 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { About } from '../components/About';
 import { LandingBody } from '../components/LandingBody';
 import { FaUser } from 'react-icons/fa';
 import Logo from '../components/Logo';
-import { authenticate } from '../redux/actions/authenticate';
-import { verifyUser } from '../services/apiUser';
 
 export const Landing = () => {
   const [toggle, setToggle] = useState<string>('home');
-  const history = useHistory();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    verifyUser().then(res => {
-      if (res.user) {
-        dispatch(authenticate(res.user));
-        history.push('/dashboard');
-      }
-    })
-  }, [])
-
+ 
   return (
     <div className="landing">
       <header className="landing__header">

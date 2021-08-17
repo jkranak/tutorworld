@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export const Dashboard = () => {
   const [role, setRole] = useState('student');
-
+  
   return (
     <div className="dashboard">
       <Navbar/>

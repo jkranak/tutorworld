@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FaSignOutAlt, FaUserAlt } from 'react-icons/fa'
+import { useDispatch } from 'react-redux';
+import { authenticate } from '../redux/actions/authenticate';
 
 export const Navbar = () => {
   const [role, setRole] = useState('student');
   const history = useHistory();
+  const dispatch = useDispatch();
   
   const handleLogout = () => {
     localStorage.removeItem('x-auth-token');
+    dispatch(authenticate(false));
     history.push('/');
   }
 

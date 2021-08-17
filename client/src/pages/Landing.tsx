@@ -1,11 +1,11 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useState, FC } from 'react';
 import { About } from '../components/About';
 import { LandingBody } from '../components/LandingBody';
 import { FaUser } from 'react-icons/fa';
 import Logo from '../components/Logo';
 
-export const Landing = () => {
+export const Landing: FC = () => {
   const [toggle, setToggle] = useState<string>('home');
  
   return (

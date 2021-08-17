@@ -1,8 +1,9 @@
+import {FC} from 'react';
 import { Navbar } from '../components/Navbar'
 import { Sidebar } from '../components/Sidebar'
 import { useState } from 'react';
 
-export const Dashboard = () => {
+export const Dashboard: FC = () => {
   const [role, setRole] = useState('student');
   // TO-DO create component for repeated code
   return (

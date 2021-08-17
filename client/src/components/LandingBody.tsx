@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import chalkboard from '../assets/chalkboard.jpg';
 import remote from '../assets/remote.png';
 import book from '../assets/book.jpg';
@@ -6,7 +7,7 @@ interface Props {
   
 }
 
-export const LandingBody = (props: Props) => {
+export const LandingBody: FC<Props> = (props: Props) => {
   return (
     <div className="landing-body">
       <div className="landing-body--box">

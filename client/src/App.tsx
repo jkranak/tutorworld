@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { verifyUser } from './services/apiUser';
 import { authenticate } from './redux/actions/authenticate';
 import Loader from 'react-loader-spinner';
+import { Checkout } from './pages/Checkout';
 
 function App() {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ function App() {
         <PrivateRoute path="/dashboard" exact component={Dashboard}/>
         <PrivateRoute path="/profile" exact component={Profile}/>
         <PrivateRoute path="/search" exact component={Search}/>
+        <PrivateRoute path="/checkout" exact component={Checkout}/>
       </Switch>
     </BrowserRouter>
   );

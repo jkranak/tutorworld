@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FaSignOutAlt, FaUserAlt } from 'react-icons/fa'
 import { useDispatch } from 'react-redux';
 import { authenticate } from '../redux/actions/authenticate';
 
-export const Navbar = () => {
+export const Navbar: FC = () => {
   const [role, setRole] = useState('student');
   const history = useHistory();
   const dispatch = useDispatch();

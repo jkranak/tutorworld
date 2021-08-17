@@ -1,3 +1,4 @@
+import {FC} from 'react';
 import {TutorAndInfo} from '../interfaces/Tutor';
 import {starRating} from '../services/starRating';
 import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
@@ -6,7 +7,7 @@ interface Props {
   tutor: TutorAndInfo
 }
 
-export const SearchResult = ({tutor}: Props) => {
+export const SearchResult: FC<Props> = ({tutor}: Props) => {
   const starArr: number[] = starRating(tutor.rating);
 
   return (

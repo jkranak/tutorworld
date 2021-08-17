@@ -2,8 +2,10 @@ import express from 'express';
 import { createStudent, createTutor, login, verifyUser } from '../controllers/authController';
 import { updateTutorInfo, getAllTutorInfo, getStudentInfo, updateStudentInfo } from '../controllers/infoController';
 import { changeStudentPassword, changeTutorPassword } from '../controllers/passwordController';
+import { updateTutorAvail } from '../controllers/tutorAvailController';
 import { authMiddleware } from '../middlewares/authMiddleware';
 import { studentMiddleware, tutorMiddleware } from '../middlewares/roleMiddleware';
+import {stripePayment} from '../controllers/paymentController';
 const router = express.Router();
 
 
@@ -28,6 +30,11 @@ router.put('/students/student/info', authMiddleware, studentMiddleware, updateSt
 router.put('/tutors/tutor/password', authMiddleware, tutorMiddleware, changeTutorPassword);
 router.put('/students/student/password', authMiddleware, studentMiddleware, changeStudentPassword);
 
+//tutorAvail
+router.put('/tutors/tutor/tutorAvail', authMiddleware, tutorMiddleware,updateTutorAvail);
+
+//Strip payment
+router.post('/payment', stripePayment);
 
 export default router;
 

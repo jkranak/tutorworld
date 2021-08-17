@@ -2,19 +2,21 @@ import Models from '../../models';
 
 export const updateTutorInfo = async (req:any, res:any) => {
   try {
-    const { TutorId, description, experience, imageUrl, resumeUrl, rating, education, price, subjectLevels, languages  } = req.body;
+    const { id  } = req.body.user;
 
-    const updatedtutorInfo = { TutorId, description, experience, imageUrl, resumeUrl, rating, education, price, subjectLevels, languages  };
+    const {description, experience, imageUrl, resumeUrl, rating, education, price, subjectLevels, languages  } = req.body;
 
-    const tutorInfo = await Models.TutorInfo.findOne({where:{TutorId}});
+    const updatedtutorInfo = { description, experience, imageUrl, resumeUrl, rating, education, price, subjectLevels, languages  };
+
+    const tutorInfo = await Models.TutorInfo.findOne({where:{TutorId: id}});
 
     if(tutorInfo){
       //updating maybe a single column
-      await Models.TutorInfo.update(updatedtutorInfo, {where: {TutorId}});
+      await Models.TutorInfo.update(updatedtutorInfo, {where: {TutorId:id}});
       res.status(201).send('Updated Tutor Info');
     } else {
       //updated for first time so need to create the row
-      const newTutorInfo = await Models.TutorInfo.create(updatedtutorInfo);
+      const newTutorInfo = await Models.TutorInfo.create({...updatedtutorInfo, TutorId: id});
       res.status(201).send('Updated Tutor Info for the first time');
     }
 

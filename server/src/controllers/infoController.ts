@@ -81,3 +81,26 @@ export const updateStudentInfo = async (req:any, res:any) => {
     res.send(error);
   }
 }
+
+export const getEveryTutorsInfo = async (req:any, res:any) => {
+  try {
+    const tutorsInfoInstance = await Models.Tutor.findAll({attributes: {exclude: ['password']}, include: Models.TutorInfo});
+
+    // spread operator and remove the TutorInfo property, removes all duplicates
+    const cleanTutorsInfo = tutorsInfoInstance.map((tutorInfoInstance:any) => {
+      const tutorInfo = tutorInfoInstance.get({plain: true });
+      const cleanTutorInfo = {...tutorInfo, ...tutorInfo.TutorInfo};
+      delete cleanTutorInfo.TutorInfo;
+      return cleanTutorInfo;
+    });
+
+    res.send(cleanTutorsInfo);
+    res.status(200);
+
+
+  } catch (error) {
+    console.log(error)
+    res.status(500);
+    res.send(error);
+  }
+}

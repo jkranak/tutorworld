@@ -1,12 +1,13 @@
 import express from 'express';
 import { createStudent, createTutor, login, verifyUser } from '../controllers/authController';
-import { updateTutorInfo, getAllTutorInfo, getStudentInfo, updateStudentInfo } from '../controllers/infoController';
+import { updateTutorInfo, getAllTutorInfo, getStudentInfo, updateStudentInfo, getEveryTutorsInfo } from '../controllers/infoController';
 import { changeStudentPassword, changeTutorPassword } from '../controllers/passwordController';
 import { updateHistorySessions, updateUpcomingSessions } from '../controllers/sessionsController';
-import { updateTutorAvail } from '../controllers/tutorAvailController';
+import { getAllTutorsAvail, getTutorAvail, updateTutorAvail } from '../controllers/tutorAvailController';
 import { authMiddleware } from '../middlewares/authMiddleware';
 import { studentMiddleware, tutorMiddleware } from '../middlewares/roleMiddleware';
 import {stripePayment} from '../controllers/paymentController';
+import { addFavTutor, getAllFavTutor, removeFavTutor } from '../controllers/favTutorsController';
 const router = express.Router();
 
 
@@ -26,19 +27,27 @@ router.put('/tutors/tutor/info', authMiddleware, tutorMiddleware, updateTutorInf
 router.get('/tutors/tutor/allInfo', authMiddleware, tutorMiddleware, getAllTutorInfo);
 router.get('/students/student/info', authMiddleware, studentMiddleware, getStudentInfo);
 router.put('/students/student/info', authMiddleware, studentMiddleware, updateStudentInfo);
+router.get('/tutors/allInfo', authMiddleware, getEveryTutorsInfo); 
 
 //change password routes
 router.put('/tutors/tutor/password', authMiddleware, tutorMiddleware, changeTutorPassword);
 router.put('/students/student/password', authMiddleware, studentMiddleware, changeStudentPassword);
 
 //tutorAvail
+router.get('/tutors/tutor/tutorAvail', authMiddleware, tutorMiddleware, getTutorAvail); //not done
 router.put('/tutors/tutor/tutorAvail', authMiddleware, tutorMiddleware, updateTutorAvail);
+router.get('/tutors/allTutorsAvail', authMiddleware, getAllTutorsAvail); //not done
 
 //upcoming/history sessions routes
-router.put('/upcomingSessions', authMiddleware, updateUpcomingSessions);
-router.put('/historySessions', authMiddleware, updateHistorySessions);
+router.put('/upcomingSessions', authMiddleware, updateUpcomingSessions); //not done
+router.put('/historySessions', authMiddleware, updateHistorySessions); //not done
 
-//Strip payment
+//favTutor routes
+router.get('/students/student/favTutor', getAllFavTutor); //not done
+router.post('/students/student/favTutor', addFavTutor); //not done
+router.delete('/students/student/favTutor', removeFavTutor); //not done
+
+//Stripe payment
 router.post('/payment', stripePayment);
 
 export default router;

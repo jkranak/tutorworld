@@ -1,5 +1,11 @@
 import Models from '../../models';
 
+export const getTutorAvail = async (req:any, res:any) => {
+
+}
+
+
+
 export const updateTutorAvail = async (req:any, res:any) => {
   try {
     const { id  } = req.body.user;
@@ -25,4 +31,8 @@ export const updateTutorAvail = async (req:any, res:any) => {
     res.status(500);
     res.send(error);
   }
+}
+
+export const getAllTutorsAvail = async (req:any, res:any) => {
+
 }

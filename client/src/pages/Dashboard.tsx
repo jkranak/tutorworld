@@ -1,10 +1,13 @@
 import {FC} from 'react';
 import { Navbar } from '../components/Navbar'
 import { Sidebar } from '../components/Sidebar'
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 export const Dashboard: FC = () => {
-  const [role, setRole] = useState('student');
+  const user = useSelector((state: any) => state.authenticate);
+  // for testing tutor layout
+  // const user = {role: 'tutor'};
+  
   // TO-DO create component for repeated code
   return (
     <div className="dashboard">
@@ -26,7 +29,7 @@ export const Dashboard: FC = () => {
               </div>
             </div>
           </div>
-          {role === 'tutor' ? 
+          {user.role === 'tutor' ? 
             <div className="dashboard__content--display--bottom">
               <div className="dashboard__content--display--info">
                 <h1 className="dashboard__content--display--title">History</h1>

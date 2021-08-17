@@ -1,5 +1,5 @@
 import express from 'express';
-import { createStudent, createTutor, login } from '../controllers/authController';
+import { createStudent, createTutor, login, verifyUser } from '../controllers/authController';
 import { updateTutorInfo, getAllTutorInfo, getStudentInfo, updateStudentInfo } from '../controllers/infoController';
 import { changeStudentPassword, changeTutorPassword } from '../controllers/passwordController';
 import { authMiddleware } from '../middlewares/authMiddleware';
@@ -16,6 +16,7 @@ router.get('/', (req, res) => {
 router.post('/students', createStudent);
 router.post('/users/login', login);
 router.post('/tutors', createTutor);
+router.get('/user/verify', authMiddleware, verifyUser);
 
 //info routes
 router.put('/tutors/tutor/info', authMiddleware, tutorMiddleware, updateTutorInfo);

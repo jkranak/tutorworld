@@ -5,7 +5,6 @@ import { generateToken } from '../generateToken';
 export const createStudent = async (req:any, res:any) => {
   const { email, firstName, lastName, password, confirmPassword } = req.body;
 
-  console.log('req body', req.body);
   if (!email || !firstName || !lastName || !password ||!confirmPassword) return res.status(400).send({ message: 'Please enter all fields.' });
 
   try {
@@ -21,9 +20,6 @@ export const createStudent = async (req:any, res:any) => {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     const newUser = await Models.Student.create({email, firstName, lastName, password: hashedPassword});
-    
-    console.log('new user created', newUser.id)
-    
     res.status(201).send({
       user: {
         id: newUser.id,
@@ -93,6 +89,31 @@ export const createTutor = async (req:any, res:any) => {
     res.status(201).send('Tutor account created!');
   } catch (error) {
     console.log(error)
+    res.status(500);
+    res.send(error);
+  }
+};
+
+export const verifyUser = async (req: any, res: any) => {
+  const { id, role } = req.body.user;
+
+  try {
+    if (role === 'student') {
+      const student = await Models.Student.findOne({where: {id}});
+      if (student) {
+        res.status(200).send({user: {id, role} })
+      } else {
+        console.log(`Could not find student`);
+      }
+    } else if (role === 'tutor') {
+      const tutor = await Models.Tutor.findOne({where: {id}});
+      if (tutor) {
+        res.status(200).send({user: {id, role} })
+      } else {
+        console.log(`Could not find tutor`);
+      }
+    }
+  } catch (error) {
     res.status(500);
     res.send(error);
   }

@@ -9,7 +9,7 @@ api.interceptors.request.use((req) => { // attach token to all headers in all re
   const token = localStorage.getItem('x-auth-token');
   if (token) {
     axios.defaults.headers.Authorization = token;
-    req.headers['Authorization'] = token;
+    req.headers['x-auth-token'] = token;
   };
   return req;
 });

@@ -1,7 +1,8 @@
+import {FC} from 'react';
 import { useHistory } from 'react-router-dom';
 import mailIcon from '../assets/email.svg'
 
-export const AfterApplication = () => {
+export const AfterApplication: FC = () => {
   const history = useHistory();
 
   setTimeout(() => {

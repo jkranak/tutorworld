@@ -6,6 +6,7 @@ import { Landing } from './pages/Landing';
 import { Dashboard } from './pages/Dashboard';
 import { Profile } from './pages/Profile';
 import { Search } from './pages/Search';
+import { Checkout } from './pages/Checkout';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/dashboard" exact component={Dashboard}/>
         <Route path="/profile" exact component={Profile}/>
         <Route path="/search" exact component={Search}/>
+        <Route path="/checkout" exact component={Checkout}/>
       </Switch>
     </BrowserRouter>
   );

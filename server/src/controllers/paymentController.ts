@@ -10,7 +10,6 @@ export const  stripePayment = async (req: any, res: any) => {
       payment_method: id,
       confirm: true
     })
-    console.log(payment)
     res.json({
       message: 'Payment success',
       success: true

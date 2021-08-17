@@ -17,9 +17,8 @@ export const Checkout: FC = () => {
   return (
     <Elements stripe={stripeTestPromise}>
       <Navbar/>
-      <p>${price / 100}</p>
       {!paymentAttempt 
-      ? <Payment amount={price} setPaymentSuccess={setPaymentSuccess}/> 
+      ? <Payment amount={price} setPaymentSuccess={setPaymentSuccess} setPaymentAttempt={setPaymentAttempt}/> 
       : paymentSuccess ? <PaymentSuccess /> : <PaymentFail setPaymentAttempt={setPaymentAttempt}/> }
     </Elements>
   )

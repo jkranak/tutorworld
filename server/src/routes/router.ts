@@ -1,5 +1,6 @@
 import express from 'express';
 import { createStudent, createTutor, login } from '../controllers/authController';
+import {stripePayment} from '../controllers/paymentController';
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.get('/', (req, res) => {
 router.post('/students', createStudent);
 router.post('/users/login', login);
 router.post('/tutors', createTutor);
-
+router.post('/payment', stripePayment);
 
 export default router;
 

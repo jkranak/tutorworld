@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, FC } from "react"
 import { FaSignInAlt } from "react-icons/fa"
 import { emptyUser, User } from "../interfaces/User"
 
@@ -6,7 +6,7 @@ interface Props {
   setToggle: Function
 }
 
-export const RegisterForm = ({setToggle}: Props) => {
+export const RegisterForm: FC<Props> = ({setToggle}: Props) => {
   const [newUser, setNewUser] = useState<User>(emptyUser)
 
   function handleChange (event: any) {

@@ -13,6 +13,7 @@ import { verifyUser } from './services/apiUser';
 import { authenticate } from './redux/actions/authenticate';
 import Loader from 'react-loader-spinner';
 import { Checkout } from './pages/Checkout';
+import { Schedule } from './pages/Schedule';
 
 function App() {
   const dispatch = useDispatch();
@@ -44,10 +45,12 @@ function App() {
         <Route path="/" exact component={Landing} />
         <Route path="/application" exact component={Application}/>
         <Route path="/login" exact component={Login}/>
-        <PrivateRoute path="/dashboard" exact component={Dashboard}/>
-        <PrivateRoute path="/profile" exact component={Profile}/>
-        <PrivateRoute path="/search" exact component={Search}/>
-        <PrivateRoute path="/checkout" exact component={Checkout}/>
+        <Route path="/dashboard" exact component={Dashboard}/>
+        <Route path="/profile" exact component={Profile}/>
+        <Route path="/search" exact component={Search}/>
+        <Route path="/checkout" exact component={Checkout}/>
+        <Route path="/schedule" exact component={Schedule}/>
+
       </Switch>
     </BrowserRouter>
   );

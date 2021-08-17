@@ -3,8 +3,11 @@ import { useState, FC } from 'react';
 import { About } from '../components/About';
 import { LandingBody } from '../components/LandingBody';
 import { FaUser } from 'react-icons/fa';
-import Logo from '../components/Logo';
+import { Logo } from '../components/Logo';
+import { authenticate } from '../redux/actions/authenticate';
+import { verifyUser } from '../services/apiUser';
 import { useSelector } from 'react-redux';
+
 
 export const Landing: FC = () => {
   const auth = useSelector((state: any) => state.authenticate);

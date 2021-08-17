@@ -1,18 +1,45 @@
-import { useState } from "react"
+import { FormEvent, useState } from "react"
 import { FaSignInAlt } from "react-icons/fa"
+import { useHistory } from "react-router-dom"
+import { useDispatch } from 'react-redux';
 import { emptyUser, User } from "../interfaces/User"
+import { authenticate } from "../redux/actions/authenticate"
+import { createUser } from "../services/apiUser"
 
 interface Props {
   setToggle: Function
 }
 
 export const RegisterForm = ({setToggle}: Props) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [newUser, setNewUser] = useState<User>(emptyUser)
 
-  function handleChange (event: any) {
+  const handleChange =  (event: any) => {
     setNewUser(user => ({...user, [event.target.name]: event.target.value}))
   }
-  function handleSubmit () {}
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    const { firstName, lastName, email, password, confirmPassword } = newUser;
+
+    // confirming is passwords match
+    if (password === confirmPassword) {
+      const res = await createUser({ firstName, lastName, email, password, confirmPassword })
+      if (res.error) {
+        alert(`${res.message}`)
+        setNewUser(emptyUser);
+      } else {
+        // getting token from back-end
+        const { token, user } = res;
+        // setting token to header
+        localStorage.setItem('x-auth-token', token);
+        // TO-DO set global state to authenticated
+        dispatch(authenticate(user));
+        // redirect to dashboard
+        history.push('/dashboard');
+      }
+    } else alert(`Passwords do not match, try again.`);
+  }
   
   return (
     <div className="form register-form">
@@ -37,7 +64,7 @@ export const RegisterForm = ({setToggle}: Props) => {
         className="text-input text-input--blue"
         placeholder="Password*"
         />
-        <input type="password" id="passwordConfirm" name="passwordConfirm" required onChange={handleChange} value={newUser.passwordConfirm}
+        <input type="password" id="confirmPassword" name="confirmPassword" required onChange={handleChange} value={newUser.confirmPassword}
         className="text-input text-input--blue"
         placeholder="Confirm Password*"
         />
@@ -52,3 +79,4 @@ export const RegisterForm = ({setToggle}: Props) => {
     </div>
   )
 }
+

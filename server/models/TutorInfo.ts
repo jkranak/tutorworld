@@ -39,7 +39,7 @@ module.exports = (sequelize:any, DataTypes:any) => {
       allowNull: false,
     },
     rating: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.REAL,
       allowNull: false,
     },
     education: {
@@ -47,7 +47,7 @@ module.exports = (sequelize:any, DataTypes:any) => {
       allowNull: false,
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.REAL,
       allowNull: false,
     },
     subjectLevels: {

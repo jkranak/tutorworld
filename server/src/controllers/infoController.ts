@@ -1,4 +1,3 @@
-//How about something like, getOneTutor, which takes an ID and returns both tutor and tutorInfo
 import Models from '../../models';
 
 export const updateTutorInfo = async (req:any, res:any) => {
@@ -24,7 +23,6 @@ export const updateTutorInfo = async (req:any, res:any) => {
     res.status(500);
     res.send(error);
   }
-
 }
 
 export const getAllTutorInfo = async (req:any, res:any) => {

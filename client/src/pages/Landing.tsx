@@ -6,6 +6,7 @@ import { FaUser } from 'react-icons/fa';
 import LogoLink from '../components/LogoLink';
 import { useSelector } from 'react-redux';
 
+
 export const Landing: FC = () => {
   const auth = useSelector((state: any) => state.authenticate);
   const [toggle, setToggle] = useState<string>('home');

@@ -21,15 +21,18 @@ export function EditStudentProfile ({setEditing, student}: Props): ReactElement<
   return (
     <div className="form edit-form">
       <form onSubmit={handleSubmit} >
-        <label>Change First Name</label>
+        <div className="form--title">
+          <h1>Edit Profile</h1>
+        </div>
+        <label>First Name</label>
         <input type="text" id="fname" name="firstName" onChange={handleStudentChange} value={editedUser?.firstName} placeholder="First Name" required 
         className="text-input text-input--blue"
         />
-        <label>Change Last Name</label>
+        <label>Last Name</label>
         <input type="text" id="lname" name="lastName" onChange={handleStudentChange}  value={editedUser?.lastName} placeholder="Last Name" required
         className="text-input text-input--blue"
         />
-        <label>Change Email</label>
+        <label>Email</label>
         <input type="email" id="email" name="email" onChange={handleStudentChange} value={editedUser?.email} placeholder="Email" required 
         className="text-input text-input--blue"
         />

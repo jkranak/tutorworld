@@ -1,10 +1,8 @@
 .student-profile {
-  // background-color: beige;
   padding: 10rem;
   @include flex-row;
   justify-content: flex-start;
   .image-box {
-    // background-color: blue;
     height: 20vh;
     img {
       height: 100%;
@@ -14,7 +12,6 @@
   }
   &__info {
     padding-left: 6rem;
-    // background-color: blueviolet;
     height: 20vh;
     @include flex-column;
     align-items: flex-start;

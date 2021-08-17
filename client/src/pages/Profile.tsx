@@ -22,27 +22,26 @@ export const Profile: FC = () => {
     })
   }, [])
 
-  function editClick () {
+  const editClick = () => {
     setEditing(!editing);
     setChangePassword(false);
   }
 
-  function changeClick () {
+  const changeClick = () => {
     setChangePassword(true);
   }
   
-  
   return (
-    <div>
+    <div className="profile">
       <Navbar />
       {editing 
       ? user.role === 'tutor' ? <EditTutorProfile setEditing={setEditing}/> : <EditStudentProfile setEditing={setEditing} student={userDetails}/> 
       : user.role === 'tutor' ? <TutorProfile /> : <StudentProfile student={userDetails}/>}
       {editing 
       ? <>
-          <button onClick={changeClick}>Change password</button>
+          <button onClick={changeClick} className="btn btn--clear">Change password</button>
           {changePassword && <ChangePassword setChangePassword={setChangePassword}/>}
-          <button onClick={editClick}>Exit Edit Profile</button>
+          <button onClick={editClick} className="btn btn--clear">Exit Edit Profile</button>
         </> 
       : <button onClick={editClick} className="btn btn--blue">Edit Profile</button>}
     </div>

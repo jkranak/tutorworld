@@ -4,8 +4,10 @@ import { About } from '../components/About';
 import { LandingBody } from '../components/LandingBody';
 import { FaUser } from 'react-icons/fa';
 import Logo from '../components/Logo';
+import { useSelector } from 'react-redux';
 
 export const Landing: FC = () => {
+  const auth = useSelector((state: any) => state.authenticate);
   const [toggle, setToggle] = useState<string>('home');
  
   return (
@@ -25,10 +27,16 @@ export const Landing: FC = () => {
             </div>
           }
           <Link to={'/application'} className="btn btn--clear">Apply to be a Tutor</Link>
-          <Link to={'/login'} className="btn btn--blue">
-            <span className="before-icon">SIGN IN</span>
-            <FaUser className="lib-icon"/>
-          </Link>
+          {auth && Object.keys(auth).length ? 
+            <Link to={'/dashboard'} className="btn btn--blue">
+              <span>DASHBOARD</span>
+            </Link>
+          :
+            <Link to={'/login'} className="btn btn--blue">
+              <span className="before-icon">SIGN IN</span>
+              <FaUser className="lib-icon"/>
+            </Link>
+          }
         </div>
       </header>
       {toggle === 'home' && <LandingBody/>}

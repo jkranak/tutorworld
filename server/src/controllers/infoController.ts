@@ -4,9 +4,9 @@ export const updateTutorInfo = async (req:any, res:any) => {
   try {
     const { id  } = req.body.user;
 
-    const {description, experience, imageUrl, resumeUrl, rating, education, price, subjectLevels, languages  } = req.body;
+    const {description, experience, imageUrl, education, price, subjectLevels, languages  } = req.body;
 
-    const updatedtutorInfo = { description, experience, imageUrl, resumeUrl, rating, education, price, subjectLevels, languages  };
+    const updatedtutorInfo = { description, experience, imageUrl, education, price, subjectLevels, languages  };
 
     const tutorInfo = await Models.TutorInfo.findOne({where:{TutorId: id}});
 
@@ -32,9 +32,14 @@ export const getAllTutorInfo = async (req:any, res:any) => {
   try {
     const { id } = req.body.user;
 
-    const tutorInfo = await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id}, include: Models.TutorInfo});
+    const tutorInfoInstance = await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id}, include: Models.TutorInfo});
 
-    res.send(tutorInfo);
+    // spread operator and remove the TutorInfo property, removes all duplicates
+    const tutorInfo = tutorInfoInstance.get({plain: true });
+    const cleanTutorInfo = {...tutorInfo, ...tutorInfo.TutorInfo};
+    delete cleanTutorInfo.TutorInfo;
+
+    res.send(cleanTutorInfo);
     res.status(200);
 
   } catch (error) {

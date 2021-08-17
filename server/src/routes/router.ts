@@ -2,6 +2,7 @@ import express from 'express';
 import { createStudent, createTutor, login, verifyUser } from '../controllers/authController';
 import { updateTutorInfo, getAllTutorInfo, getStudentInfo, updateStudentInfo } from '../controllers/infoController';
 import { changeStudentPassword, changeTutorPassword } from '../controllers/passwordController';
+import { updateHistorySessions, updateUpcomingSessions } from '../controllers/sessionsController';
 import { updateTutorAvail } from '../controllers/tutorAvailController';
 import { authMiddleware } from '../middlewares/authMiddleware';
 import { studentMiddleware, tutorMiddleware } from '../middlewares/roleMiddleware';
@@ -30,7 +31,11 @@ router.put('/tutors/tutor/password', authMiddleware, tutorMiddleware, changeTuto
 router.put('/students/student/password', authMiddleware, studentMiddleware, changeStudentPassword);
 
 //tutorAvail
-router.put('/tutors/tutor/tutorAvail', authMiddleware, tutorMiddleware,updateTutorAvail);
+router.put('/tutors/tutor/tutorAvail', authMiddleware, tutorMiddleware, updateTutorAvail);
+
+//upcoming/history sessions routes
+router.put('/upcomingSessions', authMiddleware, updateUpcomingSessions);
+router.put('/historySessions', authMiddleware, updateHistorySessions);
 
 
 export default router;

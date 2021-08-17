@@ -34,10 +34,6 @@ module.exports = (sequelize:any, DataTypes:any) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    resumeUrl: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     rating: {
       type: DataTypes.REAL,
     },

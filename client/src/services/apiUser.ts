@@ -29,3 +29,13 @@ export const verifyUser = async () => {
     return error;
   }
 }
+
+export const getStudentDetails = async () => {
+  try {
+    const response = await api.get('/students/student/info');
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}

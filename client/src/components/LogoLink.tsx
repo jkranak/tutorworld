@@ -1,8 +1,8 @@
-import { useState, FC } from 'react';
+import { useState, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/tutor_world.svg';
 
-export const Logo: FC = () => {
+export default function LogoLink(): ReactElement {
   // if authenticated the logo link will be dashboard
   // if not the link will be to landing page
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)

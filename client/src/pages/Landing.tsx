@@ -3,9 +3,7 @@ import { useState, FC } from 'react';
 import { About } from '../components/About';
 import { LandingBody } from '../components/LandingBody';
 import { FaUser } from 'react-icons/fa';
-import { Logo } from '../components/Logo';
-import { authenticate } from '../redux/actions/authenticate';
-import { verifyUser } from '../services/apiUser';
+import LogoLink from '../components/LogoLink';
 import { useSelector } from 'react-redux';
 
 
@@ -16,7 +14,7 @@ export const Landing: FC = () => {
   return (
     <div className="landing">
       <header className="landing__header">
-        <Logo />
+        <LogoLink />
         <div className="landing__header--right-box">
           {toggle === 'home' && <div
           onClick={() => setToggle('about')}

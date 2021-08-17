@@ -6,7 +6,7 @@ import { FiBookOpen, FiX } from 'react-icons/fi';
 import { submitForm } from '../services/formSubmission';
 import { Widget } from "@uploadcare/react-widget";
 import dotenv from 'dotenv';
-import Logo from '../components/Logo';
+import LogoLink from '../components/LogoLink';
 import { AfterApplication } from '../components/AfterApplication';
 dotenv.config();
 
@@ -64,14 +64,14 @@ export const Application: FC = () => {
     submitted ? 
       <div className="application">
         <header>
-          <Logo />
+          <LogoLink />
         </header>
         <AfterApplication />
       </div>
     :
     <div className="application">
       <header>
-        <Logo />
+        <LogoLink />
       </header>
       <div className="form application-form">
         <div className="form--title">

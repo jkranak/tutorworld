@@ -1,15 +1,16 @@
-import { useState, FormEvent, ReactElement } from 'react'
-import { emptyStudent } from '../interfaces/Student';
+import { FormEvent, ReactElement, useState } from 'react'
+import { StudentComplete } from '../interfaces/Student';
 
 interface Props {
-  setEditing: (editing: boolean) => void
+  setEditing: (editing: boolean) => void,
+  student: StudentComplete | null
 }
 
-export function EditStudentProfile ({setEditing}: Props): ReactElement<Props> {
-  const [student, setStudent] = useState(emptyStudent);
+export function EditStudentProfile ({setEditing, student}: Props): ReactElement<Props> {
+  const [editedUser, setEditedUser] = useState(student);
 
   const handleStudentChange = (event: {target: {name: string, value: any}}) => {
-    setStudent(current => ({...current, [event.target.name]: event.target.value}))
+    setEditedUser((current: any) => ({...current, [event.target.name]: event.target.value}))
   }
 
   const handleSubmit = async (event: FormEvent) => {
@@ -18,15 +19,21 @@ export function EditStudentProfile ({setEditing}: Props): ReactElement<Props> {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="form edit-form">
+      <form onSubmit={handleSubmit} >
         <label>Change First Name</label>
-        <input type="text" id="fname" name="firstName" onChange={handleStudentChange} value={student.firstName} placeholder="First Name" required />
+        <input type="text" id="fname" name="firstName" onChange={handleStudentChange} value={editedUser?.firstName} placeholder="First Name" required 
+        className="text-input text-input--blue"
+        />
         <label>Change Last Name</label>
-        <input type="text" id="lname" name="lastName" onChange={handleStudentChange}  value={student.lastName} placeholder="Last Name" required/>
+        <input type="text" id="lname" name="lastName" onChange={handleStudentChange}  value={editedUser?.lastName} placeholder="Last Name" required
+        className="text-input text-input--blue"
+        />
         <label>Change Email</label>
-        <input type="email" id="email" name="email" onChange={handleStudentChange} value={student.email} placeholder="Email" required />
-        <button type="submit">Submit</button>
+        <input type="email" id="email" name="email" onChange={handleStudentChange} value={editedUser?.email} placeholder="Email" required 
+        className="text-input text-input--blue"
+        />
+        <button type="submit" className="btn btn--blue form--btn">Submit</button>
       </form>
     </div>
   )

@@ -1,3 +1,4 @@
+import {FC} from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import axios from 'axios';
 
@@ -6,7 +7,7 @@ interface Props {
   setPaymentSuccess: (success: boolean) => void
 }
 
-export const Payment = ({amount, setPaymentSuccess}: Props) => {
+export const Payment: FC<Props> = ({amount, setPaymentSuccess}: Props) => {
   const stripe = useStripe();
   const elements = useElements();
   const handleSubmit = async (event: any) => {

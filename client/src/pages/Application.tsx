@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, FC } from 'react';
 import { Link } from 'react-router-dom';
 import { emptyApplication } from '../interfaces/Application';
 import { languages, subjects } from '../assets/subjects_languages';
@@ -10,7 +10,7 @@ import Logo from '../components/Logo';
 import { AfterApplication } from '../components/AfterApplication';
 dotenv.config();
 
-export const Application = () => {
+export const Application: FC = () => {
   const uploadCareKey = process.env.REACT_APP_UPLOADCARE_KEY || '';
   const [newApplicant, setNewApplicant] = useState(emptyApplication)
   const [submitted, setSubmitted] = useState<boolean>(false);

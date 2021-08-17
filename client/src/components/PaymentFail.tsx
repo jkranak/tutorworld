@@ -1,3 +1,4 @@
+import {FC} from 'react';
 import {AiFillWarning} from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
@@ -5,7 +6,7 @@ interface Props {
   setPaymentAttempt: (success: boolean) => void
 }
 
-export const PaymentFail = ({setPaymentAttempt}: Props) => {
+export const PaymentFail: FC<Props> = ({setPaymentAttempt}: Props) => {
 
   return (
     <div>

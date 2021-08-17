@@ -1,10 +1,10 @@
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, FC } from 'react'
 
 interface Props {
   setChangePassword: (changePassword: boolean) => void
 }
 
-export const ChangePassword = ({setChangePassword}: Props) => {
+export const ChangePassword: FC<Props> = ({setChangePassword}: Props) => {
   const [password, setPassword] = useState({password: '', verify: ''});
   const [match, setMatch] = useState(true);
 

@@ -1,9 +1,15 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, FC } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { FaSignOutAlt, FaUserAlt } from 'react-icons/fa'
 
-export const Navbar = () => {
+export const Navbar: FC = () => {
   const [role, setRole] = useState('student');
+  const history = useHistory();
+  
+  const handleLogout = () => {
+    localStorage.removeItem('x-auth-token');
+    history.push('/');
+  }
 
   return (
     <div className="navbar">
@@ -15,7 +21,7 @@ export const Navbar = () => {
       </div>
       <div className="navbar--right-box">
         <Link to={'/profile'} className="btn btn--clear"><FaUserAlt/></Link>
-        <button className="btn btn--clear"><FaSignOutAlt/></button>
+        <button className="btn btn--clear" onClick={handleLogout} ><FaSignOutAlt/></button>
       </div>
     </div>
   )

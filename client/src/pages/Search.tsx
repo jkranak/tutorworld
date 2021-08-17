@@ -1,10 +1,10 @@
-import {useState} from 'react';
+import {useState, FC} from 'react';
 import {Navbar} from '../components/Navbar';
 import {SearchResult} from '../components/SearchResult';
 import {FullTutor} from '../interfaces/Tutor'
 import { languages, subjects } from '../assets/subjects_languages';
 
-export const Search = () => {
+export const Search: FC = () => {
   const allTutors: FullTutor[] = [{
     id: 1,
     email: 'tutor@tutory',

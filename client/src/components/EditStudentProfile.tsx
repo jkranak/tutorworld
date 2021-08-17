@@ -1,11 +1,11 @@
-import { ReactElement, useState, FormEvent } from 'react'
+import { useState, FormEvent, ReactElement } from 'react'
 import { emptyStudent } from '../interfaces/Student';
 
 interface Props {
   setEditing: (editing: boolean) => void
 }
 
-export function EditStudentProfile ({setEditing}: Props): ReactElement {
+export function EditStudentProfile ({setEditing}: Props): ReactElement<Props> {
   const [student, setStudent] = useState(emptyStudent);
 
   const handleStudentChange = (event: {target: {name: string, value: any}}) => {

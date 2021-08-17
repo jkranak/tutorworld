@@ -9,7 +9,9 @@ export const createStudent = async (req:any, res:any) => {
 
   try {
     const user = await Models.Student.findOne({where: {email}});
-    if (user) {
+    const tutor = await Models.Tutor.findOne({where: {email}});
+
+    if (user || tutor ) {
       return res.status(400).send({ message: 'Email taken, chose another one.' });
     }
     if (password !== confirmPassword) {
@@ -20,10 +22,10 @@ export const createStudent = async (req:any, res:any) => {
     const newUser = await Models.Student.create({email, firstName, lastName, password: hashedPassword});
     res.status(201).send({
       user: {
-        email,
+        id: newUser.id,
         role: 'student',
       },
-      token: generateToken(email),
+      token: generateToken(newUser.id, 'student'),
     });
   } catch (error) {
     console.log(error)
@@ -52,10 +54,10 @@ export const login = async (req:any, res:any) => {
       res.status(200).send(
         {
           user: {
-            email,
+            id: user.id,
             role: user===student? 'student':'tutor',
           },
-          token: generateToken(email),
+          token: generateToken(user.id, user===student? 'student':'tutor'),
         },
       );
     } else {
@@ -74,7 +76,8 @@ export const createTutor = async (req:any, res:any) => {
 
   try {
     const user = await Models.Tutor.findOne({where: {email}});
-    if (user) {
+    const student = await Models.Student.findOne({where: {email}});
+    if (user || student) {
       return res.status(400).send({ message: 'Email taken, chose another one.' });
     }
     if (password !== confirmPassword) {
@@ -86,6 +89,31 @@ export const createTutor = async (req:any, res:any) => {
     res.status(201).send('Tutor account created!');
   } catch (error) {
     console.log(error)
+    res.status(500);
+    res.send(error);
+  }
+};
+
+export const verifyUser = async (req: any, res: any) => {
+  const { id, role } = req.body.user;
+
+  try {
+    if (role === 'student') {
+      const student = await Models.Student.findOne({where: {id}});
+      if (student) {
+        res.status(200).send({user: {id, role} })
+      } else {
+        console.log(`Could not find student`);
+      }
+    } else if (role === 'tutor') {
+      const tutor = await Models.Tutor.findOne({where: {id}});
+      if (tutor) {
+        res.status(200).send({user: {id, role} })
+      } else {
+        console.log(`Could not find tutor`);
+      }
+    }
+  } catch (error) {
     res.status(500);
     res.send(error);
   }

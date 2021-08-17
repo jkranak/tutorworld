@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, ReactElement } from 'react';
 import {emptyTutorAndInfo} from '../interfaces/Tutor';
 import { languages, subjects } from '../assets/subjects_languages';
 import { FiX } from 'react-icons/fi';
@@ -8,7 +8,7 @@ interface Props {
   setEditing: (editing: boolean) => void
 }
 
-export function EditTutorProfile ({setEditing}: Props) {
+export function EditTutorProfile ({setEditing}: Props): ReactElement<Props> {
   const [tutor, setTutor] = useState(emptyTutorAndInfo);
   const [tutorSubjects, setTutorSubjects] = useState(['']);
   const [tutorLanguages, setTutorLanguages] = useState(['']);

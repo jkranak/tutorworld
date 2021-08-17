@@ -1,7 +1,8 @@
+import {FC} from 'react';
 import {AiFillCheckCircle} from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
-export const PaymentSuccess = () => {
+export const PaymentSuccess: FC = () => {
 
   return (
     <div>

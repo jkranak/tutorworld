@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import {Elements} from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { Payment } from '../components/Payment';
@@ -7,7 +7,7 @@ import { PaymentFail } from '../components/PaymentFail';
 import { Navbar } from '../components/Navbar';
 
 
-export const Checkout = () => {
+export const Checkout: FC = () => {
   const price = 1000;
   const [paymentAttempt, setPaymentAttempt] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);

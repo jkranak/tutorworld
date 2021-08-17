@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { Link } from 'react-router-dom';
 
-export const Sidebar = () => {
+export const Sidebar: FC = () => {
   const [role, setRole] = useState('student');
 
   return (

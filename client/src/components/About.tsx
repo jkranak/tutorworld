@@ -1,3 +1,4 @@
+import {FC} from 'react';
 import biancaImg from '../assets/bianca.jpg'
 import rahmatImg from '../assets/rahmat.jpg'
 import josephImg from '../assets/joseph.jpg'
@@ -6,7 +7,7 @@ interface Props {
   
 }
 
-export const About = (props: Props) => {
+export const About: FC<Props> = (props: Props) => {
   return (
     <div className="about">
       <h1>We are three coding ninjas with skills on both back end and front end.</h1>

@@ -39,15 +39,14 @@ module.exports = (sequelize:any, DataTypes:any) => {
       allowNull: false,
     },
     rating: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      type: DataTypes.REAL,
     },
     education: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.REAL,
       allowNull: false,
     },
     subjectLevels: {

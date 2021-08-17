@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { emptyStudent} from '../interfaces/Student';
 
 
-export const StudentProfile = () => {
+export const StudentProfile: FC = () => {
   const [student, setStudent] = useState(emptyStudent);
 
   return (

@@ -10,7 +10,9 @@ export const createStudent = async (req:any, res:any) => {
 
   try {
     const user = await Models.Student.findOne({where: {email}});
-    if (user) {
+    const tutor = await Models.Tutor.findOne({where: {email}});
+
+    if (user || tutor ) {
       return res.status(400).send({ message: 'Email taken, chose another one.' });
     }
     if (password !== confirmPassword) {
@@ -27,7 +29,7 @@ export const createStudent = async (req:any, res:any) => {
         id: newUser.id,
         role: 'student',
       },
-      token: generateToken(newUser.id),
+      token: generateToken(newUser.id, 'student'),
     });
   } catch (error) {
     console.log(error)
@@ -59,7 +61,7 @@ export const login = async (req:any, res:any) => {
             id: user.id,
             role: user===student? 'student':'tutor',
           },
-          token: generateToken(user.id),
+          token: generateToken(user.id, user===student? 'student':'tutor'),
         },
       );
     } else {
@@ -78,7 +80,8 @@ export const createTutor = async (req:any, res:any) => {
 
   try {
     const user = await Models.Tutor.findOne({where: {email}});
-    if (user) {
+    const student = await Models.Student.findOne({where: {email}});
+    if (user || student) {
       return res.status(400).send({ message: 'Email taken, chose another one.' });
     }
     if (password !== confirmPassword) {

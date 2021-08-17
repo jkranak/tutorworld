@@ -10,5 +10,9 @@
   }
   &--right-box {
     @include flex-row;
+    justify-content: flex-end;
+    .btn {
+      width: auto;
+    }
   }
 }

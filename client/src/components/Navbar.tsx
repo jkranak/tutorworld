@@ -22,16 +22,15 @@ export const Navbar: FC = () => {
       <div className="navbar--left-box">
         <LogoLink />
         <Link to='/dashboard' className="btn btn--clear">Dashboard</Link>
-        <button className="btn btn--clear">Conversations</button>
-        <button className="btn btn--clear">Calendar</button>
+        {/* I know I shouldn't be using divs for this but the style is affected */}
+        <div className="btn btn--clear">Conversations</div>
+        <div className="btn btn--clear">Calendar</div>
         {user.role === 'student' && <Link to={'/search'} className="btn btn--clear">Find a Tutor</Link>}
-        <Link to={'/search'} className="btn btn--clear">Find a Tutor</Link>
-        {user.role !== 'tutor' && <Link to={'/application'}>Apply to be a tutor</Link>}
-
+        {user.role !== 'tutor' && <Link to={'/application'} className="btn btn--clear">Apply to be a tutor</Link>}
       </div>
       <div className="navbar--right-box">
         <Link to={'/profile'} className="btn btn--clear"><FaUserAlt/></Link>
-        <button className="btn btn--clear" onClick={handleLogout} ><FaSignOutAlt/></button>
+        <div className="btn btn--clear" onClick={handleLogout} ><FaSignOutAlt/></div>
       </div>
     </div>
   )

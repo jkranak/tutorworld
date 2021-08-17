@@ -6,19 +6,48 @@ import { Landing } from './pages/Landing';
 import { Dashboard } from './pages/Dashboard';
 import { Profile } from './pages/Profile';
 import { Search } from './pages/Search';
+import PrivateRoute from './routes/PrivateRoute';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { verifyUser } from './services/apiUser';
+import { authenticate } from './redux/actions/authenticate';
+import Loader from 'react-loader-spinner';
 import { Checkout } from './pages/Checkout';
 
 function App() {
+  const dispatch = useDispatch();
+  const auth = useSelector((state: any) => state.authenticate);
+
+  useEffect(() => {
+    verifyUser().then(res => {
+      if (res.user) {
+        dispatch(authenticate(res.user));
+      } else {
+        dispatch(authenticate(false));
+      }
+    })
+  }, [])
+ 
   return (
+    auth === null ? 
+    <div className="loader-wrapper">
+      <Loader 
+        type="TailSpin"
+        color="#EA4C89"
+        height={100}
+        width={100}
+      />
+    </div>
+    :
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Landing} />
         <Route path="/application" exact component={Application}/>
         <Route path="/login" exact component={Login}/>
-        <Route path="/dashboard" exact component={Dashboard}/>
-        <Route path="/profile" exact component={Profile}/>
-        <Route path="/search" exact component={Search}/>
-        <Route path="/checkout" exact component={Checkout}/>
+        <PrivateRoute path="/dashboard" exact component={Dashboard}/>
+        <PrivateRoute path="/profile" exact component={Profile}/>
+        <PrivateRoute path="/search" exact component={Search}/>
+        <PrivateRoute path="/checkout" exact component={Checkout}/>
       </Switch>
     </BrowserRouter>
   );

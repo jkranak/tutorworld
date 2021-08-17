@@ -32,10 +32,43 @@ export const getAllTutorInfo = async (req:any, res:any) => {
   try {
     const { id } = req.body.user;
 
-    const tutorInfo = await Models.Tutor.findOne({where: {id}, include: Models.TutorInfo});
+    const tutorInfo = await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id}, include: Models.TutorInfo});
 
     res.send(tutorInfo);
     res.status(200);
+
+  } catch (error) {
+    console.log(error)
+    res.status(500);
+    res.send(error);
+  }
+}
+
+export const getStudentInfo = async (req:any, res:any) => {
+  try {
+    const { id } = req.body.user;
+
+    const studentInfo = await Models.Student.findOne({attributes: {exclude: ['password']}, where:{id}});
+
+    res.send(studentInfo);
+    res.status(200);
+  } catch (error) {
+    console.log(error)
+    res.status(500);
+    res.send(error);
+  }
+}
+
+export const updateStudentInfo = async (req:any, res:any) => {
+  try {
+    const { imageUrl } = req.body;
+    const { id } = req.body.user;
+
+    const updatedStudentInfo = { imageUrl };
+
+    await Models.Student.update(updatedStudentInfo, {where: {id}});
+    res.status(201).send('Updated Student Info');
+
 
   } catch (error) {
     console.log(error)

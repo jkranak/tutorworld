@@ -47,7 +47,7 @@ router.get('/upcomingSessions', authMiddleware, getUpcomingSessions);
 router.post('/upcomingSessions', authMiddleware, studentMiddleware, addUpcomingSessions);
 router.get('/historySessions', authMiddleware, getHistorySessions);
 // deletes upcomingSessions also since its a past session and adds it to historySession, since user is sending review and star rating once they do that then send this request
-router.put('/sessions', authMiddleware, studentMiddleware, updateHistoryUpcomingSessions);
+router.put('/endSession', authMiddleware, studentMiddleware, updateHistoryUpcomingSessions);
 
 //favTutor routes
 router.get('/students/student/favTutor', getAllFavTutor); //not done

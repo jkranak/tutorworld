@@ -16,6 +16,7 @@ export const Search: FC = () => {
     getAllTutors().then(res => {
       setAllTutors(res);
       setFilteredTutors(res);
+      console.log(res)
     })
   }, [])
 
@@ -48,6 +49,11 @@ export const Search: FC = () => {
       setFilteredTutors([...filtered]);
       setWeekday(event.target.value);
     }
+  }
+
+  const filterByHour = (event: {target: {name: string, value: string}}) => {
+    const filtered = allTutors.filter((tutor: TutorWithAvailability) => tutor.availability[weekday][event.target.value] === true)
+    setFilteredTutors([...filtered]);
   }
 
   const displayHourlyAvailability = () => {
@@ -116,7 +122,7 @@ export const Search: FC = () => {
             </select>
             {
               weekday && 
-                <select name="hour-availability" onChange={filterByLanguage} defaultValue="" className="select-input">
+                <select name="hour-availability" onChange={filterByHour} defaultValue="" className="select-input">
                   <option value="" disabled >Hour Availability</option>
                   {displayHourlyAvailability().map((hour: string, index) => (
                   <option key={index} value={hour}>{hour}</option>

@@ -39,7 +39,24 @@ export const addUpcomingSessions = async (req:any, res:any) => {
 }
 
 export const getHistorySessions = async (req:any, res:any) => {
+  try {
+    const { id, role } = req.body.user;
 
+    let historySessions;
+    if ( role ==='tutor' ){
+      historySessions = await Models.HistorySession.findAll({where: {TutorId: id}});
+    } else {
+      historySessions = await Models.HistorySession.findAll({where: {StudentId: id}});
+    }
+
+    res.send(historySessions);
+    res.status(200);
+
+  } catch (error) {
+    console.log(error)
+    res.status(500);
+    res.send(error);
+  }
 
 }
 
@@ -53,22 +70,37 @@ export const updateHistoryUpcomingSessions = async (req:any, res:any) => {
     const { id } = req.body.user;
     //need upcomingSessionId to delete and copy over the contents to hsitory session
     const { upcomingSessionId, review, starRating } = req.body;
-    console.log(upcomingSessionId)
     //grab and store session object from upcomingSession table
-    const sessionInfoInstance = await Models.UpcomingSession.findOne({attributes: {exclude: ['id', 'createdAt', 'updatedAt']}, where:{id: upcomingSessionId}});
-    const TutorId = sessionInfoInstance.get({plain: true }).TutorId; //get tutorId from sessionInfo
+    const sessionInfoInstance = await Models.UpcomingSession.findOne({attributes: {exclude: ['createdAt', 'updatedAt']}, where:{id: upcomingSessionId}});
+    const sessionInfo = sessionInfoInstance.get({plain: true }); //get tutorId from sessionInfo
+    const TutorId = sessionInfo.TutorId
+    //add upcomingSession, review, starRating to historySessions table
+    const sessionInfoDeepCopy = { ...sessionInfo};
+    delete sessionInfoDeepCopy.id; //remove id from sessionInfo
+    const newHistorySession = await Models.HistorySession.create({...sessionInfoDeepCopy, review, starRating});
     //delete the object from upcomingSession table
     await sessionInfoInstance.destroy();
-    //add upcomingSession, review, starRating to historySessions table
-    const newHistorySession = await Models.HistorySession.create({...sessionInfoInstance, review, starRating});
-    // if a starRating is given, then update the starRating in tutorsInfo table
+    // if a starRating is given, then update the starRating in tutorsInfo table, if no rating is given no need to update
     if (starRating) {
-      const tutorRatingInstance = await Models.HistorySession.findAll({attributes: {include: ['starRating']}, where:{TutorId}});
-      console.log(tutorRatingInstance.get({plain: true }))
+      const tutorRatingsInstance = await Models.HistorySession.findAll({attributes: {include: ['TutorId', 'starRating']}, where:{TutorId}});
+
+      const tutorRatings = tutorRatingsInstance.map((tutorRatingInstance:any) => tutorRatingInstance.get({plain: true })); //now able to access data
+      //need average satrRating to update tutorInfo starRating
+      const numOfSessions = tutorRatings.length;
+      let sumOfAllStarRatings = 0;
+      tutorRatings.forEach((tutorRating:any) => {
+        sumOfAllStarRatings += tutorRating.starRating;
+      });
+
+      const avgStarRating = Number((sumOfAllStarRatings/numOfSessions).toFixed(2));
+
+      //update tutorInfo rating
+      await Models.TutorInfo.update({rating: avgStarRating}, {where: {TutorId}});
+
+      res.status(200).send('Moved UpcomingSession to HistorySession in database along with review and starRating, avg star rating is updated beacuse one was given')
 
     } else {
-      res.status(200).send('Moved UpcomingSession to HistorySession in database along with review and starRating');
-
+      res.status(200).send('Moved UpcomingSession to HistorySession in database along with review and starRating, avg star rating not updated beacuse none given');
     }
 
   } catch (error) {

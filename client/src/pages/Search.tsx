@@ -13,29 +13,49 @@ export const Search: FC = () => {
     getAllTutors().then(res => {
     setAllTutors(res);
     setFilteredTutors(res);
-  })}, []
-  )
+  })}, [])
 
   const filterBySubject = (event: {target: {name: string, value: any}}) => {
-    const sortedTutors = allTutors.filter((tutor: any) => tutor?.TutorInfo.subjects.includes(event.target.value));
-    setFilteredTutors(sortedTutors);
+    if (event.target.value === 'all') {
+      setFilteredTutors(allTutors);
+    } else {
+      const filteredTutors = allTutors.filter((tutor: any) => tutor?.subjectLevels.includes(event.target.value.toLowerCase()));
+      setFilteredTutors([...filteredTutors]);
+    }
   }
 
   const filterByLanguage = (event: {target: {name: string, value: any}}) => {
-    const sortedTutors = allTutors.filter((tutor: any) => tutor?.TutorInfo.languages.includes(event.target.value));
-    setFilteredTutors(sortedTutors);
+    if (event.target.value === 'all') {
+      setFilteredTutors(allTutors);
+    } else {
+      const filteredTutors = allTutors.filter((tutor: any) => tutor?.languages.includes(event.target.value.toLowerCase()));
+      setFilteredTutors([...filteredTutors]);
+    }
   }
 
-  const sortByPrice = () => {
-    let sortedTutors = allTutors.slice(0);
-    sortedTutors.sort((a: any, b: any) => a.TutorInfo.price - b.TutorInfo.price);
-    setFilteredTutors(sortedTutors);
+  const handleSort = (event: {target: {name: string, value: string}}) => {
+    if (event.target.value === 'rate-highest') {
+      sortByPrice('highest');
+    } else if (event.target.value === 'rate-lowest') {
+      sortByPrice('lowest');
+    } else {
+      sortByRating();
+    }
+  }
+
+  const sortByPrice = (sortBy: string) => {
+    if (sortBy === 'highest') {
+      const sorted = filteredTutors.sort((a: any, b: any) => b.price - a.price);
+      setFilteredTutors([...sorted]);
+    } else if (sortBy === 'lowest') {
+      const sorted = filteredTutors.sort((a: any, b: any) => a.price - b.price);
+      setFilteredTutors([...sorted]);
+    }
   }
 
   const sortByRating = () => {
-    let sortedTutors = allTutors.slice(0);
-    sortedTutors.sort((a: any, b: any) => b.TutorInfo.rating - a.TutorInfo.rating);
-    setFilteredTutors(sortedTutors);
+    const sorted = filteredTutors.sort((a: any, b: any) => b.rating - a.rating);
+    setFilteredTutors([...sorted]);
   }
 
   return (
@@ -43,24 +63,37 @@ export const Search: FC = () => {
       <Navbar />
       <main className="search__content">
         <section className="search__filters">
-          <form id="subjectfilter">
-          <select name="subjects" onChange={filterBySubject} defaultValue="" >
-                  <option value="" disabled>Subject/level</option>
-                  {subjects.map((subject, index) => (
-                    <option key={index} value={subject}>{subject}</option>
-                  ))}
-              </select>
-          </form>
-          <form id="languagefilter">
-          <select name="languages" onChange={filterByLanguage} defaultValue="" >
-                  <option value="" disabled>Language</option>
-                  {languages.map((language, index) => (
-                    <option key={index} value={language}>{language}</option>
-                  ))}
-              </select>
-          </form>
-          <button onClick={sortByPrice}>Sort by Rate</button>
-          <button onClick={sortByRating}>Sort by Rating</button>
+          <div className="search__filters--inputs">
+            <select name="subjects" onChange={filterBySubject} defaultValue="" className="select-input" >
+              <option value="" disabled>Subject/level</option>
+              <option value="all">All Subjects</option>
+              {subjects.map((subject, index) => (
+                <option key={index} value={subject}>{subject}</option>
+              ))}
+            </select>
+
+            <select name="languages" onChange={filterByLanguage} defaultValue="" className="select-input">
+              <option value="" disabled >Language</option>
+              <option value="all">All Languages</option>
+              {languages.map((language, index) => (
+                <option key={index} value={language}>{language}</option>
+              ))}
+            </select>
+
+            <select name="availability" onChange={filterByLanguage} defaultValue="" className="select-input">
+              <option value="" disabled >Availability</option>
+              {/* {languages.map((language, index) => (
+                <option key={index} value={language}>{language}</option>
+              ))} */}
+              <option value="option" >option</option>
+            </select>
+
+          </div>
+          <select onChange={handleSort} className="sort-input">
+            <option value="rating">Sort by Rating</option>
+            <option value="rate-highest">Sort by Highest Rate</option>
+            <option value="rate-lowest">Sort by Lowest Rate</option>
+          </select>
         </section>
         <section className="search__results">
           {filteredTutors.map((tutor: any) => (

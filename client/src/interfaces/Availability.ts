@@ -14,8 +14,8 @@ export const emptyAvailability: Availability = {
   monday: [1],
   tuesday: [2, 5, 13],
   wednesday: [3],
-  thursday: [4],
+  thursday: [],
   friday: [5],
-  saturday: [6],
+  saturday: [],
   sunday: [7],
 }

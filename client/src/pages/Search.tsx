@@ -41,7 +41,8 @@ export const Search: FC = () => {
   }]
   const [filteredTutors, setFilteredTutors] = useState(allTutors);
 
-  useEffect(() => {getAllTutors().then(res => {
+  useEffect(() => {
+    getAllTutors().then(res => {
     console.log(res)
   })}, []
   )

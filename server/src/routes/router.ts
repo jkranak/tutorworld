@@ -2,8 +2,8 @@ import express from 'express';
 import { createStudent, createTutor, login, verifyUser } from '../controllers/authController';
 import { updateTutorInfo, getAllTutorInfo, getStudentInfo, updateStudentInfo } from '../controllers/infoController';
 import { changeStudentPassword, changeTutorPassword } from '../controllers/passwordController';
-import { updateHistorySessions, updateUpcomingSessions } from '../controllers/sessionsController';
-import { updateTutorAvail } from '../controllers/tutorAvailController';
+import { addUpcomingSessions, getUpcomingSessions, updateHistorySessions } from '../controllers/sessionsController';
+import { getAllTutorsAvail, getTutorAvail, getTutorAvailByDate, updateTutorAvail } from '../controllers/tutorAvailController';
 import { authMiddleware } from '../middlewares/authMiddleware';
 import { studentMiddleware, tutorMiddleware } from '../middlewares/roleMiddleware';
 import {stripePayment} from '../controllers/paymentController';
@@ -36,10 +36,12 @@ router.put('/students/student/password', authMiddleware, studentMiddleware, chan
 //tutorAvail
 // router.get('/tutors/:tutorId/tutorAvail', authMiddleware, getTutorAvail); //can be used by both student and tutor
 router.put('/tutors/tutor/tutorAvail', authMiddleware, tutorMiddleware, updateTutorAvail);
-// router.get('/tutors/allTutorsAvail', authMiddleware, getAllTutorsAvail); //can be used by both student and tutor
+router.get('/tutors/allTutorsAvail', authMiddleware, getAllTutorsAvail); //can be used by both student and tutor
+router.get('/tutors/:tutorId/tutorAvail/:date', authMiddleware, studentMiddleware, getTutorAvailByDate); //used by student to find tutor availibity for given date
 
 //upcoming/history sessions routes
-router.put('/upcomingSessions', authMiddleware, updateUpcomingSessions); //not done
+router.get('/upcomingSessions', authMiddleware, getUpcomingSessions);
+router.post('/upcomingSessions', authMiddleware, studentMiddleware, addUpcomingSessions);
 router.put('/historySessions', authMiddleware, updateHistorySessions); //not done
 
 //favTutor routes

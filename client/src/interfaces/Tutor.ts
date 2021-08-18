@@ -25,3 +25,19 @@ export interface TutorComplete extends Tutor {
   subjectLevels: string[]
   languages: string[]
 }
+// TO-DO update 
+export interface TutorWithAvailability extends TutorComplete {
+  availability: {
+    TutorId: string,
+    createdAt: string,
+    updatedAt: string,
+    id: string,
+    sunday: any,
+    monday: any,
+    tuesday: any,
+    wednesday: any,
+    thursday: any,
+    friday: any,
+    saturday: any
+  }
+}

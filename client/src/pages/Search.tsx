@@ -1,9 +1,11 @@
-import {useState, FC} from 'react';
+import {useState, useEffect, FC} from 'react';
 import {Navbar} from '../components/Navbar';
 import {SearchResult} from '../components/SearchResult';
 import { languages, subjects } from '../assets/subjects_languages';
+import {getAllTutors} from '../services/apiUser';
 
 export const Search: FC = () => {
+  const [allTheTutors, setAllTheTutors] = useState([]);
   // TO-DO fix typescript anys
   const allTutors: any = [{
     id: 1,
@@ -43,6 +45,11 @@ export const Search: FC = () => {
     updatedAt: ''
   }]
   const [filteredTutors, setFilteredTutors] = useState(allTutors);
+
+  useEffect(() => {getAllTutors().then(res => {
+    console.log(res)
+  })}, []
+  )
 
   const filterBySubject = (event: {target: {name: string, value: any}}) => {
     const sortedTutors = allTutors.filter((tutor: any) => tutor?.TutorInfo.subjects.includes(event.target.value));

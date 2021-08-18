@@ -1,3 +1,4 @@
+import {FC} from 'react';
 import { StudentComplete } from '../interfaces/Student';
 import noPhotoUser from '../assets/no_photo_user.png';
 

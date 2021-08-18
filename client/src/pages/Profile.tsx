@@ -8,12 +8,14 @@ import { ChangePassword } from '../components/ChangePassword';
 import { useEffect } from 'react';
 import { getStudentDetails, getTutorDetails } from '../services/apiUser';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 export const Profile: FC = () => {
   const user = useSelector((state: any) => state.authenticate);
   const [userDetails, setUserDetails] = useState(null);
   const [editing, setEditing] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
+  const params = useParams();
 
   useEffect(() => {
     if (user.role === 'student') {
@@ -25,7 +27,9 @@ export const Profile: FC = () => {
         setUserDetails(res);
       })
     }
-  }, [])
+  }, []);
+
+  console.log(params)
 
   const editClick = () => {
     setEditing(!editing);

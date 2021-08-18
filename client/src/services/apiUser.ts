@@ -6,7 +6,6 @@ export const createUser = async (user: User) => {
     const response = await api.post('/students', user);
     return response.data;
   } catch (error) {
-    console.log(error);
     return error;
   }
 }
@@ -23,6 +22,36 @@ export const login = async (user: UserLogin) => {
 export const verifyUser = async () => {
   try {
     const response = await api.get('/user/verify');
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const getStudentDetails = async () => {
+  try {
+    const response = await api.get('/students/student/info');
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const getTutorDetails = async () => {
+  try {
+    const response = await api.get('/tutors/tutor/allInfo');
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const getAllTutors = async () => {
+  try {
+    const response = await api.get('/tutors/allInfo');
     return response.data;
   } catch (error) {
     console.log(error);

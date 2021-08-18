@@ -4,3 +4,10 @@
 // .application {
 //   color: $font-light;
 // }
+
+.student-profile {
+  font-size: 2.5rem;
+  &__name {
+    text-transform: capitalize;
+  }
+}

@@ -1,0 +1,22 @@
+.student-profile {
+  padding: 10rem;
+  @include flex-row;
+  justify-content: flex-start;
+  .image-box {
+    height: 20vh;
+    img {
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+  }
+  &__info {
+    padding-left: 6rem;
+    height: 20vh;
+    @include flex-column;
+    align-items: flex-start;
+    p {
+      padding: 2rem;
+    }
+  }
+}

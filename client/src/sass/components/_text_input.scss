@@ -8,6 +8,8 @@
 
   border-radius: .5rem;
   transition: all .5s;
+
+  
   &--blue{
     background-color: transparent;
     border: gray 1px solid;
@@ -15,8 +17,12 @@
       border: 1px solid $light-blue;
     }
   }
-  
+  &--textarea{
+    font: $main-font;
+    height: 12rem;
+  }
 }
+
 
 // to avoid autofill background color and font color
 input:-webkit-autofill,

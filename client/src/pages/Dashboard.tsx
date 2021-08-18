@@ -7,7 +7,7 @@ export const Dashboard: FC = () => {
   const user = useSelector((state: any) => state.authenticate);
   // for testing tutor layout
   // const user = {role: 'tutor'};
-  
+
   // TO-DO create component for repeated code
   return (
     <div className="dashboard">

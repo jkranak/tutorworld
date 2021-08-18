@@ -36,12 +36,8 @@ router.put('/students/student/password', authMiddleware, studentMiddleware, chan
 //tutorAvail
 // router.get('/tutors/:tutorId/tutorAvail', authMiddleware, getTutorAvail); //can be used by both student and tutor
 router.put('/tutors/tutor/tutorAvail', authMiddleware, tutorMiddleware, updateTutorAvail);
-<<<<<<< HEAD
 router.get('/tutors/allTutorsAvail', authMiddleware, getAllTutorsAvail); //can be used by both student and tutor
 router.get('/tutors/:tutorId/tutorAvail/:date', authMiddleware, studentMiddleware, getTutorAvailByDate); //used by student to find tutor availibity for given date
-=======
-// router.get('/tutors/allTutorsAvail', authMiddleware, getAllTutorsAvail); //can be used by both student and tutor
->>>>>>> 75cb907b9b74b45132890fe09277069825f46df3
 
 //upcoming/history sessions routes
 router.get('/upcomingSessions', authMiddleware, getUpcomingSessions);

@@ -4,6 +4,7 @@ import {SearchResult} from '../components/SearchResult';
 import { languages, subjects } from '../assets/subjects_languages';
 import {getAllTutors, getAllTutorsAvailability} from '../services/apiUser';
 import DayPicker from 'react-day-picker';
+import moment from 'moment';
 
 export const Search: FC = () => {
   const [allTutors, setAllTutors] = useState([]);
@@ -24,7 +25,7 @@ export const Search: FC = () => {
       console.log('all availability', res);
       setAllAvailability(res);
     })
-}, [])
+  }, [])
 
   const filterBySubject = (event: {target: {name: string, value: any}}) => {
     if (event.target.value === 'all') {
@@ -68,22 +69,11 @@ export const Search: FC = () => {
     const sorted = filteredTutors.sort((a: any, b: any) => b.rating - a.rating);
     setFilteredTutors([...sorted]);
   }
-  const unavailableDays = () => {
-    // let daysOfWeek: number[] = [];
-    // for (let day in availability) {
-    //   if (availability[day].length === 0) {
-    //     daysOfWeek.push(dayNames.indexOf(day))
-    //   }
-    // }
-    let unavailable = [];
-    allAvailability.forEach(tutorAval => {
 
-    })
-
-
-    // const disabledDays: any[] = [{daysOfWeek}]
-    // disabledDays.push({before: new Date(), after: endDate})
-    // return disabledDays;
+  const handleSelectDay = (date: any) => {
+    const dayOfTheWeek = moment(date).format('dddd');
+    const filteredByDay = allTutors?.filter((tutor: any) => Object.keys(tutor.availability[dayOfTheWeek.toLowerCase()]).length)
+    setFilteredTutors(filteredByDay);
   }
 
   return (
@@ -115,15 +105,14 @@ export const Search: FC = () => {
               ))} */}
               <option value="option" >option</option>
             </select>
-            {/* <DayPicker 
+            <DayPicker 
               fromMonth={new Date()} 
-              toMonth={endDate} 
+              toMonth={endDate}
               selectedDays={selectedDay} 
               // filter function ondayclick
-              onDayClick={setSelectedDay}
-              // unavailable days
-              disabledDays={unavailableDays()}
-            /> */}
+              onDayClick={handleSelectDay}
+              disabledDays={[{before: new Date(), after: endDate}]}
+            />
           </div>
           <select onChange={handleSort} className="sort-input">
             <option value="rating">Sort by Rating</option>

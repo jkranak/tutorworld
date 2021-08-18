@@ -27,16 +27,16 @@ router.put('/tutors/tutor/info', authMiddleware, tutorMiddleware, updateTutorInf
 router.get('/tutors/tutor/allInfo', authMiddleware, tutorMiddleware, getAllTutorInfo);
 router.get('/students/student/info', authMiddleware, studentMiddleware, getStudentInfo);
 router.put('/students/student/info', authMiddleware, studentMiddleware, updateStudentInfo);
-router.get('/tutors/allInfo', authMiddleware, getEveryTutorsInfo); 
+router.get('/tutors/allInfo', authMiddleware, getEveryTutorsInfo); //can be used by both student and tutor
 
 //change password routes
 router.put('/tutors/tutor/password', authMiddleware, tutorMiddleware, changeTutorPassword);
 router.put('/students/student/password', authMiddleware, studentMiddleware, changeStudentPassword);
 
 //tutorAvail
-router.get('/tutors/tutor/tutorAvail', authMiddleware, tutorMiddleware, getTutorAvail); //not done
+router.get('/tutors/:tutorId/tutorAvail', authMiddleware, getTutorAvail); //can be used by both student and tutor
 router.put('/tutors/tutor/tutorAvail', authMiddleware, tutorMiddleware, updateTutorAvail);
-router.get('/tutors/allTutorsAvail', authMiddleware, getAllTutorsAvail); //not done
+router.get('/tutors/allTutorsAvail', authMiddleware, getAllTutorsAvail); //can be used by both student and tutor
 
 //upcoming/history sessions routes
 router.put('/upcomingSessions', authMiddleware, updateUpcomingSessions); //not done

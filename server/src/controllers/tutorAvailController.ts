@@ -93,8 +93,6 @@ export const getTutorAvailByDate = async (req:any, res:any) => {
     //find upcoming sessions for the tutor
     const timeSlotsTakenInstance = await Models.UpcomingSession.findAll({attributes: ['time'], where:{id: tutorId, date}});
     const timeSlotsTaken = timeSlotsTakenInstance.map((timeSlotTakenInstance:any) => timeSlotTakenInstance.get({plain: true })); //just the data so we can use it to cross reference
-    console.log(tutorAvailForDay)
-    console.log(timeSlotsTaken)
     //cross reference the timeSlotsTaken for that date with the tuorAvailability for that date to get what slots are available then send that array back
     for (let i=0; i<timeSlotsTaken.length; i++){
       delete tutorAvailForDay[timeSlotsTaken[i].time]; //delete all the times from the day availability that is already taken

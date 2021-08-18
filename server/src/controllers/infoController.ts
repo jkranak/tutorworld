@@ -66,15 +66,10 @@ export const getStudentInfo = async (req:any, res:any) => {
 
 export const updateStudentInfo = async (req:any, res:any) => {
   try {
-    const { imageUrl } = req.body;
-    const { id } = req.body.user;
+    const { id, email, firstName, lastName, imageUrl } = req.body;
 
-    const updatedStudentInfo = { imageUrl };
-
-    await Models.Student.update(updatedStudentInfo, {where: {id}});
-    res.status(201).send('Updated Student Info');
-
-
+    await Models.Student.update({ id, email, firstName, lastName, imageUrl }, {where: {id}});
+    res.status(201).send('Student updated');
   } catch (error) {
     console.log(error)
     res.status(500);
@@ -95,6 +90,30 @@ export const getEveryTutorsInfo = async (req:any, res:any) => {
     });
 
     res.send(cleanTutorsInfo);
+    res.status(200);
+
+
+  } catch (error) {
+    console.log(error)
+    res.status(500);
+    res.send(error);
+  }
+}
+
+export const getAllTutorsInfoAvail = async (req:any, res:any) => {
+  try {
+    const allTutorsInfoAvailInstance = await Models.Tutor.findAll({attributes: {exclude: ['password']}, include: [Models.TutorInfo, Models.TutorAvailability]});
+
+    // spread operator and remove the TutorInfo property, removes all duplicates
+    const cleanAllTutorsInfoAvail = allTutorsInfoAvailInstance.map((allTutorInfoAvailInstance:any) => {
+      const allTutorInfoAvail = allTutorInfoAvailInstance.get({plain: true });
+      const cleanAllTutorInfoAvail = {...allTutorInfoAvail, ...allTutorInfoAvail.TutorInfo, availability: {...allTutorInfoAvail.TutorAvailability}};
+      delete cleanAllTutorInfoAvail.TutorInfo;
+      delete cleanAllTutorInfoAvail.TutorAvailability;
+      return cleanAllTutorInfoAvail;
+    });
+
+    res.send(cleanAllTutorsInfoAvail);
     res.status(200);
 
 

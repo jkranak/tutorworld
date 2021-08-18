@@ -13,13 +13,15 @@ export const Search: FC = () => {
     getAllTutors().then(res => {
     setAllTutors(res);
     setFilteredTutors(res);
+    console.log(res);
+    
   })}, [])
 
   const filterBySubject = (event: {target: {name: string, value: any}}) => {
     if (event.target.value === 'all') {
       setFilteredTutors(allTutors);
     } else {
-      const filteredTutors = allTutors.filter((tutor: any) => tutor?.subjectLevels.includes(event.target.value.toLowerCase()));
+      const filteredTutors = allTutors.filter((tutor: any) => tutor?.subjectLevels.includes(event.target.value));
       setFilteredTutors([...filteredTutors]);
     }
   }

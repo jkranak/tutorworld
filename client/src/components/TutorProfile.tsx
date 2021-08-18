@@ -21,9 +21,9 @@ export const TutorProfile: FC = () => {
       <h3>Education:</h3>
       <p>{tutor.education}</p>
       <h3>Subjects:</h3>
-      <ul>{tutorSubjects.map(subject => (<li>{subject}</li>))}</ul>
+      <ul>{tutorSubjects.map(subject => (<li key={subject}>{subject}</li>))}</ul>
       <h3>Languages:</h3>
-      <ul>{tutorLanguages.map(language => (<li>{language}</li>))}</ul>
+      <ul>{tutorLanguages.map(language => (<li key={language}>{language}</li>))}</ul>
       <h3>Rating</h3>
       {starArr.map(el => (
         el === 2 ? <BsStarFill/> : el === 1 ? <BsStarHalf/> : <BsStar/>

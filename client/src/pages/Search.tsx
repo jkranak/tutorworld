@@ -1,16 +1,15 @@
-import {useState, useEffect, FC} from 'react';
-import {Navbar} from '../components/Navbar';
-import {SearchResult} from '../components/SearchResult';
+import { useState, useEffect, FC } from 'react';
+import { Navbar } from '../components/Navbar';
+import { SearchResult } from '../components/SearchResult';
 import { languages, subjects } from '../assets/subjects_languages';
-import {getAllTutors, getAllTutorsAvailability} from '../services/apiUser';
-import DayPicker from 'react-day-picker';
-import moment from 'moment';
+import { getAllTutors } from '../services/apiUser';
 
 export const Search: FC = () => {
   const [allTutors, setAllTutors] = useState([]);
   // TO-DO fix typescript anys
   const [filteredTutors, setFilteredTutors] = useState([]);
   const daysOfTheWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const [ weekday, setWeekday ] = useState('');
 
   useEffect(() => {
     getAllTutors().then(res => {
@@ -38,6 +37,31 @@ export const Search: FC = () => {
     }
   }
 
+  const filterAvailability = (event: any) => {
+    if (event.target.value === 'all') {
+      setFilteredTutors(allTutors);
+      setWeekday('');
+      console.log(weekday)
+    } else {
+      const filtered = allTutors.filter((tutor: any) => {
+        return Object.keys(tutor.availability[event.target.value]).length
+      })
+      setFilteredTutors([...filtered]);
+      setWeekday(event.target.value);
+      console.log(weekday)
+    }
+  }
+
+  const displayHourlyAvailability = () => {
+    let hours: string[] = [];
+    filteredTutors.forEach((tutor: any) => {
+      Object.entries(tutor.availability[weekday]).forEach(hour => {
+        (hour[1] === true && !hours.includes(hour[0])) && hours.push(hour[0]);
+      });
+    })
+    return hours;
+  }
+
   const handleSort = (event: {target: {name: string, value: string}}) => {
     if (event.target.value === 'rate-highest') {
       sortByPrice('highest');
@@ -61,24 +85,6 @@ export const Search: FC = () => {
   const sortByRating = () => {
     const sorted = filteredTutors.sort((a: any, b: any) => b.rating - a.rating);
     setFilteredTutors([...sorted]);
-  }
-
-  const handleSelectDay = (date: any) => {
-    const dayOfTheWeek = moment(date).format('dddd');
-    // removing tutors that day of the week is empty
-    const filteredByDay = allTutors?.filter((tutor: any) => Object.keys(tutor.availability[dayOfTheWeek.toLowerCase()]).length)
-    setFilteredTutors(filteredByDay);
-  }
-
-  const filterAvailability = (event: any) => {
-    if (event.target.value === 'all') {
-      setFilteredTutors(allTutors);
-    } else {
-      const filtered = allTutors.filter((tutor: any) => {
-        return Object.keys(tutor.availability[event.target.value]).length
-      })
-      setFilteredTutors([...filtered]);
-    }
   }
 
   return (
@@ -110,14 +116,15 @@ export const Search: FC = () => {
                 <option key={index} value={day}>{day}</option>
               ))}
             </select>
-
-            <select name="hour-availability" onChange={filterByLanguage} defaultValue="" className="select-input">
-              <option value="" disabled >Hour Availability</option>
-              {daysOfTheWeek.map((hour, index) => (
-                <option key={index} value={hour}>{hour}</option>
-              ))}
-            </select>
-
+            {
+              weekday && 
+                <select name="hour-availability" onChange={filterByLanguage} defaultValue="" className="select-input">
+                  <option value="" disabled >Hour Availability</option>
+                  {displayHourlyAvailability().map((hour, index) => (
+                  <option key={index} value={hour}>{hour}</option>
+                  ))}
+              </select>
+            } 
           </div>
           <select onChange={handleSort} className="sort-input">
             <option value="rating">Sort by Rating</option>

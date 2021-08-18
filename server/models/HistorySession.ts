@@ -36,11 +36,9 @@ module.exports = (sequelize:any, DataTypes:any) => {
     },
     review: {
       type: DataTypes.TEXT,
-      allowNull: false,
     },
     starRating: {
       type: DataTypes.REAL,
-      allowNull: false,
     },
 
   }, {

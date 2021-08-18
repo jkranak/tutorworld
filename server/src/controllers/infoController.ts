@@ -4,9 +4,9 @@ export const updateTutorInfo = async (req:any, res:any) => {
   try {
     const { id  } = req.body.user;
 
-    const {description, experience, imageUrl, resumeUrl, rating, education, price, subjectLevels, languages  } = req.body;
+    const {description, experience, imageUrl, education, price, subjectLevels, languages  } = req.body;
 
-    const updatedtutorInfo = { description, experience, imageUrl, resumeUrl, rating, education, price, subjectLevels, languages  };
+    const updatedtutorInfo = { description, experience, imageUrl, education, price, subjectLevels, languages  };
 
     const tutorInfo = await Models.TutorInfo.findOne({where:{TutorId: id}});
 
@@ -32,9 +32,14 @@ export const getAllTutorInfo = async (req:any, res:any) => {
   try {
     const { id } = req.body.user;
 
-    const tutorInfo = await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id}, include: Models.TutorInfo});
+    const tutorInfoInstance = await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id}, include: Models.TutorInfo});
 
-    res.send(tutorInfo);
+    // spread operator and remove the TutorInfo property, removes all duplicates
+    const tutorInfo = tutorInfoInstance.get({plain: true });
+    const cleanTutorInfo = {...tutorInfo, ...tutorInfo.TutorInfo};
+    delete cleanTutorInfo.TutorInfo;
+
+    res.send(cleanTutorInfo);
     res.status(200);
 
   } catch (error) {
@@ -68,6 +73,29 @@ export const updateStudentInfo = async (req:any, res:any) => {
 
     await Models.Student.update(updatedStudentInfo, {where: {id}});
     res.status(201).send('Updated Student Info');
+
+
+  } catch (error) {
+    console.log(error)
+    res.status(500);
+    res.send(error);
+  }
+}
+
+export const getEveryTutorsInfo = async (req:any, res:any) => {
+  try {
+    const tutorsInfoInstance = await Models.Tutor.findAll({attributes: {exclude: ['password']}, include: Models.TutorInfo});
+
+    // spread operator and remove the TutorInfo property, removes all duplicates
+    const cleanTutorsInfo = tutorsInfoInstance.map((tutorInfoInstance:any) => {
+      const tutorInfo = tutorInfoInstance.get({plain: true });
+      const cleanTutorInfo = {...tutorInfo, ...tutorInfo.TutorInfo};
+      delete cleanTutorInfo.TutorInfo;
+      return cleanTutorInfo;
+    });
+
+    res.send(cleanTutorsInfo);
+    res.status(200);
 
 
   } catch (error) {

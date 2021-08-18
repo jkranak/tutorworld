@@ -3,58 +3,56 @@ import { Navbar } from '../components/Navbar';
 import { SearchResult } from '../components/SearchResult';
 import { languages, subjects } from '../assets/subjects_languages';
 import { getAllTutors } from '../services/apiUser';
+import { TutorWithAvailability } from '../interfaces/Tutor';
 
 export const Search: FC = () => {
-  const [allTutors, setAllTutors] = useState([]);
+  const [allTutors, setAllTutors] = useState<TutorWithAvailability[]>([]);
   // TO-DO fix typescript anys
-  const [filteredTutors, setFilteredTutors] = useState([]);
-  const daysOfTheWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-  const [ weekday, setWeekday ] = useState('');
+  const [filteredTutors, setFilteredTutors] = useState<TutorWithAvailability[]>([]);
+  const daysOfTheWeek: string[] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const [ weekday, setWeekday ] = useState<string>('');
 
   useEffect(() => {
     getAllTutors().then(res => {
       setAllTutors(res);
       setFilteredTutors(res);
-      console.log(res)
     })
   }, [])
 
-  const filterBySubject = (event: {target: {name: string, value: any}}) => {
+  const filterBySubject = (event: {target: {name: string, value: string}}) => {
     if (event.target.value === 'all') {
       setFilteredTutors(allTutors);
     } else {
-      const filteredTutors = allTutors.filter((tutor: any) => tutor?.subjectLevels.includes(event.target.value));
+      const filteredTutors = allTutors.filter((tutor: TutorWithAvailability) => tutor?.subjectLevels.includes(event.target.value));
       setFilteredTutors([...filteredTutors]);
     }
   }
 
-  const filterByLanguage = (event: {target: {name: string, value: any}}) => {
+  const filterByLanguage = (event: {target: {name: string, value: string}}) => {
     if (event.target.value === 'all') {
       setFilteredTutors(allTutors);
     } else {
-      const filteredTutors = allTutors.filter((tutor: any) => tutor?.languages.includes(event.target.value.toLowerCase()));
+      const filteredTutors = allTutors.filter((tutor: TutorWithAvailability) => tutor?.languages.includes(event.target.value.toLowerCase()));
       setFilteredTutors([...filteredTutors]);
     }
   }
 
-  const filterAvailability = (event: any) => {
+  const filterAvailability = (event: {target: {name: string, value: string}}) => {
     if (event.target.value === 'all') {
       setFilteredTutors(allTutors);
       setWeekday('');
-      console.log(weekday)
     } else {
-      const filtered = allTutors.filter((tutor: any) => {
+      const filtered = allTutors.filter((tutor: TutorWithAvailability) => {
         return Object.keys(tutor.availability[event.target.value]).length
       })
       setFilteredTutors([...filtered]);
       setWeekday(event.target.value);
-      console.log(weekday)
     }
   }
 
   const displayHourlyAvailability = () => {
     let hours: string[] = [];
-    filteredTutors.forEach((tutor: any) => {
+    filteredTutors.forEach((tutor: TutorWithAvailability) => {
       Object.entries(tutor.availability[weekday]).forEach(hour => {
         (hour[1] === true && !hours.includes(hour[0])) && hours.push(hour[0]);
       });
@@ -74,16 +72,16 @@ export const Search: FC = () => {
 
   const sortByPrice = (sortBy: string) => {
     if (sortBy === 'highest') {
-      const sorted = filteredTutors.sort((a: any, b: any) => b.price - a.price);
+      const sorted = filteredTutors.sort((a: TutorWithAvailability, b: TutorWithAvailability) => b.price - a.price);
       setFilteredTutors([...sorted]);
     } else if (sortBy === 'lowest') {
-      const sorted = filteredTutors.sort((a: any, b: any) => a.price - b.price);
+      const sorted = filteredTutors.sort((a: TutorWithAvailability, b: TutorWithAvailability) => a.price - b.price);
       setFilteredTutors([...sorted]);
     }
   }
 
   const sortByRating = () => {
-    const sorted = filteredTutors.sort((a: any, b: any) => b.rating - a.rating);
+    const sorted = filteredTutors.sort((a: TutorWithAvailability, b: TutorWithAvailability) => b.rating - a.rating);
     setFilteredTutors([...sorted]);
   }
 
@@ -96,7 +94,7 @@ export const Search: FC = () => {
             <select name="subjects" onChange={filterBySubject} defaultValue="" className="select-input" >
               <option value="" disabled>Subject/level</option>
               <option value="all">All Subjects</option>
-              {subjects.map((subject, index) => (
+              {subjects.map((subject: string, index) => (
                 <option key={index} value={subject}>{subject}</option>
               ))}
             </select>
@@ -104,7 +102,7 @@ export const Search: FC = () => {
             <select name="languages" onChange={filterByLanguage} defaultValue="" className="select-input">
               <option value="" disabled >Language</option>
               <option value="all">All Languages</option>
-              {languages.map((language, index) => (
+              {languages.map((language: string, index) => (
                 <option key={index} value={language}>{language}</option>
               ))}
             </select>
@@ -112,7 +110,7 @@ export const Search: FC = () => {
             <select name="weekday-availability" onChange={filterAvailability} defaultValue="" className="select-input">
               <option value="" disabled >Weekday Availability</option>
               <option value="all">All days</option>
-              {daysOfTheWeek.map((day, index) => (
+              {daysOfTheWeek.map((day: string, index) => (
                 <option key={index} value={day}>{day}</option>
               ))}
             </select>
@@ -120,7 +118,7 @@ export const Search: FC = () => {
               weekday && 
                 <select name="hour-availability" onChange={filterByLanguage} defaultValue="" className="select-input">
                   <option value="" disabled >Hour Availability</option>
-                  {displayHourlyAvailability().map((hour, index) => (
+                  {displayHourlyAvailability().map((hour: string, index) => (
                   <option key={index} value={hour}>{hour}</option>
                   ))}
               </select>
@@ -133,7 +131,7 @@ export const Search: FC = () => {
           </select>
         </section>
         <section className="search__results">
-          {filteredTutors.map((tutor: any) => (
+          {filteredTutors.map((tutor: TutorWithAvailability) => (
             <SearchResult key={tutor.id} tutor={tutor}/>
           ))}
         </section>

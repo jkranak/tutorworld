@@ -3,16 +3,13 @@
   width: 100vw;
   min-height: 70vh;
   @include flex-row;
-  // background-color: chocolate;
   &__left-box {
     @include flex-column;
-    // background-color: coral;
     width: 30%;
     padding: 0 4rem;
     text-align: justify;
     .image-box {
       height: 25vh;
-      // background-color: cadetblue;
       img {
         height: 100%;
         object-fit: contain;
@@ -23,7 +20,6 @@
   &__right-box {
     width: 60%;
     @include flex-column;
-    // background-color: cornflowerblue;
   }
   &--title {
     font-size: 4rem;
@@ -39,7 +35,6 @@
     font-size: 2rem;
   }
   &__info-wrapper {
-    // background-color: crimson;
     text-align: center;
   }
   &__info {

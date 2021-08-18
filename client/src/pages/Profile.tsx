@@ -40,7 +40,7 @@ export const Profile: FC = () => {
     <div className="profile">
       <Navbar />
       {editing 
-      ? user.role === 'tutor' ? <EditTutorProfile tutor={userDetails} setEditing={setEditing}/> : <EditStudentProfile setEditing={setEditing} student={userDetails}/> 
+      ? user.role === 'tutor' ? <EditTutorProfile tutor={userDetails} setEditing={setEditing}/> : <EditStudentProfile student={userDetails}/> 
       : user.role === 'tutor' ? <TutorProfile tutor={userDetails}/> : <StudentProfile student={userDetails}/>}
       {editing 
       ? <>

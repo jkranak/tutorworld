@@ -66,15 +66,10 @@ export const getStudentInfo = async (req:any, res:any) => {
 
 export const updateStudentInfo = async (req:any, res:any) => {
   try {
-    const { imageUrl } = req.body;
-    const { id } = req.body.user;
+    const { id, email, firstName, lastName, imageUrl } = req.body;
 
-    const updatedStudentInfo = { imageUrl };
-
-    await Models.Student.update(updatedStudentInfo, {where: {id}});
-    res.status(201).send('Updated Student Info');
-
-
+    await Models.Student.update({ id, email, firstName, lastName, imageUrl }, {where: {id}});
+    res.status(201).send('Student updated');
   } catch (error) {
     console.log(error)
     res.status(500);

@@ -7,7 +7,7 @@ export const updateRating = async (req:any, res:any) => {
     const { review, starRating } = req.body
 
     //update review and starRating to historySession
-    const historySessionInstance = await Models.HistorySession.findOne({where:{StudentId: id}, order: [['createdAt', 'DESC']]}); //finds latest history session for that student
+    const historySessionInstance = await Models.HistorySession.findOne({where:{StudentId: id}, order: [['createdAt', 'DESC']]}); //finds latest history session entry for that student since they just finsihed session
     const historySession = historySessionInstance.get({plain: true });
     const TutorId = historySession.TutorId;
     const historySessionId = historySession.id;
@@ -27,7 +27,7 @@ export const updateRating = async (req:any, res:any) => {
     //update tutorInfo rating
     await Models.TutorInfo.update({rating: avgStarRating}, {where: {TutorId}});
 
-    res.status(200).send('Review and starRating updated, and updated overall star rating of tutor')
+    res.status(200).send('Review and starRating updated, and updated overall star rating of tutor');
 
   } catch (error) {
     console.log(error)

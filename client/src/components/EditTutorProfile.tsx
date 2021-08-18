@@ -17,18 +17,21 @@ export const EditTutorProfile: FC<Props> = ({setEditing, tutor }: Props) => {
   }
 
   const handleSelect = (event: {target: {name: string, value: string}}) => {
+
     if (event.target.name === 'languages' && !tutor?.languages.includes(event.target.value)) {
       setEditedUser((current: any) => ({...current,  languages: [...current.languages, event.target.value]}))
+      console.log('new language', event.target.value)
     }
+
     else if (event.target.name === 'subjects' && !tutor?.subjectLevels.includes(event.target.value)) {
-      setEditedUser((current: any) => ({...current,subjects: [...current.subjects, event.target.value]}))
+      setEditedUser((current: any) => ({...current,subjectLevels: [...current.subjectLevels, event.target.value]}))
     }
   }
 
   const removeSubject = (index: number) => {
     const newSubjectList = tutor?.subjectLevels.filter((_, ind)=> ind !== index )
 
-    setEditedUser((current: any) => ({...current,  subjects: newSubjectList}))
+    setEditedUser((current: any) => ({...current,  subjectLevels: newSubjectList}))
   }
 
   const removeLanguage = (index: number) => {
@@ -74,9 +77,9 @@ export const EditTutorProfile: FC<Props> = ({setEditing, tutor }: Props) => {
           ))}
         </select>
             <div className="form--multi-select">
-              {tutor?.subjectLevels.map((subject, index): any => 
+              {editedUser?.subjectLevels.map((subject, index): any => 
                 <div key={subject}><span className="form--select-tag">{subject}</span>
-                  {tutor?.subjectLevels[0].length > 0 && <FiX onClick={() => removeSubject(index)}/>}
+                  {editedUser?.subjectLevels[0].length > 0 && <FiX onClick={() => removeSubject(index)}/>}
                 </div>)}
             </div>
         <select name="languages" onChange={handleSelect} defaultValue="" className="select-input select-input--blue" >
@@ -86,9 +89,9 @@ export const EditTutorProfile: FC<Props> = ({setEditing, tutor }: Props) => {
           ))}
         </select>
         <div className="form--multi-select">
-        {tutor?.languages.map((language, index): any => 
+        {editedUser?.languages.map((language, index): any => 
           <div key={language}><span className="form--select-tag" >{language}</span>
-            {tutor?.languages[0].length > 0 && <FiX onClick={() => removeLanguage(index)}/>}
+            {editedUser?.languages[0].length > 0 && <FiX onClick={() => removeLanguage(index)}/>}
           </div>)}
 
         </div>

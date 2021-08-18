@@ -9,7 +9,7 @@ interface Props {
 
 export const TutorProfile = ({ tutor }: Props) => {
   const starArr: number[] | null = tutor && starRating(tutor.rating);
-  console.log('tutor', tutor)
+  
   return (
     tutor &&
     <div className="tutor-profile">

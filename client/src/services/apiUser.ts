@@ -6,7 +6,6 @@ export const createUser = async (user: User) => {
     const response = await api.post('/students', user);
     return response.data;
   } catch (error) {
-    console.log(error);
     return error;
   }
 }

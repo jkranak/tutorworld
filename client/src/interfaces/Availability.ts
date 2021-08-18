@@ -11,11 +11,11 @@ export interface Availability {
 
 export const emptyAvailability: Availability = {
   id: 0,
-  monday: [1],
-  tuesday: [2, 5, 13],
-  wednesday: [3],
+  monday: [],
+  tuesday: [],
+  wednesday: [],
   thursday: [],
-  friday: [5],
+  friday: [],
   saturday: [],
-  sunday: [7],
+  sunday: [],
 }

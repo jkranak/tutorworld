@@ -16,7 +16,7 @@ export interface TutorAndInfo extends Tutor {
   description: string,
   experience: string,
   imageURL: string,
-  resumeURL: string,
+  resumeURL?: string,
   rating: number,
   education: string,
   price: number

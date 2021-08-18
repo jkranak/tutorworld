@@ -20,7 +20,7 @@ export const updateTutorAvail = async (req:any, res:any) => {
   try {
     const { id  } = req.body.user;
     //front end provides an availability object like:
-    // const availability = {
+    // req.body =  {
     //   monday: {
     //   "3:00 PM": true,
     //   "4:00 PM": true
@@ -35,7 +35,7 @@ export const updateTutorAvail = async (req:any, res:any) => {
     //   }
     //    **OTHER 4 DAYS TOO
     // }
-    const { availability } = req.body;
+    const availability = req.body;
 
     const tutorAvail = await Models.TutorAvailability.findOne({where:{TutorId: id}});
 
@@ -108,6 +108,5 @@ export const getTutorAvailByDate = async (req:any, res:any) => {
     res.status(500);
     res.send(error);
   }
-
 
 }

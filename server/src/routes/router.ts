@@ -2,7 +2,7 @@ import express from 'express';
 import { createStudent, createTutor, login, verifyUser } from '../controllers/authController';
 import { updateTutorInfo, getAllTutorInfo, getStudentInfo, updateStudentInfo, getEveryTutorsInfo } from '../controllers/infoController';
 import { changeStudentPassword, changeTutorPassword } from '../controllers/passwordController';
-import { addUpcomingSessions, updateHistorySessions } from '../controllers/sessionsController';
+import { addUpcomingSessions, getUpcomingSessions, updateHistorySessions } from '../controllers/sessionsController';
 import { getAllTutorsAvail, getTutorAvail, getTutorAvailByDate, updateTutorAvail } from '../controllers/tutorAvailController';
 import { authMiddleware } from '../middlewares/authMiddleware';
 import { studentMiddleware, tutorMiddleware } from '../middlewares/roleMiddleware';
@@ -40,7 +40,8 @@ router.get('/tutors/allTutorsAvail', authMiddleware, getAllTutorsAvail); //can b
 router.get('/tutors/:tutorId/tutorAvail/:date', authMiddleware, studentMiddleware, getTutorAvailByDate); //used by student to find tutor availibity for given date
 
 //upcoming/history sessions routes
-router.post('/upcomingSessions', authMiddleware, studentMiddleware, addUpcomingSessions); //not done
+router.get('/upcomingSessions', authMiddleware, getUpcomingSessions);
+router.post('/upcomingSessions', authMiddleware, studentMiddleware, addUpcomingSessions);
 router.put('/historySessions', authMiddleware, updateHistorySessions); //not done
 
 //favTutor routes

@@ -3,7 +3,13 @@ export interface Student {
   email: string,
   firstName: string,
   lastName: string,
-  imageURL: string
+  imageUrl: string
+  
+}
+
+export interface StudentComplete extends Student{
+  createdAt: string,
+  updatedAt: string
 }
 
 export const emptyStudent: Student = {
@@ -11,5 +17,5 @@ export const emptyStudent: Student = {
   email: '',
   firstName: '',
   lastName: '',
-  imageURL: ''
+  imageUrl: '',
 }

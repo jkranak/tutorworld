@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, FC } from 'react';
 import { Link } from 'react-router-dom';
 import { emptyApplication } from '../interfaces/Application';
 import { languages, subjects } from '../assets/subjects_languages';
@@ -6,11 +6,11 @@ import { FiBookOpen, FiX } from 'react-icons/fi';
 import { submitForm } from '../services/formSubmission';
 import { Widget } from "@uploadcare/react-widget";
 import dotenv from 'dotenv';
-import Logo from '../components/Logo';
+import LogoLink from '../components/LogoLink';
 import { AfterApplication } from '../components/AfterApplication';
 dotenv.config();
 
-export const Application = () => {
+export const Application: FC = () => {
   const uploadCareKey = process.env.REACT_APP_UPLOADCARE_KEY || '';
   const [newApplicant, setNewApplicant] = useState(emptyApplication)
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -64,14 +64,14 @@ export const Application = () => {
     submitted ? 
       <div className="application">
         <header>
-          <Logo />
+          <LogoLink />
         </header>
         <AfterApplication />
       </div>
     :
     <div className="application">
       <header>
-        <Logo />
+        <LogoLink />
       </header>
       <div className="form application-form">
         <div className="form--title">
@@ -83,7 +83,7 @@ export const Application = () => {
           <input type="text" id="lname" name="lastName" required onChange={handleChange} value={newApplicant.lastName} placeholder="Last Name*" className="text-input text-input--blue"/>
           <input type="email" id="email" name="email" required onChange={handleChange} value={newApplicant.email} placeholder="E-mail*" className="text-input text-input--blue" />
           <select name="languages" onChange={handleSelect} className="select-input select-input--blue" defaultValue="" required>
-              <option value="" selected disabled hidden>Choose languages</option>
+              <option value="" disabled hidden>Choose languages</option>
               {languages.map((language, index) => (
                 <option key={index} value={language}>{language}</option>
               ))}

@@ -22,12 +22,16 @@ module.exports = (sequelize:any, DataTypes:any) => {
       primaryKey: true,
       type: DataTypes.BIGINT
     },
-    datetime: {
-      type: DataTypes.DATE,
+    date: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    time: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     cost: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.REAL,
       allowNull: false,
     },
     sessionContent: {
@@ -36,11 +40,9 @@ module.exports = (sequelize:any, DataTypes:any) => {
     },
     review: {
       type: DataTypes.TEXT,
-      allowNull: false,
     },
     starRating: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      type: DataTypes.REAL,
     },
 
   }, {

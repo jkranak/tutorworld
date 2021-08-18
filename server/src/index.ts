@@ -6,7 +6,6 @@ import db from '../models';
 require('dotenv').config();
 
 const app = express();
-console.log(process.env.PORT)
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());// allows server to interact with the client side

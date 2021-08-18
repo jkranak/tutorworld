@@ -57,58 +57,28 @@ export const getHistorySessions = async (req:any, res:any) => {
     res.status(500);
     res.send(error);
   }
-
 }
 
 
 export const updateHistoryUpcomingSessions = async (req:any, res:any) => {
-  //historySessions just has rewview and starRating properties or else it would be the same as upcoming sessions
-  //delete from upcoming sessions usinfg maybe the upcomign session id instead of full object
-  //add to history sessions
-  //Only update review and star rating if given: need to update the starrating inside of tutor info wiht the new reviews star rating
   try {
-    const { id } = req.body.user;
     //need upcomingSessionId to delete and copy over the contents to hsitory session
-    const { upcomingSessionId, review, starRating } = req.body;
+    const { upcomingSessionId } = req.body;
     //grab and store session object from upcomingSession table
     const sessionInfoInstance = await Models.UpcomingSession.findOne({attributes: {exclude: ['createdAt', 'updatedAt']}, where:{id: upcomingSessionId}});
     const sessionInfo = sessionInfoInstance.get({plain: true }); //get tutorId from sessionInfo
-    const TutorId = sessionInfo.TutorId
-    //add upcomingSession, review, starRating to historySessions table
+    //add upcomingSession to historySessions table
     const sessionInfoDeepCopy = { ...sessionInfo};
     delete sessionInfoDeepCopy.id; //remove id from sessionInfo
-    const newHistorySession = await Models.HistorySession.create({...sessionInfoDeepCopy, review, starRating});
+    const newHistorySession = await Models.HistorySession.create({...sessionInfoDeepCopy});
     //delete the object from upcomingSession table
     await sessionInfoInstance.destroy();
-    // if a starRating is given, then update the starRating in tutorsInfo table, if no rating is given no need to update
-    if (starRating) {
-      const tutorRatingsInstance = await Models.HistorySession.findAll({attributes: {include: ['TutorId', 'starRating']}, where:{TutorId}});
-
-      const tutorRatings = tutorRatingsInstance.map((tutorRatingInstance:any) => tutorRatingInstance.get({plain: true })); //now able to access data
-      //need average satrRating to update tutorInfo starRating
-      const numOfSessions = tutorRatings.length;
-      let sumOfAllStarRatings = 0;
-      tutorRatings.forEach((tutorRating:any) => {
-        sumOfAllStarRatings += tutorRating.starRating;
-      });
-
-      const avgStarRating = Number((sumOfAllStarRatings/numOfSessions).toFixed(2));
-
-      //update tutorInfo rating
-      await Models.TutorInfo.update({rating: avgStarRating}, {where: {TutorId}});
-
-      res.status(200).send('Moved UpcomingSession to HistorySession in database along with review and starRating, avg star rating is updated beacuse one was given')
-
-    } else {
-      res.status(200).send('Moved UpcomingSession to HistorySession in database along with review and starRating, avg star rating not updated beacuse none given');
-    }
+    res.status(200).send('Moved UpcomingSession to HistorySession in database');
 
   } catch (error) {
     console.log(error)
     res.status(500);
     res.send(error);
     }
-
-
 
 }

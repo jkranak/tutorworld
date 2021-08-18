@@ -1,13 +1,14 @@
 import express from 'express';
 import { createStudent, createTutor, login, verifyUser } from '../controllers/authController';
-import { updateTutorInfo, getAllTutorInfo, getStudentInfo, updateStudentInfo, getEveryTutorsInfo, getAllTutorsInfoAvail } from '../controllers/infoController';
+import { updateTutorInfo, getAllTutorInfo, getStudentInfo, updateStudentInfo, getEveryTutorsInfo, getAllTutorsInfoAvail, getTutorInfoAvail } from '../controllers/infoController';
 import { changeStudentPassword, changeTutorPassword } from '../controllers/passwordController';
 import { addUpcomingSessions, getHistorySessions, getUpcomingSessions, updateHistoryUpcomingSessions } from '../controllers/sessionsController';
 import { getAllTutorsAvail, getTutorAvail, getTutorAvailByDate, updateTutorAvail } from '../controllers/tutorAvailController';
 import { authMiddleware } from '../middlewares/authMiddleware';
 import { studentMiddleware, tutorMiddleware } from '../middlewares/roleMiddleware';
 import {stripePayment} from '../controllers/paymentController';
-import { addFavTutor, getAllFavTutor, removeFavTutor } from '../controllers/favTutorsController';
+import { addFavTutor, getAllFavTutors, removeFavTutor } from '../controllers/favTutorsController';
+import { updateRating } from '../controllers/ratingController';
 const router = express.Router();
 
 
@@ -24,7 +25,8 @@ router.get('/user/verify', authMiddleware, verifyUser);
 
 //info routes
 router.put('/tutors/tutor/info', authMiddleware, tutorMiddleware, updateTutorInfo);
-router.get('/tutors/tutor/allInfo', authMiddleware, tutorMiddleware, getAllTutorInfo);
+router.get('/tutors/:tutor/allInfo', authMiddleware, getTutorInfoAvail); //gets all info and availabilty
+router.get('/tutors/tutor/allInfo', authMiddleware, tutorMiddleware, getAllTutorInfo);//may be redundent since above takes userId as paramater
 router.get('/students/student/info', authMiddleware, studentMiddleware, getStudentInfo);
 router.put('/students/student/info', authMiddleware, studentMiddleware, updateStudentInfo);
 // router.get('/tutors/allInfo', authMiddleware, getEveryTutorsInfo); //can be used by both student and tutor
@@ -46,13 +48,15 @@ router.get('/search', authMiddleware, getAllTutorsInfoAvail);
 router.get('/upcomingSessions', authMiddleware, getUpcomingSessions);
 router.post('/upcomingSessions', authMiddleware, studentMiddleware, addUpcomingSessions);
 router.get('/historySessions', authMiddleware, getHistorySessions);
-// deletes upcomingSessions also since its a past session and adds it to historySession, since user is sending review and star rating once they do that then send this request
-router.put('/endSession', authMiddleware, studentMiddleware, updateHistoryUpcomingSessions);
+router.put('/endSession', authMiddleware, updateHistoryUpcomingSessions); //deletes from upcoming session and adds it to history session
+
+//when student submits a rating
+router.put('/submitRating', authMiddleware, studentMiddleware, updateRating);
 
 //favTutor routes
-router.get('/students/student/favTutor', getAllFavTutor); //not done
-router.post('/students/student/favTutor', addFavTutor); //not done
-router.delete('/students/student/favTutor', removeFavTutor); //not done
+router.get('/students/student/favTutor', authMiddleware, studentMiddleware, getAllFavTutors); //not done
+router.post('/students/student/favTutor', authMiddleware, studentMiddleware, addFavTutor);
+router.delete('/students/student/favTutor', authMiddleware, studentMiddleware, removeFavTutor); //not done
 
 //Stripe payment
 router.post('/payment', stripePayment);

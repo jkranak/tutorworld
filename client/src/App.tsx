@@ -46,7 +46,7 @@ function App() {
         <Route path="/application" exact component={Application}/>
         <Route path="/login" exact component={Login}/>
         <PrivateRoute path="/dashboard" exact component={Dashboard}/>
-        <PrivateRoute path="/profile" exact component={Profile}/>
+        <PrivateRoute path="/profile/:id" exact component={Profile}/>
         <PrivateRoute path="/search" exact component={Search}/>
         <PrivateRoute path="/checkout" exact component={Checkout}/>
         <PrivateRoute path="/schedule" exact component={Schedule}/>

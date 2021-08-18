@@ -83,7 +83,7 @@ export const Application: FC = () => {
           <input type="text" id="lname" name="lastName" required onChange={handleChange} value={newApplicant.lastName} placeholder="Last Name*" className="text-input text-input--blue"/>
           <input type="email" id="email" name="email" required onChange={handleChange} value={newApplicant.email} placeholder="E-mail*" className="text-input text-input--blue" />
           <select name="languages" onChange={handleSelect} className="select-input select-input--blue" defaultValue="" required>
-              <option value="" selected disabled hidden>Choose languages</option>
+              <option value="" disabled hidden>Choose languages</option>
               {languages.map((language, index) => (
                 <option key={index} value={language}>{language}</option>
               ))}

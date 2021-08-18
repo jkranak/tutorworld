@@ -5,51 +5,54 @@ import { languages, subjects } from '../assets/subjects_languages';
 import {getAllTutors} from '../services/apiUser';
 
 export const Search: FC = () => {
-  const [allTheTutors, setAllTheTutors] = useState([]);
+  const [allTutors, setAllTutors] = useState([]);
   // TO-DO fix typescript anys
-  const allTutors: any = [{
-    id: 1,
-    email: 'tutor@tutory',
-    firstName: 'Tutor1',
-    lastName: 'Tutory1',
-    TutorInfo: {
-      TutorId: 1,
-      description: 'Im tutor1',
-      experience: 'Lots',
-      imageUrl: '',
-      rating: 4,
-      education: 'Tutor U',
-      price: 50,
-      subjects: ["Math - Elementary", "Biology - High School"],
-      languages: ["Hindi", "German"],
-      createdAt: '',
-      updatedAt: ''
-    },
-    createdAt: '',
-    updatedAt: ''
-  },
-  {
-    id: 2,
-    email: 'tutor2@tutory',
-    firstName: 'Tutor2',
-    lastName: 'Tutory2',
-    description: 'Im tutor 2',
-    experience: 'Lots and lots',
-    imageUrl: '',
-    rating: 3,
-    education: 'Tutor College',
-    price: 40,
-    subjects: ["English - University", "SAT"],
-    languages: ["English", "Portuguese"],
-    createdAt: '',
-    updatedAt: ''
-  }]
+  // const allTutors: any = [{
+  //   id: 1,
+  //   email: 'tutor@tutory',
+  //   firstName: 'Tutor1',
+  //   lastName: 'Tutory1',
+  //   TutorInfo: {
+  //     TutorId: 1,
+  //     description: 'Im tutor1',
+  //     experience: 'Lots',
+  //     imageUrl: '',
+  //     rating: 4,
+  //     education: 'Tutor U',
+  //     price: 50,
+  //     subjects: ["Math - Elementary", "Biology - High School"],
+  //     languages: ["Hindi", "German"],
+  //     createdAt: '',
+  //     updatedAt: ''
+  //   },
+  //   createdAt: '',
+  //   updatedAt: ''
+  // },
+  // {
+  //   id: 2,
+  //   email: 'tutor2@tutory',
+  //   firstName: 'Tutor2',
+  //   lastName: 'Tutory2',
+  //   description: 'Im tutor 2',
+  //   experience: 'Lots and lots',
+  //   imageUrl: '',
+  //   rating: 3,
+  //   education: 'Tutor College',
+  //   price: 40,
+  //   subjects: ["English - University", "SAT"],
+  //   languages: ["English", "Portuguese"],
+  //   createdAt: '',
+  //   updatedAt: ''
+  // }]
   const [filteredTutors, setFilteredTutors] = useState(allTutors);
 
-  useEffect(() => {getAllTutors().then(res => {
-    console.log(res)
-  })}, []
-  )
+  useEffect(
+    () => {getAllTutors()
+      .then(res => {
+        setAllTutors(res);
+        console.log(res)
+      })
+    }, [])
 
   const filterBySubject = (event: {target: {name: string, value: any}}) => {
     const sortedTutors = allTutors.filter((tutor: any) => tutor?.TutorInfo.subjects.includes(event.target.value));

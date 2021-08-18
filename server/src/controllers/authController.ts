@@ -46,7 +46,7 @@ export const login = async (req:any, res:any) => {
     console.log(student);
     if (!student) {
       tutor = await Models.Tutor.findOne({where: {email}});
-      if (!tutor) return res.status(404).send({ message: 'Cannot find account.' });
+      if (!tutor) return res.status(403).send({ message: 'Cannot find account.' });
     }
 
     const user = student || tutor;

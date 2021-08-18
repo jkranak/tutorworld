@@ -27,7 +27,7 @@ router.put('/tutors/tutor/info', authMiddleware, tutorMiddleware, updateTutorInf
 router.get('/tutors/tutor/allInfo', authMiddleware, tutorMiddleware, getAllTutorInfo);
 router.get('/students/student/info', authMiddleware, studentMiddleware, getStudentInfo);
 router.put('/students/student/info', authMiddleware, studentMiddleware, updateStudentInfo);
-router.get('/tutors/allInfo', authMiddleware, getEveryTutorsInfo); //can be used by both student and tutor
+// router.get('/tutors/allInfo', authMiddleware, getEveryTutorsInfo); //can be used by both student and tutor
 
 //change password routes
 router.put('/tutors/tutor/password', authMiddleware, tutorMiddleware, changeTutorPassword);

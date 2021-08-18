@@ -1,0 +1,60 @@
+.tutor-card {
+  @include flex-row;
+  height: 18vh;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  &__left-box {
+    @include flex-column;
+    height: 100%;
+    width: 20%;
+    .image-box {
+      height: 80%;
+      width: 12vh;
+      border-radius: 50%;
+      overflow: hidden;
+      img {
+        object-fit: contain;
+        height: 100%;
+      }
+    }
+  }
+  &__name {
+    font-size: 1.8rem;
+    height: 20%;
+  }
+
+  &__middle-box {
+    height: 100%;
+    width: 30%;
+    &--details {
+      font-size: 1.8rem;
+      h2, h3 {
+        display: inline;
+      }
+    }
+    &--star {
+      font-size: 2.5rem;
+      color: $rating;
+    }
+  }
+
+  &__right-box {
+    width: 50%;
+    height: 100%;
+    @include flex-row;
+    &--description {
+      font-size: 2rem;
+      text-align: justify;
+      width: 30%;
+      height: 100%;
+    }
+    &--buttons {
+      @include flex-row;
+      height: 100%;
+      width: 70%;
+    }
+  }
+}

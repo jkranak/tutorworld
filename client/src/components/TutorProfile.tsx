@@ -1,36 +1,36 @@
 import { BsStarFill, BsStar, BsStarHalf } from 'react-icons/bs'
-import { TutorInfo } from '../interfaces/Tutor';
+import { TutorComplete } from '../interfaces/Tutor';
 import { starRating } from '../services/starRating';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
- tutor: TutorInfo | null;
+ tutor: TutorComplete | null;
 }
 
 export const TutorProfile = ({ tutor }: Props) => {
-  const starArr: number[] | null = tutor && starRating(tutor?.TutorInfo.rating);
-
+  const starArr: number[] | null = tutor && starRating(tutor.rating);
+  console.log('tutor', tutor)
   return (
     tutor &&
     <div>
-      <img src={tutor.TutorInfo.imageUrl} alt={`${tutor.firstName} ${tutor.lastName}`} />
+      <img src={tutor.imageUrl} alt={`${tutor.firstName} ${tutor.lastName}`} />
       <h3>{tutor.firstName} {tutor.lastName}</h3>
-      <p>{tutor.TutorInfo.description}</p>
-      <p>Rate: ${tutor.TutorInfo.price}/hour</p>
+      <p>{tutor.description}</p>
+      <p>Rate: ${tutor.price}/hour</p>
       <button>Schedule</button>
       <button>Message</button>
       <h3>Education:</h3>
-      <p>{tutor.TutorInfo.education}</p>
+      <p>{tutor.education}</p>
       <h3>Subjects:</h3>
-      <ul>{tutor.TutorInfo.subjects?.map(subject => (<li key={uuidv4()}>{subject}</li>))}</ul>
+      <ul>{tutor.subjectLevels?.map(subject => (<li key={uuidv4()}>{subject}</li>))}</ul>
       <h3>Languages:</h3>
-      <ul>{tutor.TutorInfo.languages?.map(language => (<li key={uuidv4()}>{language}</li>))}</ul>
+      <ul>{tutor.languages?.map(language => (<li key={uuidv4()}>{language}</li>))}</ul>
       <h3>Rating</h3>
       {starArr?.map(el => (
-        el === 2 ? < BsStarFill/> : el === 1 ? <BsStarHalf/> : <BsStar/>
+        el === 2 ? <BsStarFill key={uuidv4()}/> : el === 1 ? <BsStarHalf key={uuidv4()} /> : <BsStar key={uuidv4()}/>
       ))}
       <h3>Experience</h3>
-      {tutor.TutorInfo.experience}
+      {tutor.experience}
     </div>
   )
 }

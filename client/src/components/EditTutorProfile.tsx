@@ -1,12 +1,12 @@
 import { FormEvent, useState, FC } from 'react';
-import { TutorInfo } from '../interfaces/Tutor';
+import { TutorComplete } from '../interfaces/Tutor';
 import { languages, subjects } from '../assets/subjects_languages';
 import { FiX } from 'react-icons/fi';
 
 
 interface Props {
   setEditing: (editing: boolean) => void
-  tutor: TutorInfo | null;
+  tutor: TutorComplete | null;
 }
 
 export const EditTutorProfile: FC<Props> = ({setEditing, tutor }: Props) => {
@@ -17,24 +17,24 @@ export const EditTutorProfile: FC<Props> = ({setEditing, tutor }: Props) => {
   }
 
   const handleSelect = (event: {target: {name: string, value: string}}) => {
-    if (event.target.name === 'languages' && !tutor?.TutorInfo.languages.includes(event.target.value)) {
-      setEditedUser((current: any) => ({...current, TutorInfo: {...current.TutorInfo, languages: [...current.TutorInfo.languages, event.target.value]}}))
+    if (event.target.name === 'languages' && !tutor?.languages.includes(event.target.value)) {
+      setEditedUser((current: any) => ({...current,  languages: [...current.languages, event.target.value]}))
     }
-    else if (event.target.name === 'subjects' && !tutor?.TutorInfo.subjects.includes(event.target.value)) {
-      setEditedUser((current: any) => ({...current, TutorInfo: {...current.TutorInfo, subjects: [...current.TutorInfo.subjects, event.target.value]}}))
+    else if (event.target.name === 'subjects' && !tutor?.subjectLevels.includes(event.target.value)) {
+      setEditedUser((current: any) => ({...current,subjects: [...current.subjects, event.target.value]}))
     }
   }
 
   const removeSubject = (index: number) => {
-    const newSubjectList = tutor?.TutorInfo.subjects.filter((_, ind)=> ind !== index )
+    const newSubjectList = tutor?.subjectLevels.filter((_, ind)=> ind !== index )
 
-    setEditedUser((current: any) => ({...current, TutorInfo: {...current.TutorInfo, subjects: newSubjectList}}))
+    setEditedUser((current: any) => ({...current,  subjects: newSubjectList}))
   }
 
   const removeLanguage = (index: number) => {
-    const newLanguageList = tutor?.TutorInfo.languages.filter((_, ind)=> ind !== index );
+    const newLanguageList = tutor?.languages.filter((_, ind)=> ind !== index );
 
-    setEditedUser((current: any) => ({...current, TutorInfo: {...current.TutorInfo, languages: newLanguageList}}))
+    setEditedUser((current: any) => ({...current, languages: newLanguageList}))
   }
 
   const handleSubmit = async (event: FormEvent) => {
@@ -52,20 +52,20 @@ export const EditTutorProfile: FC<Props> = ({setEditing, tutor }: Props) => {
         <label>Change Email</label>
         <input type="email" id="email" name="email" onChange={handleTutorChange} value={tutor?.email} placeholder="Email" required/>
         <label>Change Brief Description</label>
-        <input type="text" id="description" name="description" onChange={handleTutorChange} value={tutor?.TutorInfo.description} placeholder="Description" required/>
+        <input type="text" id="description" name="description" onChange={handleTutorChange} value={tutor?.description} placeholder="Description" required/>
         <label>Change Hourly Rate [$/hour]</label>
-        <input type="number" min="0" id="price" name="price" onChange={handleTutorChange} value={tutor?.TutorInfo.price} placeholder="Hourly Rate $/hr" required/>
+        <input type="number" min="0" id="price" name="price" onChange={handleTutorChange} value={tutor?.price} placeholder="Hourly Rate $/hr" required/>
         <label>Change Education</label>
-        <input type="text" id="education" name="education" onChange={handleTutorChange} value={tutor?.TutorInfo.education} placeholder="Education" required/>
+        <input type="text" id="education" name="education" onChange={handleTutorChange} value={tutor?.education} placeholder="Education" required/>
         <select name="subjects" onChange={handleSelect} defaultValue="Add subjects" >
           <option value="Add subjects" disabled hidden>Add subjects</option>
           {subjects.map((subject, index) => (
             <option key={index} value={subject}>{subject}</option>
           ))}
         </select>
-        {tutor?.TutorInfo.subjects.map((subject, index): any => 
+        {tutor?.subjectLevels.map((subject, index): any => 
           <div key={subject}><span>{subject}</span>
-            {tutor?.TutorInfo.subjects[0].length > 0 && <FiX onClick={() => removeSubject(index)}/>}
+            {tutor?.subjectLevels[0].length > 0 && <FiX onClick={() => removeSubject(index)}/>}
           </div>)}
         <select name="languages" onChange={handleSelect} defaultValue="Add languages" >
           <option value="Add languages" disabled hidden>Add Languages</option>
@@ -73,12 +73,12 @@ export const EditTutorProfile: FC<Props> = ({setEditing, tutor }: Props) => {
             <option key={index} value={language}>{language}</option>
           ))}
         </select>
-        {tutor?.TutorInfo.languages.map((language, index): any => 
+        {tutor?.languages.map((language, index): any => 
           <div key={language}><span>{language}</span>
-            {tutor?.TutorInfo.languages[0].length > 0 && <FiX onClick={() => removeLanguage(index)}/>}
+            {tutor?.languages[0].length > 0 && <FiX onClick={() => removeLanguage(index)}/>}
           </div>)}
           <label>Change Experience</label>
-          <input type="text" id="experience" name="experience" onChange={handleTutorChange} value={tutor?.TutorInfo.experience} placeholder="Experience" required/>
+          <input type="text" id="experience" name="experience" onChange={handleTutorChange} value={tutor?.experience} placeholder="Experience" required/>
           <button type="submit">Submit</button>
       </form>
     </div>

@@ -9,28 +9,52 @@ interface Props {
 
 export const TutorProfile = ({ tutor }: Props) => {
   const starArr: number[] | null = tutor && starRating(tutor.rating);
-  console.log('tutor', tutor)
+  
   return (
     tutor &&
-    <div>
-      <img src={tutor.imageUrl} alt={`${tutor.firstName} ${tutor.lastName}`} />
-      <h3>{tutor.firstName} {tutor.lastName}</h3>
-      <p>{tutor.description}</p>
-      <p>Rate: ${tutor.price}/hour</p>
-      <button>Schedule</button>
-      <button>Message</button>
-      <h3>Education:</h3>
-      <p>{tutor.education}</p>
-      <h3>Subjects:</h3>
-      <ul>{tutor.subjectLevels?.map(subject => (<li key={uuidv4()}>{subject}</li>))}</ul>
-      <h3>Languages:</h3>
-      <ul>{tutor.languages?.map(language => (<li key={uuidv4()}>{language}</li>))}</ul>
-      <h3>Rating</h3>
-      {starArr?.map(el => (
-        el === 2 ? <BsStarFill key={uuidv4()}/> : el === 1 ? <BsStarHalf key={uuidv4()} /> : <BsStar key={uuidv4()}/>
-      ))}
-      <h3>Experience</h3>
-      {tutor.experience}
+    <div className="tutor-profile">
+      <section className="tutor-profile__left-box">
+        <div className="image-box">
+          {/* not making this optional because tutors are required a photo */}
+          <img src={tutor.imageUrl} alt={`${tutor.firstName} ${tutor.lastName}`} />
+        </div>
+        <h1 className="tutor-profile--title">{tutor.firstName} {tutor.lastName}</h1>
+        <p className="tutor-profile--details">{tutor.description}</p>
+        <p className="tutor-profile--sub-title">Rate: ${tutor.price}/hour</p>
+        <button className="btn btn--blue">Schedule</button>
+        <button className="btn btn--blue">Message</button>
+
+      </section>
+      <section className="tutor-profile__right-box">
+        <div className="tutor-profile__info-wrapper">
+          <p className="tutor-profile--sub-title">Education:</p>
+          <p className="tutor-profile--details">{tutor.education}</p>
+        </div>
+        <div className="tutor-profile__info-wrapper">
+          <p className="tutor-profile--sub-title">Subjects:</p>
+          <div>
+          {tutor.subjectLevels?.map(subject => (<span key={uuidv4()} className="tutor-profile__info--tag">{subject}</span>))}
+          </div>
+        </div>
+        <div className="tutor-profile__info-wrapper">
+          <p className="tutor-profile--sub-title">Languages:</p>
+          <div>
+            {tutor.languages?.map(language => (<span key={uuidv4()} className="tutor-profile__info--tag">{language}</span>))}
+          </div>
+        </div>
+        <div className="tutor-profile__info-wrapper">
+          <p className="tutor-profile--sub-title">Rating</p>
+          {starArr?.map(el => (
+            el === 2 ? <BsStarFill key={uuidv4()} className="tutor-profile__info--star"/> : el === 1 ? <BsStarHalf key={uuidv4()} className="tutor-profile__info--star"/> : <BsStar key={uuidv4()} className="tutor-profile__info--star"/>
+          ))}
+        </div>
+        <div className="tutor-profile__info-wrapper">
+          <p className="tutor-profile--sub-title">Experience</p>
+          <p className="tutor-profile--details">
+            {tutor.experience}
+          </p>
+        </div>
+      </section>
     </div>
   )
 }

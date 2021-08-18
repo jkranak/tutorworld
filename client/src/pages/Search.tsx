@@ -1,24 +1,30 @@
 import {useState, FC} from 'react';
 import {Navbar} from '../components/Navbar';
 import {SearchResult} from '../components/SearchResult';
-import {FullTutor} from '../interfaces/Tutor'
 import { languages, subjects } from '../assets/subjects_languages';
 
 export const Search: FC = () => {
-  const allTutors: FullTutor[] = [{
+  // TO-DO fix typescript anys
+  const allTutors: any = [{
     id: 1,
     email: 'tutor@tutory',
     firstName: 'Tutor1',
     lastName: 'Tutory1',
-    description: 'Im tutor1',
-    experience: 'Lots',
-    imageURL: '',
-    resumeURL: '',
-    rating: 4,
-    education: 'Tutor U',
-    price: 50,
-    subjects: ["Math - Elementary", "Biology - High School"],
-    languages: ["Hindi", "German"]
+    TutorInfo: {
+      TutorId: 1,
+      description: 'Im tutor1',
+      experience: 'Lots',
+      imageUrl: '',
+      rating: 4,
+      education: 'Tutor U',
+      price: 50,
+      subjects: ["Math - Elementary", "Biology - High School"],
+      languages: ["Hindi", "German"],
+      createdAt: '',
+      updatedAt: ''
+    },
+    createdAt: '',
+    updatedAt: ''
   },
   {
     id: 2,
@@ -27,35 +33,36 @@ export const Search: FC = () => {
     lastName: 'Tutory2',
     description: 'Im tutor 2',
     experience: 'Lots and lots',
-    imageURL: '',
-    resumeURL: '',
+    imageUrl: '',
     rating: 3,
     education: 'Tutor College',
     price: 40,
     subjects: ["English - University", "SAT"],
-    languages: ["English", "Portuguese"]
+    languages: ["English", "Portuguese"],
+    createdAt: '',
+    updatedAt: ''
   }]
   const [filteredTutors, setFilteredTutors] = useState(allTutors);
 
   const filterBySubject = (event: {target: {name: string, value: any}}) => {
-    const sortedTutors = allTutors.filter(tutor => tutor.subjects.includes(event.target.value));
+    const sortedTutors = allTutors.filter((tutor: any) => tutor?.TutorInfo.subjects.includes(event.target.value));
     setFilteredTutors(sortedTutors);
   }
 
   const filterByLanguage = (event: {target: {name: string, value: any}}) => {
-    const sortedTutors = allTutors.filter(tutor => tutor.languages.includes(event.target.value));
+    const sortedTutors = allTutors.filter((tutor: any) => tutor?.TutorInfo.languages.includes(event.target.value));
     setFilteredTutors(sortedTutors);
   }
 
   const sortByPrice = () => {
     let sortedTutors = allTutors.slice(0);
-    sortedTutors.sort((a, b) => a.price - b.price);
+    sortedTutors.sort((a: any, b: any) => a.TutorInfo.price - b.TutorInfo.price);
     setFilteredTutors(sortedTutors);
   }
 
   const sortByRating = () => {
     let sortedTutors = allTutors.slice(0);
-    sortedTutors.sort((a, b) => b.rating - a.rating);
+    sortedTutors.sort((a: any, b: any) => b.TutorInfo.rating - a.TutorInfo.rating);
     setFilteredTutors(sortedTutors);
   }
 
@@ -80,7 +87,7 @@ export const Search: FC = () => {
       </form>
       <button onClick={sortByPrice}>Sort by Rate</button>
       <button onClick={sortByRating}>Sort by Rating</button>
-      {filteredTutors.map(tutor => (
+      {filteredTutors.map((tutor: any) => (
         <li key={tutor.id}>
           <SearchResult tutor={tutor}/>
         </li>

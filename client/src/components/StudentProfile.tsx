@@ -1,6 +1,4 @@
-import { useState, FC, useEffect } from 'react';
 import { StudentComplete } from '../interfaces/Student';
-import { getStudentDetails } from '../services/apiUser';
 import noPhotoUser from '../assets/no_photo_user.png';
 
 interface Props {

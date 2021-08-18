@@ -1,0 +1,54 @@
+.tutor-profile {
+  padding: 10rem;
+  width: 100vw;
+  min-height: 70vh;
+  @include flex-row;
+  &__left-box {
+    @include flex-column;
+    width: 30%;
+    padding: 0 4rem;
+    text-align: justify;
+    .image-box {
+      height: 25vh;
+      img {
+        height: 100%;
+        object-fit: contain;
+        // border-radius: 50%;
+      }
+    }
+  }
+  &__right-box {
+    width: 60%;
+    @include flex-column;
+  }
+  &--title {
+    font-size: 4rem;
+    padding: 1rem;
+    text-transform: capitalize;
+  }
+  &--sub-title{
+    font-size: 2.5rem;
+    font-weight: bold;
+    padding: 2rem;
+  }
+  &--details {
+    font-size: 2rem;
+  }
+  &__info-wrapper {
+    text-align: center;
+  }
+  &__info {
+    &--tag {
+      background-color: $pink;
+      font-size: 1.6rem;
+      padding: 1rem 2rem;
+      margin-right: 1rem;
+      border-radius: 1rem;
+      color: $font-light;
+    }
+    &--star {
+      font-size: 3rem;
+      color: $rating;
+    }
+  }
+}

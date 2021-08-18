@@ -45,11 +45,11 @@ function App() {
         <Route path="/" exact component={Landing} />
         <Route path="/application" exact component={Application}/>
         <Route path="/login" exact component={Login}/>
-        <Route path="/dashboard" exact component={Dashboard}/>
-        <Route path="/profile" exact component={Profile}/>
-        <Route path="/search" exact component={Search}/>
-        <Route path="/checkout" exact component={Checkout}/>
-        <Route path="/schedule" exact component={Schedule}/>
+        <PrivateRoute path="/dashboard" exact component={Dashboard}/>
+        <PrivateRoute path="/profile" exact component={Profile}/>
+        <PrivateRoute path="/search" exact component={Search}/>
+        <PrivateRoute path="/checkout" exact component={Checkout}/>
+        <PrivateRoute path="/schedule" exact component={Schedule}/>
 
       </Switch>
     </BrowserRouter>

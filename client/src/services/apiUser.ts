@@ -38,3 +38,13 @@ export const getStudentDetails = async () => {
     return error;
   }
 }
+
+export const getTutorDetails = async () => {
+  try {
+    const response = await api.get('/tutors/tutor/allInfo');
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}

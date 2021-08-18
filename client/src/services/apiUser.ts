@@ -51,7 +51,7 @@ export const getTutorDetails = async () => {
 
 export const getAllTutors = async () => {
   try {
-    const response = await api.get('/tutors/allInfo');
+    const response = await api.get('/search');
     return response.data;
   } catch (error) {
     console.log(error);

@@ -17,16 +17,13 @@ export const updateRating = async (req:any, res:any) => {
     const tutorRatingsInstance = await Models.HistorySession.findAll({attributes: {include: ['TutorId', 'starRating']}, where:{TutorId}});
 
     const tutorRatings = tutorRatingsInstance.map((tutorRatingInstance:any) => tutorRatingInstance.get({plain: true })); //now able to access data
-    console.log('tutorRatings:', tutorRatings)
     //need average satrRating to update tutorInfo starRating
     const numOfSessions = tutorRatings.length;
     let sumOfAllStarRatings = 0;
     tutorRatings.forEach((tutorRating:any) => {
       sumOfAllStarRatings += tutorRating.starRating;
     });
-    console.log('sumOfAllStarRatings: ',sumOfAllStarRatings);
     const avgStarRating = Number((sumOfAllStarRatings/numOfSessions).toFixed(2));
-    console.log('avgStarRating: ',avgStarRating);
     //update tutorInfo rating
     await Models.TutorInfo.update({rating: avgStarRating}, {where: {TutorId}});
 

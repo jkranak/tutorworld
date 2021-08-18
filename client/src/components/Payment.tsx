@@ -18,6 +18,7 @@ interface Props {
 export const Payment: FC<Props> = ({sessionInfo, setPaymentSuccess, setPaymentAttempt}: Props) => {
   const stripe = useStripe();
   const elements = useElements();
+  
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     let ROUTE = `${process.env.REACT_APP_API_URL}/payment`;
@@ -33,7 +34,7 @@ export const Payment: FC<Props> = ({sessionInfo, setPaymentSuccess, setPaymentAt
         const response = await axios.post(ROUTE!, { amount, id })
         if(response.data.success) {
             setPaymentAttempt(true);
-            setPaymentSuccess(true)
+            setPaymentSuccess(true);
         }
     } catch (error) {
         console.log('Error', error)

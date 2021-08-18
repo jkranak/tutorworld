@@ -79,3 +79,13 @@ export const getAllTutorsAvailability = async () => {
     return error;
   }
 }
+
+export const getOneTutorAvailability = async (tutorId: string, date: string) => {
+  try {
+    const response = await api.get(`/tutors/${tutorId}/tutorAvail/${date}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}

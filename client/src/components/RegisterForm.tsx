@@ -25,7 +25,6 @@ export const RegisterForm: FC<Props> = ({setToggle}: Props) => {
     // confirming is passwords match
     if (password === confirmPassword) {
       const res = await createUser({ firstName, lastName, email, password, confirmPassword })
-      console.log(res);
       if (res.error) {
         alert(`${res.message}`)
         setNewUser(emptyUser);

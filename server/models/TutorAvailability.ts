@@ -22,31 +22,31 @@ module.exports = (sequelize:any, DataTypes:any) => {
       type: DataTypes.BIGINT
     },
     monday: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      type: DataTypes.JSONB,
       allowNull: false,
     },
     tuesday: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      type: DataTypes.JSONB,
       allowNull: false,
     },
     wednesday: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      type: DataTypes.JSONB,
       allowNull: false,
     },
     thursday: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      type: DataTypes.JSONB,
       allowNull: false,
     },
     friday: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      type: DataTypes.JSONB,
       allowNull: false,
     },
     saturday: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      type: DataTypes.JSONB,
       allowNull: false,
     },
     sunday: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      type: DataTypes.JSONB,
       allowNull: false,
     }
   }, {

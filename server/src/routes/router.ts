@@ -8,6 +8,7 @@ import { authMiddleware } from '../middlewares/authMiddleware';
 import { studentMiddleware, tutorMiddleware } from '../middlewares/roleMiddleware';
 import {stripePayment} from '../controllers/paymentController';
 import { addFavTutor, getAllFavTutor, removeFavTutor } from '../controllers/favTutorsController';
+import { updateRating } from '../controllers/ratingController';
 const router = express.Router();
 
 
@@ -47,7 +48,8 @@ router.get('/upcomingSessions', authMiddleware, getUpcomingSessions);
 router.post('/upcomingSessions', authMiddleware, studentMiddleware, addUpcomingSessions);
 router.get('/historySessions', authMiddleware, getHistorySessions);
 // deletes upcomingSessions also since its a past session and adds it to historySession, since user is sending review and star rating once they do that then send this request
-router.put('/endSession', authMiddleware, studentMiddleware, updateHistoryUpcomingSessions);
+router.put('/endSession', authMiddleware, updateHistoryUpcomingSessions);
+router.put('/submitRating', authMiddleware, studentMiddleware, updateRating);
 
 //favTutor routes
 router.get('/students/student/favTutor', getAllFavTutor); //not done

@@ -14,8 +14,8 @@ export const ScheduleSession = () => {
   const [selectedHour, setSelectedHour] = useState(25);
   
   const daysAhead = 60 + 9 - new Date().getDay();
-  const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   const endDate = new Date(Date.now() + 86400000 * daysAhead);
+  const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   
   const unavailableDays = () => {
     let daysOfWeek: number[] = [];

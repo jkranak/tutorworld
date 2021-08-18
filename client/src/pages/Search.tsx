@@ -10,20 +10,13 @@ export const Search: FC = () => {
   const [allTutors, setAllTutors] = useState([]);
   // TO-DO fix typescript anys
   const [filteredTutors, setFilteredTutors] = useState([]);
-  const daysAhead = 60 + 9 - new Date().getDay();
-  const endDate = new Date(Date.now() + 86400000 * daysAhead);
-  const [selectedDay, setSelectedDay] = useState(new Date(0));
-  const [allAvailability, setAllAvailability] = useState([]);
+  const daysOfTheWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
   useEffect(() => {
     getAllTutors().then(res => {
       setAllTutors(res);
       setFilteredTutors(res);
       console.log(res)
-    })
-    getAllTutorsAvailability().then(res => {
-      console.log('all availability', res);
-      setAllAvailability(res);
     })
   }, [])
 
@@ -72,8 +65,20 @@ export const Search: FC = () => {
 
   const handleSelectDay = (date: any) => {
     const dayOfTheWeek = moment(date).format('dddd');
+    // removing tutors that day of the week is empty
     const filteredByDay = allTutors?.filter((tutor: any) => Object.keys(tutor.availability[dayOfTheWeek.toLowerCase()]).length)
     setFilteredTutors(filteredByDay);
+  }
+
+  const filterAvailability = (event: any) => {
+    if (event.target.value === 'all') {
+      setFilteredTutors(allTutors);
+    } else {
+      const filtered = allTutors.filter((tutor: any) => {
+        return Object.keys(tutor.availability[event.target.value]).length
+      })
+      setFilteredTutors([...filtered]);
+    }
   }
 
   return (
@@ -98,21 +103,21 @@ export const Search: FC = () => {
               ))}
             </select>
 
-            <select name="availability" onChange={filterByLanguage} defaultValue="" className="select-input">
-              <option value="" disabled >Availability</option>
-              {/* {languages.map((language, index) => (
-                <option key={index} value={language}>{language}</option>
-              ))} */}
-              <option value="option" >option</option>
+            <select name="weekday-availability" onChange={filterAvailability} defaultValue="" className="select-input">
+              <option value="" disabled >Weekday Availability</option>
+              <option value="all">All days</option>
+              {daysOfTheWeek.map((day, index) => (
+                <option key={index} value={day}>{day}</option>
+              ))}
             </select>
-            <DayPicker 
-              fromMonth={new Date()} 
-              toMonth={endDate}
-              selectedDays={selectedDay} 
-              // filter function ondayclick
-              onDayClick={handleSelectDay}
-              disabledDays={[{before: new Date(), after: endDate}]}
-            />
+
+            <select name="hour-availability" onChange={filterByLanguage} defaultValue="" className="select-input">
+              <option value="" disabled >Hour Availability</option>
+              {daysOfTheWeek.map((hour, index) => (
+                <option key={index} value={hour}>{hour}</option>
+              ))}
+            </select>
+
           </div>
           <select onChange={handleSort} className="sort-input">
             <option value="rating">Sort by Rating</option>

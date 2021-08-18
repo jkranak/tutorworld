@@ -1,8 +1,8 @@
 import express from 'express';
 import { createStudent, createTutor, login, verifyUser } from '../controllers/authController';
-import { updateTutorInfo, getAllTutorInfo, getStudentInfo, updateStudentInfo, getEveryTutorsInfo } from '../controllers/infoController';
+import { updateTutorInfo, getAllTutorInfo, getStudentInfo, updateStudentInfo, getEveryTutorsInfo, getAllTutorsInfoAvail } from '../controllers/infoController';
 import { changeStudentPassword, changeTutorPassword } from '../controllers/passwordController';
-import { addUpcomingSessions, getUpcomingSessions, updateHistorySessions } from '../controllers/sessionsController';
+import { addUpcomingSessions, getHistorySessions, getUpcomingSessions, updateHistoryUpcomingSessions } from '../controllers/sessionsController';
 import { getAllTutorsAvail, getTutorAvail, getTutorAvailByDate, updateTutorAvail } from '../controllers/tutorAvailController';
 import { authMiddleware } from '../middlewares/authMiddleware';
 import { studentMiddleware, tutorMiddleware } from '../middlewares/roleMiddleware';
@@ -39,10 +39,15 @@ router.put('/tutors/tutor/tutorAvail', authMiddleware, tutorMiddleware, updateTu
 router.get('/tutors/allTutorsAvail', authMiddleware, getAllTutorsAvail); //can be used by both student and tutor
 router.get('/tutors/:tutorId/tutorAvail/:date', authMiddleware, studentMiddleware, getTutorAvailByDate); //used by student to find tutor availibity for given date
 
+//search array of objects with allTutorsInfo and avalabilty combined for easy filtering
+router.get('/search', authMiddleware, getAllTutorsInfoAvail);
+
 //upcoming/history sessions routes
 router.get('/upcomingSessions', authMiddleware, getUpcomingSessions);
 router.post('/upcomingSessions', authMiddleware, studentMiddleware, addUpcomingSessions);
-router.put('/historySessions', authMiddleware, updateHistorySessions); //not done
+router.get('/historySessions', authMiddleware, getHistorySessions); //not done
+//not done: deletes upcomingSessions also since its a past session and adds it to historySession, since user is sending review and star rating once they do that then send this request
+router.put('/sessions', authMiddleware, studentMiddleware, updateHistoryUpcomingSessions);
 
 //favTutor routes
 router.get('/students/student/favTutor', getAllFavTutor); //not done

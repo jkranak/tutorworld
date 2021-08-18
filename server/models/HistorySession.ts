@@ -34,7 +34,7 @@ module.exports = (sequelize:any, DataTypes:any) => {
       type: DataTypes.REAL,
       allowNull: false,
     },
-    sessionContent: {
+    sessionContext: {
       type: DataTypes.TEXT,
       allowNull: false,
     },

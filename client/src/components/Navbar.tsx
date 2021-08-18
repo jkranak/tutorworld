@@ -29,7 +29,7 @@ export const Navbar: FC = () => {
         {user.role !== 'tutor' && <Link to={'/application'} className="btn btn--clear">Apply to be a tutor</Link>}
       </div>
       <div className="navbar--right-box">
-        <Link to={`/profile/${user.id}`} className="btn btn--clear"><FaUserAlt/></Link>
+        <Link to={'/profile'} className="btn btn--clear"><FaUserAlt/></Link>
         <div className="btn btn--clear" onClick={handleLogout} ><FaSignOutAlt/></div>
       </div>
     </div>

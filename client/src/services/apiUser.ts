@@ -1,3 +1,4 @@
+import { StudentComplete } from '../interfaces/Student';
 import { User, UserLogin } from '../interfaces/User';
 import api from './apiConfig';
 
@@ -49,9 +50,29 @@ export const getTutorDetails = async () => {
   }
 }
 
+export const updateStudent = async (user: StudentComplete) => {
+  try {
+    const response = await api.put('/students/student/info', user);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
 export const getAllTutors = async () => {
   try {
     const response = await api.get('/search');
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const getAllTutorsAvailability = async () => {
+  try {
+    const response = await api.get('/tutors/allTutorsAvail');
     return response.data;
   } catch (error) {
     console.log(error);

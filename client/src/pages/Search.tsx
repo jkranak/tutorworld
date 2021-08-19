@@ -16,7 +16,6 @@ export const Search: FC = () => {
     getAllTutors().then(res => {
       setAllTutors(res);
       setFilteredTutors(res);
-      console.log(res)
     })
   }, [])
 

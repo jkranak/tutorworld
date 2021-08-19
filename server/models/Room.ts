@@ -19,6 +19,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
           allowNull: false
         }
       })
+      Room.belongsToMany(models.Sender, {
+        through: 'room_senders',
+        as: 'senders',
+        foreignKey: 'RoomId'
+      });
     }
   };
   Room.init({

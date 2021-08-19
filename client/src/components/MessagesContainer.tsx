@@ -4,10 +4,11 @@ import { useSelector } from "react-redux"
 import noPhotoUser from '../assets/no_photo_user.png';
 import { getStudentDetails, getTutorDetails } from "../services/apiUser";
 interface Props {
-  
+  messagesList: [],
+  sendMessage: Function
 }
 
-export const MessagesContainer = (props: Props) => {
+export const MessagesContainer = ({ messagesList, sendMessage }: Props) => {
   // TO-DO fix typescript any
   const user = useSelector((state: any) => state.authenticate);
   const [userDetails, setUserDetails] = useState<any>(null);

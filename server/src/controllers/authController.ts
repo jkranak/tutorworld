@@ -3,7 +3,7 @@ import Models from '../../models';
 import { generateToken } from '../generateToken';
 
 export const createStudent = async (req:any, res:any) => {
-  const { email, firstName, lastName, password, confirmPassword } = req.body;
+  const { email, firstName, lastName, password, confirmPassword, imageUrl } = req.body;
 
   if (!email || !firstName || !lastName || !password ||!confirmPassword) return res.status(400).send({ message: 'Please enter all fields.' });
 
@@ -18,8 +18,8 @@ export const createStudent = async (req:any, res:any) => {
     }
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
-    const newUser = await Models.Student.create({email, firstName, lastName, password: hashedPassword});
-    await Models.Sender.create({UserId: newUser.id, role: 'student', firstName: newUser.firstName, lastName: newUser.lastName})
+    const newUser = await Models.Student.create({email, firstName, lastName, password: hashedPassword, imageUrl});
+    await Models.Sender.create({UserId: newUser.id, role: 'student', firstName: newUser.firstName, lastName: newUser.lastName, imageUrl: newUser.imageUrl})
     res.status(201).send({
       user: {
         id: newUser.id,
@@ -70,9 +70,9 @@ export const login = async (req:any, res:any) => {
 };
 
 export const createTutor = async (req:any, res:any) => {
-  const { email, firstName, lastName, password, confirmPassword } = req.body;
+  const { email, firstName, lastName, password, confirmPassword, imageUrl } = req.body;
 
-  if (!email || !firstName || !lastName || !password ||!confirmPassword) return res.status(400).send({ message: 'Please provide all fields.' });
+  if (!email || !firstName || !lastName || !password ||!confirmPassword || !imageUrl) return res.status(400).send({ message: 'Please provide all fields.' });
 
   try {
     const user = await Models.Tutor.findOne({where: {email}});
@@ -85,8 +85,8 @@ export const createTutor = async (req:any, res:any) => {
     }
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
-    const newUser = await Models.Tutor.create({email, firstName, lastName, password: hashedPassword});
-    await Models.Sender.create({UserId: newUser.id, role: 'tutor', firstName: newUser.firstName, lastName: newUser.lastName})
+    const newUser = await Models.Tutor.create({email, firstName, lastName, password: hashedPassword, imageUrl});
+    await Models.Sender.create({UserId: newUser.id, role: 'tutor', firstName: newUser.firstName, lastName: newUser.lastName, imageUrl: newUser.imageUrl})
     res.status(201).send('Tutor account created!');
   } catch (error) {
     console.log(error)

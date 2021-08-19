@@ -4,20 +4,24 @@ export const updateTutorInfo = async (req:any, res:any) => {
   try {
     const { id  } = req.body.user;
 
-    const {description, experience, imageUrl, education, price, subjectLevels, languages  } = req.body;
+    const {email, firstName, lastName, description, experience, imageUrl, education, price, subjectLevels, languages  } = req.body;
 
-    const updatedtutorInfo = { description, experience, imageUrl, education, price, subjectLevels, languages  };
+    const updatedTutor = {email, firstName, lastName};
+
+    const updatedtutorInfo = { email, firstName, lastName, description, experience, imageUrl, education, price, subjectLevels, languages  };
 
     const tutorInfo = await Models.TutorInfo.findOne({where:{TutorId: id}});
+
+    await Models.Tutor.update(updatedTutor, {where: {id}});
 
     if(tutorInfo){
       //updating maybe a single column
       await Models.TutorInfo.update(updatedtutorInfo, {where: {TutorId:id}});
-      res.status(201).send('Updated Tutor Info');
+      res.status(201).send('Updated TutorInfo and Tutor table');
     } else {
       //updated for first time so need to create the row
       const newTutorInfo = await Models.TutorInfo.create({...updatedtutorInfo, TutorId: id});
-      res.status(201).send('Updated Tutor Info for the first time');
+      res.status(201).send('Created Tutor Info for the first time and updated Tutor table');
     }
 
   } catch (error) {
@@ -126,7 +130,9 @@ export const getAllTutorsInfoAvail = async (req:any, res:any) => {
 
 export const getTutorInfoAvail = async (req:any, res:any) => {
   try {
-    const tutorsInfoAvailInstance = await Models.Tutor.findOne({attributes: {exclude: ['password']}, include: [Models.TutorInfo, Models.TutorAvailability]});
+
+    const { tutor } = req.params;
+    const tutorsInfoAvailInstance = await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id:tutor}, include: [Models.TutorInfo, Models.TutorAvailability]});
 
     // spread operator and remove the TutorInfo property, removes all duplicates
 

@@ -5,6 +5,8 @@ import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import {getOneTutorAvailability} from '../services/apiUser';
 import { useSelector } from 'react-redux';
+import { dayNames } from '../assets/times';
+
 
 export const ScheduleSession = () => {
   const [selectedDay, setSelectedDay] = useState(new Date(0));
@@ -15,7 +17,6 @@ export const ScheduleSession = () => {
   const user = useSelector((state: any )=> state.currentTutorInfo);
 
   const daysAhead = 69 - new Date().getDay();
-  const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   const endDate = new Date(Date.now() + 86400000 * daysAhead);
 
   useEffect(() => {

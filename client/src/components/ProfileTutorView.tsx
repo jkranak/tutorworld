@@ -1,45 +1,43 @@
 import { BsStarFill, BsStar, BsStarHalf } from 'react-icons/bs'
-import { UserDetails } from '../interfaces/User';
-import { starRating } from '../services/starRating';
 import { v4 as uuidv4 } from 'uuid';
+import { starRating } from '../services/starRating';
+import {TutorWithAvailability} from '../interfaces/Tutor';
+import {dayNames, capitalDayNames} from '../assets/times';
 
 interface Props {
- tutor: UserDetails
+  tutorDetails: TutorWithAvailability
 }
 
-export const TutorProfile = ({ tutor }: Props) => {
-  const starArr: number[] | null = tutor && starRating(tutor.rating!);
+export const ProfileTutorView = ({tutorDetails}: Props) => {
+  const starArr: number[] = tutorDetails && starRating(tutorDetails.rating!);
   
   return (
-    tutor &&
     <div className="tutor-profile">
       <section className="tutor-profile__left-box">
         <div className="image-box">
           {/* not making this optional because tutors are required a photo */}
-          <img src={tutor.imageUrl} alt={`${tutor.firstName} ${tutor.lastName}`} />
+          <img src={tutorDetails.imageUrl} alt={`${tutorDetails.firstName} ${tutorDetails.lastName}`} />
         </div>
-        <h1 className="tutor-profile--title">{tutor.firstName} {tutor.lastName}</h1>
-        <p className="tutor-profile--details">{tutor.description}</p>
-        <p className="tutor-profile--sub-title">Rate: ${tutor.price}/hour</p>
-        <button className="btn btn--blue">Schedule</button>
-        <button className="btn btn--blue">Message</button>
+        <h1 className="tutor-profile--title">{tutorDetails.firstName} {tutorDetails.lastName}</h1>
+        <p className="tutor-profile--details">{tutorDetails.description}</p>
+        <p className="tutor-profile--sub-title">Rate: ${tutorDetails.price}/hour</p>
 
       </section>
       <section className="tutor-profile__right-box">
         <div className="tutor-profile__info-wrapper">
           <p className="tutor-profile--sub-title">Education:</p>
-          <p className="tutor-profile--details">{tutor.education}</p>
+          <p className="tutor-profile--details">{tutorDetails.education}</p>
         </div>
         <div className="tutor-profile__info-wrapper">
           <p className="tutor-profile--sub-title">Subjects:</p>
           <div>
-          {tutor.subjectLevels?.map(subject => (<span key={uuidv4()} className="tutor-profile__info--tag">{subject}</span>))}
+          {tutorDetails.subjectLevels?.map(subject => (<span key={uuidv4()} className="tutor-profile__info--tag">{subject}</span>))}
           </div>
         </div>
         <div className="tutor-profile__info-wrapper">
           <p className="tutor-profile--sub-title">Languages:</p>
           <div>
-            {tutor.languages?.map(language => (<span key={uuidv4()} className="tutor-profile__info--tag">{language}</span>))}
+            {tutorDetails.languages?.map(language => (<span key={uuidv4()} className="tutor-profile__info--tag">{language}</span>))}
           </div>
         </div>
         <div className="tutor-profile__info-wrapper">
@@ -51,9 +49,13 @@ export const TutorProfile = ({ tutor }: Props) => {
         <div className="tutor-profile__info-wrapper">
           <p className="tutor-profile--sub-title">Experience</p>
           <p className="tutor-profile--details">
-            {tutor.experience}
+            {tutorDetails.experience}
           </p>
         </div>
+        <p>Weekly Availability</p>
+          {dayNames.map((day, index) => (
+            <li key={day}>{capitalDayNames[index]}: {Object.keys(tutorDetails.availability[day]).join(', ')}</li>
+          ))}
       </section>
     </div>
   )

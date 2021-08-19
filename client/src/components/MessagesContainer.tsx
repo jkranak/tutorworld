@@ -19,7 +19,7 @@ export const MessagesContainer = ({ messagesList, sendMessage }: Props) => {
         setUserDetails(res);
       })
     } else if (user.role === 'tutor') {
-      getTutorDetails().then(res => {
+      getTutorDetails(user.id).then(res => {
         setUserDetails(res);
       })
     }

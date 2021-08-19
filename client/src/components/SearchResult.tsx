@@ -4,7 +4,8 @@ import {starRating} from '../services/starRating';
 import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
 import { useDispatch } from 'react-redux';
 import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+import {ViewProfile} from '../pages/ViewProfile';
 
 interface Props {
   tutor: TutorComplete
@@ -25,7 +26,8 @@ export const SearchResult: FC<Props> = ({tutor}: Props) => {
   }
 
   const handleProfile = () => {
-
+    dispatch(currentTutorInfo(tutor));
+    history.push('/viewprofile');
   }
 
   return (

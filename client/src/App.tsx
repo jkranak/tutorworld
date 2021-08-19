@@ -15,6 +15,7 @@ import Loader from 'react-loader-spinner';
 import { Checkout } from './pages/Checkout';
 import { Schedule } from './pages/Schedule';
 import { Messages } from './pages/Messages';
+import { ViewProfile } from './pages/ViewProfile';
 
 function App() {
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ function App() {
         <PrivateRoute path="/checkout" exact component={Checkout}/>
         <PrivateRoute path="/schedule" exact component={Schedule}/>
         <PrivateRoute path="/messages" exact component={Messages}/>
+        <PrivateRoute path="/viewprofile" exact component={ViewProfile}/>
       </Switch>
     </BrowserRouter>
   );

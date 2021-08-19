@@ -24,40 +24,12 @@ export const emptyUser: User = {
   confirmPassword: ''
 }
 
-export interface UserDetails {
-  TutorId?: string
-  availability?: Availability
-  createdAt: string
-  description?: string
-  education?: string
-  email: string
-  experience?: string
-  firstName: string
+export interface UserRole {
   id: string
-  imageUrl: string
-  languages?: string[]
-  lastName: string
-  price?: number
-  rating?: number
-  subjectLevels?: string[]
-  updatedAt: string
+  role: string
 }
 
-export const emptyUserDetails: UserDetails = {
-  TutorId: '',
-  availability: emptyAvailability,
-  createdAt: '',
-  description: '',
-  education: '',
-  email: '',
-  experience: '',
-  firstName: '',
+export const emptyUserRole: UserRole = {
   id: '',
-  imageUrl: '',
-  languages: [''],
-  lastName: '',
-  price: 0,
-  rating: 0,
-  subjectLevels: [''],
-  updatedAt: ''
+  role: ''
 }

@@ -1,24 +1,24 @@
 import { ReactElement, useState } from 'react'
-import { UserDetails } from '../interfaces/User';
 import { updateStudent } from '../services/apiUser';
+import { StudentComplete } from '../interfaces/Student';
 
 interface Props {
-  student: UserDetails
+  studentDetails: StudentComplete
   setEditing: (editing: boolean) => void
-  setUserDetails: (details: UserDetails) => void
+  setStudentDetails: (details: StudentComplete) => void
 }
 
-export function EditStudentProfile ({ student, setEditing, setUserDetails }: Props): ReactElement<Props> {
-  const [editedUser, setEditedUser] = useState(student);
+export function ProfileStudentEdit ({ studentDetails, setEditing, setStudentDetails }: Props): ReactElement<Props> {
+  const [editedUser, setEditedUser] = useState(studentDetails);
   const handleStudentChange = (event: {target: {name: string, value: string}}) => {
-    setEditedUser((current: UserDetails) => ({...current, [event.target.name]: event.target.value}));
+    setEditedUser((current: StudentComplete) => ({...current, [event.target.name]: event.target.value}));
   }
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();  
     const res = await updateStudent(editedUser);
       if (res === "Student updated") {
-        setUserDetails(editedUser);
+        setStudentDetails(editedUser);
         setEditing(false);
       }
   }

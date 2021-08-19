@@ -1,19 +1,21 @@
+import { Availability, emptyAvailability } from './Availability';
+
 export interface Tutor {
-  id: number,
+  id: string,
   email: string,
   firstName: string,
   lastName: string,
 }
 
 export const emptyTutor: Tutor = {
-  id: 0,
+  id: '',
   email: '',
   firstName: '',
   lastName: ''
 }
 
 export interface TutorComplete extends Tutor {
-  TutorId: number,
+  TutorId: string,
   description: string,
   experience: string,
   imageUrl: string,
@@ -25,19 +27,39 @@ export interface TutorComplete extends Tutor {
   subjectLevels: string[]
   languages: string[]
 }
-// TO-DO update 
+
 export interface TutorWithAvailability extends TutorComplete {
-  availability: {
-    TutorId: string,
-    createdAt: string,
-    updatedAt: string,
-    id: string,
-    sunday: any,
-    monday: any,
-    tuesday: any,
-    wednesday: any,
-    thursday: any,
-    friday: any,
-    saturday: any
-  }
+  availability: Availability
+}
+
+export const emptyTutorWithAvailability: TutorWithAvailability = {
+  TutorId: '',
+  availability: emptyAvailability,
+  createdAt: '',
+  description: '',
+  education: '',
+  email: '',
+  experience: '',
+  firstName: '',
+  id: '',
+  imageUrl: '',
+  languages: [''],
+  lastName: '',
+  price: 0,
+  rating: 0,
+  subjectLevels: [''],
+  updatedAt: ''
+}
+
+export interface TutorUpdate {
+  firstName: string
+  lastName: string
+  email: string
+  description: string
+  experience: string
+  imageUrl: string
+  education: string
+  price: number
+  subjectLevels: string[]
+  languages: string[]
 }

@@ -25,10 +25,11 @@ router.get('/user/verify', authMiddleware, verifyUser);
 
 //info routes
 router.put('/tutors/tutor/info', authMiddleware, tutorMiddleware, updateTutorInfo);
-router.get('/tutors/:tutor/allInfo', authMiddleware, getTutorInfoAvail); //gets all info and availabilty
-router.get('/tutors/tutor/allInfo', authMiddleware, tutorMiddleware, getAllTutorInfo);//may be redundent since above takes userId as paramater
+router.get('/tutors/:tutor/allInfo', authMiddleware, getTutorInfoAvail); //gets all tutor info and availabilty
+// router.get('/tutors/tutor/allInfo', authMiddleware, tutorMiddleware, getAllTutorInfo);//may be redundent since above takes userId as paramater
 router.get('/students/student/info', authMiddleware, studentMiddleware, getStudentInfo);
 router.put('/students/student/info', authMiddleware, studentMiddleware, updateStudentInfo);
+router.get('/search', authMiddleware, getAllTutorsInfoAvail); //search array of objects with allTutorsInfo and avalabilty combined for easy filtering
 // router.get('/tutors/allInfo', authMiddleware, getEveryTutorsInfo); //can be used by both student and tutor
 
 //change password routes
@@ -41,8 +42,6 @@ router.put('/tutors/tutor/tutorAvail', authMiddleware, tutorMiddleware, updateTu
 router.get('/tutors/allTutorsAvail', authMiddleware, getAllTutorsAvail); //can be used by both student and tutor
 router.get('/tutors/:tutorId/tutorAvail/:date', authMiddleware, studentMiddleware, getTutorAvailByDate); //used by student to find tutor availibity for given date
 
-//search array of objects with allTutorsInfo and avalabilty combined for easy filtering
-router.get('/search', authMiddleware, getAllTutorsInfoAvail);
 
 //upcoming/history sessions routes
 router.get('/upcomingSessions', authMiddleware, getUpcomingSessions);
@@ -54,9 +53,9 @@ router.put('/endSession', authMiddleware, updateHistoryUpcomingSessions); //dele
 router.put('/submitRating', authMiddleware, studentMiddleware, updateRating);
 
 //favTutor routes
-router.get('/students/student/favTutor', authMiddleware, studentMiddleware, getAllFavTutors); //not done
-router.post('/students/student/favTutor', authMiddleware, studentMiddleware, addFavTutor);
-router.delete('/students/student/favTutor', authMiddleware, studentMiddleware, removeFavTutor); //not done
+router.get('/students/student/favTutors', authMiddleware, studentMiddleware, getAllFavTutors); //gets only first name, last name, tutorId, image Url
+router.post('/students/student/favTutors', authMiddleware, studentMiddleware, addFavTutor);
+router.delete('/students/student/favTutors/:TutorId', authMiddleware, studentMiddleware, removeFavTutor); 
 
 //Stripe payment
 router.post('/payment', stripePayment);

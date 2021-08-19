@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import {getOneTutorAvailability} from '../services/apiUser';
 import { useSelector } from 'react-redux';
+import {currentTutorInfo} from '../redux/actions/currentTutorInfo';
+
 
 export const ScheduleSession = () => {
   const [selectedDay, setSelectedDay] = useState(new Date(0));
@@ -12,7 +16,6 @@ export const ScheduleSession = () => {
   const [selectedHour, setSelectedHour] = useState('');
   const [selectedTopic, setSelectedTopic] = useState('');
   const user = useSelector((state: any )=> state.currentTutorInfo);
-  console.log('user schedule', user);
 
   const daysAhead = 69 - new Date().getDay();
   const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
@@ -23,10 +26,11 @@ export const ScheduleSession = () => {
       setPickTime(false);
       setSelectedHour('');
     } else {
-      const dayOfWeek = dayNames[selectedDay.getDay()];
-      const availabilityObj = user.availability[dayOfWeek];
-      setTimesArr(Object.keys(availabilityObj));
-      setPickTime(true);
+      const dateStr = selectedDay.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+      getOneTutorAvailability(user.id, dateStr).then(res => {
+        setTimesArr(res);
+        setPickTime(true);
+      })
     }
   }, [selectedDay])
 
@@ -59,14 +63,15 @@ export const ScheduleSession = () => {
         onDayClick={setSelectedDay}
         disabledDays={unavailableDays()}
       />
-      {pickTime && <form>
+      {pickTime && timesArr.length ? <form>
         <select name="hour" defaultValue="" onChange={handleHourChange} >
         <option value="" disabled hidden>Choose time</option>
           {timesArr.map((time) => (
             <option key={time} value={time}>{time}</option>
           ))}
         </select>
-      </form>}
+      </form> : <></>}
+       {pickTime && timesArr.length === 0 ? <button disabled>All Slots Booked</button> : <></>}
       {selectedHour.length > 0 && <form>
         <select name="subject" defaultValue="" onChange={handleTopicChange} >
           <option value="" disabled hidden>Choose subject</option>
@@ -78,7 +83,7 @@ export const ScheduleSession = () => {
       {selectedTopic.length > 0 && <Link to={{
         pathname:'/checkout', 
         state:{
-          tutorId: user.tutorId,
+          tutorId: user.id,
           price: user.price,
           topic: selectedTopic,
           time: selectedHour,

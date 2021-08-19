@@ -2,6 +2,7 @@ import { BsStarFill, BsStar, BsStarHalf } from 'react-icons/bs'
 import { v4 as uuidv4 } from 'uuid';
 import { starRating } from '../services/starRating';
 import {TutorWithAvailability} from '../interfaces/Tutor';
+import {dayNames, capitalDayNames} from '../assets/times';
 
 interface Props {
   tutorDetails: TutorWithAvailability
@@ -9,8 +10,6 @@ interface Props {
 
 export const ProfileTutorView = ({tutorDetails}: Props) => {
   const starArr: number[] = tutorDetails && starRating(tutorDetails.rating!);
-  const daysOfTheWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-  const capitalDaysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   
   return (
     <div className="tutor-profile">
@@ -54,8 +53,8 @@ export const ProfileTutorView = ({tutorDetails}: Props) => {
           </p>
         </div>
         <p>Weekly Availability</p>
-          {daysOfTheWeek.map((day, index) => (
-            <li key={day}>{capitalDaysOfTheWeek[index]}: {Object.keys(tutorDetails.availability[day]).join(', ')}</li>
+          {dayNames.map((day, index) => (
+            <li key={day}>{capitalDayNames[index]}: {Object.keys(tutorDetails.availability[day]).join(', ')}</li>
           ))}
       </section>
     </div>

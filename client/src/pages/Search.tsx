@@ -4,12 +4,12 @@ import { SearchResult } from '../components/SearchResult';
 import { languages, subjects } from '../assets/subjects_languages';
 import { getAllTutors } from '../services/apiUser';
 import { TutorWithAvailability } from '../interfaces/Tutor';
+import { dayNames } from '../assets/times';
 
 export const Search: FC = () => {
   const [allTutors, setAllTutors] = useState<TutorWithAvailability[]>([]);
   // TO-DO fix typescript anys
   const [filteredTutors, setFilteredTutors] = useState<TutorWithAvailability[]>([]);
-  const daysOfTheWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   const [ weekday, setWeekday ] = useState<string>('');
 
   useEffect(() => {
@@ -115,7 +115,7 @@ export const Search: FC = () => {
             <select name="weekday-availability" onChange={filterAvailability} defaultValue="" className="select-input">
               <option value="" disabled >Weekday Availability</option>
               <option value="all">All days</option>
-              {daysOfTheWeek.map((day: string, index) => (
+              {dayNames.map((day: string, index) => (
                 <option key={index} value={day}>{day}</option>
               ))}
             </select>

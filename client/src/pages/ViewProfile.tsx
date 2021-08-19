@@ -4,12 +4,11 @@ import { Navbar } from '../components/Navbar';
 import { BsStarFill, BsStar, BsStarHalf } from 'react-icons/bs'
 import { starRating } from '../services/starRating';
 import { v4 as uuidv4 } from 'uuid';
+import { dayNames, capitalDayNames } from '../assets/times';
 
 export const ViewProfile = () => {
   const tutorDetails = useSelector((state: any )=> state.currentTutorInfo);
   const starArr: number[] = tutorDetails && starRating(tutorDetails.rating!);
-  const daysOfTheWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-  const capitalDaysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   return (
     <>
@@ -57,8 +56,8 @@ export const ViewProfile = () => {
         </div>
         <div>
           <p>Weekly Availability</p>
-          {daysOfTheWeek.map((day, index) => (
-            <li key={day}>{capitalDaysOfTheWeek[index]}: {Object.keys(tutorDetails.availability[day]).join(', ')}</li>
+          {dayNames.map((day, index) => (
+            <li key={day}>{capitalDayNames[index]}: {Object.keys(tutorDetails.availability[day]).join(', ')}</li>
           ))}
           <p>Some slots may already be booked. Click on Schedule to see up-to-date availability.</p>
         </div>

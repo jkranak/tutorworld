@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import {getOneTutorAvailability} from '../services/apiUser';
 import { useSelector } from 'react-redux';
+import {currentTutorInfo} from '../redux/actions/currentTutorInfo';
 
 
 export const ScheduleSession = () => {
@@ -14,26 +16,11 @@ export const ScheduleSession = () => {
   const [selectedHour, setSelectedHour] = useState('');
   const [selectedTopic, setSelectedTopic] = useState('');
   const user = useSelector((state: any )=> state.currentTutorInfo);
-  console.log('user schedule', user);
 
   const daysAhead = 69 - new Date().getDay();
   const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   const endDate = new Date(Date.now() + 86400000 * daysAhead);
-  // const user = {
-  //   tutorId: "2", 
-  //   subjectLevels: ["Math - elementary", "Math - highschool", "Math - university"],
-  //   lastName: "Two",
-  //   firstName: "Tutor",
-  //   price: 45,
-  //   availability: {
-  //     friday: {},
-  //     monday: {'3:00 PM': true, '4:00 PM': true},
-  //     saturday: {'9:00 AM': true, '10:00 AM': true, '11:00 AM': true, '12:00 PM': true},
-  //     sunday: {'9:00 AM': true, '10:00 AM': true, '11:00 AM': true, '12:00 PM': true},
-  //     thursday: {'3:00 PM': true, '4:00 PM': true},
-  //     tuesday: {'9:00 PM': true, '10:00 PM': true, '11:00 PM': true},
-  //     wednesday: {'3:00 PM': true, '4:00 PM': true}}
-  // };
+
 
   useEffect(() => {
     if (selectedDay < new Date()) {
@@ -41,7 +28,7 @@ export const ScheduleSession = () => {
       setSelectedHour('');
     } else {
       const dateStr = selectedDay.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
-      getOneTutorAvailability(user.tutorId, dateStr).then(res => {
+      getOneTutorAvailability(user.id, dateStr).then(res => {
         setTimesArr(res);
         setPickTime(true);
       })
@@ -97,7 +84,7 @@ export const ScheduleSession = () => {
       {selectedTopic.length > 0 && <Link to={{
         pathname:'/checkout', 
         state:{
-          tutorId: user.tutorId,
+          tutorId: user.id,
           price: user.price,
           topic: selectedTopic,
           time: selectedHour,

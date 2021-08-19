@@ -10,7 +10,7 @@ export const Profile: FC = () => {
   return (
     <div className="profile">
       <Navbar />
-      {user.role === 'tutor' ? <ProfileTutor /> : <ProfileStudent />}
+      {user.role === 'tutor' ? <ProfileTutor id={user.id} /> : <ProfileStudent />}
     </div>
   )
 }

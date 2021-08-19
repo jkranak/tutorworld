@@ -6,15 +6,18 @@ import {ProfileTutorView} from './ProfileTutorView';
 import {ProfileTutorEdit} from './ProfileTutorEdit';
 import {emptyTutorWithAvailability} from '../interfaces/Tutor';
 
+interface Props {
+  id: number
+}
 
-export const ProfileTutor = () => {
+export const ProfileTutor = ({id}: Props) => {
   const [tutorDetails, setTutorDetails] = useState(emptyTutorWithAvailability);
   const [editing, setEditing] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   
 
   useEffect(() => {
-      getTutorDetails().then(res => {
+      getTutorDetails(id).then(res => {
         setTutorDetails(res);
       })
   }, []);

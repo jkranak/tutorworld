@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import {getOneTutorAvailability} from '../services/apiUser';
 import { useSelector } from 'react-redux';
+
 
 export const ScheduleSession = () => {
   const [selectedDay, setSelectedDay] = useState(new Date(0));
@@ -38,10 +40,11 @@ export const ScheduleSession = () => {
       setPickTime(false);
       setSelectedHour('');
     } else {
-      const dayOfWeek = dayNames[selectedDay.getDay()];
-      const availabilityObj = user.availability[dayOfWeek];
-      setTimesArr(Object.keys(availabilityObj));
-      setPickTime(true);
+      const dateStr = selectedDay.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+      getOneTutorAvailability(user.tutorId, dateStr).then(res => {
+        setTimesArr(res);
+        setPickTime(true);
+      })
     }
   }, [selectedDay])
 
@@ -74,14 +77,15 @@ export const ScheduleSession = () => {
         onDayClick={setSelectedDay}
         disabledDays={unavailableDays()}
       />
-      {pickTime && <form>
+      {pickTime && timesArr.length ? <form>
         <select name="hour" defaultValue="" onChange={handleHourChange} >
         <option value="" disabled hidden>Choose time</option>
           {timesArr.map((time) => (
             <option key={time} value={time}>{time}</option>
           ))}
         </select>
-      </form>}
+      </form> : <></>}
+       {pickTime && timesArr.length === 0 ? <button disabled>All Slots Booked</button> : <></>}
       {selectedHour.length > 0 && <form>
         <select name="subject" defaultValue="" onChange={handleTopicChange} >
           <option value="" disabled hidden>Choose subject</option>

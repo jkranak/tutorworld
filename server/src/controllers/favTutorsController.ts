@@ -6,9 +6,16 @@ export const addFavTutor = async (req:any, res:any) => {
 
     const { TutorId  } = req.body;
 
-    await Models.FavTutor.create({TutorId, StudentId: id});
+    const favTutorAlready = await Models.FavTutor.findOne({where: {StudentId: id, TutorId}});
 
-    res.status(201).send('Added as a favourite tutor')
+    if (favTutorAlready) {
+      res.status(409).send('Already a favourite tutor')
+    } else {
+      await Models.FavTutor.create({TutorId, StudentId: id});
+
+      res.status(201).send('Added as a favourite tutor')
+    }
+
 
   } catch (error) {
     console.log(error)
@@ -20,10 +27,11 @@ export const addFavTutor = async (req:any, res:any) => {
 
 export const removeFavTutor = async (req:any, res:any) => {
   try {
+    const { id  } = req.body.user;
 
     const { TutorId  } = req.params;
 
-    const tutorToDelete = await Models.FavTutor.findOne({where:{TutorId}});
+    const tutorToDelete = await Models.FavTutor.findOne({where:{TutorId, StudentId: id}});
 
     if (!tutorToDelete) {
       res.status(404).send('Tutor is not a favourite tutor');
@@ -49,20 +57,23 @@ export const getAllFavTutors = async (req:any, res:any) => {
 
     const allFavTutorsId = allFavTutorsInstance.map((FavTutorInstance:any) => FavTutorInstance.get({plain: true }).TutorId); //array of ids of favourite tutors to use for filtering
     //send back tutorId , first name last name
-    const allTutorsInfoInstance = await Models.Tutor.findAll({attributes: {exclude: ['password']}, include: Models.TutorInfo});
+    const allTutorsInfoAvailInstance = await Models.Tutor.findAll({attributes: {exclude: ['password']}, include: [Models.TutorInfo, Models.TutorAvailability]});
 
     // spread operator and remove the TutorInfo property, removes all duplicates
-    const cleanAllTutorsInfo = allTutorsInfoInstance.map((allTutorInfoInstance:any) => {
-      const allTutorInfo = allTutorInfoInstance.get({plain: true });
-     return {TutorId: allTutorInfo.TutorInfo.TutorId, firstName:allTutorInfo.firstName, lastName:allTutorInfo.lastName, imageUrl: allTutorInfo.TutorInfo.imageUrl};
+    const cleanAllTutorsInfoAvail = allTutorsInfoAvailInstance.map((allTutorInfoAvailInstance:any) => {
+      const allTutorInfoAvail = allTutorInfoAvailInstance.get({plain: true });
+      const cleanAllTutorInfoAvail = {...allTutorInfoAvail, ...allTutorInfoAvail.TutorInfo, availability: {...allTutorInfoAvail.TutorAvailability}};
+      delete cleanAllTutorInfoAvail.TutorInfo;
+      delete cleanAllTutorInfoAvail.TutorAvailability;
+      return cleanAllTutorInfoAvail;
     });
 
     let allFavTutorInfo = [];
 
     for (let i=0; i<allFavTutorsId.length; i++){
-      for (let j=0; j<cleanAllTutorsInfo.length; j++){
-        if (allFavTutorsId[i]===cleanAllTutorsInfo[j].TutorId){
-          allFavTutorInfo.push(cleanAllTutorsInfo[j])
+      for (let j=0; j<cleanAllTutorsInfoAvail.length; j++){
+        if (allFavTutorsId[i]===cleanAllTutorsInfoAvail[j].TutorId){
+          allFavTutorInfo.push(cleanAllTutorsInfoAvail[j])
           break;
         }
       }

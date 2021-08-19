@@ -9,7 +9,7 @@ export const Sidebar: FC = () => {
     <div className="sidebar">
       <Link to={'/profile'} className="btn btn--clear">Profile</Link>
       {user.role === 'tutor' && <button className="btn btn--clear">Availability</button>}
-      <button className="btn btn--clear">Conversations</button>
+      <Link to={'/messages'} className="btn btn--clear">Conversations</Link>
       <button className="btn btn--clear">Calendar</button>
     </div>
   )

@@ -60,7 +60,6 @@ export const Payment: FC<Props> = ({sessionInfo, setPaymentSuccess, setPaymentAt
         if(response.data.status === 'succeeded') {
             setPaymentAttempt(true);
             setPaymentSuccess(true);
-            console.log(response.data)
             const {tutorId, price, topic, time, day} = sessionInfo;
             addOneSession(Number(tutorId), day, time, price, `Topic/level: ${topic}, Additional Info: ${additionalInfo}`)
         }

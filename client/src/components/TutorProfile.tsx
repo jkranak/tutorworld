@@ -1,14 +1,14 @@
 import { BsStarFill, BsStar, BsStarHalf } from 'react-icons/bs'
-import { TutorComplete } from '../interfaces/Tutor';
+import { UserDetails } from '../interfaces/User';
 import { starRating } from '../services/starRating';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
- tutor: TutorComplete | null;
+ tutor: UserDetails
 }
 
 export const TutorProfile = ({ tutor }: Props) => {
-  const starArr: number[] | null = tutor && starRating(tutor.rating);
+  const starArr: number[] | null = tutor && starRating(tutor.rating!);
   
   return (
     tutor &&

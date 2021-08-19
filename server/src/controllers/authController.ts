@@ -10,7 +10,6 @@ export const createStudent = async (req:any, res:any) => {
   try {
     const user = await Models.Student.findOne({where: {email}});
     const tutor = await Models.Tutor.findOne({where: {email}});
-    console.log(user);
     if (user || tutor ) {
       return res.status(400).send({ message: 'Email taken, chose another one.' });
     }
@@ -43,7 +42,6 @@ export const login = async (req:any, res:any) => {
 
   try {
     const student = await Models.Student.findOne({where: {email}});
-    console.log(student);
     if (!student) {
       tutor = await Models.Tutor.findOne({where: {email}});
       if (!tutor) return res.status(403).send({ message: 'Cannot find account.' });

@@ -2,6 +2,9 @@ import {FC} from 'react';
 import {TutorComplete} from '../interfaces/Tutor';
 import {starRating} from '../services/starRating';
 import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
+import { useDispatch } from 'react-redux';
+import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   tutor: TutorComplete
@@ -9,6 +12,13 @@ interface Props {
 
 export const SearchResult: FC<Props> = ({tutor}: Props) => {
   const starArr: number[] = starRating(tutor?.rating);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleSchedule = () => {
+    dispatch(currentTutorInfo(tutor));
+    history.push('/schedule');
+  }
 
   return (
     <div className="tutor-card">
@@ -40,7 +50,7 @@ export const SearchResult: FC<Props> = ({tutor}: Props) => {
           <p>{tutor?.description}</p>
         </div>
         <div className="tutor-card__right-box--buttons">
-          <button className="btn btn--blue">Schedule</button>
+          <button className="btn btn--blue" onClick={handleSchedule}>Schedule</button>
           <button className="btn btn--blue">Message</button>
           <button className="btn btn--blue">Profile</button>
         </div>

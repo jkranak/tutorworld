@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import {getOneTutorAvailability} from '../services/apiUser';
+import { useSelector } from 'react-redux';
+
 
 export const ScheduleSession = () => {
   const [selectedDay, setSelectedDay] = useState(new Date(0));
@@ -10,35 +13,38 @@ export const ScheduleSession = () => {
   const [timesArr, setTimesArr] = useState(['']);
   const [selectedHour, setSelectedHour] = useState('');
   const [selectedTopic, setSelectedTopic] = useState('');
-  
+  const user = useSelector((state: any )=> state.currentTutorInfo);
+  console.log('user schedule', user);
+
   const daysAhead = 69 - new Date().getDay();
   const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   const endDate = new Date(Date.now() + 86400000 * daysAhead);
-  const user = {
-    tutorId: "2", 
-    subjectLevels: ["Math - elementary", "Math - highschool", "Math - university"],
-    lastName: "Two",
-    firstName: "Tutor",
-    price: 45,
-    availability: {
-      friday: {},
-      monday: {'3:00 PM': true, '4:00 PM': true},
-      saturday: {'9:00 AM': true, '10:00 AM': true, '11:00 AM': true, '12:00 PM': true},
-      sunday: {'9:00 AM': true, '10:00 AM': true, '11:00 AM': true, '12:00 PM': true},
-      thursday: {'3:00 PM': true, '4:00 PM': true},
-      tuesday: {'9:00 PM': true, '10:00 PM': true, '11:00 PM': true},
-      wednesday: {'3:00 PM': true, '4:00 PM': true}}
-  };
+  // const user = {
+  //   tutorId: "2", 
+  //   subjectLevels: ["Math - elementary", "Math - highschool", "Math - university"],
+  //   lastName: "Two",
+  //   firstName: "Tutor",
+  //   price: 45,
+  //   availability: {
+  //     friday: {},
+  //     monday: {'3:00 PM': true, '4:00 PM': true},
+  //     saturday: {'9:00 AM': true, '10:00 AM': true, '11:00 AM': true, '12:00 PM': true},
+  //     sunday: {'9:00 AM': true, '10:00 AM': true, '11:00 AM': true, '12:00 PM': true},
+  //     thursday: {'3:00 PM': true, '4:00 PM': true},
+  //     tuesday: {'9:00 PM': true, '10:00 PM': true, '11:00 PM': true},
+  //     wednesday: {'3:00 PM': true, '4:00 PM': true}}
+  // };
 
   useEffect(() => {
     if (selectedDay < new Date()) {
       setPickTime(false);
       setSelectedHour('');
     } else {
-      const dayOfWeek = dayNames[selectedDay.getDay()];
-      const availabilityObj = user.availability[dayOfWeek];
-      setTimesArr(Object.keys(availabilityObj));
-      setPickTime(true);
+      const dateStr = selectedDay.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+      getOneTutorAvailability(user.tutorId, dateStr).then(res => {
+        setTimesArr(res);
+        setPickTime(true);
+      })
     }
   }, [selectedDay])
 
@@ -71,18 +77,19 @@ export const ScheduleSession = () => {
         onDayClick={setSelectedDay}
         disabledDays={unavailableDays()}
       />
-      {pickTime && <form>
+      {pickTime && timesArr.length ? <form>
         <select name="hour" defaultValue="" onChange={handleHourChange} >
         <option value="" disabled hidden>Choose time</option>
           {timesArr.map((time) => (
             <option key={time} value={time}>{time}</option>
           ))}
         </select>
-      </form>}
+      </form> : <></>}
+       {pickTime && timesArr.length === 0 ? <button disabled>All Slots Booked</button> : <></>}
       {selectedHour.length > 0 && <form>
         <select name="subject" defaultValue="" onChange={handleTopicChange} >
           <option value="" disabled hidden>Choose subject</option>
-          {user.subjectLevels.map((subject) => (
+          {user.subjectLevels.map((subject: any) => (
             <option key={subject} value={subject}>{subject}</option>
           ))}
         </select>

@@ -9,7 +9,7 @@ export const Search: FC = () => {
   const [allTutors, setAllTutors] = useState<TutorWithAvailability[]>([]);
   // TO-DO fix typescript anys
   const [filteredTutors, setFilteredTutors] = useState<TutorWithAvailability[]>([]);
-  const daysOfTheWeek: string[] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const daysOfTheWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   const [ weekday, setWeekday ] = useState<string>('');
 
   useEffect(() => {

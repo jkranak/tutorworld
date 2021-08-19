@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import {getOneTutorAvailability} from '../services/apiUser';
 import { useSelector } from 'react-redux';
-import {currentTutorInfo} from '../redux/actions/currentTutorInfo';
 
 
 export const ScheduleSession = () => {

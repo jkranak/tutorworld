@@ -14,6 +14,7 @@ import { authenticate } from './redux/actions/authenticate';
 import Loader from 'react-loader-spinner';
 import { Checkout } from './pages/Checkout';
 import { Schedule } from './pages/Schedule';
+import { ViewProfile } from './pages/ViewProfile';
 
 function App() {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ function App() {
         <PrivateRoute path="/search" exact component={Search}/>
         <PrivateRoute path="/checkout" exact component={Checkout}/>
         <PrivateRoute path="/schedule" exact component={Schedule}/>
+        <PrivateRoute path="/viewprofile" exact component={ViewProfile}/>
       </Switch>
     </BrowserRouter>
   );

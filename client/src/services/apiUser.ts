@@ -63,7 +63,7 @@ export const updateStudent = async (user: StudentComplete) => {
 
 export const updateTutor = async (user: TutorUpdate) => {
   try {
-    const response = await api.put('tutors/tutor/info', user);
+    const response = await api.put('/tutors/tutor/info', user);
     return response.status;
   } catch (error) {
     console.log(error);

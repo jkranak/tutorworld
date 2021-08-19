@@ -4,7 +4,8 @@ import {starRating} from '../services/starRating';
 import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
 import { useDispatch } from 'react-redux';
 import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+import {ViewProfile} from '../pages/ViewProfile';
 
 interface Props {
   tutor: TutorComplete
@@ -18,6 +19,11 @@ export const SearchResult: FC<Props> = ({tutor}: Props) => {
   const handleSchedule = () => {
     dispatch(currentTutorInfo(tutor));
     history.push('/schedule');
+  }
+
+  const handleProfile = () => {
+    dispatch(currentTutorInfo(tutor));
+    history.push('/viewprofile');
   }
 
   return (
@@ -52,7 +58,8 @@ export const SearchResult: FC<Props> = ({tutor}: Props) => {
         <div className="tutor-card__right-box--buttons">
           <button className="btn btn--blue" onClick={handleSchedule}>Schedule</button>
           <button className="btn btn--blue">Message</button>
-          <button className="btn btn--blue">Profile</button>
+          <button className="btn btn--blue" onClick={handleProfile}>Profile</button>
+          
         </div>
       </div>
     </div>

@@ -8,12 +8,14 @@ import { ChangePassword } from '../components/ChangePassword';
 import { useEffect } from 'react';
 import { getStudentDetails, getTutorDetails } from '../services/apiUser';
 import { useSelector } from 'react-redux';
+import { emptyUserDetails } from '../interfaces/User';
 
 export const Profile: FC = () => {
   const user = useSelector((state: any) => state.authenticate);
-  const [userDetails, setUserDetails] = useState(null);
+  const [userDetails, setUserDetails] = useState(emptyUserDetails);
   const [editing, setEditing] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
+
 
   useEffect(() => {
     if (user.role === 'student') {
@@ -40,7 +42,7 @@ export const Profile: FC = () => {
     <div className="profile">
       <Navbar />
       {editing 
-      ? user.role === 'tutor' ? <EditTutorProfile tutor={userDetails} setEditing={setEditing}/> : <EditStudentProfile student={userDetails}/> 
+      ? user.role === 'tutor' ? <EditTutorProfile tutor={userDetails} setEditing={setEditing}/> : <EditStudentProfile student={userDetails} setEditing={setEditing} setUserDetails={setUserDetails}/> 
       : user.role === 'tutor' ? <TutorProfile tutor={userDetails}/> : <StudentProfile student={userDetails}/>}
       {editing 
       ? <>

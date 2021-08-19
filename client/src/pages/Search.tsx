@@ -89,11 +89,6 @@ export const Search: FC = () => {
     const sorted = filteredTutors.sort((a: TutorWithAvailability, b: TutorWithAvailability) => b.rating - a.rating);
     setFilteredTutors([...sorted]);
   }
-
-  const handleMessage = () => {
-    // check if there is already a room with this tutor, if not create a new room
-  }
-
   return (
     <div className="search">
       <Navbar />

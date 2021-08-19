@@ -17,21 +17,6 @@ export const ScheduleSession = () => {
   const daysAhead = 69 - new Date().getDay();
   const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   const endDate = new Date(Date.now() + 86400000 * daysAhead);
-  // const user = {
-  //   tutorId: "2", 
-  //   subjectLevels: ["Math - elementary", "Math - highschool", "Math - university"],
-  //   lastName: "Two",
-  //   firstName: "Tutor",
-  //   price: 45,
-  //   availability: {
-  //     friday: {},
-  //     monday: {'3:00 PM': true, '4:00 PM': true},
-  //     saturday: {'9:00 AM': true, '10:00 AM': true, '11:00 AM': true, '12:00 PM': true},
-  //     sunday: {'9:00 AM': true, '10:00 AM': true, '11:00 AM': true, '12:00 PM': true},
-  //     thursday: {'3:00 PM': true, '4:00 PM': true},
-  //     tuesday: {'9:00 PM': true, '10:00 PM': true, '11:00 PM': true},
-  //     wednesday: {'3:00 PM': true, '4:00 PM': true}}
-  // };
 
   useEffect(() => {
     if (selectedDay < new Date()) {

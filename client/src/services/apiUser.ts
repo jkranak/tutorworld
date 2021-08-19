@@ -1,4 +1,4 @@
-import { StudentComplete } from '../interfaces/Student';
+import {UserDetails} from '../interfaces/User';
 import { User, UserLogin } from '../interfaces/User';
 import api from './apiConfig';
 
@@ -50,7 +50,7 @@ export const getTutorDetails = async () => {
   }
 }
 
-export const updateStudent = async (user: StudentComplete) => {
+export const updateStudent = async (user: UserDetails) => {
   try {
     const response = await api.put('/students/student/info', user);
     return response.data;

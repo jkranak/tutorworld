@@ -31,27 +31,34 @@ export const updateTutorInfo = async (req:any, res:any) => {
   }
 }
 
-export const getAllTutorInfo = async (req:any, res:any) => {
+// export const getAllTutorInfo = async (req:any, res:any) => {
 
-  try {
-    const { id } = req.body.user;
+//   try {
+//     const { id } = req.body.user;
 
-    const tutorInfoInstance = await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id}, include: Models.TutorInfo});
+//     const tutorInfoInstance = await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id}, include: Models.TutorInfo});
 
-    // spread operator and remove the TutorInfo property, removes all duplicates
-    const tutorInfo = tutorInfoInstance.get({plain: true });
-    const cleanTutorInfo = {...tutorInfo, ...tutorInfo.TutorInfo};
-    delete cleanTutorInfo.TutorInfo;
+//     if (tutorInfoInstance===null) {
+//       // spread operator and remove the TutorInfo property, removes all duplicates
+//       const tutorInfo = tutorInfoInstance.get({plain: true });
+//       const cleanTutorInfo = {...tutorInfo, ...tutorInfo.TutorInfo};
+//       delete cleanTutorInfo.TutorInfo;
 
-    res.send(cleanTutorInfo);
-    res.status(200);
+//       res.send(cleanTutorInfo);
+//       res.status(200);
 
-  } catch (error) {
-    console.log(error)
-    res.status(500);
-    res.send(error);
-  }
-}
+//     } else {
+//       res.send('Tutor has not created thier profile');
+//       res.status(204);
+//     }
+
+
+//   } catch (error) {
+//     console.log(error)
+//     res.status(500);
+//     res.send(error);
+//   }
+// }
 
 export const getStudentInfo = async (req:any, res:any) => {
   try {
@@ -136,14 +143,20 @@ export const getTutorInfoAvail = async (req:any, res:any) => {
 
     // spread operator and remove the TutorInfo property, removes all duplicates
 
-    const tutorInfoAvail = tutorsInfoAvailInstance.get({plain: true });
-    const cleanTutorInfoAvail = {...tutorInfoAvail, ...tutorInfoAvail.TutorInfo, availability: {...tutorInfoAvail.TutorAvailability}};
-    delete cleanTutorInfoAvail.TutorInfo;
-    delete cleanTutorInfoAvail.TutorAvailability;
+    if (tutorsInfoAvailInstance){
+      const tutorInfoAvail = tutorsInfoAvailInstance.get({plain: true });
+      const cleanTutorInfoAvail = {...tutorInfoAvail, ...tutorInfoAvail.TutorInfo, availability: {...tutorInfoAvail.TutorAvailability}};
+      delete cleanTutorInfoAvail.TutorInfo;
+      delete cleanTutorInfoAvail.TutorAvailability;
 
 
-    res.send(cleanTutorInfoAvail);
-    res.status(200);
+      res.send(cleanTutorInfoAvail);
+      res.status(200);
+
+    } else {
+      res.send('Tutor does not exist ');
+      res.status(400);
+    }
 
 
   } catch (error) {

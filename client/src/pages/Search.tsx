@@ -90,6 +90,10 @@ export const Search: FC = () => {
     setFilteredTutors([...sorted]);
   }
 
+  const handleMessage = () => {
+    // check if there is already a room with this tutor, if not create a new room
+  }
+
   return (
     <div className="search">
       <Navbar />
@@ -137,7 +141,7 @@ export const Search: FC = () => {
         </section>
         <section className="search__results">
           {filteredTutors.map((tutor: TutorWithAvailability) => (
-            <SearchResult key={tutor.id} tutor={tutor}/>
+            <SearchResult key={tutor.id} tutor={tutor} />
           ))}
         </section>
       </main>

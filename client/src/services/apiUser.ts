@@ -89,3 +89,13 @@ export const getOneTutorAvailability = async (tutorId: string, date: string) => 
     return error;
   }
 }
+
+export const addOneSession = async (TutorId: number, date: string, time: string, cost: number, sessionContext: string) => {
+  try {
+    const response = await api.post('/upcomingSessions', {TutorId, date, time, cost, sessionContext});
+    return response.status;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}

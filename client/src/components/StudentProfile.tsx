@@ -1,9 +1,9 @@
 import {FC} from 'react';
-import { StudentComplete } from '../interfaces/Student';
+import { UserDetails } from '../interfaces/User';
 import noPhotoUser from '../assets/no_photo_user.png';
 
 interface Props {
-  student: StudentComplete | null
+  student: UserDetails
 }
 export const StudentProfile: FC<Props> = ({ student }: Props) => {
 

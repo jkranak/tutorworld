@@ -57,7 +57,7 @@ export const Payment: FC<Props> = ({sessionInfo, setPaymentSuccess, setPaymentAt
         const id = paymentMethod?.id;
         const amount = sessionInfo.price * 100;
         const response = await axios.post(ROUTE!, { amount, id })
-        if(response.data.success) {
+        if(response.data.status === 'succeeded') {
             setPaymentAttempt(true);
             setPaymentSuccess(true);
             const {tutorId, price, topic, time, day} = sessionInfo;

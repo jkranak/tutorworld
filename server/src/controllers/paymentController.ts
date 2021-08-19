@@ -11,8 +11,8 @@ export const  stripePayment = async (req: any, res: any) => {
       confirm: true
     })
     res.json({
-      message: 'Payment success',
-      success: true
+      status: payment.status,
+      amount: payment.amount
     })
   } catch (err) {
     console.log(err)

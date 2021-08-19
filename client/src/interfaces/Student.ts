@@ -19,3 +19,13 @@ export const emptyStudent: Student = {
   lastName: '',
   imageUrl: '',
 }
+
+export const emptyStudentComplete: StudentComplete = {
+  id: 0,
+  email: '',
+  firstName: '',
+  lastName: '',
+  imageUrl: '',
+  createdAt: '',
+  updatedAt: ''
+}

@@ -41,9 +41,9 @@ export const getStudentDetails = async () => {
   }
 }
 
-export const getTutorDetails = async () => {
+export const getTutorDetails = async (id: number) => {
   try {
-    const response = await api.get('/tutors/tutor/allInfo');
+    const response = await api.get(`/tutors/${id}/allInfo`);
     return response.data;
   } catch (error) {
     console.log(error);

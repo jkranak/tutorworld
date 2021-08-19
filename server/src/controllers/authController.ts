@@ -19,6 +19,7 @@ export const createStudent = async (req:any, res:any) => {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     const newUser = await Models.Student.create({email, firstName, lastName, password: hashedPassword});
+    await Models.Sender.create({UserId: newUser.id, role: 'student', firstName: newUser.firstName, lastName: newUser.lastName})
     res.status(201).send({
       user: {
         id: newUser.id,
@@ -85,6 +86,7 @@ export const createTutor = async (req:any, res:any) => {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     const newUser = await Models.Tutor.create({email, firstName, lastName, password: hashedPassword});
+    await Models.Sender.create({UserId: newUser.id, role: 'tutor', firstName: newUser.firstName, lastName: newUser.lastName})
     res.status(201).send('Tutor account created!');
   } catch (error) {
     console.log(error)

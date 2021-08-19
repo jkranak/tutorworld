@@ -14,6 +14,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     role!: string;
     firstName!: string;
     lastName!: string;
+    UserId!: number
 
     static associate(models: any) {
       // define association here
@@ -26,6 +27,12 @@ module.exports = (sequelize: any, DataTypes: any) => {
   };
   Sender.init({
     id: {
+      type: DataTypes.BIGINT,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true
+    },
+    UserId: {
       type: DataTypes.BIGINT,
       allowNull: false,
     },

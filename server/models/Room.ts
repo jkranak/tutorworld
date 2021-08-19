@@ -11,8 +11,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
      * The `models/index` file will call this method automatically.
      */
     id!: number;
-    // user1_id!: number;
-    // user2_id!: number;
 
     static associate(models: any) {
       // define association here

@@ -9,6 +9,7 @@ import { studentMiddleware, tutorMiddleware } from '../middlewares/roleMiddlewar
 import {stripePayment} from '../controllers/paymentController';
 import { addFavTutor, getAllFavTutors, removeFavTutor } from '../controllers/favTutorsController';
 import { updateRating } from '../controllers/ratingController';
+import { connectToRoom, sendMessage } from '../controllers/chatController';
 const router = express.Router();
 
 
@@ -59,6 +60,11 @@ router.delete('/students/student/favTutors/:TutorId', authMiddleware, studentMid
 
 //Stripe payment
 router.post('/payment', stripePayment);
+
+// Chat
+
+router.post('/message/send', authMiddleware, sendMessage);
+router.post('/room', authMiddleware, connectToRoom);
 
 export default router;
 

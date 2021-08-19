@@ -3,4 +3,5 @@ export interface SenderI {
   role: string
   firstName: string
   lastName: string
+  UserId: number
 }

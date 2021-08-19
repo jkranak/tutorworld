@@ -12,21 +12,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
      */
     id!: number;
     content!: string;
-    // user1_id!: number;
-    // user2_id!: number;
 
     static associate(models: any) {
       // define association here
-      Message.hasOne(models.Room, {
-        foreignKey: {
-          allowNull: false
-        }
-      })
-      Message.hasOne(models.Sender, {
-        foreignKey: {
-          allowNull: false
-        }
-      })      
+      Message.belongsTo(models.Sender);
+      Message.belongsTo(models.Room);
     }
   };
   Message.init({

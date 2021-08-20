@@ -1,7 +1,9 @@
 import {FC} from 'react';
-import { Navbar } from '../components/Navbar'
-import { Sidebar } from '../components/Sidebar'
 import { useSelector } from 'react-redux';
+import { Navbar } from '../components/Navbar';
+import { Sidebar } from '../components/Sidebar';
+import { UpcomingSession } from '../components/dashboard/UpcomingSession';
+
 
 export const Dashboard: FC = () => {
   const user = useSelector((state: any) => state.authenticate);
@@ -25,7 +27,7 @@ export const Dashboard: FC = () => {
             <div className="dashboard__content--display--info">
               <h1 className="dashboard__content--display--title">Upcoming Sessions</h1>
               <div className="dashboard__content--display--top--box">
-                  <p>sessions</p>
+                  <UpcomingSession />
               </div>
             </div>
           </div>

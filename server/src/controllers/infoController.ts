@@ -152,3 +152,30 @@ export const getTutorInfoAvail = async (req:any, res:any) => {
     res.send(error);
   }
 }
+
+export const getBasicUserInfo = async (req:any, res:any) => {
+  try {
+    const { id, role } = req.params;
+    if (role === 'tutor') {
+      const basicTutor = await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id}, include: [Models.TutorInfo]});
+      res.send({
+        firstName: basicTutor.firstName,
+        lastName: basicTutor.lastName,
+        imageUrl: basicTutor.TutorInfo.imageUrl
+      });
+      res.status(200);
+    } else {
+      const basicStudent = await Models.Student.findOne({attributes: {exclude: ['password']}, where: {id}});
+      res.send({
+        firstName: basicStudent.firstName,
+        lastName: basicStudent.lastName,
+        imageUrl: basicStudent.imageUrl
+      });
+      res.status(200);
+  }} catch (error) {
+    console.log(error)
+    res.status(500);
+    res.send(error);
+  }
+
+}

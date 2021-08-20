@@ -10,20 +10,22 @@
 
   }
   &--left-box {
-    background-color: brown;
     width: 30%;
     height: 100%;
+    border-right: solid 1px $pink;
   }
   &--right-box {
     width: 70%;
     height: 100%;
   }
   &--contact {
-    background-color: cadetblue;
     height: 10%;
     padding-left: 1rem;
     @include flex-row;
     justify-content: flex-start;
+    &:hover {
+      cursor: pointer;
+    }
     .me {
       &__name {
         padding-left: 2rem;
@@ -34,7 +36,6 @@
     }
   }
   .image-box {
-    background-color: chartreuse;
     height: 7vh;
     width: 7vh;
     border-radius: 50%;
@@ -46,29 +47,31 @@
   }
 
   &--messages-list {
-    background-color: cornflowerblue;
     height: 90%;
     padding: 3rem;
+    overflow-y: scroll;
     @include flex-column;
     justify-content: flex-end;
   }
 
   &--message {
     &--right {
+      background-color: blue;
       align-self: flex-end;
-      background-color: yellowgreen;
       padding: 1rem 2rem;
       font-size: 2rem;
       border-radius: 1rem 1rem 0 1rem;
+      margin-bottom: 1rem;
       span {
         display: block;
       }
     }
     &--left {
+      background-color: yellow;
+      margin-bottom: 1rem;
       font-size: 2rem;
       padding: 1rem 2rem;
       align-self: flex-start;
-      background-color: yellow;
       border-radius: 1rem 1rem 1rem 0;
       span {
         display: block;

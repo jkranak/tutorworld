@@ -1,6 +1,7 @@
 import Models from '../../models';
 import { Request, Response } from 'express';
 import { QueryTypes } from 'sequelize';
+import { v4 as uuidv4 } from 'uuid';
 
 export const sendMessage = async (req: Request, res: Response) => {
   try {
@@ -17,26 +18,20 @@ export const sendMessage = async (req: Request, res: Response) => {
 
 export const connectToRoom = async (req: Request, res: Response) => {
   try {
-    const { id, role } = req.body.user;
-    const { room, otherUserId, otherUserRole } = req.body;
-
-    const existentRoom = await Models.Room.findOne({where: {id: room}})
-    if (existentRoom) {
+    const { mySenderId, otherUserSenderId } = req.body;
+    // looking for a room that contains both users
+    const existentRoom = await Models.sequelize.query(`SELECT Room."RoomId" FROM public."room_senders" AS Room WHERE 
+    EXISTS (SELECT * FROM public."room_senders" as RS WHERE Room."RoomId" = RS."RoomId" AND "SenderId" = ${mySenderId}) AND
+    EXISTS (SELECT * FROM public."room_senders" as RS WHERE Room."RoomId" = RS."RoomId" AND "SenderId" = ${otherUserSenderId}) GROUP BY Room."RoomId"`)
+    if (existentRoom[0].length) {
       // room already exists so connect to it
-      const sender = await Models.Sender.findOne({where: {UserId: id, role}});
-      res.send(`Connected to: ${existentRoom.id}`);
+      res.send(existentRoom[0][0].RoomId);
     } else {
-      // retrieving the user senderid
-      const senderOne = await Models.Sender.findOne({where: {UserId: id, role}});
-      // retrieving the person the user wants to chat with
-      const senderTwo = await Models.Sender.findOne({where: {UserId: otherUserId, role: otherUserRole}})
-
       // creating a new room and adding both senders
-      const newRoom = await Models.Room.create({id: room});
-      await newRoom.addSender(senderOne.id);
-      await newRoom.addSender(senderTwo.id);
-
-      res.send(`New room created: ${newRoom.id}`);
+      const newRoom = await Models.Room.create({id: uuidv4()});
+      await newRoom.addSender(mySenderId);
+      await newRoom.addSender(otherUserSenderId);
+      res.send(newRoom.id);
     }
     res.status(200);
   } catch (error) {
@@ -101,6 +96,19 @@ export const retrieveMessagesByRoom = async (req: Request, res: Response) => {
     const { RoomId } = req.params;
     const messages = await Models.Message.findAll({where: { RoomId }});
     res.send(messages);
+    res.status(200);
+  } catch (error) {
+    console.log(error)
+    res.status(500);
+    res.send(error);
+  }
+}
+
+export const retrieveSenderId = async (req: Request, res: Response) => {
+  try {
+    const { id, role } = req.params
+    const sender = await Models.Sender.findOne({where: {UserId: id, role}});
+    res.send({SenderId: sender.id});
     res.status(200);
   } catch (error) {
     console.log(error)

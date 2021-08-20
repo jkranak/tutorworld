@@ -62,7 +62,7 @@ export const login = async (req:any, res:any) => {
         },
       );
     } else {
-      res.status(400).send({ message: 'Wrong password' });
+      res.status(403).send({ message: 'Wrong password' });
     }
   } catch (error) {
     res.status(500);

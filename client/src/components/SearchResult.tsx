@@ -2,27 +2,36 @@ import {FC} from 'react';
 import {TutorComplete} from '../interfaces/Tutor';
 import {starRating} from '../services/starRating';
 import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
-import { useHistory, Link } from 'react-router-dom';
-import {ViewProfile} from '../pages/ViewProfile';
+import { useHistory } from 'react-router-dom';
+import { enterRoom, getSenderId } from '../services/apiChat';
+import { currentRoom } from '../redux/actions/currentRoom';
 
 interface Props {
   tutor: TutorComplete
 }
 
 export const SearchResult: FC<Props> = ({tutor}: Props) => {
+  // TO-DO fix typescript any
+
   const starArr: number[] = starRating(tutor?.rating);
   const dispatch = useDispatch();
   const history = useHistory();
+  const user = useSelector((state: any) => state.authenticate)
 
   const handleSchedule = () => {
     dispatch(currentTutorInfo(tutor));
     history.push('/schedule');
   }
 
-  const handleMessage = () => {
+  const handleMessage = async () => {
     // check if there is already a room with this tutor, if not create a new room
+    const { SenderId } = await getSenderId(tutor.TutorId, 'tutor');
+    const room = await enterRoom({mySenderId: user.SenderId, otherUserSenderId: SenderId})
+    // my sender id, tutor sender id,
+    dispatch(currentRoom(room));
+    history.push('/messages');
   }
 
   const handleProfile = () => {

@@ -1,16 +1,15 @@
-import { useEffect, useState } from 'react';
-
-import { getTutorDetails } from '../services/apiUser';
-import { ChangePassword } from '../components/ChangePassword';
+import { useEffect, useState, FC } from 'react';
+import { getTutorDetails } from '../../services/apiUser';
+import { ChangePassword } from '../ChangePassword';
 import {ProfileTutorView} from './ProfileTutorView';
 import {ProfileTutorEdit} from './ProfileTutorEdit';
-import {emptyTutorWithAvailability} from '../interfaces/Tutor';
+import {emptyTutorWithAvailability} from '../../interfaces/Tutor';
 
 interface Props {
   id: number
 }
 
-export const ProfileTutor = ({id}: Props) => {
+export const ProfileTutor: FC<Props> = ({id}: Props) => {
   const [tutorDetails, setTutorDetails] = useState(emptyTutorWithAvailability);
   const [editing, setEditing] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
@@ -24,21 +23,25 @@ export const ProfileTutor = ({id}: Props) => {
 
   const editClick = () => {
     setEditing(!editing);
-    setChangePassword(false);
   }
+  
   
   return (
     <>
     {editing 
     ? <>
       <ProfileTutorEdit tutorDetails={tutorDetails} setTutorDetails={setTutorDetails} setEditing={setEditing}/>
+      {changePassword ?
+        <ChangePassword setChangePassword={setChangePassword} /> 
+        : <button onClick={() => setChangePassword(true)} className="btn btn--clear">Change password</button>
+      }
       <button onClick={editClick} className="btn btn--clear">Exit Edit Profile</button>
     </>
     : <>
       <ProfileTutorView tutorDetails={tutorDetails} />
       <button onClick={editClick} className="btn btn--blue">Edit Profile</button>
     </>}
-    {editing && changePassword ? ChangePassword: <button onClick={() => setChangePassword(true)} className="btn btn--clear">Change password</button> }
+    
     </>
   )
 }

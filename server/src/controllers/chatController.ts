@@ -68,36 +68,27 @@ export const retrieveUserRooms = async (req: Request, res: Response) => {
 
     let result: {}[] = [];
 
-    rooms.forEach(async (room: any )=> {
+    await Promise.all(rooms.map(async (room: any )=> {
       let senders: any = [];
 
       const otherSenders = await Models.sequelize.query(`SELECT * FROM "Rooms"
       INNER JOIN
        room_senders ON room_senders."RoomId" = "Rooms".id
       where 
-      "Rooms".id = '${room.RoomId}';`, {type: QueryTypes.SELECT, raw: true})
-      
-      otherSenders.forEach(async (otherSend: any ) => {
-        if (otherSend.SenderId !== sender.id) {
-          console.log('othersenderid', otherSend.SenderId)
+      "Rooms".id = '${room.RoomId}';`, {type: QueryTypes.SELECT, raw: true});
 
-          const currentSender = await Models.Sender.findOne({where: {id: otherSend.SenderId}})
-
-          console.log('current', currentSender.toJSON())
-
-          senders = [...senders, currentSender.toJSON()]
+      senders = await Promise.all(otherSenders.map(async (otherSender: any) => {
+        if (otherSender.SenderId !== sender.id) {
+          const currentSender = await Models.Sender.findOne({where: {id: otherSender.SenderId}});
+          return currentSender.toJSON();
         }
-      })
-      console.log('desired result', {
-        room: room.RoomId,
-        senders
-      })
+        return null
+      }))
       result.push({
         room: room.RoomId,
         senders
       })
-    })
-    console.log('this is the result', result);
+    }))    
     res.send(result);
     res.status(200);
   } catch (error) {

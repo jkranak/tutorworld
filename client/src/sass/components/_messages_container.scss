@@ -1,0 +1,104 @@
+.messages__content {
+  height: 90vh;
+  @include flex-row;
+  
+  &--box {
+    width: 70%;
+    height: 85vh;
+    @include flex-row;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  }
+  &--left-box {
+    width: 30%;
+    height: 100%;
+    border-right: solid 1px $pink;
+  }
+  &--right-box {
+    width: 70%;
+    height: 100%;
+  }
+  &--contact {
+    height: 10%;
+    padding-left: 1rem;
+    @include flex-row;
+    justify-content: flex-start;
+    &:hover {
+      cursor: pointer;
+    }
+    .me {
+      &__name {
+        padding-left: 2rem;
+        font-size: 2rem;
+        text-transform: capitalize;
+        
+      }
+    }
+  }
+  .image-box {
+    height: 7vh;
+    width: 7vh;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &--messages-list {
+    height: 90%;
+    padding: 3rem;
+    overflow-y: scroll;
+    @include flex-column;
+    justify-content: flex-end;
+  }
+
+  &--message {
+    &--right {
+      background-color: blue;
+      align-self: flex-end;
+      padding: 1rem 2rem;
+      font-size: 2rem;
+      border-radius: 1rem 1rem 0 1rem;
+      margin-bottom: 1rem;
+      span {
+        display: block;
+      }
+    }
+    &--left {
+      background-color: yellow;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      padding: 1rem 2rem;
+      align-self: flex-start;
+      border-radius: 1rem 1rem 1rem 0;
+      span {
+        display: block;
+      }
+    }
+  } 
+
+  &--send-message {
+    height: 10%;
+    font-size: 3rem;
+    @include flex-row;
+    input {
+      height: 70%;
+      width: 50%;
+      padding-left: 2rem;
+      font-size: 1.8rem;
+      border: none;
+      border-radius: 1rem 0 0 1rem;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+    button {
+      color: $pink;
+      height: 70%;
+      width: 8%;
+      background-color: white;
+      border-radius: 0 1rem 1rem 0;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+  }
+}

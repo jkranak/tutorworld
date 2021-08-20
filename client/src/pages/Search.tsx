@@ -89,7 +89,6 @@ export const Search: FC = () => {
     const sorted = filteredTutors.sort((a: TutorWithAvailability, b: TutorWithAvailability) => b.rating - a.rating);
     setFilteredTutors([...sorted]);
   }
-
   return (
     <div className="search">
       <Navbar />
@@ -137,7 +136,7 @@ export const Search: FC = () => {
         </section>
         <section className="search__results">
           {filteredTutors.map((tutor: TutorWithAvailability) => (
-            <SearchResult key={tutor.id} tutor={tutor}/>
+            <SearchResult key={tutor.id} tutor={tutor} />
           ))}
         </section>
       </main>

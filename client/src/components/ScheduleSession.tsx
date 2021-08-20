@@ -19,7 +19,6 @@ export const ScheduleSession: FC = () => {
   const daysAhead = 69 - new Date().getDay();
   const endDate = new Date(Date.now() + 86400000 * daysAhead);
 
-
   useEffect(() => {
     if (selectedDay < new Date()) {
       setPickTime(false);

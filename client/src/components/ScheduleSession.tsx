@@ -1,26 +1,42 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { Link } from 'react-router-dom';
-import { emptyAvailability } from '../interfaces/Availability';
-import { convertHourArr } from '../assets/convertHour';
 import { useEffect } from 'react';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import {getOneTutorAvailability} from '../services/apiUser';
+import { useSelector } from 'react-redux';
+import { dayNames } from '../assets/times';
 
-export const ScheduleSession = () => {
-  const [availability, setAvailability] = useState(emptyAvailability);
+
+export const ScheduleSession: FC = () => {
   const [selectedDay, setSelectedDay] = useState(new Date(0));
   const [pickTime, setPickTime] = useState(false);
   const [timesArr, setTimesArr] = useState(['']);
-  const [selectedHour, setSelectedHour] = useState(25);
-  
-  const daysAhead = 60 + 9 - new Date().getDay();
-  const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const [selectedHour, setSelectedHour] = useState('');
+  const [selectedTopic, setSelectedTopic] = useState('');
+  const user = useSelector((state: any )=> state.currentTutorInfo);
+
+  const daysAhead = 69 - new Date().getDay();
   const endDate = new Date(Date.now() + 86400000 * daysAhead);
-  
+
+
+  useEffect(() => {
+    if (selectedDay < new Date()) {
+      setPickTime(false);
+      setSelectedHour('');
+    } else {
+      const dateStr = selectedDay.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+      getOneTutorAvailability(user.id, dateStr).then(res => {
+        setTimesArr(res);
+        setPickTime(true);
+      })
+    }
+  }, [selectedDay])
+
   const unavailableDays = () => {
     let daysOfWeek: number[] = [];
-    for (let day in availability) {
-      if (availability[day].length === 0) {
+    for (let day in user.availability) {
+      if (Object.values(user.availability[day]).length === 0) {
         daysOfWeek.push(dayNames.indexOf(day))
       }
     }
@@ -29,20 +45,12 @@ export const ScheduleSession = () => {
     return disabledDays
   }
 
-  useEffect(() => {
-    if (selectedDay < new Date()) {
-      setPickTime(false);
-      setSelectedHour(25);
-    } else {
-      const dayOfWeek = dayNames[selectedDay.getDay()];
-      const availabilityArr = availability[dayOfWeek];
-      setTimesArr(availabilityArr);
-      setPickTime(true);
-    }
-  }, [selectedDay])
-
-  const handleChange = (event: {target: {value: any}}) => {
+  const handleHourChange = (event: {target: {value: any}}) => {
     setSelectedHour(event.target.value);
+  }
+
+  const handleTopicChange = (event: {target: {value: any}}) => {
+    setSelectedTopic(event.target.value);
   }
   
   return (
@@ -54,21 +62,40 @@ export const ScheduleSession = () => {
         onDayClick={setSelectedDay}
         disabledDays={unavailableDays()}
       />
-    {pickTime && <form>
-    <select name="hour" defaultValue="" onChange={handleChange} >
-     <option value="" disabled hidden>Choose time</option>
-       {timesArr.map((time, index) => (
-        <option key={index} value={time}>{convertHourArr[time]}</option>
-      ))}
-      </select>
-       </form>}
-       {selectedHour < 25 && <Link to={'/checkout'}>Schedule and pay</Link>}
-       {pickTime && <button onClick={() => {
-         setSelectedHour(25);
-         setPickTime(false);
-         setSelectedDay(new Date(0));
-       }}>Clear selection</button>}
-
+      {pickTime && timesArr.length ? <form>
+        <select name="hour" defaultValue="" onChange={handleHourChange} >
+        <option value="" disabled hidden>Choose time</option>
+          {timesArr.map((time) => (
+            <option key={time} value={time}>{time}</option>
+          ))}
+        </select>
+      </form> : <></>}
+       {pickTime && timesArr.length === 0 ? <button disabled>All Slots Booked</button> : <></>}
+      {selectedHour.length > 0 && <form>
+        <select name="subject" defaultValue="" onChange={handleTopicChange} >
+          <option value="" disabled hidden>Choose subject</option>
+          {user.subjectLevels.map((subject: any) => (
+            <option key={subject} value={subject}>{subject}</option>
+          ))}
+        </select>
+      </form>}
+      {selectedTopic.length > 0 && <Link to={{
+        pathname:'/checkout', 
+        state:{
+          tutorId: user.id,
+          price: user.price,
+          topic: selectedTopic,
+          time: selectedHour,
+          day: selectedDay.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' }),
+          name: `${user.firstName} ${user.lastName}`
+        }
+      }}>Schedule and pay</Link>}
+      {pickTime && <button onClick={() => {
+        setSelectedHour('');
+        setPickTime(false);
+        setSelectedTopic('');
+        setSelectedDay(new Date(0));
+      }}>Clear selection</button>}
     </div>
   )
 }

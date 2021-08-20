@@ -2,12 +2,9 @@ import { FC } from 'react';
 import chalkboard from '../assets/chalkboard.jpg';
 import remote from '../assets/remote.png';
 import book from '../assets/book.jpg';
+import logo from '../assets/tutor_world.svg';
 
-interface Props {
-  
-}
-
-export const LandingBody: FC<Props> = (props: Props) => {
+export const LandingBody: FC = () => {
   return (
     <div className="landing-body">
       <div className="landing-body--box">
@@ -22,6 +19,7 @@ export const LandingBody: FC<Props> = (props: Props) => {
           <img src={book} width="350px" alt="book and glasses"></img>
           <h2>Earn money tutoring. Set your own availability and hourly rate</h2>
         </div>
+        <img src={logo} alt="tutor world logo" className="logo-box__image"/>
     </div>
   )
 }

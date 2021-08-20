@@ -2,6 +2,9 @@ import {FC} from 'react';
 import {TutorComplete} from '../interfaces/Tutor';
 import {starRating} from '../services/starRating';
 import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
+import { useDispatch } from 'react-redux';
+import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   tutor: TutorComplete
@@ -9,23 +12,55 @@ interface Props {
 
 export const SearchResult: FC<Props> = ({tutor}: Props) => {
   const starArr: number[] = starRating(tutor?.rating);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleSchedule = () => {
+    dispatch(currentTutorInfo(tutor));
+    history.push('/schedule');
+  }
+
+  const handleProfile = () => {
+    dispatch(currentTutorInfo(tutor));
+    history.push('/viewprofile');
+  }
 
   return (
-    <>
-    <div>
-      <h3>{tutor?.firstName} {tutor?.lastName}</h3>
-      <img src={tutor?.imageUrl} alt={`${tutor?.firstName} ${tutor?.lastName}`} />
+    <div className="tutor-card">
+      <div className="tutor-card__left-box">
+        <h1 className="tutor-card__name">{tutor?.firstName} {tutor?.lastName}</h1>
+        <div className="image-box">
+          <img src={tutor?.imageUrl} alt={`${tutor?.firstName} ${tutor?.lastName}`} />
+        </div>
+      </div>
+      <div className="tutor-card__middle-box">
+        <div>
+          <div className="tutor-card__middle-box--details">
+            <h2>Education: </h2>
+            <span>{tutor?.education}</span>
+          </div>
+          <div className="tutor-card__middle-box--rating">
+            {starArr.map((el, index) => (
+              <span key={index} className="tutor-card__middle-box--star">{el === 2 ? <BsStarFill/> : el === 1 ? <BsStarHalf/> : <BsStar/>}</span>
+            ))}
+          </div>
+          <div className="tutor-card__middle-box--details">
+              <h3>Rate: </h3>
+              <span>${tutor?.price}/hour</span>
+          </div>
+        </div>
+      </div>
+      <div className="tutor-card__right-box">
+        <div className="tutor-card__right-box--description">
+          <p>{tutor?.description}</p>
+        </div>
+        <div className="tutor-card__right-box--buttons">
+          <button className="btn btn--blue" onClick={handleSchedule}>Schedule</button>
+          <button className="btn btn--blue">Message</button>
+          <button className="btn btn--blue" onClick={handleProfile}>Profile</button>
+          
+        </div>
+      </div>
     </div>
-    <div>
-      <h3>Education: </h3><p>{tutor?.education}</p>
-      {starArr.map((el, index) => (
-        <span key={index}>{el === 2 ? <BsStarFill/> : el === 1 ? <BsStarHalf/> : <BsStar/>}</span>
-      ))}
-      <p>Rate: ${tutor?.price}/hour</p>
-    </div>
-    <div>
-      <p>{tutor?.description}</p>
-    </div>
-    </>
   )
 }

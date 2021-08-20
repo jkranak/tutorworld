@@ -4,8 +4,6 @@ import { ScheduleSession } from '../components/ScheduleSession';
 
 
 export const Schedule = () => {
-
-  
   return (
     <div>
       <Navbar />

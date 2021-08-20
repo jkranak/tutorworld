@@ -1,12 +1,13 @@
 import {FC} from 'react';
-import { Navbar } from '../components/Navbar'
-import { Sidebar } from '../components/Sidebar'
 import { useSelector } from 'react-redux';
+import { Navbar } from '../components/Navbar';
+import { Sidebar } from '../components/Sidebar';
+import { UpcomingSession } from '../components/dashboard/UpcomingSession';
+import { History } from '../components/dashboard/History';
+
 
 export const Dashboard: FC = () => {
   const user = useSelector((state: any) => state.authenticate);
-  // for testing tutor layout
-  // const user = {role: 'tutor'};
 
   // TO-DO create component for repeated code
   return (
@@ -25,7 +26,7 @@ export const Dashboard: FC = () => {
             <div className="dashboard__content--display--info">
               <h1 className="dashboard__content--display--title">Upcoming Sessions</h1>
               <div className="dashboard__content--display--top--box">
-                  <p>sessions</p>
+                  <UpcomingSession />
               </div>
             </div>
           </div>
@@ -34,7 +35,7 @@ export const Dashboard: FC = () => {
               <div className="dashboard__content--display--info">
                 <h1 className="dashboard__content--display--title">History</h1>
                 <div className="dashboard__content--display--top--box">
-                  <p>previous sessions</p>
+                  <History />
                 </div>
               </div>
 
@@ -50,7 +51,6 @@ export const Dashboard: FC = () => {
               <div className="dashboard__content--display--info">
                 <h1 className="dashboard__content--display--title">History</h1> 
                 <div className="dashboard__content--display--bottom--box">
-                  <p>previous sessions</p>
                 </div>
               </div>
               <div className="dashboard__content--display--info">

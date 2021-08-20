@@ -21,3 +21,25 @@ export const emptyUser: User = {
   password: '',
   confirmPassword: ''
 }
+
+export interface UserRole {
+  id: string
+  role: string
+}
+
+export const emptyUserRole: UserRole = {
+  id: '',
+  role: ''
+}
+
+export interface UserNameImage {
+  firstName: string
+  lastName: string
+  imageUrl: string
+}
+
+export const emptyUserNameImage: UserNameImage = {
+  firstName: '',
+  lastName: '',
+  imageUrl: ''
+}

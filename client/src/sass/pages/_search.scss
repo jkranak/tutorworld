@@ -1,0 +1,22 @@
+.search {
+  &__content {
+    padding: 10rem;
+  }
+  &__filters {
+    margin-bottom: 5rem;
+    @include flex-column;
+    &--inputs {
+      @include flex-row;
+      select {
+        margin-right: 2rem;
+      }
+    }
+  }
+  .sort-input {
+    border: none;
+    color: grey;
+  }
+  .select-input {
+    text-transform: capitalize;
+  }
+}

@@ -1,104 +1,146 @@
-import {useState, useEffect, FC} from 'react';
-import {Navbar} from '../components/Navbar';
-import {SearchResult} from '../components/SearchResult';
+import { useState, useEffect, FC } from 'react';
+import { Navbar } from '../components/Navbar';
+import { SearchResult } from '../components/SearchResult';
 import { languages, subjects } from '../assets/subjects_languages';
-import {getAllTutors} from '../services/apiUser';
+import { getAllTutors } from '../services/apiUser';
+import { TutorWithAvailability } from '../interfaces/Tutor';
+import { dayNames } from '../assets/times';
 
 export const Search: FC = () => {
-  const [allTheTutors, setAllTheTutors] = useState([]);
+  const [allTutors, setAllTutors] = useState<TutorWithAvailability[]>([]);
   // TO-DO fix typescript anys
-  const allTutors: any = [{
-    id: 1,
-    email: 'tutor@tutory',
-    firstName: 'Tutor1',
-    lastName: 'Tutory1',
-    TutorInfo: {
-      TutorId: 1,
-      description: 'Im tutor1',
-      experience: 'Lots',
-      imageUrl: '',
-      rating: 4,
-      education: 'Tutor U',
-      price: 50,
-      subjects: ["Math - Elementary", "Biology - High School"],
-      languages: ["Hindi", "German"],
-      createdAt: '',
-      updatedAt: ''
-    },
-    createdAt: '',
-    updatedAt: ''
-  },
-  {
-    id: 2,
-    email: 'tutor2@tutory',
-    firstName: 'Tutor2',
-    lastName: 'Tutory2',
-    description: 'Im tutor 2',
-    experience: 'Lots and lots',
-    imageUrl: '',
-    rating: 3,
-    education: 'Tutor College',
-    price: 40,
-    subjects: ["English - University", "SAT"],
-    languages: ["English", "Portuguese"],
-    createdAt: '',
-    updatedAt: ''
-  }]
-  const [filteredTutors, setFilteredTutors] = useState(allTutors);
+  const [filteredTutors, setFilteredTutors] = useState<TutorWithAvailability[]>([]);
+  const [ weekday, setWeekday ] = useState<string>('');
 
-  useEffect(() => {getAllTutors().then(res => {
-    console.log(res)
-  })}, []
-  )
+  useEffect(() => {
+    getAllTutors().then(res => {
+      setAllTutors(res);
+      setFilteredTutors(res);
+    })
+  }, [])
 
-  const filterBySubject = (event: {target: {name: string, value: any}}) => {
-    const sortedTutors = allTutors.filter((tutor: any) => tutor?.TutorInfo.subjects.includes(event.target.value));
-    setFilteredTutors(sortedTutors);
+  const filterBySubject = (event: {target: {name: string, value: string}}) => {
+    if (event.target.value === 'all') {
+      setFilteredTutors(allTutors);
+    } else {
+      const filteredTutors = allTutors.filter((tutor: TutorWithAvailability) => tutor?.subjectLevels.includes(event.target.value));
+      setFilteredTutors([...filteredTutors]);
+    }
   }
 
-  const filterByLanguage = (event: {target: {name: string, value: any}}) => {
-    const sortedTutors = allTutors.filter((tutor: any) => tutor?.TutorInfo.languages.includes(event.target.value));
-    setFilteredTutors(sortedTutors);
+  const filterByLanguage = (event: {target: {name: string, value: string}}) => {
+    if (event.target.value === 'all') {
+      setFilteredTutors(allTutors);
+    } else {
+      const filteredTutors = allTutors.filter((tutor: TutorWithAvailability) => tutor?.languages.includes(event.target.value.toLowerCase()));
+      setFilteredTutors([...filteredTutors]);
+    }
   }
 
-  const sortByPrice = () => {
-    let sortedTutors = allTutors.slice(0);
-    sortedTutors.sort((a: any, b: any) => a.TutorInfo.price - b.TutorInfo.price);
-    setFilteredTutors(sortedTutors);
+  const filterAvailability = (event: {target: {name: string, value: string}}) => {
+    if (event.target.value === 'all') {
+      setFilteredTutors(allTutors);
+      setWeekday('');
+    } else {
+      const filtered = allTutors.filter((tutor: TutorWithAvailability) => {
+        return Object.keys(tutor.availability[event.target.value]).length
+      })
+      setFilteredTutors([...filtered]);
+      setWeekday(event.target.value);
+    }
+  }
+
+  const filterByHour = (event: {target: {name: string, value: string}}) => {
+    const filtered = allTutors.filter((tutor: TutorWithAvailability) => tutor.availability[weekday][event.target.value] === true)
+    setFilteredTutors([...filtered]);
+  }
+
+  const displayHourlyAvailability = () => {
+    let hours: string[] = [];
+    filteredTutors.forEach((tutor: TutorWithAvailability) => {
+      Object.entries(tutor.availability[weekday]).forEach(hour => {
+        (hour[1] === true && !hours.includes(hour[0])) && hours.push(hour[0]);
+      });
+    })
+    return hours;
+  }
+
+  const handleSort = (event: {target: {name: string, value: string}}) => {
+    if (event.target.value === 'rate-highest') {
+      sortByPrice('highest');
+    } else if (event.target.value === 'rate-lowest') {
+      sortByPrice('lowest');
+    } else {
+      sortByRating();
+    }
+  }
+
+  const sortByPrice = (sortBy: string) => {
+    if (sortBy === 'highest') {
+      const sorted = filteredTutors.sort((a: TutorWithAvailability, b: TutorWithAvailability) => b.price - a.price);
+      setFilteredTutors([...sorted]);
+    } else if (sortBy === 'lowest') {
+      const sorted = filteredTutors.sort((a: TutorWithAvailability, b: TutorWithAvailability) => a.price - b.price);
+      setFilteredTutors([...sorted]);
+    }
   }
 
   const sortByRating = () => {
-    let sortedTutors = allTutors.slice(0);
-    sortedTutors.sort((a: any, b: any) => b.TutorInfo.rating - a.TutorInfo.rating);
-    setFilteredTutors(sortedTutors);
+    const sorted = filteredTutors.sort((a: TutorWithAvailability, b: TutorWithAvailability) => b.rating - a.rating);
+    setFilteredTutors([...sorted]);
   }
 
   return (
-    <div>
+    <div className="search">
       <Navbar />
-      <form id="subjectfilter">
-      <select name="subjects" onChange={filterBySubject} defaultValue="" >
+      <main className="search__content">
+        <section className="search__filters">
+          <div className="search__filters--inputs">
+            <select name="subjects" onChange={filterBySubject} defaultValue="" className="select-input" >
               <option value="" disabled>Subject/level</option>
-              {subjects.map((subject, index) => (
+              <option value="all">All Subjects</option>
+              {subjects.map((subject: string, index) => (
                 <option key={index} value={subject}>{subject}</option>
               ))}
-          </select>
-      </form>
-      <form id="languagefilter">
-      <select name="languages" onChange={filterByLanguage} defaultValue="" >
-              <option value="" disabled>Language</option>
-              {languages.map((language, index) => (
+            </select>
+
+            <select name="languages" onChange={filterByLanguage} defaultValue="" className="select-input">
+              <option value="" disabled >Language</option>
+              <option value="all">All Languages</option>
+              {languages.map((language: string, index) => (
                 <option key={index} value={language}>{language}</option>
               ))}
+            </select>
+
+            <select name="weekday-availability" onChange={filterAvailability} defaultValue="" className="select-input">
+              <option value="" disabled >Weekday Availability</option>
+              <option value="all">All days</option>
+              {dayNames.map((day: string, index) => (
+                <option key={index} value={day}>{day}</option>
+              ))}
+            </select>
+            {
+              weekday && 
+                <select name="hour-availability" onChange={filterByHour} defaultValue="" className="select-input">
+                  <option value="" disabled >Hour Availability</option>
+                  {displayHourlyAvailability().map((hour: string, index) => (
+                  <option key={index} value={hour}>{hour}</option>
+                  ))}
+              </select>
+            } 
+          </div>
+          <select onChange={handleSort} className="sort-input">
+            <option value="rating">Sort by Rating</option>
+            <option value="rate-highest">Sort by Highest Rate</option>
+            <option value="rate-lowest">Sort by Lowest Rate</option>
           </select>
-      </form>
-      <button onClick={sortByPrice}>Sort by Rate</button>
-      <button onClick={sortByRating}>Sort by Rating</button>
-      {filteredTutors.map((tutor: any) => (
-        <li key={tutor.id}>
-          <SearchResult tutor={tutor}/>
-        </li>
-      ))}
+        </section>
+        <section className="search__results">
+          {filteredTutors.map((tutor: TutorWithAvailability) => (
+            <SearchResult key={tutor.id} tutor={tutor}/>
+          ))}
+        </section>
+      </main>
     </div>
   )
 }

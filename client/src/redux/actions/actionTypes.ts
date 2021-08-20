@@ -4,6 +4,7 @@ export interface IReduxBaseAction {
 }
 
 export enum EReduxActionTypes {
-  AUTHENTICATE = 'AUTHENTICATE'
+  AUTHENTICATE = 'AUTHENTICATE',
+  CURRENT_TUTOR_INFO = 'CURRENT_TUTOR_INFO'
 }
 

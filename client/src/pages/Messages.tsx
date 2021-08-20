@@ -20,16 +20,7 @@ export const Messages = () => {
     getRooms().then(res =>  setRooms(res));
     socket = io(CONNECTION_PORT, { transports : ['websocket'] })
   }, []);
-
-  useEffect(() => {
-    socket.on('receive_message', (incomingMessage: MessageCompleteI) => {
-      console.log('receiving message', incomingMessage)
-      if (currentRoom && incomingMessage.RoomId === currentRoom.room) {
-        setMessagesList((current: any) => ([...current, incomingMessage]))
-      }
-    })
-  }, [])
-
+  
   useEffect(() => {
     if (currentRoom) {
       socket.emit('join_room', currentRoom.room);
@@ -37,6 +28,14 @@ export const Messages = () => {
         setMessagesList(res)
       })
     }
+  }, [currentRoom])
+  
+  useEffect(() => {      
+    socket.on('receive_message', (incomingMessage: MessageCompleteI) => {
+      if (currentRoom && incomingMessage.RoomId === currentRoom.room) {
+        setMessagesList((current: any) => ([...current, incomingMessage]))
+      }
+    })
   }, [currentRoom])
 
   const sendMessage = async (message: string, SenderId: string) => {

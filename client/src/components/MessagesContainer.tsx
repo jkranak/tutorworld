@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import noPhotoUser from '../assets/no_photo_user.png';
 import { RoomI } from "../interfaces/Room";
 import { getStudentDetails, getTutorDetails } from "../services/apiUser";
 import { v4 as uuidv4 } from 'uuid';
 import { MessagesList } from "./MessagesList";
+import { currentRoom } from "../redux/actions/currentRoom";
 interface Props {
   messagesList: []
   sendMessage: Function
   rooms: RoomI[],
-  currentRoom: RoomI | undefined,
-  setCurrentRoom: Function
 }
 
-export const MessagesContainer = ({ messagesList, sendMessage, rooms, currentRoom, setCurrentRoom }: Props) => {
+export const MessagesContainer = ({ messagesList, sendMessage, rooms }: Props) => {
   // TO-DO fix typescript any
   const user = useSelector((state: any) => state.authenticate);
+  const room = useSelector((state: any) => state.currentRoom);
   const [userDetails, setUserDetails] = useState<any>(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (user.role === 'student') {
@@ -30,6 +31,10 @@ export const MessagesContainer = ({ messagesList, sendMessage, rooms, currentRoo
     }
   }, [])
 
+  const changeCurrentRoom = (room: RoomI) => {
+    dispatch(currentRoom(room))
+  }
+
   return (
     <main className="messages__content">
       <section className="messages__content--box">
@@ -41,9 +46,8 @@ export const MessagesContainer = ({ messagesList, sendMessage, rooms, currentRoo
             <span className="me__name">{`${userDetails?.firstName} ${userDetails?.lastName}`}</span>
           </div>
           <div>search</div>
-          {/* map all rooms */}
           {rooms && rooms.map(room => 
-            <div className="messages__content--contact" key={uuidv4()} onClick={() => setCurrentRoom(room)}>
+            <div className="messages__content--contact" key={uuidv4()} onClick={() => changeCurrentRoom(room)}>
               <div className="image-box">
                 {/* since there is no group chat feature we can just select que index 0 */}
                 <img src={room.senders[0].imageUrl ? room.senders[0].imageUrl : noPhotoUser} alt={`${room.senders[0].firstName} ${room.senders[0].lastName}`} />
@@ -53,7 +57,7 @@ export const MessagesContainer = ({ messagesList, sendMessage, rooms, currentRoo
           }
           
         </div>
-        {currentRoom ? <MessagesList messagesList={messagesList} sendMessage={sendMessage}/> : <div className="messages__content--right-box">Enter a chat</div> }
+        {room ? <MessagesList messagesList={messagesList} sendMessage={sendMessage}/> : <div className="messages__content--right-box">Find a tutor</div> }
       </section>
     </main>
   )

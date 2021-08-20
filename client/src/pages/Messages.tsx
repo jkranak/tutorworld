@@ -2,8 +2,10 @@ import { MessagesContainer } from "../components/MessagesContainer"
 import { Navbar } from "../components/Navbar"
 import io from 'socket.io-client';
 import { useEffect, useState } from "react";
-import { getMessages, getRooms } from "../services/apiChat";
+import { getMessages, getRooms, sendNewMessage } from "../services/apiChat";
 import { RoomI } from "../interfaces/Room";
+import { MessageCompleteI } from "../interfaces/Message";
+import { useSelector } from "react-redux";
 
 let socket: any;
 const CONNECTION_PORT = process.env.REACT_APP_API_URL || '';
@@ -12,18 +14,19 @@ export const Messages = () => {
   //TO-DO fix typescript anys
   const [ rooms, setRooms ] = useState<RoomI[]>([]);
   const [ messagesList, setMessagesList ] = useState<any>([]);
-  const [ currentRoom, setCurrentRoom] = useState<RoomI>();
+  const currentRoom = useSelector((state: any) => state.currentRoom);
 
   useEffect(() => {
-    // retrieve all rooms from current user
     getRooms().then(res =>  setRooms(res));
     socket = io(CONNECTION_PORT, { transports : ['websocket'] })
-    // retrieve all messages from that room
   }, []);
 
   useEffect(() => {
-    socket.on('receive_message', (incomingMessage: any) => {
-      setMessagesList((current: any) => ([...current, incomingMessage]))
+    socket.on('receive_message', (incomingMessage: MessageCompleteI) => {
+      console.log('receiving message', incomingMessage)
+      if (currentRoom && incomingMessage.RoomId === currentRoom.room) {
+        setMessagesList((current: any) => ([...current, incomingMessage]))
+      }
     })
   }, [])
 
@@ -36,15 +39,19 @@ export const Messages = () => {
     }
   }, [currentRoom])
 
-  const sendMessage = (message: any) => {
-    socket.emit('send_message', message);
-    setMessagesList((current: any )=> ([...current, message]))
+  const sendMessage = async (message: string, SenderId: string) => {
+    if (currentRoom) {
+      const newMessage = await sendNewMessage({content: message, SenderId, RoomId: currentRoom.room})
+      console.log('new message', newMessage);
+      socket.emit('send_message', newMessage);
+      setMessagesList((current: any )=> ([...current, newMessage]))
+    }
   }
   
   return (
     <div className="messages">
       <Navbar />
-      <MessagesContainer messagesList={messagesList} sendMessage={sendMessage} rooms={rooms} currentRoom={currentRoom} setCurrentRoom={setCurrentRoom}/>
+      <MessagesContainer messagesList={messagesList} sendMessage={sendMessage} rooms={rooms}/>
     </div>
   )
 }

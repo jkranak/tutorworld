@@ -4,17 +4,14 @@ import { QueryTypes } from 'sequelize';
 
 export const sendMessage = async (req: Request, res: Response) => {
   try {
-    // should receive the roomid too
-    const { id, role } = req.body.user;
-    const { content, RoomId } = req.body;
-    const sender = await Models.Sender.findOne({where: {UserId: id, role}})
-    const message = await Models.Message.create({SenderId: sender.id, content, RoomId});
-    res.status(200);
+    const { content, RoomId, SenderId } = req.body;
+    const message = await Models.Message.create({SenderId, content, RoomId});
     res.send(message);
+    res.status(200);
   } catch (error) {
     console.log(error)
-    res.status(500);
     res.send(error);
+    res.status(500);
   }
 }
 

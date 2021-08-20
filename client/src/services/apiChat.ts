@@ -1,3 +1,4 @@
+import { MessageI } from '../interfaces/Message';
 import api from './apiConfig';
 
 export const getRooms = async () => {
@@ -12,6 +13,15 @@ export const getRooms = async () => {
 export const getMessages = async (RoomId: string) => {
   try {
     const response = await api.get(`/room/messages/${RoomId}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export const sendNewMessage = async (message: MessageI) => {
+  try {
+    const response = await api.post(`/message/send`, message);
     return response.data;
   } catch (error) {
     return error;

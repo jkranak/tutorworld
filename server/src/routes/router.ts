@@ -1,6 +1,6 @@
 import express from 'express';
 import { createStudent, createTutor, login, verifyUser } from '../controllers/authController';
-import { updateTutorInfo, getStudentInfo, updateStudentInfo, getEveryTutorsInfo, getAllTutorsInfoAvail, getTutorInfoAvail } from '../controllers/infoController';
+import { updateTutorInfo, getStudentInfo, updateStudentInfo, getEveryTutorsInfo, getAllTutorsInfoAvail, getTutorInfoAvail, getBasicUserInfo } from '../controllers/infoController';
 import { changeStudentPassword, changeTutorPassword } from '../controllers/passwordController';
 import { addUpcomingSessions, getHistorySessions, getUpcomingSessions, updateHistoryUpcomingSessions } from '../controllers/sessionsController';
 import { getAllTutorsAvail, getTutorAvail, getTutorAvailByDate, updateTutorAvail } from '../controllers/tutorAvailController';
@@ -32,6 +32,7 @@ router.put('/students/student/info', authMiddleware, studentMiddleware, updateSt
 router.get('/search', authMiddleware, getAllTutorsInfoAvail); //search array of objects with allTutorsInfo and avalabilty combined for easy filtering
 // router.get('/tutors/tutor/allInfo', authMiddleware, tutorMiddleware, getAllTutorInfo);//may be redundent since above takes userId as paramater
 // router.get('/tutors/allInfo', authMiddleware, getEveryTutorsInfo); //can be used by both student and tutor
+router.get('/user/:id/:role/info', authMiddleware, getBasicUserInfo);
 
 //change password routes
 router.put('/tutors/tutor/password', authMiddleware, tutorMiddleware, changeTutorPassword);

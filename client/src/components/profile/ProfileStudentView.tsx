@@ -1,11 +1,15 @@
-import noPhotoUser from '../assets/no_photo_user.png';
-import { StudentComplete } from '../interfaces/Student';
+import {FC} from 'react';
+import noPhotoUser from '../../assets/no_photo_user.png';
+import { StudentComplete } from '../../interfaces/Student';
 
 interface Props {
   studentDetails: StudentComplete
 }
 
-export const ProfileStudentView = ({studentDetails}: Props) => {
+
+
+export const ProfileStudentView: FC<Props> = ({studentDetails}: Props) => {
+
   return (
     <div className="student-profile">
       <div className="image-box">

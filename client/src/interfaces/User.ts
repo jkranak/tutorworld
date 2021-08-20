@@ -1,5 +1,3 @@
-import { Availability, emptyAvailability } from './Availability';
-
 export interface UserLogin {
   email: string,
   password: string
@@ -32,4 +30,16 @@ export interface UserRole {
 export const emptyUserRole: UserRole = {
   id: '',
   role: ''
+}
+
+export interface UserNameImage {
+  firstName: string
+  lastName: string
+  imageUrl: string
+}
+
+export const emptyUserNameImage: UserNameImage = {
+  firstName: '',
+  lastName: '',
+  imageUrl: ''
 }

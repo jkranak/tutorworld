@@ -1,14 +1,15 @@
+import {FC} from 'react';
 import { BsStarFill, BsStar, BsStarHalf } from 'react-icons/bs'
 import { v4 as uuidv4 } from 'uuid';
-import { starRating } from '../services/starRating';
-import {TutorWithAvailability} from '../interfaces/Tutor';
-import {dayNames, capitalDayNames} from '../assets/times';
+import { starRating } from '../../services/starRating';
+import {TutorWithAvailability} from '../../interfaces/Tutor';
+import {dayNames, capitalDayNames} from '../../assets/times';
 
 interface Props {
   tutorDetails: TutorWithAvailability
 }
 
-export const ProfileTutorView = ({tutorDetails}: Props) => {
+export const ProfileTutorView: FC<Props> = ({tutorDetails}: Props) => {
   const starArr: number[] = tutorDetails && starRating(tutorDetails.rating!);
   
   return (

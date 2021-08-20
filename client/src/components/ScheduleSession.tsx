@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import DayPicker from 'react-day-picker';
@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { dayNames } from '../assets/times';
 
 
-export const ScheduleSession = () => {
+export const ScheduleSession: FC = () => {
   const [selectedDay, setSelectedDay] = useState(new Date(0));
   const [pickTime, setPickTime] = useState(false);
   const [timesArr, setTimesArr] = useState(['']);

@@ -30,8 +30,7 @@ export const ChangePassword: FC<Props> = ({setChangePassword}: Props) => {
         />
         <button type="submit" className="btn btn--blue form--btn">Change Password</button>
       </form>
-      <button onClick={() => setChangePassword(false)}
-      className="btn btn--clear form--btn">Cancel</button>
+      <button onClick={() => setChangePassword(false)} className="btn btn--clear form--btn">Cancel Password Change</button>
     {!match && <p>Passwords don't match</p>}
     </div>
   )

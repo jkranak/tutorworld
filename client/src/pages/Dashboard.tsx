@@ -4,6 +4,7 @@ import { Navbar } from '../components/Navbar';
 import { Sidebar } from '../components/Sidebar';
 import { UpcomingSession } from '../components/dashboard/UpcomingSession';
 import { History } from '../components/dashboard/History';
+import { FavTutors } from '../components/dashboard/FavTutors';
 
 
 export const Dashboard: FC = () => {
@@ -56,7 +57,7 @@ export const Dashboard: FC = () => {
               <div className="dashboard__content--display--info">
                 <h1 className="dashboard__content--display--title">Favorite Tutors</h1>
                 <div className="dashboard__content--display--bottom--box">
-                  <p>tutors</p>
+                  <FavTutors />
                 </div>
               </div>
             </div>  

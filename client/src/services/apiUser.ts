@@ -133,6 +133,16 @@ export const getUserSessions = async () => {
   }
 }
 
+export const getUserHistory = async () => {
+  try {
+    const response = await api.get('/historySessions');
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
 export const getBasicUserInfo = async (id: string, role: string) => {
   try {
     const response = await api.get(`/user/${id}/${role}/info`);

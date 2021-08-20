@@ -12,7 +12,6 @@ interface Props {
 export const SessionEntry: FC<Props> = ({session, user}: Props) => {
   const [otherUserInfo, setOtherUserInfo] = useState(emptyUserNameImage);
   
-
   useEffect(() => {
     if (session.StudentId && session.TutorId) {
       const otherId = user.role === 'tutor' ? session.StudentId : session.TutorId;

@@ -16,7 +16,6 @@ export const UpcomingSession: FC = () => {
   
   return (
     <div>
-      <p>Upcoming Sessions</p>
       <ol>
       {sessionList.map((session: Session) => (
         <li key={session.createdAt}><SessionEntry session={session} user={user}/></li>

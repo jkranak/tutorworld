@@ -1,7 +1,7 @@
 import {FC, useState, useEffect} from 'react';
-import { getStudentDetails } from '../services/apiUser';
-import { emptyStudentComplete } from '../interfaces/Student';
-import { ChangePassword } from '../components/ChangePassword';
+import { getStudentDetails } from '../../services/apiUser';
+import { emptyStudentComplete } from '../../interfaces/Student';
+import { ChangePassword } from '../ChangePassword';
 import { ProfileStudentEdit } from './ProfileStudentEdit';
 import { ProfileStudentView } from './ProfileStudentView';
 
@@ -27,13 +27,14 @@ return (
   {editing 
   ? <>
     <ProfileStudentEdit studentDetails={studentDetails} setStudentDetails={setStudentDetails} setEditing={setEditing}/>
+    {changePassword ? <ChangePassword setChangePassword={setChangePassword}/> : <button onClick={() => setChangePassword(true)} className="btn btn--clear">Change password</button> }
     <button onClick={editClick} className="btn btn--clear">Exit Edit Profile</button>
   </>
   : <>
     <ProfileStudentView studentDetails={studentDetails} />
     <button onClick={editClick} className="btn btn--blue">Edit Profile</button>
   </>}
-  {editing && changePassword ? ChangePassword: <button onClick={() => setChangePassword(true)} className="btn btn--clear">Change password</button> }
+  
   </>
 )
 }

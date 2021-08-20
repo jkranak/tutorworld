@@ -1,9 +1,9 @@
 import { useState, FC } from 'react';
 import {Elements} from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { Payment } from '../components/Payment';
-import { PaymentSuccess } from '../components/PaymentSuccess';
-import { PaymentFail } from '../components/PaymentFail';
+import { Payment } from '../components/payment/Payment';
+import { PaymentSuccess } from '../components/payment/PaymentSuccess';
+import { PaymentFail } from '../components/payment/PaymentFail';
 import { Navbar } from '../components/Navbar';
 
 

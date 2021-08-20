@@ -1,3 +1,4 @@
+import { AvailabilityDays } from '../interfaces/Availability';
 import {StudentComplete} from '../interfaces/Student';
 import {TutorUpdate} from '../interfaces/Tutor';
 import { User, UserLogin } from '../interfaces/User';
@@ -104,6 +105,16 @@ export const getOneTutorAvailability = async (tutorId: string, date: string) => 
 export const addOneSession = async (TutorId: number, date: string, time: string, cost: number, sessionContext: string) => {
   try {
     const response = await api.post('/upcomingSessions', {TutorId, date, time, cost, sessionContext});
+    return response.status;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const updateAvailability = async (avail: AvailabilityDays) => {
+  try {
+    const response = await api.put('/tutors/tutor/tutorAvail', avail);
     return response.status;
   } catch (error) {
     console.log(error);

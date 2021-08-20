@@ -1,6 +1,6 @@
-import { ReactElement, useState } from 'react'
-import { updateStudent } from '../services/apiUser';
-import { StudentComplete } from '../interfaces/Student';
+import { FC, useState } from 'react'
+import { updateStudent } from '../../services/apiUser';
+import { StudentComplete } from '../../interfaces/Student';
 
 interface Props {
   studentDetails: StudentComplete
@@ -8,7 +8,7 @@ interface Props {
   setStudentDetails: (details: StudentComplete) => void
 }
 
-export function ProfileStudentEdit ({ studentDetails, setEditing, setStudentDetails }: Props): ReactElement<Props> {
+export const ProfileStudentEdit: FC<Props> = ({ studentDetails, setEditing, setStudentDetails }: Props) => {
   const [editedUser, setEditedUser] = useState(studentDetails);
   const handleStudentChange = (event: {target: {name: string, value: string}}) => {
     setEditedUser((current: StudentComplete) => ({...current, [event.target.name]: event.target.value}));

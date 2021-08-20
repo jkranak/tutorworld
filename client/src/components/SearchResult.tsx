@@ -4,8 +4,7 @@ import {starRating} from '../services/starRating';
 import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
 import { useDispatch } from 'react-redux';
 import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
-import { useHistory, Link } from 'react-router-dom';
-import {ViewProfile} from '../pages/ViewProfile';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   tutor: TutorComplete

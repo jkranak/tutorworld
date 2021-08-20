@@ -1,7 +1,7 @@
 import {FC, useState} from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import axios from 'axios';
-import {addOneSession} from '../services/apiUser';
+import {addOneSession} from '../../services/apiUser';
 
 interface Props {
   sessionInfo: {

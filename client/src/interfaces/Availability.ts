@@ -1,15 +1,19 @@
-export interface Availability {
+export interface AvailabilityDays {
+  sunday: object
+  monday: object
+  tuesday: object
+  wednesday: object
+  thursday: object
+  friday: object
+  saturday: object
+}
+
+export interface Availability extends AvailabilityDays {
   TutorId: string
   createdAt: string
-  friday: object
   id: string
-  monday: object
-  saturday: object
-  sunday: object
-  thursday: object
-  tuesday: object
+
   updatedAt: string
-  wednesday: object
 }
 
 export const emptyAvailability: Availability = {
@@ -25,3 +29,4 @@ export const emptyAvailability: Availability = {
   updatedAt: '',
   wednesday: {}
 }
+

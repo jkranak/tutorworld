@@ -1,10 +1,9 @@
 import { FormEvent, useState, FC } from 'react';
-import { languages, subjects } from '../assets/subjects_languages';
-import {TutorWithAvailability} from '../interfaces/Tutor';
-import { updateTutor } from '../services/apiUser';
-import {hours, dayNames, capitalDayNames} from '../assets/times';
+import { languages, subjects } from '../../assets/subjects_languages';
+import {TutorWithAvailability} from '../../interfaces/Tutor';
+import { updateTutor } from '../../services/apiUser';
+import {ProfileChangeAvailability} from './ProfileChangeAvailability';
 // import { FiX } from 'react-icons/fi';
-
 
 interface Props {
   tutorDetails: TutorWithAvailability
@@ -14,8 +13,8 @@ interface Props {
 
 export const ProfileTutorEdit: FC<Props> = ({tutorDetails, setTutorDetails, setEditing}: Props) => {
   const [editedUser, setEditedUser] = useState(tutorDetails);
-  const [chooseDay, setChooseDay] = useState('');
-  
+  const [changeAvail, setChangeAvail] = useState(false);
+
   const handleTutorChange = (event: {target: {name: string, value: any}}) => {
     setEditedUser((current: any) => ({...current, [event.target.name]: event.target.value}))
   }
@@ -120,16 +119,9 @@ export const ProfileTutorEdit: FC<Props> = ({tutorDetails, setTutorDetails, setE
           <textarea className="text-input text-input--blue text-input--textarea" id="experience" name="experience" onChange={handleTutorChange} defaultValue={tutorDetails.experience} placeholder="Experience" required/>
           <button type="submit" className="btn btn--blue form--btn">Submit</button>
       </form>
-      <h1>Change Availability</h1>
-      <form>
-        <label>Add availability</label>
-      <select name="availability" onChange={addSubject} defaultValue="" className="select-input select-input--blue">
-          <option value="" disabled>Choose Day</option>
-          {capitalDayNames.map((day, index) => (
-            <option key={day} value={dayNames[index]}>{day}</option>
-          ))}
-        </select>
-      </form>
+      {changeAvail 
+        ? <><ProfileChangeAvailability tutorDetails={tutorDetails} setTutorDetails={setTutorDetails} setChangeAvail={setChangeAvail}/> <button onClick={() => setChangeAvail(false)} className="btn btn--clear">Cancel Change Availability</button></>
+        : <button onClick={() => setChangeAvail(true)} className="btn btn--clear">Change Availability</button>}
     </div>
   )
 }

@@ -1,5 +1,3 @@
-import { Availability, emptyAvailability } from './Availability';
-
 export interface UserLogin {
   email: string,
   password: string

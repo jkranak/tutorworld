@@ -15,6 +15,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     firstName!: string;
     lastName!: string;
     UserId!: number
+    imageUrl!: string
 
     static associate(models: any) {
       // define association here
@@ -52,6 +53,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
     lastName: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
     }
   }, {
     sequelize,

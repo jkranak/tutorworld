@@ -10,7 +10,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    id!: number;
+    id!: string;
 
     static associate(models: any) {
       // define association here

@@ -8,11 +8,12 @@ export const updateTutorInfo = async (req:any, res:any) => {
 
     const updatedTutor = {email, firstName, lastName};
 
-    const updatedtutorInfo = { email, firstName, lastName, description, experience, imageUrl, education, price, subjectLevels, languages  };
+    const updatedtutorInfo = { email, firstName, lastName, description, experience, imageUrl, education, price, subjectLevels, languages };
 
     const tutorInfo = await Models.TutorInfo.findOne({where:{TutorId: id}});
 
     await Models.Tutor.update(updatedTutor, {where: {id}});
+    await Models.Sender.update({where: {UserId: id}, firstName: updatedtutorInfo.firstName, lastName: updatedtutorInfo.lastName, imageUrl: updatedtutorInfo.imageUrl})
 
     if(tutorInfo){
       //updating maybe a single column
@@ -80,6 +81,7 @@ export const updateStudentInfo = async (req:any, res:any) => {
     const { id, email, firstName, lastName, imageUrl } = req.body;
 
     await Models.Student.update({ id, email, firstName, lastName, imageUrl }, {where: {id}});
+    await Models.Sender.update({where: {UserId: id}, firstName, lastName, imageUrl})
     res.status(201).send('Student updated');
   } catch (error) {
     console.log(error)

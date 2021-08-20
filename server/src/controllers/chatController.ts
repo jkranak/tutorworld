@@ -1,5 +1,6 @@
 import Models from '../../models';
 import { Request, Response } from 'express';
+import { QueryTypes } from 'sequelize';
 
 export const sendMessage = async (req: Request, res: Response) => {
   try {
@@ -56,25 +57,48 @@ export const retrieveUserRooms = async (req: Request, res: Response) => {
     const sender = await Models.Sender.findOne({where: {UserId: id, role}});
     // get all rooms from that sender
     // TO-DO filter if the room has messages, if not then do not pass it to front end
-    const rooms = await Models.Room.findAll({
-      include: [{
-          model: Models.Sender,
-          as: 'senders',
-          attributes: [],
-          through: {where: {SenderId: sender.id}}
-      }]
-    });
-    
-    // const senderTwo = await Models.Sender.findAll({
-    //   include: [{
-    //     model: Models.Room,
-    //     as: 'rooms',
-    //     attributes: [],
-    //     through: {where: {SenderId: sender.id}}
-    //   }]
-    // })
+    // TO-DO convert into sequelize query
+    const rooms = await Models.sequelize.query(`SELECT * FROM "Rooms"
+    INNER JOIN
+     room_senders ON room_senders."RoomId" = "Rooms".id
+    INNER JOIN 
+    "Senders" ON room_senders."SenderId" = "Senders".id
+    where 
+    "Senders".id = ${sender.id};`, {type: QueryTypes.SELECT, raw: true})
 
-    res.send(rooms);
+    let result: {}[] = [];
+
+    rooms.forEach(async (room: any )=> {
+      let senders: any = [];
+
+      const otherSenders = await Models.sequelize.query(`SELECT * FROM "Rooms"
+      INNER JOIN
+       room_senders ON room_senders."RoomId" = "Rooms".id
+      where 
+      "Rooms".id = '${room.RoomId}';`, {type: QueryTypes.SELECT, raw: true})
+      
+      otherSenders.forEach(async (otherSend: any ) => {
+        if (otherSend.SenderId !== sender.id) {
+          console.log('othersenderid', otherSend.SenderId)
+
+          const currentSender = await Models.Sender.findOne({where: {id: otherSend.SenderId}})
+
+          console.log('current', currentSender.toJSON())
+
+          senders = [...senders, currentSender.toJSON()]
+        }
+      })
+      console.log('desired result', {
+        room: room.RoomId,
+        senders
+      })
+      result.push({
+        room: room.RoomId,
+        senders
+      })
+    })
+    console.log('this is the result', result);
+    res.send(result);
     res.status(200);
   } catch (error) {
     console.log(error)
@@ -82,4 +106,3 @@ export const retrieveUserRooms = async (req: Request, res: Response) => {
     res.send(error);
   }
 }
-

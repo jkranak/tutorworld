@@ -4,4 +4,5 @@ export interface SenderI {
   firstName: string
   lastName: string
   UserId: number
+  imageUrl: string
 }

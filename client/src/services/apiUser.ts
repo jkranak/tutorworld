@@ -152,3 +152,13 @@ export const getBasicUserInfo = async (id: string, role: string) => {
     return error;
   }
 }
+
+export const getFavTutors = async () => {
+  try {
+    const response = await api.get('/students/student/favTutors');
+    return (response.data);
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}

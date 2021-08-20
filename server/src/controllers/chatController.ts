@@ -84,12 +84,26 @@ export const retrieveUserRooms = async (req: Request, res: Response) => {
         }
         return null
       }))
+      senders = senders.filter((sender: any) => sender !== null);
       result.push({
         room: room.RoomId,
         senders
       })
-    }))    
+    }))
     res.send(result);
+    res.status(200);
+  } catch (error) {
+    console.log(error)
+    res.status(500);
+    res.send(error);
+  }
+}
+
+export const retrieveMessagesByRoom = async (req: Request, res: Response) => {
+  try {
+    const { RoomId } = req.params;
+    const messages = await Models.Message.findAll({where: { RoomId }});
+    res.send(messages);
     res.status(200);
   } catch (error) {
     console.log(error)

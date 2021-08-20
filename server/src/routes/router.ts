@@ -9,7 +9,7 @@ import { studentMiddleware, tutorMiddleware } from '../middlewares/roleMiddlewar
 import {stripePayment} from '../controllers/paymentController';
 import { addFavTutor, getAllFavTutors, removeFavTutor } from '../controllers/favTutorsController';
 import { updateRating } from '../controllers/ratingController';
-import { connectToRoom, retrieveUserRooms, sendMessage } from '../controllers/chatController';
+import { connectToRoom, retrieveMessagesByRoom, retrieveUserRooms, sendMessage } from '../controllers/chatController';
 const router = express.Router();
 
 
@@ -66,6 +66,7 @@ router.post('/payment', stripePayment);
 router.post('/message/send', authMiddleware, sendMessage);
 router.post('/room', authMiddleware, connectToRoom);
 router.get('/room/all', authMiddleware, retrieveUserRooms);
+router.get('/room/messages/:RoomId', authMiddleware, retrieveMessagesByRoom);
 
 export default router;
 

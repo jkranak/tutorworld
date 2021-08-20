@@ -19,10 +19,11 @@ export const createStudent = async (req:any, res:any) => {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     const newUser = await Models.Student.create({email, firstName, lastName, password: hashedPassword, imageUrl});
-    await Models.Sender.create({UserId: newUser.id, role: 'student', firstName: newUser.firstName, lastName: newUser.lastName, imageUrl: newUser.imageUrl})
+    const newSender = await Models.Sender.create({UserId: newUser.id, role: 'student', firstName: newUser.firstName, lastName: newUser.lastName, imageUrl: newUser.imageUrl})
     res.status(201).send({
       user: {
         id: newUser.id,
+        SenderId: newSender.id,
         role: 'student',
       },
       token: generateToken(newUser.id, 'student'),
@@ -102,14 +103,16 @@ export const verifyUser = async (req: any, res: any) => {
     if (role === 'student') {
       const student = await Models.Student.findOne({where: {id}});
       if (student) {
-        res.status(200).send({user: {id, role} })
+        const sender = await Models.Sender.findOne({where: {UserId: id, role}})
+        res.status(200).send({user: {id, role, SenderId: sender.id} })
       } else {
         console.log(`Could not find student`);
       }
     } else if (role === 'tutor') {
       const tutor = await Models.Tutor.findOne({where: {id}});
       if (tutor) {
-        res.status(200).send({user: {id, role} })
+        const sender = await Models.Sender.findOne({where: {UserId: id, role}})
+        res.status(200).send({user: {id, role, SenderId: sender.id} })
       } else {
         console.log(`Could not find tutor`);
       }

@@ -2,22 +2,21 @@ import { MessagesContainer } from "../components/MessagesContainer"
 import { Navbar } from "../components/Navbar"
 import io from 'socket.io-client';
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { getRooms } from "../services/apiChat";
+import { getMessages, getRooms } from "../services/apiChat";
+import { RoomI } from "../interfaces/Room";
 
 let socket: any;
 const CONNECTION_PORT = process.env.REACT_APP_API_URL || '';
 
 export const Messages = () => {
   //TO-DO fix typescript anys
-  const [ rooms, setRooms ] = useState([]);
+  const [ rooms, setRooms ] = useState<RoomI[]>([]);
   const [ messagesList, setMessagesList ] = useState<any>([]);
-  const userMe = useSelector((state: any) => state.authenticate);
+  const [ currentRoom, setCurrentRoom] = useState<RoomI>();
 
   useEffect(() => {
-    // retrieve all rooms that contain messages
-    getRooms().then(res => console.log('rooms list', res));
-    console.log('connection port', CONNECTION_PORT)
+    // retrieve all rooms from current user
+    getRooms().then(res =>  setRooms(res));
     socket = io(CONNECTION_PORT, { transports : ['websocket'] })
     // retrieve all messages from that room
   }, []);
@@ -28,9 +27,14 @@ export const Messages = () => {
     })
   }, [])
 
-  const enterRoom = () => {
-    socket.emit('join_room', 'testroom');
-  }
+  useEffect(() => {
+    if (currentRoom) {
+      socket.emit('join_room', currentRoom.room);
+      getMessages(currentRoom.room).then(res => {
+        setMessagesList(res)
+      })
+    }
+  }, [currentRoom])
 
   const sendMessage = (message: any) => {
     socket.emit('send_message', message);
@@ -40,7 +44,7 @@ export const Messages = () => {
   return (
     <div className="messages">
       <Navbar />
-      <MessagesContainer messagesList={messagesList} sendMessage={sendMessage}/>
+      <MessagesContainer messagesList={messagesList} sendMessage={sendMessage} rooms={rooms} currentRoom={currentRoom} setCurrentRoom={setCurrentRoom}/>
     </div>
   )
 }

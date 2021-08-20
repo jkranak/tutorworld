@@ -26,8 +26,6 @@ export const ProfileTutorEdit: FC<Props> = ({tutorDetails, setTutorDetails, setE
     const [tutorSubjectLevels, setTutorSubjectLevels] = useState([...tutorDetails.subjectLevels]);
     const [changeAvail, setChangeAvail] = useState(false);
 
-  console.log(editedUser)
-
   const handleTutorChange = (event: {target: {name: string, value: any}}) => {
     setEditedUser((current: any) => ({...current, [event.target.name]: event.target.value}))
   }

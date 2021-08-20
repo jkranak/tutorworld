@@ -25,13 +25,26 @@ export const connectToRoom = async (req: Request, res: Response) => {
     EXISTS (SELECT * FROM public."room_senders" as RS WHERE Room."RoomId" = RS."RoomId" AND "SenderId" = ${otherUserSenderId}) GROUP BY Room."RoomId"`)
     if (existentRoom[0].length) {
       // room already exists so connect to it
-      res.send(existentRoom[0][0].RoomId);
+      const room = existentRoom[0][0].RoomId;
+      const senders = await Models.sequelize.query(`SELECT * FROM "Rooms"
+      INNER JOIN
+       room_senders ON room_senders."RoomId" = "Rooms".id
+      where 
+      "Rooms".id = '${room.RoomId}';`, {type: QueryTypes.SELECT, raw: true});
+      console.log('result', {room, senders})
+      res.send({room, senders});
     } else {
       // creating a new room and adding both senders
       const newRoom = await Models.Room.create({id: uuidv4()});
       await newRoom.addSender(mySenderId);
       await newRoom.addSender(otherUserSenderId);
-      res.send(newRoom.id);
+      const senders = await Models.sequelize.query(`SELECT * FROM "Rooms"
+      INNER JOIN
+       room_senders ON room_senders."RoomId" = "Rooms".id
+      where 
+      "Rooms".id = '${newRoom.id}';`, {type: QueryTypes.SELECT, raw: true});
+
+      res.send({room: newRoom.id, senders});
     }
     res.status(200);
   } catch (error) {

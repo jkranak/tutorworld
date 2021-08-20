@@ -29,9 +29,11 @@ export const MessagesContainer = ({ messagesList, sendMessage, rooms }: Props) =
         setUserDetails(res);
       })
     }
+    console.log('room messages container', room)
   }, [])
 
   const changeCurrentRoom = (room: RoomI) => {
+    console.log('change current room', room);
     dispatch(currentRoom(room))
   }
 
@@ -57,7 +59,7 @@ export const MessagesContainer = ({ messagesList, sendMessage, rooms }: Props) =
           }
           
         </div>
-        {room ? <MessagesList messagesList={messagesList} sendMessage={sendMessage}/> : <div className="messages__content--right-box">Find a tutor</div> }
+        {(room && messagesList.length && messagesList) ? <MessagesList messagesList={messagesList} sendMessage={sendMessage}/> : <div className="messages__content--right-box">Find a tutor</div> }
       </section>
     </main>
   )

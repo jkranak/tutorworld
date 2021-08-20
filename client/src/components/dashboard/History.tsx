@@ -13,6 +13,7 @@ export const History: FC = () => {
       setHistoryList(res);
     })
   }, [])
+  
   return (
     <div>
       <ol>

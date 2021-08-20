@@ -3,10 +3,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { combineReducers } from 'redux';
 import { authenticateReducer } from '../reducers/authenticateReducer';
 import { currentTutorInfoReducer } from '../reducers/currentTutorInfoReducer';
+import { currentRoomReducer } from '../reducers/currentRoomReducer';
 
 const rootReducer = combineReducers({
   authenticate: authenticateReducer,
-  currentTutorInfo: currentTutorInfoReducer
+  currentTutorInfo: currentTutorInfoReducer,
+  currentRoom: currentRoomReducer
 })
 
 export const configureStore = () => {

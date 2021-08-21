@@ -52,6 +52,7 @@ export const Dashboard: FC = () => {
               <div className="dashboard__content--display--info">
                 <h1 className="dashboard__content--display--title">History</h1> 
                 <div className="dashboard__content--display--bottom--box">
+                <History />
                 </div>
               </div>
               <div className="dashboard__content--display--info">

@@ -44,7 +44,7 @@ export const RegisterForm: FC<Props> = ({setToggle}: Props) => {
   return (
     <div className="form register-form">
       <div className="form--title">
-        <h1 className="before-icon">Register</h1>
+        <h1 className="before-icon">Register as Student</h1>
         <FaSignInAlt className="fa-icon form--icon"/>
       </div>
       <form onSubmit={handleSubmit}>

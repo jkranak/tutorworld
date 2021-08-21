@@ -5,7 +5,9 @@ import { useEffect, useState } from "react";
 import { getMessages, getRooms, sendNewMessage } from "../services/apiChat";
 import { RoomI } from "../interfaces/Room";
 import { MessageCompleteI } from "../interfaces/Message";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { currentRoom } from "../redux/actions/currentRoom";
 
 let socket: any;
 const CONNECTION_PORT = process.env.REACT_APP_API_URL || '';
@@ -14,34 +16,37 @@ export const Messages = () => {
   //TO-DO fix typescript anys
   const [ rooms, setRooms ] = useState<RoomI[]>([]);
   const [ messagesList, setMessagesList ] = useState<any>([]);
-  const currentRoom = useSelector((state: any) => state.currentRoom);
-
+  const location: any = useLocation();
+  const currRoom = useSelector((state: any) => state.currentRoom);
+  const dispatch = useDispatch();
+  
   useEffect(() => {
-    getRooms().then(res =>  setRooms(res));
     socket = io(CONNECTION_PORT, { transports : ['websocket'] })
+    getRooms().then(res => setRooms(res)).then(() => {
+    if (location.state) dispatch(currentRoom(location.state))
+    });
   }, []);
   
   useEffect(() => {
-    if (currentRoom) {
-      socket.emit('join_room', currentRoom.room);
-      getMessages(currentRoom.room).then(res => {
+    if (currRoom) {
+      socket.emit('join_room', currRoom.room);
+      getMessages(currRoom.room).then(res => {
         setMessagesList(res)
       })
-    }
-  }, [currentRoom])
-  
+    }    
+  }, [currRoom])
+  // TO-DO sometimes when receiving a message it is inserted a few times in the messagesList, the database only receives it once
   useEffect(() => {      
     socket.on('receive_message', (incomingMessage: MessageCompleteI) => {
-      if (currentRoom && incomingMessage.RoomId === currentRoom.room) {
+      if (currRoom && incomingMessage.RoomId === currRoom.room) {
         setMessagesList((current: any) => ([...current, incomingMessage]))
       }
     })
-  }, [currentRoom])
+  }, [currRoom])
 
   const sendMessage = async (message: string, SenderId: string) => {
-    if (currentRoom) {
-      const newMessage = await sendNewMessage({content: message, SenderId, RoomId: currentRoom.room})
-      console.log('new message', newMessage);
+    if (currRoom) {
+      const newMessage = await sendNewMessage({content: message, SenderId, RoomId: currRoom.room})
       socket.emit('send_message', newMessage);
       setMessagesList((current: any )=> ([...current, newMessage]))
     }

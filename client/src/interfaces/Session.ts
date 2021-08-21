@@ -8,7 +8,7 @@ export interface Session {
   sessionContext: string
   time: string
   updatedAt?: string
-  sortDate?: string
+  sortDate?: number
 }
 
 export const emptySession: Session = {

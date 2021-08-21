@@ -2,12 +2,13 @@ export interface Session {
   StudentId: string
   TutorId: string
   cost: number
-  createdAt: string
+  createdAt?: string
   date: string
   id: string
   sessionContext: string
   time: string
-  updatedAt: string
+  updatedAt?: string
+  sortDate?: string
 }
 
 export const emptySession: Session = {

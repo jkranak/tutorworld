@@ -43,9 +43,9 @@ export const ProfileTutorView: FC<Props> = ({tutorDetails}: Props) => {
         </div>
         <div className="tutor-profile__info-wrapper">
           <p className="tutor-profile--sub-title">Rating</p>
-          {starArr?.map(el => (
+          {tutorDetails.rating > 0 ? <span>{starArr?.map(el => (
             el === 2 ? <BsStarFill key={uuidv4()} className="tutor-profile__info--star"/> : el === 1 ? <BsStarHalf key={uuidv4()} className="tutor-profile__info--star"/> : <BsStar key={uuidv4()} className="tutor-profile__info--star"/>
-          ))}
+          ))}</span> : <span>No ratings yet</span>}
         </div>
         <div className="tutor-profile__info-wrapper">
           <p className="tutor-profile--sub-title">Experience</p>

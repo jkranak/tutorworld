@@ -57,7 +57,7 @@ export const LoginForm: FC<Props> = ({setToggle}: Props) => {
       <div className="form--toggle">
         <span>Don't have an account?</span>
         <button onClick={() => setToggle('register')} className="form--toggle-btn">
-          Register
+          Register as a student
         </button>
       </div>
     </div>

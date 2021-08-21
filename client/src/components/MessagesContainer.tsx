@@ -29,11 +29,9 @@ export const MessagesContainer = ({ messagesList, sendMessage, rooms }: Props) =
         setUserDetails(res);
       })
     }
-    console.log('room messages container', room)
   }, [])
 
   const changeCurrentRoom = (room: RoomI) => {
-    console.log('change current room', room);
     dispatch(currentRoom(room))
   }
 

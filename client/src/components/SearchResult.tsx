@@ -31,10 +31,10 @@ export const SearchResult: FC<Props> = ({tutor}: Props) => {
     const room = await enterRoom({mySenderId: user.SenderId, otherUserSenderId: SenderId})
     // my sender id, tutor sender id,
     dispatch(currentRoom(room));
-    // history.push({
-    //   pathname: '/messages',
-    //   state: room
-    // });
+    history.push({
+      pathname: '/messages',
+      state: room
+    });
   }
 
   const handleProfile = () => {

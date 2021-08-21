@@ -17,43 +17,34 @@ export const sendMessage = async (req: Request, res: Response) => {
 }
 
 export const connectToRoom = async (req: Request, res: Response) => {
-  try {
-    console.log('prop id??');
-    
+  try {  
     const { mySenderId, otherUserSenderId } = req.body;
     // looking for a room that contains both users
-    console.log('chega aqui??')
     const existentRoom = await Models.sequelize.query(`SELECT Room."RoomId" FROM public."room_senders" AS Room WHERE 
     EXISTS (SELECT * FROM public."room_senders" as RS WHERE Room."RoomId" = RS."RoomId" AND "SenderId" = ${mySenderId}) AND
     EXISTS (SELECT * FROM public."room_senders" as RS WHERE Room."RoomId" = RS."RoomId" AND "SenderId" = ${otherUserSenderId}) GROUP BY Room."RoomId"`)
     if (existentRoom[0].length) {
       // room already exists so connect to it
-      console.log('existing');
       const room = existentRoom[0][0].RoomId;
       const senders = await Models.sequelize.query(`SELECT * FROM "Rooms"
       INNER JOIN
        room_senders ON room_senders."RoomId" = "Rooms".id
       where 
       "Rooms".id = '${room}';`, {type: QueryTypes.SELECT, raw: true});
-      res.send({room, senders}).status(200);
+      res.send({room, senders});
     } else {
       // creating a new room and adding both senders
-      console.log('create new room');
       const newRoom = await Models.Room.create({id: uuidv4()});
       await newRoom.addSender(mySenderId);
       await newRoom.addSender(otherUserSenderId);
-      console.log('new room', newRoom);
-      // const senders = await Models.sequelize.query(`SELECT * FROM "Rooms"
-      // INNER JOIN
-      //  room_senders ON room_senders."RoomId" = "Rooms".id
-      // where 
-      // "Rooms".id = '${newRoom.id}';`, {type: QueryTypes.SELECT, raw: true});
-      
-      // console.log('new room result', {room: newRoom.id, senders});
-      
-      // res.send({room: newRoom.id, senders});
+      const senders = await Models.sequelize.query(`SELECT * FROM "Rooms"
+      INNER JOIN
+       room_senders ON room_senders."RoomId" = "Rooms".id
+      where
+      "Rooms".id = '${newRoom.id}';`, {type: QueryTypes.SELECT, raw: true});
+      res.send({room: newRoom.id, senders});
     }
-    // res.status(200);
+    res.status(200);
   } catch (error) {
     console.log(error)
     res.status(500);
@@ -128,6 +119,7 @@ export const retrieveSenderId = async (req: Request, res: Response) => {
   try {
     const { id, role } = req.params
     const sender = await Models.Sender.findOne({where: {UserId: id, role}});
+    console.log()
     res.send({SenderId: sender.id});
     res.status(200);
   } catch (error) {

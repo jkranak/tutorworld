@@ -1,6 +1,8 @@
 import {FC, useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import { getBasicUserInfo } from '../../services/apiUser';
-import {starRating} from '../../services/starRating';
+import {starRatingWhole} from '../../services/starRating';
 import { HistoryI } from '../../interfaces/Session';
 import {UserRole, emptyUserNameImage} from '../../interfaces/User';
 import noPhotoUser from '../../assets/no_photo_user.png';
@@ -13,7 +15,7 @@ interface Props {
 
 export const HistoryEntry: FC<Props> = ({session, user}: Props) => {
   const [otherUserInfo, setOtherUserInfo] = useState(emptyUserNameImage);
-  const starArr: number[] = starRating(session.starRating);
+  const starArr: number[] = starRatingWhole(session.starRating);
 
   useEffect(() => {
     if (session.StudentId && session.TutorId) {
@@ -31,9 +33,18 @@ export const HistoryEntry: FC<Props> = ({session, user}: Props) => {
           ? <img src={otherUserInfo.imageUrl} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />
           : <img src={noPhotoUser} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />}
         {otherUserInfo.firstName} {otherUserInfo.lastName} - {session.date}, {session.time} - Price: ${session.cost} - {session.review} - 
-        {starArr.map((el, index) => (
-          <span key={index} className="tutor-card__middle-box--star">{el === 2 ? <BsStarFill /> : <BsStar/>}</span>
-        ))}
+        {session.starRating > 0 ? <span>{starArr?.map(el => (
+            el === 2 ? <BsStarFill key={uuidv4()} className="tutor-profile__info--star"/> : <BsStar key={uuidv4()} className="tutor-profile__info--star"/>
+          ))}</span> : user.role === 'tutor' ? <span>No ratings yet</span> : <Link to={{
+            pathname:'/review', 
+            state:{
+              date: session.date,
+              time: session.time,
+              name: `${otherUserInfo.firstName} ${otherUserInfo.lastName}`,
+              rating: session.starRating ? session.starRating : 0,
+              review: session.review ? session.review : ''
+            }
+          }}>Review this session</Link>}
       </p>
     </div>
   )

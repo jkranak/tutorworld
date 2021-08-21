@@ -144,6 +144,7 @@ export const getUserHistory = async () => {
 }
 
 export const getBasicUserInfo = async (id: string, role: string) => {
+  
   try {
     const response = await api.get(`/user/${id}/${role}/info`);
     return (response.data);
@@ -157,6 +158,16 @@ export const getFavTutors = async () => {
   try {
     const response = await api.get('/students/student/favTutors');
     return (response.data);
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const updateRating = async (starRating: number, review: string) => {
+  try {
+    const response = await api.put('/submitRating', { starRating, review });
+    return (response.status);
   } catch (error) {
     console.log(error);
     return error;

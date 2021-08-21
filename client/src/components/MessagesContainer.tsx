@@ -57,7 +57,7 @@ export const MessagesContainer = ({ messagesList, sendMessage, rooms }: Props) =
           }
           
         </div>
-        {(room && messagesList.length && messagesList) ? <MessagesList messagesList={messagesList} sendMessage={sendMessage}/> : <div className="messages__content--right-box">Find a tutor</div> }
+        {room ? <MessagesList messagesList={messagesList} sendMessage={sendMessage}/> : <div className="messages__content--right-box">Find a tutor</div> }
       </section>
     </main>
   )

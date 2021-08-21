@@ -1,14 +1,32 @@
-import { useSelector } from 'react-redux';
-import {Link} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {Link, useHistory} from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { BsStarFill, BsStar, BsStarHalf } from 'react-icons/bs'
 import { starRating } from '../services/starRating';
 import { v4 as uuidv4 } from 'uuid';
 import { dayNames, capitalDayNames } from '../assets/times';
+import { enterRoom, getSenderId } from '../services/apiChat';
+import { currentRoom } from '../redux/actions/currentRoom';
 
 export const ViewProfile = () => {
   const tutorDetails = useSelector((state: any )=> state.currentTutorInfo);
+  const user = useSelector((state: any) => state.authenticate)
   const starArr: number[] = tutorDetails && starRating(tutorDetails.rating!);
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const handleMessage = async () => {
+    // check if there is already a room with this tutor, if not create a new room
+    console.log('tutor details', tutorDetails)
+    const { SenderId } = await getSenderId(tutorDetails.TutorId, 'tutor');
+    const room = await enterRoom({mySenderId: user.SenderId, otherUserSenderId: SenderId})
+    // my sender id, tutor sender id,
+    dispatch(currentRoom(room));
+    history.push({
+      pathname: '/messages',
+      state: room
+    });
+  }
 
   return (
     <>
@@ -22,7 +40,7 @@ export const ViewProfile = () => {
         <p className="tutor-profile--details">{tutorDetails.description}</p>
         <p className="tutor-profile--sub-title">Rate: ${tutorDetails.price}/hour</p>
         <Link to={'/schedule'} className="btn btn--blue">Schedule</Link>
-        <button className="btn btn--blue">Message</button>
+        <button className="btn btn--blue" onClick={handleMessage}>Message</button>
 
       </section>
       <section className="tutor-profile__right-box">

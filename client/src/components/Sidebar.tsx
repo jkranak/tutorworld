@@ -10,7 +10,7 @@ export const Sidebar: FC = () => {
       <Link to={'/profile'} className="btn btn--clear">Profile</Link>
       {user.role === 'tutor' && <button className="btn btn--clear">Availability</button>}
       <Link to={'/messages'} className="btn btn--clear">Conversations</Link>
-      <button className="btn btn--clear">Calendar</button>
+      <Link to={"/calendar"} className="btn btn--clear">Calendar</Link>
     </div>
   )
 }

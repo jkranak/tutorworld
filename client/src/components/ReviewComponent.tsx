@@ -39,7 +39,7 @@ export const ReviewComponent: FC = () => {
     event.preventDefault();
     if (rating === 0) setError(true);
     else {
-      updateRating(rating, review).then((res: number) => {
+      updateRating(rating, review, sessionInfo.date, sessionInfo.time).then((res: number) => {
         if (res === 200) history.push('/dashboard')
       })
     }

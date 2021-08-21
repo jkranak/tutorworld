@@ -164,9 +164,9 @@ export const getFavTutors = async () => {
   }
 }
 
-export const updateRating = async (starRating: number, review: string) => {
+export const updateRating = async (starRating: number, review: string, date: string, time: string) => {
   try {
-    const response = await api.put('/submitRating', { starRating, review });
+    const response = await api.put('/submitRating', { starRating, review, date, time });
     return (response.status);
   } catch (error) {
     console.log(error);

@@ -16,7 +16,8 @@ import { Checkout } from './pages/Checkout';
 import { Schedule } from './pages/Schedule';
 import { Messages } from './pages/Messages';
 import { ViewProfile } from './pages/ViewProfile';
-import {Review} from './pages/Review';
+import { Review } from './pages/Review';
+import { CalendarPage } from './pages/CalendarPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ function App() {
         <PrivateRoute path="/messages" exact component={Messages}/>
         <PrivateRoute path="/viewprofile" exact component={ViewProfile}/>
         <PrivateRoute path="/review" exact component={Review}/>
+        <PrivateRoute path="/calendar" exact component={CalendarPage}/>
       </Switch>
     </BrowserRouter>
   );

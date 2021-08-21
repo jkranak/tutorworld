@@ -26,8 +26,10 @@ export const ScheduleSession: FC = () => {
     } else {
       const dateStr = selectedDay.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
       getOneTutorAvailability(user.id, dateStr).then(res => {
+        setPickTime(false);
         setTimesArr(res);
         setPickTime(true);
+        setSelectedHour('');
       })
     }
   }, [selectedDay])

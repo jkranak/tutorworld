@@ -1,4 +1,18 @@
 import Models from '../../models';
+import {Session} from '../interfaces/Session';
+
+
+const timeConvert = (date: string, time: string) => {
+  let dateRes;
+    let timeArr = time.match(/([0-9]+):([0-9]+) ([A-Z]+)/);
+    if (timeArr![1] === '12' && timeArr![3] === 'AM') dateRes = new Date(`${date} 00:${timeArr![2]}`)
+    else if (timeArr![1] === '12') dateRes = new Date(`${date} 12:${timeArr![2]}`)
+    else if (timeArr![3] === 'PM') {
+      dateRes = new Date(`${date} ${(Number(timeArr![1]) + 12).toString()}:${timeArr![2]}`);
+    }
+    else dateRes = new Date(`${date} ${timeArr![1]}:${timeArr![2]}`);
+    return Number(dateRes);
+}
 
 export const getUpcomingSessions = async (req:any, res:any) => {
   try {
@@ -10,6 +24,10 @@ export const getUpcomingSessions = async (req:any, res:any) => {
     } else {
       upcomingSessions = await Models.UpcomingSession.findAll({where: {StudentId: id}});
     }
+    upcomingSessions.forEach((session: Session) => {
+      session['sortDate'] = timeConvert(session.date, session.time);
+    })
+    upcomingSessions.sort((a: Session, b: Session) => b.sortDate! - a.sortDate!)
 
     res.send(upcomingSessions);
     res.status(200);

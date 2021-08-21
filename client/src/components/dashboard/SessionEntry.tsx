@@ -3,6 +3,7 @@ import { getBasicUserInfo } from '../../services/apiUser';
 import { Session } from '../../interfaces/Session';
 import {UserRole, emptyUserNameImage} from '../../interfaces/User';
 import noPhotoUser from '../../assets/no_photo_user.png';
+import moment from 'moment';
 
 interface Props {
   session: Session
@@ -23,12 +24,21 @@ export const SessionEntry: FC<Props> = ({session, user}: Props) => {
   }, [])
 
   return (
-    <div>
-      <p>{otherUserInfo.imageUrl ? 
-         <img src={otherUserInfo.imageUrl} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />
-         :
-         <img src={noPhotoUser} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />
-        }{otherUserInfo.firstName} {otherUserInfo.lastName} - {session.date}, {session.time} - Price: ${session.cost} - {session.sessionContext}</p>
+    <div className="dashboard__content--display--session">
+      <div className="image-box">
+        <img src={otherUserInfo.imageUrl ? otherUserInfo.imageUrl : noPhotoUser} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />
+      </div>
+      <div className="dashboard__content--display--session-details">
+        <div className="dashboard__content--display--session--left-box">
+          <h2>{otherUserInfo.firstName} {otherUserInfo.lastName}</h2>
+          <span>{moment(session.date).format('YYYY MMM DD')}</span>
+          <span>{session.time}</span>
+        </div>
+        <div className="dashboard__content--display--session--right-box">
+          <h2>Price: ${session.cost}</h2>
+          <span>{session.sessionContext}</span>
+        </div>
+      </div>
     </div>
   )
 }

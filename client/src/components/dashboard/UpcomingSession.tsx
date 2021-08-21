@@ -16,10 +16,10 @@ export const UpcomingSession: FC = () => {
   
   return (
     <div className="dashboard__content--display--info">
-      <h1 className="dashboard__content--display--title">Upcoming Sessions</h1>
-      <div>
+      <h1 className="dashboard__content--display--title">Upcoming Sessions <div className="dashboard__content--display--title--number">{sessionList.length}</div></h1>
+      <div className="dashboard__content--display--sessions" >
       {sessionList.map((session: Session) => (
-        <div key={session.createdAt}><SessionEntry session={session} user={user}/></div>
+        <SessionEntry session={session} user={user} key={session.createdAt}/>
       ))}
       </div>
     </div>

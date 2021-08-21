@@ -45,14 +45,14 @@ export const MessagesContainer = ({ messagesList, sendMessage, rooms }: Props) =
             </div>
             <span className="me__name">{`${userDetails?.firstName} ${userDetails?.lastName}`}</span>
           </div>
-          <div>search</div>
-          {rooms && rooms.map(room => 
-            <div className="messages__content--contact" key={uuidv4()} onClick={() => changeCurrentRoom(room)}>
+          {/* <div>search</div> */}
+          {rooms && rooms.map(currRoom => 
+            <div className={`messages__content--contact ${room && room.room === currRoom.room && 'selected'}`}key={uuidv4()} onClick={() => changeCurrentRoom(currRoom)} >
               <div className="image-box">
                 {/* since there is no group chat feature we can just select que index 0 */}
-                <img src={room.senders[0].imageUrl ? room.senders[0].imageUrl : noPhotoUser} alt={`${room.senders[0].firstName} ${room.senders[0].lastName}`} />
+                <img src={currRoom.senders[0].imageUrl ? currRoom.senders[0].imageUrl : noPhotoUser} alt={`${currRoom.senders[0].firstName} ${currRoom.senders[0].lastName}`} />
               </div>
-              <span className="me__name">{`${room.senders[0].firstName} ${room.senders[0].lastName}`}</span>
+              <span className="me__name">{`${currRoom.senders[0].firstName} ${currRoom.senders[0].lastName}`}</span>
           </div>)
           }
           

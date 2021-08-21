@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FiChevronRight } from 'react-icons/fi'
 import { useSelector } from 'react-redux'
 import { MessageCompleteI } from '../interfaces/Message'
@@ -21,6 +21,10 @@ export const MessagesList = ({ messagesList, sendMessage }: Props) => {
       setMessage('');
     }
   }
+
+  useEffect(() => {
+    console.log('messagesList', messagesList);    
+  }, [messagesList])
 
   return (
     <div className="messages__content--right-box">

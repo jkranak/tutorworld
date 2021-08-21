@@ -15,12 +15,13 @@ export const UpcomingSession: FC = () => {
   }, [])
   
   return (
-    <div>
-      <ol>
+    <div className="dashboard__content--display--info">
+      <h1 className="dashboard__content--display--title">Upcoming Sessions</h1>
+      <div>
       {sessionList.map((session: Session) => (
-        <li key={session.createdAt}><SessionEntry session={session} user={user}/></li>
+        <div key={session.createdAt}><SessionEntry session={session} user={user}/></div>
       ))}
-      </ol>
+      </div>
     </div>
   )
 }

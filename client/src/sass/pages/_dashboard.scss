@@ -3,35 +3,27 @@
   &__content {
     width: 100%;
     height: 90vh;
+    background-color: $very-light-pink;
     @include flex-row;
     &--display {
-      width: 85%;
+      width: 87%;
       height: 90vh;
       padding: 3rem;
-
-      &--top {
-        @include flex-column;
-        &--box {
-          width: 100%;
-          height: 10rem;
-          border: 1px solid $darkest-pink;
-        }
-      }
+      
       &--info {
-       width: 70%;
+       width: 60%;
        @include flex-column;
+       align-items: flex-start;
+       background-color: $font-light;
+       margin-bottom: 2rem;
+       border-radius: .5rem;
+       box-shadow: $box-shadow;
       }
       &--title {
-        padding: 2rem;
-      }
-      &--bottom {
-        @include flex-row;
         width: 100%;
-        &--box {
-          width: 70%;
-          height: 10rem;
-          border: 1px solid $darkest-pink;
-        }
+        padding: 1rem 2rem;
+        border-bottom: 2px solid $light-grey;
+        font-weight: 600;
       }
     }
   }

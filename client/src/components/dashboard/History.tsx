@@ -15,12 +15,13 @@ export const History: FC = () => {
   }, [])
   
   return (
-    <div>
-      <ol>
+    <div className="dashboard__content--display--info">
+      <h1 className="dashboard__content--display--title">History</h1>
+      <ul>
         {historyList.map((session: HistoryI) => (
           <li key={session.createdAt}><HistoryEntry session={session} user={user}/></li>
         ))}
-      </ol>
+      </ul>
     </div>
   )
 }

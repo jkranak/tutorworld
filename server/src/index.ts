@@ -27,14 +27,11 @@ const app = express();
   console.log('socket id', socket.id)
 
   socket.on('join_room', (room) => {
-    // in this case data is the room
     socket.join(room);
-    console.log(`user joined room: ${room}`)
   })
 
   socket.on('send_message', (message) => {
     // send message to room and emit to people listening to this room
-    console.log(`sending ${message.content} to room ${message.RoomId}`)
     socket.to(message.RoomId).emit('receive_message', message);
   })
 

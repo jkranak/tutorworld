@@ -17,54 +17,26 @@ export const Dashboard: FC = () => {
       <div className="dashboard__content">
         <Sidebar/>
         <main className="dashboard__content--display">
-          <div className="dashboard__content--display--top">
-            <div className="dashboard__content--display--info">
+            {/* <div className="dashboard__content--display--info">
               <h1 className="dashboard__content--display--title">Unread Messages</h1>
               <div className="dashboard__content--display--top--box">
-                <p>messages</p>
+              <p>messages</p>
               </div>
-            </div>
-            <div className="dashboard__content--display--info">
-              <h1 className="dashboard__content--display--title">Upcoming Sessions</h1>
-              <div className="dashboard__content--display--top--box">
-                  <UpcomingSession />
-              </div>
-            </div>
-          </div>
+            </div> */}
+            <UpcomingSession />
+            <History />
           {user.role === 'tutor' ? 
-            <div className="dashboard__content--display--bottom">
-              <div className="dashboard__content--display--info">
-                <h1 className="dashboard__content--display--title">History</h1>
-                <div className="dashboard__content--display--top--box">
-                  <History />
-                </div>
-              </div>
-
-              <div className="dashboard__content--display--info">
-                <h1 className="dashboard__content--display--title">Earnings Owned</h1>
-                <div className="dashboard__content--display--bottom--box">
-                  <p>earnings</p>
-                </div>
-              </div>
+            <div className="dashboard__content--display--info">
+              <h1 className="dashboard__content--display--title">Earnings Owned</h1>
+              <p>earnings</p>
             </div>
             :
-            <div className="dashboard__content--display--bottom">
-              <div className="dashboard__content--display--info">
-                <h1 className="dashboard__content--display--title">History</h1> 
-                <div className="dashboard__content--display--bottom--box">
-                <History />
-                </div>
-              </div>
-              <div className="dashboard__content--display--info">
-                <h1 className="dashboard__content--display--title">Favorite Tutors</h1>
-                <div className="dashboard__content--display--bottom--box">
-                  <FavTutors />
-                </div>
-              </div>
-            </div>  
+            <FavTutors />
           }
         </main>
       </div>
     </div>
   )
 }
+
+

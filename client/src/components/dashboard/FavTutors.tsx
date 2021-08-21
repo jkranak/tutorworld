@@ -27,10 +27,13 @@ export const FavTutors: FC = () => {
   }, [])
 
   return (
-    <div>
-      {favTutors.map((tutor: TutorWithAvailability, index: number) => (
-        <p key={tutor.TutorId}><img src={tutor.imageUrl} height="40px" alt={`${tutor.firstName} ${tutor.lastName}`}/>{tutor.firstName} {tutor.lastName} <button onClick={() => handleSchedule(index)}>Schedule</button> Message <button onClick={() => handleProfile(index)}>Profile</button></p>
-      ))}
+    <div className="dashboard__content--display--info">
+      <h1 className="dashboard__content--display--title">Favorite Tutors</h1>
+      <div>
+        {favTutors.map((tutor: TutorWithAvailability, index: number) => (
+          <p key={tutor.TutorId}><img src={tutor.imageUrl} height="40px" alt={`${tutor.firstName} ${tutor.lastName}`}/>{tutor.firstName} {tutor.lastName} <button onClick={() => handleSchedule(index)}>Schedule</button> Message <button onClick={() => handleProfile(index)}>Profile</button></p>
+        ))}
+      </div>
     </div>
   )
 }

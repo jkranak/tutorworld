@@ -12,6 +12,7 @@
   cursor: pointer;
   width: 100%;
   text-align: left;
+  min-height: 4vh;
 
   .rbc-slot-selecting & {
     cursor: inherit;

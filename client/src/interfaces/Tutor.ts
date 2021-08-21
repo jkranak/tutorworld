@@ -63,3 +63,11 @@ export interface TutorUpdate {
   subjectLevels: string[]
   languages: string[]
 }
+
+export interface favTutorLoss {
+  StudentId: string
+  TutorId: string
+  createdAt: string
+  id: string
+  updatedAt: string
+}

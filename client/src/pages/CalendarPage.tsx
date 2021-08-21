@@ -8,6 +8,7 @@ import enUS from 'date-fns/locale/en-US';
 import '../sass/calendar/styles.scss';
 import { getUserSessions } from '../services/apiUser';
 import { Session } from '../interfaces/Session';
+import { Navbar } from '../components/Navbar';
 
 const localizer = dateFnsLocalizer({
   format,
@@ -51,6 +52,7 @@ export const CalendarPage: FC = () => {
 
   return (
     <div>
+    <Navbar />
     <Calendar
       localizer={localizer}
       events={dateArr}

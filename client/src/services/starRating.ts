@@ -14,3 +14,14 @@ export const starRating = (rating: number): number[] => {
       }
       return starArr;
 }
+
+export const starRatingWhole = (rating: number): number[] => {
+  const starArr: number[] = [];
+  for (let i = 0; i < 5; i++) {
+    if (rating >= 1) {
+      starArr.push(2);
+      rating -= 1;
+    } else starArr.push(0);
+  }
+  return starArr;
+}

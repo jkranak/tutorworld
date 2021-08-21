@@ -76,7 +76,7 @@ export const Payment: FC<Props> = ({sessionInfo, setPaymentSuccess, setPaymentAt
     <>
     <p>Payment: ${sessionInfo.price}</p>
     <p>For a {sessionInfo.topic} tutoring session</p>
-    <p>on {new Date(sessionInfo.day).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})} at {sessionInfo.time}</p>
+    <p>on {new Date(`${sessionInfo.day}T00:00:00`).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})} at {sessionInfo.time}</p>
     <p>with {sessionInfo.name}</p>
     <form>
       <label>Additional information on what you want to cover during your session</label>

@@ -1,10 +1,11 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BsStarFill, BsStar, BsStarHalf } from 'react-icons/bs'
+import { BsStarFill, BsStar, BsStarHalf, BsCheckCircle, BsCircle } from 'react-icons/bs'
 import { starRating } from '../../services/starRating';
+import {getFavTutorsLess, addFavTutor, removeFavTutor} from '../../services/apiUser';
 import { v4 as uuidv4 } from 'uuid';
 import { dayNames, capitalDayNames } from '../../assets/times';
-import {TutorWithAvailability} from '../../interfaces/Tutor';
+import { TutorWithAvailability} from '../../interfaces/Tutor';
 
 interface Props {
   tutorDetails: TutorWithAvailability
@@ -12,6 +13,30 @@ interface Props {
 
 export const ViewProfileComponent: FC<Props> = ({tutorDetails}: Props) => {
   const starArr: number[] = tutorDetails && starRating(tutorDetails.rating!);
+  const [favorite, setFavorite] = useState(false);
+  
+  useEffect(() => {
+    getFavTutorsLess().then(res => {
+      for (let tutor of res) {
+        if (tutor.TutorId === tutorDetails.TutorId) {
+          setFavorite(true);
+        }
+      }
+    })
+  }, [])
+
+  const handleAddClick = async () => {
+    const res = await addFavTutor(tutorDetails.TutorId);
+    if (res === 201 || res === 409) {
+      setFavorite(true);
+    }
+  }
+  const handleRemoveClick = async () => {
+    const res = await removeFavTutor(tutorDetails.TutorId);
+    if (res === 200 || res === 404) {
+      setFavorite(false);
+    }
+  }
 
   return (
     <>
@@ -25,6 +50,7 @@ export const ViewProfileComponent: FC<Props> = ({tutorDetails}: Props) => {
         <p className="tutor-profile--sub-title">Rate: ${tutorDetails.price}/hour</p>
         <Link to={'/schedule'} className="btn btn--blue">Schedule</Link>
         <button className="btn btn--blue">Message</button>
+        {favorite ? <button onClick={handleRemoveClick} className="btn btn--clear">Favorite <BsCheckCircle /></button> : <button onClick={handleAddClick} className="btn btn--clear">Favorite <BsCircle /></button>}
 
       </section>
       <section className="tutor-profile__right-box">

@@ -3,7 +3,7 @@
   justify-content: flex-start;
   width: 13%;
   height: 100%;
-  background-color: $pink;
+  background-color: $grey;
   
   .btn {
     color: $font-light;
@@ -15,7 +15,7 @@
     font-weight: 600;
     justify-content: flex-start;
     &:hover {
-      background-color: $light-pink;
+      background-color: $pink;
     }
   }
 

@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { getFavTutors } from '../../services/apiUser';
 import { TutorWithAvailability, emptyTutorWithAvailability } from '../../interfaces/Tutor';
 import { FavTutorsEntry } from './FavTutorsEntry';
-
+import { v4 as uuidv4 } from 'uuid';
 export const FavTutors: FC = () => {
   const [favTutors, setFavTutors] = useState([emptyTutorWithAvailability]);
   
@@ -17,7 +17,7 @@ export const FavTutors: FC = () => {
       <h1 className="dashboard__content--display--title">Favorite Tutors</h1>
       <div className="dashboard__content--display--sessions">
         {favTutors.map((tutor: TutorWithAvailability) => (
-          <FavTutorsEntry tutor={tutor}/>
+          <FavTutorsEntry tutor={tutor} key={uuidv4()}/>
         ))}
       </div>
     </div>

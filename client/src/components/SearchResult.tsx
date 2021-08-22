@@ -14,7 +14,6 @@ interface Props {
 
 export const SearchResult: FC<Props> = ({tutor}: Props) => {
   // TO-DO fix typescript any
-
   const starArr: number[] = starRating(tutor?.rating);
   const dispatch = useDispatch();
   const history = useHistory();

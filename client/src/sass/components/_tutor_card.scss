@@ -1,15 +1,16 @@
 .tutor-card {
   @include flex-row;
-  // height: 18vh;
   margin-bottom: 3rem;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: $box-shadow;
+  background-color: $font-light;
 
   &__left-box {
     @include flex-column;
     height: 18vh;
     width: 20%;
+    border-right: 1px solid $light-grey;
     .image-box {
       height: 12vh;
       width: 12vh;
@@ -28,7 +29,9 @@
 
   &__middle-box {
     height: 100%;
-    width: 30%;
+    width: 25%;
+    border-right: 1px solid $light-grey;
+    padding-left: 2rem;
     &--details {
       font-size: 1.8rem;
       h2, h3 {
@@ -42,9 +45,10 @@
   }
 
   &__right-box {
-    width: 50%;
+    width: 55%;
     height: 100%;
     @include flex-row;
+    padding-left: 2rem;
     &--description {
       font-size: 2rem;
       text-align: justify;

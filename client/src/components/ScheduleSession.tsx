@@ -53,7 +53,7 @@ export const ScheduleSession: FC = () => {
   }
   
   return (
-    <div>
+    <div className="schedule__content--scheduler">
       <DayPicker 
         fromMonth={new Date()} 
         toMonth={endDate} 
@@ -61,23 +61,38 @@ export const ScheduleSession: FC = () => {
         onDayClick={setSelectedDay}
         disabledDays={unavailableDays()}
       />
-      {pickTime && timesArr.length ? <form>
-        <select name="hour" defaultValue="" onChange={handleHourChange} >
-        <option value="" disabled hidden>Choose time</option>
-          {timesArr.map((time) => (
-            <option key={time} value={time}>{time}</option>
-          ))}
+      <div className="form edit-form">
+      {pickTime && timesArr.length ? 
+        <select name="hour" defaultValue="" onChange={handleHourChange} className="select-input select-input--blue">
+          <option value="" disabled>Choose time</option>
+            {timesArr.map((time) => (
+              <option key={time} value={time}>{time}</option>
+            ))}
         </select>
-      </form> : <></>}
-       {pickTime && timesArr.length === 0 ? <button disabled>All Slots Booked</button> : <></>}
-      {selectedHour.length > 0 && <form>
-        <select name="subject" defaultValue="" onChange={handleTopicChange} >
-          <option value="" disabled hidden>Choose subject</option>
+       : null}
+      {selectedHour.length > 0 && 
+        <select name="subject" defaultValue="" onChange={handleTopicChange} className="select-input select-input--blue">
+          <option value="" disabled>Choose subject</option>
           {user.subjectLevels.map((subject: any) => (
             <option key={subject} value={subject}>{subject}</option>
-          ))}
-        </select>
-      </form>}
+            ))}
+          </select>}
+
+        <div className="form--multi-select">
+          {selectedHour ? 
+            <div className="form--select-tag">
+              <span>{selectedHour}</span>
+            </div> : null 
+          }
+          {selectedTopic ?
+            <div className="form--select-tag">
+              <span>{selectedTopic}</span>
+            </div> : null
+          }
+        </div>
+
+       {pickTime && timesArr.length === 0 ? <div>All Slots Booked</div> : null}
+
       {selectedTopic.length > 0 && <Link to={{
         pathname:'/checkout', 
         state:{
@@ -88,13 +103,14 @@ export const ScheduleSession: FC = () => {
           day: selectedDay.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' }),
           name: `${user.firstName} ${user.lastName}`
         }
-      }}>Schedule and pay</Link>}
+      }} className="btn btn--clear form--btn pay">Schedule and pay</Link>}
       {pickTime && <button onClick={() => {
         setSelectedHour('');
         setPickTime(false);
         setSelectedTopic('');
         setSelectedDay(new Date(0));
-      }}>Clear selection</button>}
+      }} className="btn btn--clear form--btn">Clear selection</button>}
+      </div>
     </div>
   )
 }

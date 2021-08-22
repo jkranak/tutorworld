@@ -5,11 +5,15 @@ import { ScheduleSession } from '../components/ScheduleSession';
 
 export const Schedule = () => {
   return (
-    <div>
+    <div className="schedule">
       <Navbar />
-      <Sidebar />
-      <h2>Schedule a Session</h2>
-      <ScheduleSession />
+      <div className="schedule__content">
+        <Sidebar />
+        <div className="schedule__content--right">
+          <h2 className="schedule__content--title">Schedule a Session</h2>
+          <ScheduleSession />
+        </div>
+      </div>
     </div>
   )
 }

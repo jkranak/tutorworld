@@ -3,23 +3,29 @@
   width: 100vw;
   min-height: 70vh;
   @include flex-row;
+  align-items: flex-start;
   &__left-box {
     @include flex-column;
-    width: 30%;
-    padding: 0 4rem;
+    width: 25%;
+    padding: 0 2rem;
     text-align: justify;
     .image-box {
       height: 25vh;
+      width: 25vh;
+      overflow: hidden;
+      border-radius: 50%;
       img {
         height: 100%;
         object-fit: contain;
-        // border-radius: 50%;
       }
     }
   }
   &__right-box {
     width: 60%;
     @include flex-column;
+    align-items: flex-start;
+    border-left: 1px solid $light-grey;
+    padding-left: 2rem;
   }
   &--title {
     font-size: 4rem;
@@ -29,13 +35,16 @@
   &--sub-title{
     font-size: 2.5rem;
     font-weight: bold;
-    padding: 2rem;
+    padding: 2rem 2rem 2rem 0;
+    display: inline-block;
   }
   &--details {
     font-size: 2rem;
+    padding: 2rem 0;
   }
   &__info-wrapper {
-    text-align: center;
+    // text-align: center;
+    @include flex-row;
   }
   &__info {
     &--tag {
@@ -49,6 +58,10 @@
     &--star {
       font-size: 3rem;
       color: $rating;
+    }
+    &--availability {
+      font-size: 1.5rem;
+      padding-left: 2rem;
     }
   }
 }

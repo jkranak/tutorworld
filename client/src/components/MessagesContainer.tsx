@@ -51,7 +51,7 @@ export const MessagesContainer = ({ messagesList, sendMessage, rooms }: Props) =
           {rooms && rooms.map(currRoom => 
             <div className={`messages__content--contact ${room && room.room === currRoom.room && 'selected'}`} key={uuidv4()} onClick={() => changeCurrentRoom(currRoom)} >
               <div className="image-box">
-                {/* since there is no group chat feature we can just select que index 0 */}
+                {/* since there is no group chat feature we can just select index 0 */}
                 <img src={currRoom.senders[0].imageUrl ? currRoom.senders[0].imageUrl : noPhotoUser} alt={`${currRoom.senders[0].firstName} ${currRoom.senders[0].lastName}`} />
               </div>
               <span>{`${currRoom.senders[0].firstName} ${currRoom.senders[0].lastName}`}</span>

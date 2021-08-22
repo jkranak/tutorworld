@@ -6,6 +6,8 @@ import { getStudentDetails, getTutorDetails } from "../services/apiUser";
 import { v4 as uuidv4 } from 'uuid';
 import { MessagesList } from "./MessagesList";
 import { currentRoom } from "../redux/actions/currentRoom";
+import { FiSearch } from "react-icons/fi";
+import { Link } from "react-router-dom";
 interface Props {
   messagesList: []
   sendMessage: Function
@@ -47,17 +49,22 @@ export const MessagesContainer = ({ messagesList, sendMessage, rooms }: Props) =
           </div>
           {/* <div>search</div> */}
           {rooms && rooms.map(currRoom => 
-            <div className={`messages__content--contact ${room && room.room === currRoom.room && 'selected'}`}key={uuidv4()} onClick={() => changeCurrentRoom(currRoom)} >
+            <div className={`messages__content--contact ${room && room.room === currRoom.room && 'selected'}`} key={uuidv4()} onClick={() => changeCurrentRoom(currRoom)} >
               <div className="image-box">
                 {/* since there is no group chat feature we can just select que index 0 */}
                 <img src={currRoom.senders[0].imageUrl ? currRoom.senders[0].imageUrl : noPhotoUser} alt={`${currRoom.senders[0].firstName} ${currRoom.senders[0].lastName}`} />
               </div>
-              <span className="me__name">{`${currRoom.senders[0].firstName} ${currRoom.senders[0].lastName}`}</span>
+              <span>{`${currRoom.senders[0].firstName} ${currRoom.senders[0].lastName}`}</span>
           </div>)
           }
           
         </div>
-        {room ? <MessagesList messagesList={messagesList} sendMessage={sendMessage}/> : <div className="messages__content--right-box">Find a tutor</div> }
+        {room ? <MessagesList messagesList={messagesList} sendMessage={sendMessage}/> : <div className="messages__content--right-box">
+          <div className="messages__content--right-box--find-tutor">
+            <FiSearch className="search-icon"/>
+            <Link to={'/search'} className="btn btn--blue">Message a tutor</Link>
+          </div>
+        </div> }
       </section>
     </main>
   )

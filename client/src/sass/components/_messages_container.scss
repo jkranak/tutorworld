@@ -1,34 +1,62 @@
 .messages__content {
   height: 90vh;
   @include flex-row;
-  
+  background-color: $very-light-pink;
+
   &--box {
     width: 70%;
     height: 85vh;
     @include flex-row;
     box-shadow: $box-shadow;
-
+    background-color: $font-light;
+    border-radius: 5px;
+    overflow: hidden;
   }
   &--left-box {
     width: 30%;
     height: 100%;
-    border-right: solid 1px $pink;
+    background-color: $grey;
+    color: $font-light;
+    font-weight: 600;
   }
   &--right-box {
     width: 70%;
     height: 100%;
+    &--find-tutor{
+      height: 100%;
+      width: 100%;
+      @include flex-column;
+      .search-icon{
+        font-size: 35rem;
+        color: $light-grey;
+      }
+    }
   }
   &--contact {
+    transition: all .5s;
     height: 10%;
-    padding-left: 1rem;
+    padding: 2rem;
+    text-transform: capitalize;
     @include flex-row;
     justify-content: flex-start;
+    border-bottom: 1px solid $dark-grey;
+    font-size: 1.8rem;
+    font-weight: 300;
+    span {
+      padding-left: 2rem;
+    }
     &:hover {
       cursor: pointer;
+      background-color: $pink;
     }
   }
   .me {
-    border-bottom: 1px solid $pink;
+    background-color: $dark-grey;
+    font-weight: 600;
+    .image-box {
+      height: 7vh;
+      width: 7vh;
+    }
     &__name {
       padding-left: 2rem;
       font-size: 2rem;
@@ -37,8 +65,8 @@
     }
   }
   .image-box {
-    height: 7vh;
-    width: 7vh;
+    height: 6vh;
+    width: 6vh;
     border-radius: 50%;
     overflow: hidden;
     img {

@@ -1,7 +1,6 @@
 import {FC, useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { getBasicUserInfo } from '../../services/apiUser';
 import {starRatingWhole} from '../../services/starRating';
 import { HistoryComplex } from '../../interfaces/Session';
 import {UserRole, emptyUserNameImage} from '../../interfaces/User';
@@ -24,15 +23,12 @@ export const HistoryEntry: FC<Props> = ({session, user}: Props) => {
       review: session.review ? session.review : ''
     }
 
-  useEffect(() => {
-    if (session.StudentId && session.TutorId) {
-      const otherId = user.role === 'tutor' ? session.StudentId : session.TutorId;
-      const otherRole = user.role === 'tutor' ? 'student' : 'tutor';
-      getBasicUserInfo(otherId, otherRole).then(res => {
-        setOtherUserInfo(res);
-      })
-    }
-  }, [])
+    useEffect(() => {
+      const firstName = user.role === 'tutor' ? session.Student.firstName : session.Tutor.firstName;
+      const lastName = user.role === 'tutor' ? session.Student.lastName : session.Tutor.lastName;
+      const imageUrl = user.role === 'tutor' ? session.Student.imageUrl : session.Tutor.TutorInfo.imageUrl;
+      setOtherUserInfo({firstName, lastName, imageUrl})
+    }, [])
 
   return (
     <div>

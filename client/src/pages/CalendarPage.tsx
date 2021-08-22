@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react';
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import { Calendar, dateFnsLocalizer, Views } from 'react-big-calendar';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
@@ -19,7 +19,7 @@ const localizer = dateFnsLocalizer({
 })
 
 interface dateObj {
-  name: string
+  title: string
   start: Date
   end: Date
 }
@@ -35,7 +35,7 @@ const timeConvert = (date: string, time: string): dateObj => {
   else dateRes = new Date(`${date} ${timeArr![1]}:${timeArr![2]}`);
   const endTime = new Date(Number(dateRes) + 3600000);
   return {
-    name: 'tutoring session',
+    title: 'tutoring session',
     start: dateRes,
     end: endTime
   };
@@ -58,7 +58,9 @@ export const CalendarPage: FC = () => {
       events={dateArr}
       startAccessor="start"
       endAccessor="end"
-      style={{ height: 500 }}
+      style={{ height: 700 }}
+      defaultView={Views.WEEK}
+      views={['week', 'month', 'agenda']}
     />
   </div>
   )

@@ -3,13 +3,13 @@ import {Link} from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { getBasicUserInfo } from '../../services/apiUser';
 import {starRatingWhole} from '../../services/starRating';
-import { HistoryI } from '../../interfaces/Session';
+import { HistoryComplex } from '../../interfaces/Session';
 import {UserRole, emptyUserNameImage} from '../../interfaces/User';
 import noPhotoUser from '../../assets/no_photo_user.png';
 import {BsStarFill, BsStar} from 'react-icons/bs'
 
 interface Props {
-  session: HistoryI
+  session: HistoryComplex
   user: UserRole
 }
 

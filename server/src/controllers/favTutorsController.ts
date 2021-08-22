@@ -88,3 +88,15 @@ export const getAllFavTutors = async (req:any, res:any) => {
   }
 
 }
+
+export const getAllFavTutorsLess = async (req:any, res:any) => {
+  try {
+    const { id  } = req.body.user;
+    const allFavTutorsInstance = await Models.FavTutor.findAll({where: {StudentId: id}});
+    res.status(201).send(allFavTutorsInstance);
+  } catch (error) {
+    console.log(error)
+    res.status(500);
+    res.send(error);
+  }
+}

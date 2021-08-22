@@ -1,5 +1,6 @@
 import { FC, useState, useEffect } from 'react';
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import { useSelector } from 'react-redux';
+import { Calendar, dateFnsLocalizer, Views } from 'react-big-calendar';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
@@ -7,7 +8,8 @@ import getDay from 'date-fns/getDay';
 import enUS from 'date-fns/locale/en-US';
 import '../sass/calendar/styles.scss';
 import { getUserSessions } from '../services/apiUser';
-import { Session } from '../interfaces/Session';
+import { SessionComplex } from '../interfaces/Session';
+import {UserRole } from '../interfaces/User';
 import { Navbar } from '../components/Navbar';
 
 const localizer = dateFnsLocalizer({
@@ -19,36 +21,66 @@ const localizer = dateFnsLocalizer({
 })
 
 interface dateObj {
-  name: string
+  title: string
   start: Date
   end: Date
+  desc: string
 }
 
-const timeConvert = (date: string, time: string): dateObj => {
+interface EventObj {
+  event: dateObj
+}
+
+const timeConvert = (session: SessionComplex, role: string): dateObj => {
   let dateRes;
-  let timeArr = time.match(/([0-9]+):([0-9]+) ([A-Z]+)/);
-  if (timeArr![1] === '12' && timeArr![3] === 'AM') dateRes = new Date(`${date} 00:${timeArr![2]}`)
-  else if (timeArr![1] === '12') dateRes = new Date(`${date} 12:${timeArr![2]}`)
+  let timeArr = session.time.match(/([0-9]+):([0-9]+) ([A-Z]+)/);
+  if (timeArr![1] === '12' && timeArr![3] === 'AM') dateRes = new Date(`${session.date} 00:${timeArr![2]}`)
+  else if (timeArr![1] === '12') dateRes = new Date(`${session.date} 12:${timeArr![2]}`)
   else if (timeArr![3] === 'PM') {
-    dateRes = new Date(`${date} ${(Number(timeArr![1]) + 12).toString()}:${timeArr![2]}`);
+    dateRes = new Date(`${session.date} ${(Number(timeArr![1]) + 12).toString()}:${timeArr![2]}`);
   }
-  else dateRes = new Date(`${date} ${timeArr![1]}:${timeArr![2]}`);
+  else dateRes = new Date(`${session.date} ${timeArr![1]}:${timeArr![2]}`);
   const endTime = new Date(Number(dateRes) + 3600000);
+  const name = role === 'tutor' 
+    ? `${session.Student.firstName} ${session.Student.lastName}`
+    : `${session.Tutor.firstName} ${session.Tutor.lastName}`
   return {
-    name: 'tutoring session',
+    title: name,
     start: dateRes,
-    end: endTime
+    end: endTime,
+    desc: session.sessionContext
   };
 }
 
 export const CalendarPage: FC = () => {
   const [dateArr, setDateArr] = useState([]);
+  const user = useSelector((state: any) => state.authenticate);
 
   useEffect(() => {
     getUserSessions().then(res => {
-      setDateArr(res.map((sess: Session) => timeConvert(sess.date, sess.time)))
+      console.log(res)
+      setDateArr(res.map((sess: SessionComplex) => timeConvert(sess, user.role)))
     })
   }, [])
+
+  function Event({ event }: EventObj) {
+    return (
+      <span>
+        <strong>{event.title}</strong>
+      </span>
+    )
+  }
+  
+  function EventAgenda({ event }: EventObj) {
+    return (
+      <span>
+        <em style={{ color: '#EA4C89' }}>{event.title}</em>
+        <p>{event.desc}</p>
+      </span>
+    )
+  }
+
+
 
   return (
     <div>
@@ -58,7 +90,15 @@ export const CalendarPage: FC = () => {
       events={dateArr}
       startAccessor="start"
       endAccessor="end"
-      style={{ height: 500 }}
+      style={{ height: 700 }}
+      defaultView={Views.WEEK}
+      views={['week', 'month', 'agenda']}
+      components={{
+        event: Event,
+        agenda: {
+          event: EventAgenda,
+        },
+      }}
     />
   </div>
   )

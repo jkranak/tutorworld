@@ -1,12 +1,12 @@
 import {useEffect, FC, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { emptySession, Session } from '../../interfaces/Session';
+import { emptySessionComplex, SessionComplex } from '../../interfaces/Session';
 import { getUserSessions } from '../../services/apiUser';
 import { SessionEntry } from './SessionEntry';
 
 export const UpcomingSession: FC = () => {
   const user = useSelector((state: any) => state.authenticate);
-  const [sessionList, setSessionList] = useState([emptySession]);
+  const [sessionList, setSessionList] = useState([emptySessionComplex]);
 
   useEffect(() => {
     getUserSessions().then(res => {
@@ -14,10 +14,11 @@ export const UpcomingSession: FC = () => {
     })
   }, [])
   
+
   return (
     <div>
       <ol>
-      {sessionList.map((session: Session) => (
+      {sessionList.map((session: SessionComplex) => (
         <li key={session.createdAt}><SessionEntry session={session} user={user}/></li>
       ))}
       </ol>

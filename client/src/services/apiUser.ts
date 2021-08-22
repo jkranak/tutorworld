@@ -143,17 +143,6 @@ export const getUserHistory = async () => {
   }
 }
 
-export const getBasicUserInfo = async (id: string, role: string) => {
-  
-  try {
-    const response = await api.get(`/user/${id}/${role}/info`);
-    return (response.data);
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-}
-
 export const getFavTutors = async () => {
   try {
     const response = await api.get('/students/student/favTutors');

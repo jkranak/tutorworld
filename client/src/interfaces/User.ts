@@ -27,11 +27,6 @@ export interface UserRole {
   role: string
 }
 
-export const emptyUserRole: UserRole = {
-  id: '',
-  role: ''
-}
-
 export interface UserNameImage {
   firstName: string
   lastName: string

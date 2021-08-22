@@ -41,14 +41,15 @@ export const login = async (req:any, res:any) => {
   if (!email || !password) return res.status(400).send({ message: 'Please enter all fields.' });
 
   let tutor;
-
+  let SenderId;
   try {
     const student = await Models.Student.findOne({where: {email}});
     if (!student) {
       tutor = await Models.Tutor.findOne({where: {email}});
+      SenderId = await Models.Sender.findOne({where: {UserId: tutor.id, role: 'tutor'}})
       if (!tutor) return res.status(403).send({ message: 'Cannot find account.' });
     }
-
+    SenderId = await Models.Sender.findOne({where: {UserId: student.id, role: 'student'}})
     const user = student || tutor;
 
     if (await bcrypt.compare(password, user.password)) {
@@ -57,6 +58,7 @@ export const login = async (req:any, res:any) => {
           user: {
             id: user.id,
             role: user===student? 'student':'tutor',
+            SenderId: SenderId.id
           },
           token: generateToken(user.id, user===student? 'student':'tutor'),
         },

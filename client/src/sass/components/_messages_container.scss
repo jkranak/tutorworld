@@ -10,7 +10,6 @@
     box-shadow: $box-shadow;
     background-color: $font-light;
     border-radius: 5px;
-    overflow: hidden;
   }
   &--left-box {
     width: 30%;
@@ -47,12 +46,15 @@
     }
     &:hover {
       cursor: pointer;
-      background-color: $pink;
+      background-color: $light-pink;
     }
   }
   .me {
     background-color: $dark-grey;
     font-weight: 600;
+    &:hover {
+      cursor: default;
+    }
     .image-box {
       height: 7vh;
       width: 7vh;
@@ -78,6 +80,7 @@
   &--messages-list {
     height: 90%;
     padding: 3rem;
+    // TO-DO fix scroll
     overflow-y: scroll;
     @include flex-column;
     justify-content: flex-end;
@@ -112,7 +115,7 @@
     height: 10%;
     font-size: 3rem;
     @include flex-row;
-    border-top: 1px solid $dark-pink;
+    border-top: 1px solid $light-grey;
     input {
       height: 70%;
       width: 50%;
@@ -134,5 +137,5 @@
 }
 
 .selected {
-  background-color: $light-pink;
+  background-color: $pink;
 }

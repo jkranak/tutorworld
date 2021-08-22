@@ -20,6 +20,8 @@ export const connectToRoom = async (req: Request, res: Response) => {
   try {  
     const { mySenderId, otherUserSenderId } = req.body;
     // looking for a room that contains both users
+    console.log('mysenderid', mySenderId)
+    console.log('othersenderid', otherUserSenderId)
     const existentRoom = await Models.sequelize.query(`SELECT Room."RoomId" FROM public."room_senders" AS Room WHERE 
     EXISTS (SELECT * FROM public."room_senders" as RS WHERE Room."RoomId" = RS."RoomId" AND "SenderId" = ${mySenderId}) AND
     EXISTS (SELECT * FROM public."room_senders" as RS WHERE Room."RoomId" = RS."RoomId" AND "SenderId" = ${otherUserSenderId}) GROUP BY Room."RoomId"`)

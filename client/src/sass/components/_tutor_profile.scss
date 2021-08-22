@@ -48,12 +48,13 @@
   }
   &__info {
     &--tag {
-      background-color: $pink;
+      background-color: $grey;
       font-size: 1.6rem;
       padding: 1rem 2rem;
       margin-right: 1rem;
       border-radius: 1rem;
       color: $font-light;
+      text-transform: capitalize;
     }
     &--star {
       font-size: 3rem;

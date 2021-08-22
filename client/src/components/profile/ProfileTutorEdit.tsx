@@ -4,7 +4,6 @@ import { languages, subjects } from '../../assets/subjects_languages';
 import {TutorWithAvailability} from '../../interfaces/Tutor';
 import { updateTutor } from '../../services/apiUser';
 import {ProfileChangeAvailability} from './ProfileChangeAvailability';
-// import { FiX } from 'react-icons/fi';
 
 interface Props {
   tutorDetails: TutorWithAvailability
@@ -98,7 +97,7 @@ export const ProfileTutorEdit: FC<Props> = ({tutorDetails, setTutorDetails, setE
         <textarea className="text-input text-input--blue text-input--textarea" id="education" name="education" onChange={handleTutorChange} defaultValue={tutorDetails.education} placeholder="Education" required/>
 
         <select name="subjects" onChange={addSubject} defaultValue="" className="select-input select-input--blue">
-          <option value="" disabled>Add subjects</option>
+          <option value="" disabled>Add Subjects</option>
           {subjects.map((subject, index) => (
             <option key={index} value={subject}>{subject}</option>
           ))}

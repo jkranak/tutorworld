@@ -104,12 +104,19 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
         <button type="submit" className="btn btn--blue form--btn">Add selected hours</button>
       </form>
       <h1>Delete Availability</h1>
-      <p>Click on hour to delete</p>
+      <div className="form--multi-select multi-select-availability">
           {dayNames.map((day, index) => (
-            <li key={day}>{capitalDayNames[index]}: {Object.keys(newAvailability[day]).map(hour => (
-              <button key={hour} onClick={() => deleteHour(day, hour)}>{hour}</button>
-            ))}</li>
+            <div key={day} className="hello">
+              <span className="form--select-title">{capitalDayNames[index]}: </span>
+              {Object.keys(newAvailability[day]).map(hour => (
+              <div className="form--select-tag" key={hour}>
+                <span className="before-icon">{hour}</span>
+                <FiX className="lib-icon link" onClick={() => deleteHour(day, hour)}/>
+              </div>
+            ))}
+            </div>
           ))}
+      </div>
           {saveMessage && <>
             <span>Changes have not been saved. To save press Save All Changes</span>
             <button onClick={() => setNewAvailability(deepCopy(tutorDetails.availability))}>Revert all changes</button>

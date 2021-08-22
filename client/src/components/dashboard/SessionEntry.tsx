@@ -26,7 +26,7 @@ export const SessionEntry: FC<Props> = ({session, user}: Props) => {
   return (
     <div className="dashboard__content--display--session">
       <div className="image-box">
-        <img src={otherUserInfo.imageUrl ? otherUserInfo.imageUrl : noPhotoUser} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />
+        <img src={otherUserInfo.imageUrl ? otherUserInfo.imageUrl : noPhotoUser} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} />
       </div>
       <div className="dashboard__content--display--session-details">
         <div className="dashboard__content--display--session--left-box">

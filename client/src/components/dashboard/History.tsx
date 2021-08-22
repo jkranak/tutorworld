@@ -17,11 +17,11 @@ export const History: FC = () => {
   return (
     <div className="dashboard__content--display--info">
       <h1 className="dashboard__content--display--title">History</h1>
-      <ul>
+      <div className="dashboard__content--display--sessions">
         {historyList.map((session: HistoryI) => (
-          <li key={session.createdAt}><HistoryEntry session={session} user={user}/></li>
+          <HistoryEntry session={session} user={user} key={session.createdAt}/>
         ))}
-      </ul>
+      </div>
     </div>
   )
 }

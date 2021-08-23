@@ -57,10 +57,9 @@ export const CalendarPage: FC = () => {
 
   useEffect(() => {
     getUserSessions().then(res => {
-      console.log(res)
       setDateArr(res.map((sess: SessionComplex) => timeConvert(sess, user.role)))
     })
-  }, [])
+  }, [user.role])
 
   function Event({ event }: EventObj) {
     return (

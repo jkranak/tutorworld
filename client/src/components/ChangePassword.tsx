@@ -28,7 +28,6 @@ export const ChangePassword: FC<Props> = ({setChangePassword, role}: Props) => {
     else if (password.password === password.oldPassword) setNoChange(true);
     else {
       const res = await updatePassword(role, password.oldPassword, password.password);
-      console.log(res)
       if (res.status === 204) setChangePassword(false);
       if (res.status === 404) setPasswordFail(true);
       if (res.status === 500) setPasswordError(true);

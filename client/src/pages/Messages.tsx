@@ -25,7 +25,7 @@ export const Messages = () => {
     getRooms().then(res => setRooms(res)).then(() => {
     if (location.state) dispatch(currentRoom(location.state))
     });
-  }, []);
+  }, [dispatch, location.state]);
   
   useEffect(() => {
     if (currRoom) {

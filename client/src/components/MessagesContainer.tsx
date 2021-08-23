@@ -29,7 +29,7 @@ export const MessagesContainer = ({ messagesList, sendMessage, rooms }: Props) =
         setUserDetails(res);
       })
     }
-  }, [])
+  }, [user.id, user.role])
 
   const changeCurrentRoom = (room: RoomI) => {
     dispatch(currentRoom(room))

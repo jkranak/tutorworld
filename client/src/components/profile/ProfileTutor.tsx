@@ -19,7 +19,7 @@ export const ProfileTutor: FC<Props> = ({id}: Props) => {
       getTutorDetails(id).then(res => {
         setTutorDetails(res);
       })
-  }, []);
+  }, [id]);
 
   const editClick = () => {
     setEditing(!editing);

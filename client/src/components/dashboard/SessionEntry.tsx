@@ -16,7 +16,7 @@ export const SessionEntry: FC<Props> = ({session, user}: Props) => {
     const lastName = user.role === 'tutor' ? session.Student.lastName : session.Tutor.lastName;
     const imageUrl = user.role === 'tutor' ? session.Student.imageUrl : session.Tutor.TutorInfo.imageUrl;
     setOtherUserInfo({firstName, lastName, imageUrl})
-    }, [])
+    }, [session.Student.firstName, session.Student.imageUrl, session.Student.lastName, session.Tutor.TutorInfo.imageUrl, session.Tutor.firstName, session.Tutor.lastName, user.role])
 
   return (
     <div>

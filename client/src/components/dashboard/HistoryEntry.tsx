@@ -5,7 +5,7 @@ import {starRatingWhole} from '../../services/starRating';
 import { HistoryComplex } from '../../interfaces/Session';
 import {UserRole, emptyUserNameImage} from '../../interfaces/User';
 import noPhotoUser from '../../assets/no_photo_user.png';
-import {BsStarFill, BsStar} from 'react-icons/bs'
+import {BsStarFill, BsStar, BsFillInfoCircleFill} from 'react-icons/bs'
 import moment from 'moment';
 
 interface Props {
@@ -44,17 +44,15 @@ export const HistoryEntry: FC<Props> = ({session, user}: Props) => {
     }
 
   return (
+    
     <div className="dashboard__content--display--session">
-      <div className="image-box">
-        <Link to={{
-          pathname:'/session', 
-          state: sessionDetailState
-        }}>
+      
+        <div className="image-box">
           {otherUserInfo.imageUrl 
             ? <img src={otherUserInfo.imageUrl} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />
             : <img src={noPhotoUser} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />}
-        </Link>
-      </div>
+        </div>
+      
       <div className="dashboard__content--display--session-details">
         <div 
         className="dashboard__content--display--session--left-box">
@@ -62,6 +60,7 @@ export const HistoryEntry: FC<Props> = ({session, user}: Props) => {
           <span>{moment(session.date).format('YYYY MMM DD')}</span>
           <span>{session.time}</span>
         </div>
+        
         <div className="dashboard__content--display--session--right-box">
           <div>
             <h2>Price: ${session.cost}</h2>
@@ -77,6 +76,11 @@ export const HistoryEntry: FC<Props> = ({session, user}: Props) => {
           </div>
         </div>
       </div>
+      <Link to={{
+      pathname:'/session', 
+      state: sessionDetailState
+      }}><BsFillInfoCircleFill className="dashboard__content--display--title--number" /></Link>
     </div>
+    
   )
 }

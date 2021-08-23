@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import { SessionComplex } from '../../interfaces/Session';
 import {UserRole, emptyUserNameImage} from '../../interfaces/User';
 import noPhotoUser from '../../assets/no_photo_user.png';
+import { BsFillInfoCircleFill} from 'react-icons/bs'
 import moment from 'moment';
 
 interface Props {
@@ -34,14 +35,9 @@ export const SessionEntry: FC<Props> = ({session, user}: Props) => {
   return (
     <div className="dashboard__content--display--session">
       <div className="image-box">
-        <Link to={{
-          pathname:'/session', 
-          state: sessionDetailState
-          }}>
           {otherUserInfo.imageUrl 
             ? <img src={otherUserInfo.imageUrl} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />
             : <img src={noPhotoUser} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />}
-        </Link>
       </div>
       <div className="dashboard__content--display--session-details">
         <div className="dashboard__content--display--session--left-box">
@@ -54,6 +50,10 @@ export const SessionEntry: FC<Props> = ({session, user}: Props) => {
           <span>{session.sessionContext}</span>
         </div>
       </div>
+      <Link to={{
+      pathname:'/session', 
+      state: sessionDetailState
+      }}><BsFillInfoCircleFill className="dashboard__content--display--title--number" /></Link>
     </div>
   )
 }

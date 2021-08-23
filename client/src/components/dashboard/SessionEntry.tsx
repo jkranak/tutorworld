@@ -27,7 +27,9 @@ export const SessionEntry: FC<Props> = ({session, user}: Props) => {
       date: session.date,
       time: session.time,
       cost: session.cost,
-      context: session.sessionContext
+      context: session.sessionContext,
+      rating: 0,
+      review: ''
     }
 
 

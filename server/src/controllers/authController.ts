@@ -66,6 +66,7 @@ export const login = async (req:any, res:any) => {
       res.status(403).send({ message: 'Wrong password' });
     }
   } catch (error) {
+    console.log( `Could not login: ${error}`)
     res.status(500).send(error);
   }
 };

@@ -85,10 +85,8 @@ export const Payment: FC<Props> = ({sessionInfo, setPaymentSuccess, setPaymentAt
             <label>Additional indivation on what you want to cover during your session</label>
             <textarea id="additionalInfo" name="additionalInfo" onChange={handleChange} value={additionalInfo}  className="text-input text-input--blue"/>
           </div>
-          <fieldset>
-            <div>
-              <CardElement options={CARD_OPTIONS}/>
-            </div>
+          <fieldset className="fieldset">
+            <CardElement options={CARD_OPTIONS}/>
           </fieldset>
           <button onClick={handleSubmit} className="btn btn--blue form--btn">Pay</button>
         </form>

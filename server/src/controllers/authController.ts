@@ -106,7 +106,8 @@ export const verifyUser = async (req: any, res: any) => {
       const student = await Models.Student.findOne({where: {id}});
       if (student) {
         const sender = await Models.Sender.findOne({where: {UserId: id, role}})
-        res.status(200).send({user: {id, role, SenderId: sender.id} })
+        res.status(200)
+        res.send({user: {id, role, SenderId: sender.id} })
       } else {
         console.log(`Could not find student`);
       }
@@ -114,7 +115,8 @@ export const verifyUser = async (req: any, res: any) => {
       const tutor = await Models.Tutor.findOne({where: {id}});
       if (tutor) {
         const sender = await Models.Sender.findOne({where: {UserId: id, role}})
-        res.status(200).send({user: {id, role, SenderId: sender.id} })
+        res.status(200);
+        res.send({user: {id, role, SenderId: sender.id} });
       } else {
         console.log(`Could not find tutor`);
       }

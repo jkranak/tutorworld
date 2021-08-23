@@ -7,12 +7,12 @@ export const sendMessage = async (req: Request, res: Response) => {
   try {
     const { content, RoomId, SenderId } = req.body;
     const message = await Models.Message.create({SenderId, content, RoomId});
-    res.send(message);
     res.status(200);
+    res.send(message);
   } catch (error) {
     console.log(error)
-    res.send(error);
     res.status(500);
+    res.send(error);
   }
 }
 
@@ -33,6 +33,7 @@ export const connectToRoom = async (req: Request, res: Response) => {
        room_senders ON room_senders."RoomId" = "Rooms".id
       where 
       "Rooms".id = '${room}';`, {type: QueryTypes.SELECT, raw: true});
+      res.status(200);
       res.send({room, senders});
     } else {
       // creating a new room and adding both senders
@@ -44,9 +45,9 @@ export const connectToRoom = async (req: Request, res: Response) => {
        room_senders ON room_senders."RoomId" = "Rooms".id
       where
       "Rooms".id = '${newRoom.id}';`, {type: QueryTypes.SELECT, raw: true});
+      res.status(200);
       res.send({room: newRoom.id, senders});
     }
-    res.status(200);
   } catch (error) {
     console.log(error)
     res.status(500);
@@ -95,8 +96,8 @@ export const retrieveUserRooms = async (req: Request, res: Response) => {
         senders
       })
     }))
-    res.send(result);
     res.status(200);
+    res.send(result);
   } catch (error) {
     console.log(error)
     res.status(500);
@@ -108,8 +109,8 @@ export const retrieveMessagesByRoom = async (req: Request, res: Response) => {
   try {
     const { RoomId } = req.params;
     const messages = await Models.Message.findAll({where: { RoomId }});
+    res.status(300);
     res.send(messages);
-    res.status(200);
   } catch (error) {
     console.log(error)
     res.status(500);
@@ -121,9 +122,8 @@ export const retrieveSenderId = async (req: Request, res: Response) => {
   try {
     const { id, role } = req.params
     const sender = await Models.Sender.findOne({where: {UserId: id, role}});
-    console.log()
-    res.send({SenderId: sender.id});
     res.status(200);
+    res.send({SenderId: sender.id});
   } catch (error) {
     console.log(error)
     res.status(500);

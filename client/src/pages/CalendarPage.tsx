@@ -6,7 +6,7 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import enUS from 'date-fns/locale/en-US';
-import '../sass/calendar/styles.scss';
+import '../sass/vendors/calendar/styles.scss';
 import { getUserSessions } from '../services/apiUser';
 import { SessionComplex } from '../interfaces/Session';
 import {UserRole } from '../interfaces/User';

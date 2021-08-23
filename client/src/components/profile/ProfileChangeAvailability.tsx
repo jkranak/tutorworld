@@ -34,14 +34,13 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
 
   const handleHourChange = (event: {target: {options: any}}) => {
     let selectedHours: string[] = [];
-    console.log(event.target.options)
     for (let option of event.target.options) {
       if (option.selected) selectedHours.push(option.value);
     }
     setChooseHours(selectedHours);
   }
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     const updatedAvail = deepCopy(newAvailability);
     for (let hour of chooseHours) {

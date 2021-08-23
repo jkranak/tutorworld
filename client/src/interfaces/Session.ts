@@ -14,36 +14,6 @@ export interface Session {
   sortDate?: number
 }
 
-export const emptySession: Session = {
-  StudentId: '',
-  TutorId: '',
-  cost: 0,
-  createdAt: '',
-  date: '',
-  id: '',
-  sessionContext: '',
-  time: '',
-  updatedAt: '',
-}
-
-export interface HistoryI extends Session {
-  starRating: number
-  review: string
-}
-
-export const emptyHistory: HistoryI = {
-  StudentId: '',
-  TutorId: '',
-  cost: 0,
-  createdAt: '',
-  date: '',
-  id: '',
-  sessionContext: '',
-  time: '',
-  updatedAt: '',
-  starRating: 0,
-  review: ''
-}
 
 export interface SessionComplex extends Session {
   Student: Student
@@ -64,7 +34,9 @@ export const emptySessionComplex: SessionComplex = {
   updatedAt: '',
 }
 
-export interface HistoryComplex extends HistoryI {
+export interface HistoryComplex extends Session {
+  starRating: number
+  review: string
   Student: Student
   Tutor: TutorComplex
 }

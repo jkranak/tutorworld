@@ -1,4 +1,5 @@
 import { useEffect, useState, FC } from 'react';
+import {Link} from 'react-router-dom';
 import { SessionComplex } from '../../interfaces/Session';
 import {UserRole, emptyUserNameImage} from '../../interfaces/User';
 import noPhotoUser from '../../assets/no_photo_user.png';
@@ -18,13 +19,30 @@ export const SessionEntry: FC<Props> = ({session, user}: Props) => {
     setOtherUserInfo({firstName, lastName, imageUrl})
     }, [session.Student.firstName, session.Student.imageUrl, session.Student.lastName, session.Tutor.TutorInfo.imageUrl, session.Tutor.firstName, session.Tutor.lastName, user.role])
 
+    const sessionDetailState = {
+      type: 'upcoming',
+      name: `${otherUserInfo.firstName} ${otherUserInfo.lastName}`,
+      image: otherUserInfo.imageUrl,
+      date: session.date,
+      time: session.time,
+      cost: session.cost,
+      context: session.sessionContext
+    }
+
+
   return (
     <div>
-      <p>{otherUserInfo.imageUrl ? 
-         <img src={otherUserInfo.imageUrl} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />
-         :
-         <img src={noPhotoUser} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />
-        }{otherUserInfo.firstName} {otherUserInfo.lastName} - {session.date}, {session.time} - Price: ${session.cost} - {session.sessionContext}</p>
+      <p>
+        <Link to={{
+          pathname:'/session', 
+          state: sessionDetailState
+          }}>
+          {otherUserInfo.imageUrl 
+            ? <img src={otherUserInfo.imageUrl} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />
+            : <img src={noPhotoUser} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />}
+        </Link>
+          {otherUserInfo.firstName} {otherUserInfo.lastName} - {session.date}, {session.time} - Price: ${session.cost} - {session.sessionContext}
+      </p>
     </div>
   )
 }

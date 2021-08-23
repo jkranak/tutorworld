@@ -30,11 +30,29 @@ export const HistoryEntry: FC<Props> = ({session, user}: Props) => {
       setOtherUserInfo({firstName, lastName, imageUrl})
     }, [session.Student.firstName, session.Student.imageUrl, session.Student.lastName, session.Tutor.TutorInfo.imageUrl, session.Tutor.firstName, session.Tutor.lastName, user.role])
 
+    const sessionDetailState = {
+      type: 'history',
+      name: `${otherUserInfo.firstName} ${otherUserInfo.lastName}`,
+      image: otherUserInfo.imageUrl,
+      date: session.date,
+      time: session.time,
+      cost: session.cost,
+      context: session.sessionContext,
+      rating: session.starRating ? session.starRating : 0,
+      review: session.review ? session.review : ''
+    }
+
   return (
     <div>
-      <p>{otherUserInfo.imageUrl 
-          ? <img src={otherUserInfo.imageUrl} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />
-          : <img src={noPhotoUser} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />}
+      <p>
+        <Link to={{
+          pathname:'/session', 
+          state: sessionDetailState
+        }}>
+          {otherUserInfo.imageUrl 
+            ? <img src={otherUserInfo.imageUrl} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />
+            : <img src={noPhotoUser} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />}
+        </Link>
         {otherUserInfo.firstName} {otherUserInfo.lastName} - {session.date}, {session.time} - 
         {user.role === 'student' ? <Link to={{
             pathname:'/review', 

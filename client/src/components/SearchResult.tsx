@@ -1,10 +1,14 @@
 import {FC} from 'react';
+// import { RootState } from 'app/redux/store';
 import {TutorComplete} from '../interfaces/Tutor';
 import {starRating} from '../services/starRating';
 import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
 import { useHistory } from 'react-router-dom';
+import { enterRoom, getSenderId } from '../services/apiChat';
+import { currentRoom } from '../redux/actions/currentRoom';
+import { RootState } from '../redux/store/store';
 
 interface Props {
   tutor: TutorComplete
@@ -14,10 +18,23 @@ export const SearchResult: FC<Props> = ({tutor}: Props) => {
   const starArr: number[] = starRating(tutor?.rating);
   const dispatch = useDispatch();
   const history = useHistory();
+  const user = useSelector((state: RootState) => state.authenticate)
 
   const handleSchedule = () => {
     dispatch(currentTutorInfo(tutor));
     history.push('/schedule');
+  }
+
+  const handleMessage = async () => {
+    // check if there is already a room with this tutor, if not create a new room
+    const { SenderId } = await getSenderId(tutor.TutorId, 'tutor');
+    const room = await enterRoom({mySenderId: user.SenderId, otherUserSenderId: SenderId})
+    // my sender id, tutor sender id,
+    dispatch(currentRoom(room));
+    history.push({
+      pathname: '/messages',
+      state: room
+    });
   }
 
   const handleProfile = () => {
@@ -56,9 +73,8 @@ export const SearchResult: FC<Props> = ({tutor}: Props) => {
         </div>
         <div className="tutor-card__right-box--buttons">
           <button className="btn btn--blue" onClick={handleSchedule}>Schedule</button>
-          <button className="btn btn--blue">Message</button>
+          <button className="btn btn--blue" onClick={handleMessage}>Message</button>
           <button className="btn btn--blue" onClick={handleProfile}>Profile</button>
-          
         </div>
       </div>
     </div>

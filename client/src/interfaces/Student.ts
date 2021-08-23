@@ -4,7 +4,6 @@ export interface Student {
   firstName: string,
   lastName: string,
   imageUrl: string
-  
 }
 
 export interface StudentComplete extends Student{

@@ -1,14 +1,25 @@
-import {FC} from 'react';
+import {FC, useEffect, useState} from 'react';
 import { useSelector } from 'react-redux';
+import { getUserHistory } from '../services/apiUser';
 import { Navbar } from '../components/Navbar';
 import { Sidebar } from '../components/Sidebar';
 import { UpcomingSession } from '../components/dashboard/UpcomingSession';
 import { History } from '../components/dashboard/History';
 import { FavTutors } from '../components/dashboard/FavTutors';
+import { Earnings } from '../components/dashboard/Earnings';
+import { emptyHistoryComplex } from '../interfaces/Session';
+import { RootState } from '../redux/store/store';
 
 
 export const Dashboard: FC = () => {
-  const user = useSelector((state: any) => state.authenticate);
+  const user = useSelector((state: RootState) => state.authenticate);
+  const [historyList, setHistoryList] = useState([emptyHistoryComplex]);
+
+  useEffect(() => {
+    getUserHistory().then(res => {
+      setHistoryList(res);
+    })
+  }, [])
 
   // TO-DO create component for repeated code
   return (
@@ -17,53 +28,23 @@ export const Dashboard: FC = () => {
       <div className="dashboard__content">
         <Sidebar/>
         <main className="dashboard__content--display">
-          <div className="dashboard__content--display--top">
-            <div className="dashboard__content--display--info">
+            {/* <div className="dashboard__content--display--info">
               <h1 className="dashboard__content--display--title">Unread Messages</h1>
               <div className="dashboard__content--display--top--box">
-                <p>messages</p>
+              <p>messages</p>
               </div>
-            </div>
-            <div className="dashboard__content--display--info">
-              <h1 className="dashboard__content--display--title">Upcoming Sessions</h1>
-              <div className="dashboard__content--display--top--box">
-                  <UpcomingSession />
-              </div>
-            </div>
-          </div>
+            </div> */}
+            <UpcomingSession />
+            <History historyList={historyList}/>
           {user.role === 'tutor' ? 
-            <div className="dashboard__content--display--bottom">
-              <div className="dashboard__content--display--info">
-                <h1 className="dashboard__content--display--title">History</h1>
-                <div className="dashboard__content--display--top--box">
-                  <History />
-                </div>
-              </div>
-
-              <div className="dashboard__content--display--info">
-                <h1 className="dashboard__content--display--title">Earnings Owned</h1>
-                <div className="dashboard__content--display--bottom--box">
-                  <p>earnings</p>
-                </div>
-              </div>
-            </div>
+            <Earnings historyList={historyList}/>
             :
-            <div className="dashboard__content--display--bottom">
-              <div className="dashboard__content--display--info">
-                <h1 className="dashboard__content--display--title">History</h1> 
-                <div className="dashboard__content--display--bottom--box">
-                </div>
-              </div>
-              <div className="dashboard__content--display--info">
-                <h1 className="dashboard__content--display--title">Favorite Tutors</h1>
-                <div className="dashboard__content--display--bottom--box">
-                  <FavTutors />
-                </div>
-              </div>
-            </div>  
+            <FavTutors />
           }
         </main>
       </div>
     </div>
   )
 }
+
+

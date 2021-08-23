@@ -4,10 +4,10 @@ import { FaSignOutAlt, FaUserAlt } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux';
 import { authenticate } from '../redux/actions/authenticate';
 import LogoLink from './LogoLink';
+import { RootState } from '../redux/store/store';
 
 export const Navbar: FC = () => {
-  // TO-DO fix typescript any
-  const user = useSelector((state: any) => state.authenticate)
+  const user = useSelector((state: RootState) => state.authenticate)
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -22,9 +22,8 @@ export const Navbar: FC = () => {
       <div className="navbar--left-box">
         <LogoLink />
         <Link to='/dashboard' className="btn btn--clear">Dashboard</Link>
-        {/* I know I shouldn't be using divs for this but the style is affected */}
-        <div className="btn btn--clear">Conversations</div>
-        <div className="btn btn--clear">Calendar</div>
+        <Link to={'/messages'}className="btn btn--clear">Conversations</Link>
+        <Link to={'/calendar'} className="btn btn--clear">Calendar</Link>
         {user.role === 'student' && <Link to={'/search'} className="btn btn--clear">Find a Tutor</Link>}
         {user.role !== 'tutor' && <Link to={'/application'} className="btn btn--clear">Apply to be a tutor</Link>}
       </div>

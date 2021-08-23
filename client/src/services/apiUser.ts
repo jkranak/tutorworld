@@ -73,6 +73,18 @@ export const updateTutor = async (user: TutorUpdate) => {
   }
 }
 
+export const updatePassword = async (role: string, oldPassword: string, newPassword: string) => {
+  try {
+    const response = role === 'tutor' 
+      ? await api.put('/tutors/tutor/password', {oldPassword, newPassword})
+      : await api.put('/students/student/password', {oldPassword, newPassword});
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+}
+
 export const getAllTutors = async () => {
   try {
     const response = await api.get('/search');
@@ -143,9 +155,9 @@ export const getUserHistory = async () => {
   }
 }
 
-export const getBasicUserInfo = async (id: string, role: string) => {
+export const getFavTutors = async () => {
   try {
-    const response = await api.get(`/user/${id}/${role}/info`);
+    const response = await api.get('/students/student/favTutors');
     return (response.data);
   } catch (error) {
     console.log(error);
@@ -153,10 +165,40 @@ export const getBasicUserInfo = async (id: string, role: string) => {
   }
 }
 
-export const getFavTutors = async () => {
+export const getFavTutorsLess = async () => {
   try {
-    const response = await api.get('/students/student/favTutors');
+    const response = await api.get('/students/student/favTutorsLess');
     return (response.data);
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const addFavTutor = async (id: string) => {
+  try {
+    const response = await api.post('/students/student/favTutors', {TutorId: id});
+    return (response.status); //201 or 409
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const removeFavTutor = async (id: string) => {
+  try {
+    const response = await api.delete(`/students/student/favTutors/${id}`);
+    return (response.status); //200 or 404
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const updateRating = async (starRating: number, review: string, date: string, time: string) => {
+  try {
+    const response = await api.put('/submitRating', { starRating, review, date, time });
+    return (response.status);
   } catch (error) {
     console.log(error);
     return error;

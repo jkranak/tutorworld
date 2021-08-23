@@ -6,7 +6,7 @@ import 'react-day-picker/lib/style.css';
 import {getOneTutorAvailability} from '../services/apiUser';
 import { useSelector } from 'react-redux';
 import { dayNames } from '../assets/times';
-
+import { RootState } from '../redux/store/store';
 
 export const ScheduleSession: FC = () => {
   const [selectedDay, setSelectedDay] = useState(new Date(0));
@@ -14,11 +14,10 @@ export const ScheduleSession: FC = () => {
   const [timesArr, setTimesArr] = useState(['']);
   const [selectedHour, setSelectedHour] = useState('');
   const [selectedTopic, setSelectedTopic] = useState('');
-  const user = useSelector((state: any )=> state.currentTutorInfo);
+  const user = useSelector((state: RootState )=> state.currentTutorInfo);
 
   const daysAhead = 69 - new Date().getDay();
   const endDate = new Date(Date.now() + 86400000 * daysAhead);
-
 
   useEffect(() => {
     if (selectedDay < new Date()) {
@@ -27,11 +26,22 @@ export const ScheduleSession: FC = () => {
     } else {
       const dateStr = selectedDay.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
       getOneTutorAvailability(user.id, dateStr).then(res => {
+        setPickTime(false);
         setTimesArr(res);
         setPickTime(true);
+        setSelectedHour('');
       })
     }
-  }, [selectedDay])
+  }, [selectedDay, user.id])
+
+interface Days {
+  daysOfWeek: number[]
+}
+
+interface BeforeAfter {
+  before: Date
+  after: Date
+}
 
   const unavailableDays = () => {
     let daysOfWeek: number[] = [];
@@ -40,21 +50,20 @@ export const ScheduleSession: FC = () => {
         daysOfWeek.push(dayNames.indexOf(day))
       }
     }
-    const disabledDays: any[] = [{daysOfWeek}]
-    disabledDays.push({before: new Date(), after: endDate})
+    const disabledDays: [Days, BeforeAfter] = [{daysOfWeek}, {before: new Date(), after: endDate}]
     return disabledDays
   }
 
-  const handleHourChange = (event: {target: {value: any}}) => {
+  const handleHourChange = (event: {target: {value: string}}) => {
     setSelectedHour(event.target.value);
   }
 
-  const handleTopicChange = (event: {target: {value: any}}) => {
+  const handleTopicChange = (event: {target: {value: string}}) => {
     setSelectedTopic(event.target.value);
   }
   
   return (
-    <div>
+    <div className="schedule__content--scheduler">
       <DayPicker 
         fromMonth={new Date()} 
         toMonth={endDate} 
@@ -62,23 +71,38 @@ export const ScheduleSession: FC = () => {
         onDayClick={setSelectedDay}
         disabledDays={unavailableDays()}
       />
-      {pickTime && timesArr.length ? <form>
-        <select name="hour" defaultValue="" onChange={handleHourChange} >
-        <option value="" disabled hidden>Choose time</option>
-          {timesArr.map((time) => (
-            <option key={time} value={time}>{time}</option>
-          ))}
+      <div className="form edit-form">
+      {pickTime && timesArr.length ? 
+        <select name="hour" defaultValue="" onChange={handleHourChange} className="select-input select-input--blue">
+          <option value="" disabled>Choose time</option>
+            {timesArr.map((time) => (
+              <option key={time} value={time}>{time}</option>
+            ))}
         </select>
-      </form> : <></>}
-       {pickTime && timesArr.length === 0 ? <button disabled>All Slots Booked</button> : <></>}
-      {selectedHour.length > 0 && <form>
-        <select name="subject" defaultValue="" onChange={handleTopicChange} >
-          <option value="" disabled hidden>Choose subject</option>
+       : null}
+      {selectedHour.length > 0 && 
+        <select name="subject" defaultValue="" onChange={handleTopicChange} className="select-input select-input--blue">
+          <option value="" disabled>Choose subject</option>
           {user.subjectLevels.map((subject: any) => (
             <option key={subject} value={subject}>{subject}</option>
-          ))}
-        </select>
-      </form>}
+            ))}
+          </select>}
+
+        <div className="form--multi-select">
+          {selectedHour ? 
+            <div className="form--select-tag">
+              <span>{selectedHour}</span>
+            </div> : null 
+          }
+          {selectedTopic ?
+            <div className="form--select-tag">
+              <span>{selectedTopic}</span>
+            </div> : null
+          }
+        </div>
+
+       {pickTime && timesArr.length === 0 ? <div>All Slots Booked</div> : null}
+
       {selectedTopic.length > 0 && <Link to={{
         pathname:'/checkout', 
         state:{
@@ -89,13 +113,14 @@ export const ScheduleSession: FC = () => {
           day: selectedDay.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' }),
           name: `${user.firstName} ${user.lastName}`
         }
-      }}>Schedule and pay</Link>}
+      }} className="btn btn--clear form--btn pay">Schedule and pay</Link>}
       {pickTime && <button onClick={() => {
         setSelectedHour('');
         setPickTime(false);
         setSelectedTopic('');
         setSelectedDay(new Date(0));
-      }}>Clear selection</button>}
+      }} className="btn btn--clear form--btn">Clear selection</button>}
+      </div>
     </div>
   )
 }

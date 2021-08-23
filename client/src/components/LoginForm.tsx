@@ -15,13 +15,12 @@ export const LoginForm: FC<Props> = ({setToggle}: Props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: {target: {name: string, value: string}}) => {
     setUserLogin(user => ({...user, [event.target.name]: event.target.value}))
   }
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const { email, password } = userLogin;
-
     // confirming if fields aren't empty
     if (password && email) {
       const res = await login({ email, password })
@@ -50,14 +49,14 @@ export const LoginForm: FC<Props> = ({setToggle}: Props) => {
       <form onSubmit={handleSubmit}>
         <input type="email" id="email" name="email" required onChange={handleChange} value={userLogin.email} placeholder="E-mail address*" className="text-input text-input--blue"/>
         <input type="password" id="password" name="password" placeholder="Password*" required onChange={handleChange} value={userLogin.password}
-        className="text-input text-input--blue"
+          className="text-input text-input--blue"
         />
         <button className="btn btn--blue form--btn" type="submit">SIGN IN</button>
       </form>
       <div className="form--toggle">
         <span>Don't have an account?</span>
         <button onClick={() => setToggle('register')} className="form--toggle-btn">
-          Register
+          Register as a student
         </button>
       </div>
     </div>

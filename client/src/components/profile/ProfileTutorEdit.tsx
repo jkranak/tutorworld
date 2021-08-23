@@ -1,14 +1,25 @@
 import { FormEvent, useState, FC } from 'react';
+import { FiX } from 'react-icons/fi';
 import { languages, subjects } from '../../assets/subjects_languages';
 import {TutorWithAvailability} from '../../interfaces/Tutor';
 import { updateTutor } from '../../services/apiUser';
 import {ProfileChangeAvailability} from './ProfileChangeAvailability';
-// import { FiX } from 'react-icons/fi';
 
 interface Props {
   tutorDetails: TutorWithAvailability
   setTutorDetails: (tutor: TutorWithAvailability) => void
   setEditing: (bool: boolean) => void
+}
+
+interface EditedUser {
+  firstName: string
+  lastName: string
+  email: string
+  description: string 
+  experience: string 
+  imageUrl: string 
+  education: string 
+  price: number
 }
 
 export const ProfileTutorEdit: FC<Props> = ({tutorDetails, setTutorDetails, setEditing}: Props) => {
@@ -26,8 +37,8 @@ export const ProfileTutorEdit: FC<Props> = ({tutorDetails, setTutorDetails, setE
     const [tutorSubjectLevels, setTutorSubjectLevels] = useState([...tutorDetails.subjectLevels]);
     const [changeAvail, setChangeAvail] = useState(false);
 
-  const handleTutorChange = (event: {target: {name: string, value: any}}) => {
-    setEditedUser((current: any) => ({...current, [event.target.name]: event.target.value}))
+  const handleTutorChange = (event: {target: {name: string, value: string}}) => {
+    setEditedUser((current: EditedUser) => ({...current, [event.target.name]: event.target.value}))
   }
 
   const addLanguage = (event: {target: {name: string, value: string}}) => {
@@ -53,7 +64,7 @@ export const ProfileTutorEdit: FC<Props> = ({tutorDetails, setTutorDetails, setE
   const removeSubject = (subject: string) => {
     if (tutorSubjectLevels.length === 1) setTutorSubjectLevels(['']);
     else {
-      const newSubjectList = tutorSubjectLevels.filter((subj)=> subj !== subject );
+      const newSubjectList = tutorSubjectLevels.filter((subj)=> subj !== subject);
       setTutorSubjectLevels(newSubjectList)
     }
   }
@@ -97,14 +108,16 @@ export const ProfileTutorEdit: FC<Props> = ({tutorDetails, setTutorDetails, setE
         <textarea className="text-input text-input--blue text-input--textarea" id="education" name="education" onChange={handleTutorChange} defaultValue={tutorDetails.education} placeholder="Education" required/>
 
         <select name="subjects" onChange={addSubject} defaultValue="" className="select-input select-input--blue">
-          <option value="" disabled>Add subjects</option>
+          <option value="" disabled>Add Subjects</option>
           {subjects.map((subject, index) => (
             <option key={index} value={subject}>{subject}</option>
           ))}
         </select>
             <div className="form--multi-select">
               {tutorSubjectLevels.map((subject: string) => 
-                <div key={subject}><button className="form--select-tag" onClick={() => removeSubject(subject)}>{subject}</button>   
+                <div key={subject} className="form--select-tag">
+                  <span className="before-icon">{subject}</span>
+                   <FiX onClick={() => removeSubject(subject)} className="lib-icon link"/>
                 </div>)}
             </div>
         <select name="languages" onChange={addLanguage} defaultValue="" className="select-input select-input--blue" >
@@ -115,7 +128,9 @@ export const ProfileTutorEdit: FC<Props> = ({tutorDetails, setTutorDetails, setE
         </select>
         <div className="form--multi-select">
         {tutorLanguages.map((language: string) => 
-          <div key={language}><button onClick={() => removeLanguage(language)} className="form--select-tag" >{language}</button >
+          <div key={language}><button className="form--select-tag" >
+            <span className="before-icon">{language}</span>
+            <FiX onClick={() => removeLanguage(language)} className="lib-icon link"/></button >
           </div>)}
 
         </div>

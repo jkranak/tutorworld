@@ -20,9 +20,10 @@ export const ProfileTutorView: FC<Props> = ({tutorDetails}: Props) => {
           <img src={tutorDetails.imageUrl} alt={`${tutorDetails.firstName} ${tutorDetails.lastName}`} />
         </div>
         <h1 className="tutor-profile--title">{tutorDetails.firstName} {tutorDetails.lastName}</h1>
+        {tutorDetails.rating > 0 ? <span>{starArr?.map(el => (
+          el === 2 ? <BsStarFill key={uuidv4()} className="tutor-profile__info--star"/> : el === 1 ? <BsStarHalf key={uuidv4()} className="tutor-profile__info--star"/> : <BsStar key={uuidv4()} className="tutor-profile__info--star"/>
+        ))}</span> : <span>No ratings yet</span>}
         <p className="tutor-profile--details">{tutorDetails.description}</p>
-        <p className="tutor-profile--sub-title">Rate: ${tutorDetails.price}/hour</p>
-
       </section>
       <section className="tutor-profile__right-box">
         <div className="tutor-profile__info-wrapper">
@@ -42,10 +43,7 @@ export const ProfileTutorView: FC<Props> = ({tutorDetails}: Props) => {
           </div>
         </div>
         <div className="tutor-profile__info-wrapper">
-          <p className="tutor-profile--sub-title">Rating</p>
-          {starArr?.map(el => (
-            el === 2 ? <BsStarFill key={uuidv4()} className="tutor-profile__info--star"/> : el === 1 ? <BsStarHalf key={uuidv4()} className="tutor-profile__info--star"/> : <BsStar key={uuidv4()} className="tutor-profile__info--star"/>
-          ))}
+          <p className="tutor-profile--sub-title">Rate: ${tutorDetails.price}/hour</p>
         </div>
         <div className="tutor-profile__info-wrapper">
           <p className="tutor-profile--sub-title">Experience</p>
@@ -53,10 +51,14 @@ export const ProfileTutorView: FC<Props> = ({tutorDetails}: Props) => {
             {tutorDetails.experience}
           </p>
         </div>
-        <p>Weekly Availability</p>
-          {dayNames.map((day, index) => (
-            <li key={day}>{capitalDayNames[index]}: {Object.keys(tutorDetails.availability[day]).join(', ')}</li>
-          ))}
+        <div className="tutor-profile__info-wrapper">
+          <p className="tutor-profile--sub-title">Weekly Availability</p>
+            <div>
+              {dayNames.map((day, index) => (
+                <li className="tutor-profile__info--availability" key={day}>{capitalDayNames[index]}: {Object.keys(tutorDetails.availability[day]).join(', ')}</li>
+              ))}
+            </div>
+        </div>
       </section>
     </div>
   )

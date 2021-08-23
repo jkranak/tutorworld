@@ -8,11 +8,12 @@ export const updateTutorInfo = async (req:any, res:any) => {
 
     const updatedTutor = {email, firstName, lastName};
 
-    const updatedtutorInfo = { email, firstName, lastName, description, experience, imageUrl, education, price, subjectLevels, languages  };
+    const updatedtutorInfo = { email, firstName, lastName, description, experience, imageUrl, education, price, subjectLevels, languages };
 
     const tutorInfo = await Models.TutorInfo.findOne({where:{TutorId: id}});
 
     await Models.Tutor.update(updatedTutor, {where: {id}});
+    await Models.Sender.update({where: {UserId: id}, firstName: updatedtutorInfo.firstName, lastName: updatedtutorInfo.lastName, imageUrl: updatedtutorInfo.imageUrl})
 
     if(tutorInfo){
       //updating maybe a single column
@@ -26,8 +27,7 @@ export const updateTutorInfo = async (req:any, res:any) => {
 
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -66,12 +66,10 @@ export const getStudentInfo = async (req:any, res:any) => {
 
     const studentInfo = await Models.Student.findOne({attributes: {exclude: ['password']}, where:{id}});
 
-    res.send(studentInfo);
-    res.status(200);
+    res.send(studentInfo).status(200);
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -80,11 +78,11 @@ export const updateStudentInfo = async (req:any, res:any) => {
     const { id, email, firstName, lastName, imageUrl } = req.body;
 
     await Models.Student.update({ id, email, firstName, lastName, imageUrl }, {where: {id}});
+    await Models.Sender.update({where: {UserId: id}, firstName, lastName, imageUrl})
     res.status(201).send('Student updated');
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -99,15 +97,12 @@ export const getEveryTutorsInfo = async (req:any, res:any) => {
       delete cleanTutorInfo.TutorInfo;
       return cleanTutorInfo;
     });
-
-    res.send(cleanTutorsInfo);
-    res.status(200);
+    res.status(200).send(cleanTutorsInfo);
 
 
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -123,15 +118,12 @@ export const getAllTutorsInfoAvail = async (req:any, res:any) => {
       delete cleanAllTutorInfoAvail.TutorAvailability;
       return cleanAllTutorInfoAvail;
     });
-
-    res.send(cleanAllTutorsInfoAvail);
-    res.status(200);
+    res.status(200).send(cleanAllTutorsInfoAvail);
 
 
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -148,47 +140,12 @@ export const getTutorInfoAvail = async (req:any, res:any) => {
       const cleanTutorInfoAvail = {...tutorInfoAvail, ...tutorInfoAvail.TutorInfo, availability: {...tutorInfoAvail.TutorAvailability}};
       delete cleanTutorInfoAvail.TutorInfo;
       delete cleanTutorInfoAvail.TutorAvailability;
-
-
-      res.send(cleanTutorInfoAvail);
-      res.status(200);
-
+      res.status(200).send(cleanTutorInfoAvail);
     } else {
-      res.send('Tutor does not exist ');
-      res.status(400);
+      res.status(400).send('Tutor does not exist ');
     }
-
-
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
-}
-
-export const getBasicUserInfo = async (req:any, res:any) => {
-  try {
-    const { id, role } = req.params;
-    if (role === 'tutor') {
-      const basicTutor = await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id}, include: [Models.TutorInfo]});
-      res.send({
-        firstName: basicTutor.firstName,
-        lastName: basicTutor.lastName,
-        imageUrl: basicTutor.TutorInfo.imageUrl
-      });
-      res.status(200);
-    } else {
-      const basicStudent = await Models.Student.findOne({attributes: {exclude: ['password']}, where: {id}});
-      res.send({
-        firstName: basicStudent.firstName,
-        lastName: basicStudent.lastName,
-        imageUrl: basicStudent.imageUrl
-      });
-      res.status(200);
-  }} catch (error) {
-    console.log(error)
-    res.status(500);
-    res.send(error);
-  }
-
 }

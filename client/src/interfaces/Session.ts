@@ -1,16 +1,28 @@
+import {emptyStudent, Student} from './Student';
+import { TutorComplex, emptyTutorComplex } from './Tutor';
+
 export interface Session {
   StudentId: string
   TutorId: string
   cost: number
-  createdAt: string
+  createdAt?: string
   date: string
   id: string
   sessionContext: string
   time: string
-  updatedAt: string
+  updatedAt?: string
+  sortDate?: number
 }
 
-export const emptySession: Session = {
+
+export interface SessionComplex extends Session {
+  Student: Student
+  Tutor: TutorComplex
+}
+
+export const emptySessionComplex: SessionComplex = {
+  Student: emptyStudent,
+  Tutor: emptyTutorComplex,
   StudentId: '',
   TutorId: '',
   cost: 0,
@@ -22,12 +34,16 @@ export const emptySession: Session = {
   updatedAt: '',
 }
 
-export interface HistoryI extends Session {
+export interface HistoryComplex extends Session {
   starRating: number
   review: string
+  Student: Student
+  Tutor: TutorComplex
 }
 
-export const emptyHistory: HistoryI = {
+export const emptyHistoryComplex: HistoryComplex = {
+  Student: emptyStudent,
+  Tutor: emptyTutorComplex,
   StudentId: '',
   TutorId: '',
   cost: 0,

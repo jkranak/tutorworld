@@ -15,7 +15,7 @@ export const RegisterForm: FC<Props> = ({setToggle}: Props) => {
   const dispatch = useDispatch();
   const [newUser, setNewUser] = useState<User>(emptyUser)
 
-  const handleChange =  (event: any) => {
+  const handleChange =  (event: {target: {name: string, value: string}}) => {
     setNewUser(user => ({...user, [event.target.name]: event.target.value}))
   }
   const handleSubmit = async (event: FormEvent) => {
@@ -44,7 +44,7 @@ export const RegisterForm: FC<Props> = ({setToggle}: Props) => {
   return (
     <div className="form register-form">
       <div className="form--title">
-        <h1 className="before-icon">Register</h1>
+        <h1 className="before-icon">Register as Student</h1>
         <FaSignInAlt className="fa-icon form--icon"/>
       </div>
       <form onSubmit={handleSubmit}>

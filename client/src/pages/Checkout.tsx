@@ -15,11 +15,13 @@ export const Checkout: FC = () => {
   const [stripeTestPromise] = useState(() => loadStripe(PUBLIC_KEY!))
 
   return (
-    <Elements stripe={stripeTestPromise}>
-      <Navbar/>
-      {!paymentAttempt 
-      ? <Payment sessionInfo={sessionInfo} setPaymentSuccess={setPaymentSuccess} setPaymentAttempt={setPaymentAttempt}/> 
-      : paymentSuccess ? <PaymentSuccess /> : <PaymentFail setPaymentAttempt={setPaymentAttempt}/> }
-    </Elements>
+    <div className="checkout">
+      <Elements stripe={stripeTestPromise}>
+        <Navbar/>
+        {!paymentAttempt 
+        ? <Payment sessionInfo={sessionInfo} setPaymentSuccess={setPaymentSuccess} setPaymentAttempt={setPaymentAttempt}/> 
+        : paymentSuccess ? <PaymentSuccess /> : <PaymentFail setPaymentAttempt={setPaymentAttempt}/> }
+      </Elements>
+    </div>
   )
 }

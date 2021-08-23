@@ -14,11 +14,16 @@ import { authenticate } from './redux/actions/authenticate';
 import Loader from 'react-loader-spinner';
 import { Checkout } from './pages/Checkout';
 import { Schedule } from './pages/Schedule';
+import { Messages } from './pages/Messages';
 import { ViewProfile } from './pages/ViewProfile';
+import { Review } from './pages/Review';
+import { CalendarPage } from './pages/CalendarPage';
+import {RootState} from './redux/store/store'
+import { SessionDetail } from './pages/SessionDetail';
 
 function App() {
   const dispatch = useDispatch();
-  const auth = useSelector((state: any) => state.authenticate);
+  const auth = useSelector((state: RootState) => state.authenticate);
 
   useEffect(() => {
     verifyUser().then(res => {
@@ -28,7 +33,7 @@ function App() {
         dispatch(authenticate(false));
       }
     })
-  }, [])
+  }, [dispatch])
  
   return (
     auth === null ? 
@@ -52,7 +57,11 @@ function App() {
         <PrivateRoute path="/search" exact component={Search}/>
         <PrivateRoute path="/checkout" exact component={Checkout}/>
         <PrivateRoute path="/schedule" exact component={Schedule}/>
+        <PrivateRoute path="/messages" exact component={Messages}/>
         <PrivateRoute path="/viewprofile" exact component={ViewProfile}/>
+        <PrivateRoute path="/review" exact component={Review}/>
+        <PrivateRoute path="/calendar" exact component={CalendarPage}/>
+        <PrivateRoute path="/session" exact component={SessionDetail}/>
       </Switch>
     </BrowserRouter>
   );

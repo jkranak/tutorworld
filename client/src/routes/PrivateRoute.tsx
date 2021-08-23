@@ -1,9 +1,10 @@
 import { Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store/store';
 
 // TO-DO fix typescript any
 const PrivateRoute = ({ component: Component, ...rest }: any) => {
-  const auth = useSelector((state: any) => state.authenticate);
+  const auth = useSelector((state: RootState) => state.authenticate);
 
   return (
     <Route

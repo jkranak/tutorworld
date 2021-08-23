@@ -1,14 +1,25 @@
 .sidebar {
   @include flex-column;
   justify-content: flex-start;
-  width: 15%;
+  width: 13%;
   height: 100%;
-  border-right: 1px solid $darkest-pink;
+  background-color: $grey;
   
   .btn {
+    color: $font-light;
+    font-family: $secondary-font;
     width: 100%;
     border-radius: 0;
-    padding: 3rem;
-    border-bottom: 1px solid $darkest-pink;
+    padding: 2rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    justify-content: flex-start;
+    &:hover {
+      background-color: $pink;
+    }
+  }
+
+  &__icon {
+    margin-right: 2rem;
   }
 }

@@ -1,5 +1,4 @@
 import Models from '../../models';
-import moment from 'moment';
 
 export const getTutorAvail = async (req:any, res:any) => {
   try {
@@ -10,8 +9,7 @@ export const getTutorAvail = async (req:any, res:any) => {
     else res.status(200).send(tutorAvail);
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -51,23 +49,17 @@ export const updateTutorAvail = async (req:any, res:any) => {
 
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
 export const getAllTutorsAvail = async (req:any, res:any) => {
   try {
     const allTutorsAvail = await Models.TutorAvailability.findAll();
-
-    res.send(allTutorsAvail);
-    res.status(200);
-
-
+    res.status(200).send(allTutorsAvail);
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -79,12 +71,7 @@ export const getTutorAvailByDate = async (req:any, res:any) => {
     // format for date: 2021-12-22 or 2021-09-09 given to me
     const { date, tutorId } = req.params;
 
-    const dateMoment = moment(date);
-
-    const day = dateMoment.day(); // 0 - sunday , 1 - monday
-
-    const dayOfWeek = dayOfWeekArray[day];
-
+    const dayOfWeek = dayOfWeekArray[new Date(`${date} 00:00`).getDay()];
     // find the availability of the tutor for that day
     const tutorAvailForDayInstance = await Models.TutorAvailability.findOne({attributes: [`${dayOfWeek}`], where:{id: tutorId}});
     if (!tutorAvailForDayInstance) res.status(404).send('Tutor availability does not exist!'); //extra portection in case of invalid tutorId sent
@@ -97,14 +84,10 @@ export const getTutorAvailByDate = async (req:any, res:any) => {
     for (let i=0; i<timeSlotsTaken.length; i++){
       delete tutorAvailForDay[timeSlotsTaken[i].time]; //delete all the times from the day availability that is already taken
     }
-
     const availTimes = Object.keys(tutorAvailForDay); //send back an array of all the available times for that day
     res.status(200).send(availTimes);
-
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
-
 }

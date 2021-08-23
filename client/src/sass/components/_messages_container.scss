@@ -1,0 +1,141 @@
+.messages__content {
+  height: 90vh;
+  @include flex-row;
+  background-color: $light-background;
+
+  &--box {
+    width: 70%;
+    height: 85vh;
+    @include flex-row;
+    box-shadow: $box-shadow;
+    background-color: $font-light;
+    border-radius: 5px;
+  }
+  &--left-box {
+    width: 30%;
+    height: 100%;
+    background-color: $grey;
+    color: $font-light;
+    font-weight: 600;
+  }
+  &--right-box {
+    width: 70%;
+    height: 100%;
+    &--find-tutor{
+      height: 100%;
+      width: 100%;
+      @include flex-column;
+      .search-icon{
+        font-size: 35rem;
+        color: $light-grey;
+      }
+    }
+  }
+  &--contact {
+    transition: all .5s;
+    height: 10%;
+    padding: 2rem;
+    text-transform: capitalize;
+    @include flex-row;
+    justify-content: flex-start;
+    border-bottom: 1px solid $dark-grey;
+    font-size: 1.8rem;
+    font-weight: 300;
+    span {
+      padding-left: 2rem;
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: $light-pink;
+    }
+  }
+  .me {
+    background-color: $dark-grey;
+    font-weight: 600;
+    &:hover {
+      cursor: default;
+    }
+    .image-box {
+      height: 7vh;
+      width: 7vh;
+    }
+    &__name {
+      padding-left: 2rem;
+      font-size: 2rem;
+      text-transform: capitalize;
+      
+    }
+  }
+  .image-box {
+    height: 6vh;
+    width: 6vh;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &--messages-list {
+    height: 90%;
+    padding: 3rem;
+    // TO-DO fix scroll
+    overflow-y: scroll;
+    @include flex-column;
+    justify-content: flex-end;
+  }
+
+  &--message {
+    &--right {
+      background-color: $light-pink;
+      align-self: flex-end;
+      padding: 1rem 2rem;
+      font-size: 2rem;
+      border-radius: 1rem 1rem 0 1rem;
+      margin-bottom: 1rem;
+      span {
+        display: block;
+      }
+    }
+    &--left {
+      background-color: $light-beige;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      padding: 1rem 2rem;
+      align-self: flex-start;
+      border-radius: 1rem 1rem 1rem 0;
+      span {
+        display: block;
+      }
+    }
+  } 
+
+  &--send-message {
+    height: 10%;
+    font-size: 3rem;
+    @include flex-row;
+    border-top: 1px solid $light-grey;
+    input {
+      height: 70%;
+      width: 50%;
+      padding-left: 2rem;
+      font-size: 1.8rem;
+      border: none;
+      border-radius: 1rem 0 0 1rem;
+      box-shadow: $box-shadow;
+    }
+    button {
+      color: $pink;
+      height: 70%;
+      width: 8%;
+      background-color: white;
+      border-radius: 0 1rem 1rem 0;
+      box-shadow: $box-shadow;
+    }
+  }
+}
+
+.selected {
+  background-color: $pink;
+}

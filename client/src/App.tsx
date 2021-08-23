@@ -19,6 +19,7 @@ import { ViewProfile } from './pages/ViewProfile';
 import { Review } from './pages/Review';
 import { CalendarPage } from './pages/CalendarPage';
 import {RootState} from './redux/store/store'
+import { SessionDetail } from './pages/SessionDetail';
 
 function App() {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ function App() {
         <PrivateRoute path="/viewprofile" exact component={ViewProfile}/>
         <PrivateRoute path="/review" exact component={Review}/>
         <PrivateRoute path="/calendar" exact component={CalendarPage}/>
+        <PrivateRoute path="/session" exact component={SessionDetail}/>
       </Switch>
     </BrowserRouter>
   );

@@ -6,11 +6,10 @@ import './review.css';
 
 
 export const Review: FC = () => {
-  
   return (
     <div>
       <Navbar />
-        {window.history.state ? <ReviewComponent />: <Link to={"/dashboard"}>Back</Link>}
+        {window.history.state ? <ReviewComponent sessionInfo={window.history.state.state} />: <Link to={"/dashboard"}>Back</Link>}
     </div>
   )
 }

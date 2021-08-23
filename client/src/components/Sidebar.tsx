@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { RootState } from '../redux/store/store';
 
 export const Sidebar: FC = () => {
-  const user = useSelector((state: any) => state.authenticate)
+  const user = useSelector((state: RootState) => state.authenticate)
 
   return (
     <div className="sidebar">

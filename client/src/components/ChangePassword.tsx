@@ -14,7 +14,7 @@ export const ChangePassword: FC<Props> = ({setChangePassword, role}: Props) => {
   const [passwordFail, setPasswordFail] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
-  const handlePasswordChange = (event: {target: {name: string, value: any}}) => {
+  const handlePasswordChange = (event: {target: {name: string, value: string}}) => {
     setPassword(current => ({...current, [event.target.name]: event.target.value}))
   }
 
@@ -31,7 +31,7 @@ export const ChangePassword: FC<Props> = ({setChangePassword, role}: Props) => {
       if (res.status === 204) setChangePassword(false);
       if (res.status === 404) setPasswordFail(true);
       if (res.status === 500) setPasswordError(true);
-      };
+    };
   }
 
   return (

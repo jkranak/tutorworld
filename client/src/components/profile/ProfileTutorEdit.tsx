@@ -11,6 +11,17 @@ interface Props {
   setEditing: (bool: boolean) => void
 }
 
+interface EditedUser {
+  firstName: string
+  lastName: string
+  email: string
+  description: string 
+  experience: string 
+  imageUrl: string 
+  education: string 
+  price: number
+}
+
 export const ProfileTutorEdit: FC<Props> = ({tutorDetails, setTutorDetails, setEditing}: Props) => {
   const [editedUser, setEditedUser] = useState({
     firstName: tutorDetails.firstName,
@@ -26,8 +37,8 @@ export const ProfileTutorEdit: FC<Props> = ({tutorDetails, setTutorDetails, setE
     const [tutorSubjectLevels, setTutorSubjectLevels] = useState([...tutorDetails.subjectLevels]);
     const [changeAvail, setChangeAvail] = useState(false);
 
-  const handleTutorChange = (event: {target: {name: string, value: any}}) => {
-    setEditedUser((current: any) => ({...current, [event.target.name]: event.target.value}))
+  const handleTutorChange = (event: {target: {name: string, value: string}}) => {
+    setEditedUser((current: EditedUser) => ({...current, [event.target.name]: event.target.value}))
   }
 
   const addLanguage = (event: {target: {name: string, value: string}}) => {

@@ -4,10 +4,10 @@ import { FaSignOutAlt, FaUserAlt } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux';
 import { authenticate } from '../redux/actions/authenticate';
 import LogoLink from './LogoLink';
+import { RootState } from '../redux/store/store';
 
 export const Navbar: FC = () => {
-  // TO-DO fix typescript any
-  const user = useSelector((state: any) => state.authenticate)
+  const user = useSelector((state: RootState) => state.authenticate)
   const history = useHistory();
   const dispatch = useDispatch();
 

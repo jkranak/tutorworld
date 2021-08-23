@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux"
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
 import noPhotoUser from '../assets/no_photo_user.png';
-import { RoomI } from "../interfaces/Room";
-import { getStudentDetails, getTutorDetails } from "../services/apiUser";
+import { RoomI } from '../interfaces/Room';
+import { getStudentDetails, getTutorDetails } from '../services/apiUser';
 import { v4 as uuidv4 } from 'uuid';
-import { MessagesList } from "./MessagesList";
-import { currentRoom } from "../redux/actions/currentRoom";
+import { MessagesList } from './MessagesList';
+import { currentRoom } from '../redux/actions/currentRoom';
+import {RootState} from '../redux/store/store';
 interface Props {
   messagesList: []
   sendMessage: Function
@@ -13,9 +14,9 @@ interface Props {
 }
 
 export const MessagesContainer = ({ messagesList, sendMessage, rooms }: Props) => {
-  // TO-DO fix typescript any
-  const user = useSelector((state: any) => state.authenticate);
-  const room = useSelector((state: any) => state.currentRoom);
+    // TO-DO fix typescript any
+  const user = useSelector((state: RootState) => state.authenticate);
+  const room = useSelector((state: RootState) => state.currentRoom);
   const [userDetails, setUserDetails] = useState<any>(null);
   const dispatch = useDispatch();
 
@@ -54,8 +55,7 @@ export const MessagesContainer = ({ messagesList, sendMessage, rooms }: Props) =
               </div>
               <span className="me__name">{`${currRoom.senders[0].firstName} ${currRoom.senders[0].lastName}`}</span>
           </div>)
-          }
-          
+          } 
         </div>
         {room ? <MessagesList messagesList={messagesList} sendMessage={sendMessage}/> : <div className="messages__content--right-box">Find a tutor</div> }
       </section>

@@ -15,17 +15,35 @@ export const emptyTutor: Tutor = {
 }
 
 export interface TutorComplete extends Tutor {
-  TutorId: string,
-  description: string,
-  experience: string,
-  imageUrl: string,
-  rating: number,
-  education: string,
-  price: number,
+  TutorId: string
+  description: string
+  experience: string
+  imageUrl: string
+  rating: number
+  education: string
+  price: number
   createdAt: string
   updatedAt: string
   subjectLevels: string[]
   languages: string[]
+}
+
+export const emptyTutorComplete: TutorComplete = {
+  id: '',
+  email: '',
+  firstName: '',
+  lastName: '',
+  TutorId: '',
+  description: '',
+  experience: '',
+  imageUrl: '',
+  rating: 0,
+  education: '',
+  price: 0,
+  createdAt: '',
+  updatedAt: '',
+  subjectLevels: [''],
+  languages: ['']
 }
 
 export interface TutorWithAvailability extends TutorComplete {
@@ -62,4 +80,16 @@ export interface TutorUpdate {
   price: number
   subjectLevels: string[]
   languages: string[]
+}
+
+export interface TutorComplex extends Tutor {
+  TutorInfo: TutorComplete
+}
+
+export const emptyTutorComplex: TutorComplex = {
+    id: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    TutorInfo: emptyTutorComplete
 }

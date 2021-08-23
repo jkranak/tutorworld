@@ -1,5 +1,4 @@
 import Models from '../../models';
-import moment from 'moment';
 
 export const getTutorAvail = async (req:any, res:any) => {
   try {
@@ -79,12 +78,7 @@ export const getTutorAvailByDate = async (req:any, res:any) => {
     // format for date: 2021-12-22 or 2021-09-09 given to me
     const { date, tutorId } = req.params;
 
-    const dateMoment = moment(date);
-
-    const day = dateMoment.day(); // 0 - sunday , 1 - monday
-
-    const dayOfWeek = dayOfWeekArray[day];
-
+    const dayOfWeek = dayOfWeekArray[new Date(`${date} 00:00`).getDay()];
     // find the availability of the tutor for that day
     const tutorAvailForDayInstance = await Models.TutorAvailability.findOne({attributes: [`${dayOfWeek}`], where:{id: tutorId}});
     if (!tutorAvailForDayInstance) res.status(404).send('Tutor availability does not exist!'); //extra portection in case of invalid tutorId sent

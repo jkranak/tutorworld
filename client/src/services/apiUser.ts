@@ -143,17 +143,6 @@ export const getUserHistory = async () => {
   }
 }
 
-export const getBasicUserInfo = async (id: string, role: string) => {
-  
-  try {
-    const response = await api.get(`/user/${id}/${role}/info`);
-    return (response.data);
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-}
-
 export const getFavTutors = async () => {
   try {
     const response = await api.get('/students/student/favTutors');
@@ -164,9 +153,39 @@ export const getFavTutors = async () => {
   }
 }
 
-export const updateRating = async (starRating: number, review: string) => {
+export const getFavTutorsLess = async () => {
   try {
-    const response = await api.put('/submitRating', { starRating, review });
+    const response = await api.get('/students/student/favTutorsLess');
+    return (response.data);
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const addFavTutor = async (id: string) => {
+  try {
+    const response = await api.post('/students/student/favTutors', {TutorId: id});
+    return (response.status); //201 or 409
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const removeFavTutor = async (id: string) => {
+  try {
+    const response = await api.delete(`/students/student/favTutors/${id}`);
+    return (response.status); //200 or 404
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const updateRating = async (starRating: number, review: string, date: string, time: string) => {
+  try {
+    const response = await api.put('/submitRating', { starRating, review, date, time });
     return (response.status);
   } catch (error) {
     console.log(error);

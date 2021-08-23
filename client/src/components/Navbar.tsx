@@ -22,9 +22,8 @@ export const Navbar: FC = () => {
       <div className="navbar--left-box">
         <LogoLink />
         <Link to='/dashboard' className="btn btn--clear">Dashboard</Link>
-        {/* I know I shouldn't be using divs for this but the style is affected */}
         <Link to={'/messages'}className="btn btn--clear">Conversations</Link>
-        <div className="btn btn--clear">Calendar</div>
+        <Link to={'/calendar'} className="btn btn--clear">Calendar</Link>
         {user.role === 'student' && <Link to={'/search'} className="btn btn--clear">Find a Tutor</Link>}
         {user.role !== 'tutor' && <Link to={'/application'} className="btn btn--clear">Apply to be a tutor</Link>}
       </div>

@@ -90,7 +90,7 @@ export const Payment: FC<Props> = ({sessionInfo, setPaymentSuccess, setPaymentAt
               <CardElement options={CARD_OPTIONS}/>
             </div>
           </fieldset>
-          <button onClick={handleSubmit}>Pay</button>
+          <button onClick={handleSubmit} className="btn btn--blue form--btn">Pay</button>
         </form>
       </div>
     </div>

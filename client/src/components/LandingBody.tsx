@@ -2,7 +2,6 @@ import { FC } from 'react';
 import chalkboard from '../assets/chalkboard.jpg';
 import remote from '../assets/remote.png';
 import book from '../assets/book.jpg';
-import logo from '../assets/tutor_world.svg';
 
 export const LandingBody: FC = () => {
   return (

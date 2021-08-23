@@ -23,7 +23,7 @@ export const ViewProfileComponent: FC<Props> = ({tutorDetails}: Props) => {
         }
       }
     })
-  }, [])
+  }, [tutorDetails.TutorId])
 
   const handleAddClick = async () => {
     const res = await addFavTutor(tutorDetails.TutorId);
@@ -51,7 +51,6 @@ export const ViewProfileComponent: FC<Props> = ({tutorDetails}: Props) => {
         <Link to={'/schedule'} className="btn btn--blue">Schedule</Link>
         <button className="btn btn--blue">Message</button>
         {favorite ? <button onClick={handleRemoveClick} className="btn btn--clear">Favorite <BsCheckCircle /></button> : <button onClick={handleAddClick} className="btn btn--clear">Favorite <BsCircle /></button>}
-
       </section>
       <section className="tutor-profile__right-box">
         <div className="tutor-profile__info-wrapper">

@@ -1,14 +1,25 @@
-import {FC} from 'react';
+import {FC, useEffect, useState} from 'react';
 import { useSelector } from 'react-redux';
+import { getUserHistory } from '../services/apiUser';
 import { Navbar } from '../components/Navbar';
 import { Sidebar } from '../components/Sidebar';
 import { UpcomingSession } from '../components/dashboard/UpcomingSession';
 import { History } from '../components/dashboard/History';
 import { FavTutors } from '../components/dashboard/FavTutors';
+import { Earnings } from '../components/dashboard/Earnings';
+import { emptyHistoryComplex } from '../interfaces/Session';
+import { RootState } from '../redux/store/store';
 
 
 export const Dashboard: FC = () => {
-  const user = useSelector((state: any) => state.authenticate);
+  const user = useSelector((state: RootState) => state.authenticate);
+  const [historyList, setHistoryList] = useState([emptyHistoryComplex]);
+
+  useEffect(() => {
+    getUserHistory().then(res => {
+      setHistoryList(res);
+    })
+  }, [])
 
   // TO-DO create component for repeated code
   return (
@@ -24,12 +35,9 @@ export const Dashboard: FC = () => {
               </div>
             </div> */}
             <UpcomingSession />
-            <History />
+            <History historyList={historyList}/>
           {user.role === 'tutor' ? 
-            <div className="dashboard__content--display--info">
-              <h1 className="dashboard__content--display--title">Earnings Owned</h1>
-              <p>earnings</p>
-            </div>
+            <Earnings historyList={historyList}/>
             :
             <FavTutors />
           }

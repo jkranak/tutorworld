@@ -24,7 +24,6 @@ export const ProfileTutorView: FC<Props> = ({tutorDetails}: Props) => {
           el === 2 ? <BsStarFill key={uuidv4()} className="tutor-profile__info--star"/> : el === 1 ? <BsStarHalf key={uuidv4()} className="tutor-profile__info--star"/> : <BsStar key={uuidv4()} className="tutor-profile__info--star"/>
         ))}</span> : <span>No ratings yet</span>}
         <p className="tutor-profile--details">{tutorDetails.description}</p>
-
       </section>
       <section className="tutor-profile__right-box">
         <div className="tutor-profile__info-wrapper">

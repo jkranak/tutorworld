@@ -1,4 +1,4 @@
-import {FC, useState} from 'react';
+import {FC, FormEvent, useState} from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import {addOneSession} from '../../services/apiUser';
@@ -44,7 +44,7 @@ export const Payment: FC<Props> = ({sessionInfo, setPaymentSuccess, setPaymentAt
     setAdditionalInfo(event.target.value)
   }
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     let ROUTE = `${process.env.REACT_APP_API_URL}/payment`;
     const cardElement = elements!.getElement(CardElement)

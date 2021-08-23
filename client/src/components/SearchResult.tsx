@@ -1,4 +1,5 @@
 import {FC} from 'react';
+// import { RootState } from 'app/redux/store';
 import {TutorComplete} from '../interfaces/Tutor';
 import {starRating} from '../services/starRating';
 import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
@@ -7,17 +8,17 @@ import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
 import { useHistory } from 'react-router-dom';
 import { enterRoom, getSenderId } from '../services/apiChat';
 import { currentRoom } from '../redux/actions/currentRoom';
+import { RootState } from '../redux/store/store';
 
 interface Props {
   tutor: TutorComplete
 }
 
 export const SearchResult: FC<Props> = ({tutor}: Props) => {
-  // TO-DO fix typescript any
   const starArr: number[] = starRating(tutor?.rating);
   const dispatch = useDispatch();
   const history = useHistory();
-  const user = useSelector((state: any) => state.authenticate)
+  const user = useSelector((state: RootState) => state.authenticate)
 
   const handleSchedule = () => {
     dispatch(currentTutorInfo(tutor));

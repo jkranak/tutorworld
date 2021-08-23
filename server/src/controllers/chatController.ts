@@ -7,12 +7,10 @@ export const sendMessage = async (req: Request, res: Response) => {
   try {
     const { content, RoomId, SenderId } = req.body;
     const message = await Models.Message.create({SenderId, content, RoomId});
-    res.status(200);
-    res.send(message);
+    res.status(200).send(message);
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -50,8 +48,7 @@ export const connectToRoom = async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -96,12 +93,10 @@ export const retrieveUserRooms = async (req: Request, res: Response) => {
         senders
       })
     }))
-    res.status(200);
-    res.send(result);
+    res.status(200).send(result);
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -109,12 +104,10 @@ export const retrieveMessagesByRoom = async (req: Request, res: Response) => {
   try {
     const { RoomId } = req.params;
     const messages = await Models.Message.findAll({where: { RoomId }});
-    res.status(300);
-    res.send(messages);
+    res.status(200).send(messages);
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -122,11 +115,9 @@ export const retrieveSenderId = async (req: Request, res: Response) => {
   try {
     const { id, role } = req.params
     const sender = await Models.Sender.findOne({where: {UserId: id, role}});
-    res.status(200);
-    res.send({SenderId: sender.id});
+    res.status(200).send({SenderId: sender.id});
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }

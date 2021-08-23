@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, FormEvent, useState } from 'react'
 import { updateStudent } from '../../services/apiUser';
 import { StudentComplete } from '../../interfaces/Student';
 
@@ -14,13 +14,13 @@ export const ProfileStudentEdit: FC<Props> = ({ studentDetails, setEditing, setS
     setEditedUser((current: StudentComplete) => ({...current, [event.target.name]: event.target.value}));
   }
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();  
     const res = await updateStudent(editedUser);
-      if (res === "Student updated") {
-        setStudentDetails(editedUser);
-        setEditing(false);
-      }
+    if (res === "Student updated") {
+      setStudentDetails(editedUser);
+      setEditing(false);
+    }
   }
 
   return (

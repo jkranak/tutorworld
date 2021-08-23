@@ -1,13 +1,14 @@
-import { MessagesContainer } from "../components/MessagesContainer"
-import { Navbar } from "../components/Navbar"
+import { MessagesContainer } from '../components/MessagesContainer'
+import { Navbar } from '../components/Navbar'
 import io from 'socket.io-client';
-import { useEffect, useState } from "react";
-import { getMessages, getRooms, sendNewMessage } from "../services/apiChat";
-import { RoomI } from "../interfaces/Room";
-import { MessageCompleteI } from "../interfaces/Message";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { currentRoom } from "../redux/actions/currentRoom";
+import { useEffect, useState } from 'react';
+import { getMessages, getRooms, sendNewMessage } from '../services/apiChat';
+import { RoomI } from '../interfaces/Room';
+import { MessageCompleteI } from '../interfaces/Message';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { currentRoom } from '../redux/actions/currentRoom';
+import { RootState } from '../redux/store/store';
 
 let socket: any;
 const CONNECTION_PORT = process.env.REACT_APP_API_URL || '';
@@ -17,7 +18,7 @@ export const Messages = () => {
   const [ rooms, setRooms ] = useState<RoomI[]>([]);
   const [ messagesList, setMessagesList ] = useState<any>([]);
   const location: any = useLocation();
-  const currRoom = useSelector((state: any) => state.currentRoom);
+  const currRoom = useSelector((state: RootState) => state.currentRoom);
   const dispatch = useDispatch();
   
   useEffect(() => {
@@ -25,7 +26,7 @@ export const Messages = () => {
     getRooms().then(res => setRooms(res)).then(() => {
     if (location.state) dispatch(currentRoom(location.state))
     });
-  }, []);
+  }, [dispatch, location.state]);
   
   useEffect(() => {
     if (currRoom) {

@@ -1,34 +1,64 @@
 .messages__content {
   height: 90vh;
   @include flex-row;
-  
+  background-color: $light-background;
+
   &--box {
     width: 70%;
     height: 85vh;
     @include flex-row;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
+    box-shadow: $box-shadow;
+    background-color: $font-light;
+    border-radius: 5px;
   }
   &--left-box {
     width: 30%;
     height: 100%;
-    border-right: solid 1px $pink;
+    background-color: $grey;
+    color: $font-light;
+    font-weight: 600;
   }
   &--right-box {
     width: 70%;
     height: 100%;
+    &--find-tutor{
+      height: 100%;
+      width: 100%;
+      @include flex-column;
+      .search-icon{
+        font-size: 35rem;
+        color: $light-grey;
+      }
+    }
   }
   &--contact {
+    transition: all .5s;
     height: 10%;
-    padding-left: 1rem;
+    padding: 2rem;
+    text-transform: capitalize;
     @include flex-row;
     justify-content: flex-start;
+    border-bottom: 1px solid $dark-grey;
+    font-size: 1.8rem;
+    font-weight: 300;
+    span {
+      padding-left: 2rem;
+    }
     &:hover {
       cursor: pointer;
+      background-color: $light-pink;
     }
   }
   .me {
-    border-bottom: 1px solid $pink;
+    background-color: $dark-grey;
+    font-weight: 600;
+    &:hover {
+      cursor: default;
+    }
+    .image-box {
+      height: 7vh;
+      width: 7vh;
+    }
     &__name {
       padding-left: 2rem;
       font-size: 2rem;
@@ -37,8 +67,8 @@
     }
   }
   .image-box {
-    height: 7vh;
-    width: 7vh;
+    height: 6vh;
+    width: 6vh;
     border-radius: 50%;
     overflow: hidden;
     img {
@@ -50,6 +80,7 @@
   &--messages-list {
     height: 90%;
     padding: 3rem;
+    // TO-DO fix scroll
     overflow-y: scroll;
     @include flex-column;
     justify-content: flex-end;
@@ -84,7 +115,7 @@
     height: 10%;
     font-size: 3rem;
     @include flex-row;
-    border-top: 1px solid $dark-pink;
+    border-top: 1px solid $light-grey;
     input {
       height: 70%;
       width: 50%;
@@ -92,7 +123,7 @@
       font-size: 1.8rem;
       border: none;
       border-radius: 1rem 0 0 1rem;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      box-shadow: $box-shadow;
     }
     button {
       color: $pink;
@@ -100,11 +131,11 @@
       width: 8%;
       background-color: white;
       border-radius: 0 1rem 1rem 0;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      box-shadow: $box-shadow;
     }
   }
 }
 
 .selected {
-  background-color: $light-pink;
+  background-color: $pink;
 }

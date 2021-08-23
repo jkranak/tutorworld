@@ -1,6 +1,7 @@
 .search {
   &__content {
     padding: 10rem;
+    background-color: $light-background;
   }
   &__filters {
     margin-bottom: 5rem;
@@ -15,6 +16,7 @@
   .sort-input {
     border: none;
     color: grey;
+    background-color: transparent;
   }
   .select-input {
     text-transform: capitalize;

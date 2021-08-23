@@ -12,12 +12,13 @@ export const History: FC<Props> = ({historyList}: Props) => {
   const user = useSelector((state: RootState) => state.authenticate);
   
   return (
-    <div>
-      <ol>
+    <div className="dashboard__content--display--info">
+      <h1 className="dashboard__content--display--title">History</h1>
+      <div className="dashboard__content--display--sessions">
         {historyList.map((session: HistoryComplex) => (
-          <li key={session.createdAt}><HistoryEntry session={session} user={user}/></li>
+          <HistoryEntry session={session} user={user} key={session.createdAt}/>
         ))}
-      </ol>
+      </div>
     </div>
   )
 }

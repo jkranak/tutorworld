@@ -1,5 +1,6 @@
 import {FC} from 'react';
 import {HistoryComplex} from '../../interfaces/Session';
+import EarningsEntry from './EarningsEntry';
 
 interface Props {
   historyList: HistoryComplex[]
@@ -13,10 +14,9 @@ const total = historyList.reduce((a, b,) => a + b.cost, 0);
       <h1 className="dashboard__content--display--title">Earnings</h1>
       <div className="dashboard__content--display--sessions">
         {historyList.map((session: HistoryComplex) => (
-          // <HistoryEntry session={session} user={user} key={session.createdAt}/>
-          <p key={session.id}>${session.cost} - {session.date}</p>
+          <EarningsEntry session={session} key={session.id}/>
         ))}
-        <p>Total: ${total}</p>
+        <h2>Total: ${total}</h2>
       </div>
     </div>
   )

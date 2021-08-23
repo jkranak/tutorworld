@@ -45,11 +45,11 @@ export const login = async (req:any, res:any) => {
     const student = await Models.Student.findOne({where: {email}});
     if (!student) {
       tutor = await Models.Tutor.findOne({where: {email}});
-      SenderId = await Models.Sender.findOne({where: {UserId: tutor.id, role: 'tutor'}})
+      if (tutor )SenderId = await Models.Sender.findOne({where: {UserId: tutor.id, role: 'tutor'}})
       if (!tutor) return res.status(403).send({ message: 'Cannot find account.' });
     }
     const user = student || tutor;
-    if (tutor) SenderId = await Models.Sender.findOne({where: {UserId: tutor.id, role: 'student'}})
+    if (student) SenderId = await Models.Sender.findOne({where: {UserId: student.id, role: 'student'}})
     
     if (await bcrypt.compare(password, user.password)) {
       res.status(200).send(

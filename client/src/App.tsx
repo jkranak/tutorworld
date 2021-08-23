@@ -31,7 +31,7 @@ function App() {
         dispatch(authenticate(false));
       }
     })
-  }, [])
+  }, [dispatch])
  
   return (
     auth === null ? 

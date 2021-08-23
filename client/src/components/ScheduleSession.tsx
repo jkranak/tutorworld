@@ -32,7 +32,7 @@ export const ScheduleSession: FC = () => {
         setSelectedHour('');
       })
     }
-  }, [selectedDay])
+  }, [selectedDay, user.id])
 
   const unavailableDays = () => {
     let daysOfWeek: number[] = [];

@@ -73,23 +73,25 @@ export const Payment: FC<Props> = ({sessionInfo, setPaymentSuccess, setPaymentAt
 }
   
   return (
-    <>
-    <p>Payment: ${sessionInfo.price}</p>
-    <p>For a {sessionInfo.topic} tutoring session</p>
-    <p>on {new Date(`${sessionInfo.day}T00:00:00`).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})} at {sessionInfo.time}</p>
-    <p>with {sessionInfo.name}</p>
-    <form>
-      <label>Additional information on what you want to cover during your session</label>
-      <input type="text" id="additionalInfo" name="additionalInfo" onChange={handleChange} value={additionalInfo}  />
-    </form>
-    <form onSubmit={handleSubmit}>
-    <fieldset>
-      <div>
-        <CardElement options={CARD_OPTIONS}/>
+    <div className="payment form">
+      <h1 className="payment__title">Confirm your purchase</h1>
+      <div className="payment__details">
+        <p>Payment: ${sessionInfo.price}</p>
+        <p>For a {sessionInfo.topic} tutoring session</p>
+        <p>on {new Date(`${sessionInfo.day}T00:00:00`).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})} at {sessionInfo.time}</p>
+        <p>with {sessionInfo.name}</p>
+        <form onSubmit={handleSubmit}>
+          <div className="payment__details--additional">
+            <label>Additional indivation on what you want to cover during your session</label>
+            <textarea id="additionalInfo" name="additionalInfo" onChange={handleChange} value={additionalInfo}  className="text-input text-input--blue"/>
+          </div>
+          <fieldset className="fieldset">
+            <CardElement options={CARD_OPTIONS}/>
+          </fieldset>
+          <button onClick={handleSubmit} className="btn btn--blue form--btn">Pay</button>
+        </form>
       </div>
-    </fieldset>
-    <button onClick={handleSubmit}>Pay</button></form>
-    </>
+    </div>
 
   )
 }

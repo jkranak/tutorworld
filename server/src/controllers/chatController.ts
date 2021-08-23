@@ -18,6 +18,8 @@ export const connectToRoom = async (req: Request, res: Response) => {
   try {  
     const { mySenderId, otherUserSenderId } = req.body;
     // looking for a room that contains both users
+    console.log('mysenderid', mySenderId)
+    console.log('othersenderid', otherUserSenderId)
     const existentRoom = await Models.sequelize.query(`SELECT Room."RoomId" FROM public."room_senders" AS Room WHERE 
     EXISTS (SELECT * FROM public."room_senders" as RS WHERE Room."RoomId" = RS."RoomId" AND "SenderId" = ${mySenderId}) AND
     EXISTS (SELECT * FROM public."room_senders" as RS WHERE Room."RoomId" = RS."RoomId" AND "SenderId" = ${otherUserSenderId}) GROUP BY Room."RoomId"`)
@@ -29,6 +31,7 @@ export const connectToRoom = async (req: Request, res: Response) => {
        room_senders ON room_senders."RoomId" = "Rooms".id
       where 
       "Rooms".id = '${room}';`, {type: QueryTypes.SELECT, raw: true});
+      res.status(200);
       res.send({room, senders});
     } else {
       // creating a new room and adding both senders
@@ -40,9 +43,9 @@ export const connectToRoom = async (req: Request, res: Response) => {
        room_senders ON room_senders."RoomId" = "Rooms".id
       where
       "Rooms".id = '${newRoom.id}';`, {type: QueryTypes.SELECT, raw: true});
+      res.status(200);
       res.send({room: newRoom.id, senders});
     }
-    res.status(200);
   } catch (error) {
     console.log(error)
     res.status(500).send(error);
@@ -112,7 +115,6 @@ export const retrieveSenderId = async (req: Request, res: Response) => {
   try {
     const { id, role } = req.params
     const sender = await Models.Sender.findOne({where: {UserId: id, role}});
-    console.log()
     res.status(200).send({SenderId: sender.id});
   } catch (error) {
     console.log(error)

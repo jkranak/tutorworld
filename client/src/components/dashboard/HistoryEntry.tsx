@@ -35,7 +35,7 @@ export const HistoryEntry: FC<Props> = ({session, user}: Props) => {
       <p>{otherUserInfo.imageUrl 
           ? <img src={otherUserInfo.imageUrl} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />
           : <img src={noPhotoUser} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />}
-        {otherUserInfo.firstName} {otherUserInfo.lastName} - {session.date}, {session.time} - Price: ${session.cost} - 
+        {otherUserInfo.firstName} {otherUserInfo.lastName} - {session.date}, {session.time} - 
         {user.role === 'student' ? <Link to={{
             pathname:'/review', 
             state: reviewState

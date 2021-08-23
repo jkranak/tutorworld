@@ -27,7 +27,7 @@ return (
   {editing 
   ? <>
     <ProfileStudentEdit studentDetails={studentDetails} setStudentDetails={setStudentDetails} setEditing={setEditing}/>
-    {changePassword ? <ChangePassword setChangePassword={setChangePassword}/> : <button onClick={() => setChangePassword(true)} className="btn btn--clear">Change password</button> }
+    {changePassword ? <ChangePassword setChangePassword={setChangePassword} role="student"/> : <button onClick={() => setChangePassword(true)} className="btn btn--clear">Change password</button> }
     <button onClick={editClick} className="btn btn--clear">Exit Edit Profile</button>
   </>
   : <>

@@ -19,8 +19,7 @@ export const addFavTutor = async (req:any, res:any) => {
 
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 
 }
@@ -43,8 +42,7 @@ export const removeFavTutor = async (req:any, res:any) => {
 
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 
 }
@@ -83,8 +81,7 @@ export const getAllFavTutors = async (req:any, res:any) => {
 
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 
 }
@@ -96,7 +93,6 @@ export const getAllFavTutorsLess = async (req:any, res:any) => {
     res.status(201).send(allFavTutorsInstance);
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }

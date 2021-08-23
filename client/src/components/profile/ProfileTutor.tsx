@@ -32,7 +32,7 @@ export const ProfileTutor: FC<Props> = ({id}: Props) => {
     ? <>
       <ProfileTutorEdit tutorDetails={tutorDetails} setTutorDetails={setTutorDetails} setEditing={setEditing}/>
       {changePassword ?
-        <ChangePassword setChangePassword={setChangePassword} /> 
+        <ChangePassword setChangePassword={setChangePassword} role="tutor"/> 
         : <button onClick={() => setChangePassword(true)} className="btn btn--clear">Change password</button>
       }
       <button onClick={editClick} className="btn btn--clear">Exit Edit Profile</button>

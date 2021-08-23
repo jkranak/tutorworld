@@ -28,13 +28,10 @@ export const getUpcomingSessions = async (req:any, res:any) => {
       session['sortDate'] = timeConvert(session.date, session.time);
     })
     upcomingSessions.sort((a: Session, b: Session) => a.sortDate! - b.sortDate!);
-    res.send(upcomingSessions);
-    res.status(200);
-
+    res.status(200).send(upcomingSessions);
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -50,8 +47,7 @@ export const addUpcomingSessions = async (req:any, res:any) => {
     res.status(201).send('New tutoring session created!');
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -65,14 +61,11 @@ export const getHistorySessions = async (req:any, res:any) => {
     } else {
       historySessions = await Models.HistorySession.findAll({where: {StudentId: id}, include: [{model: Models.Tutor, include: [Models.TutorInfo], attributes: {exclude: ['password']}}, {model: Models.Student, attributes: {exclude: ['password']}}]});
     }
-
-    res.send(historySessions);
-    res.status(200);
+    res.status(200).send(historySessions);
 
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -94,8 +87,7 @@ export const updateHistoryUpcomingSessions = async (req:any, res:any) => {
 
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
     }
 
 }

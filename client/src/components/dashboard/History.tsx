@@ -1,18 +1,14 @@
-import { FC, useState, useEffect } from 'react';
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { HistoryComplex, emptyHistoryComplex } from '../../interfaces/Session';
-import { getUserHistory } from '../../services/apiUser';
+import { HistoryComplex } from '../../interfaces/Session';
 import { HistoryEntry } from './HistoryEntry';
 
-export const History: FC = () => {
-  const user = useSelector((state: any) => state.authenticate);
-  const [historyList, setHistoryList] = useState([emptyHistoryComplex]);
+interface Props {
+  historyList: HistoryComplex[]
+}
 
-  useEffect(() => {
-    getUserHistory().then(res => {
-      setHistoryList(res);
-    })
-  }, [])
+export const History: FC<Props> = ({historyList}: Props) => {
+  const user = useSelector((state: any) => state.authenticate);
   
   return (
     <div>

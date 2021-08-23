@@ -8,10 +8,11 @@ import { History } from '../components/dashboard/History';
 import { FavTutors } from '../components/dashboard/FavTutors';
 import { Earnings } from '../components/dashboard/Earnings';
 import { emptyHistoryComplex } from '../interfaces/Session';
+import { RootState } from '../redux/store/store';
 
 
 export const Dashboard: FC = () => {
-  const user = useSelector((state: any) => state.authenticate);
+  const user = useSelector((state: RootState) => state.authenticate);
   const [historyList, setHistoryList] = useState([emptyHistoryComplex]);
 
   useEffect(() => {

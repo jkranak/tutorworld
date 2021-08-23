@@ -6,10 +6,7 @@ interface Props {
   studentDetails: StudentComplete
 }
 
-
-
 export const ProfileStudentView: FC<Props> = ({studentDetails}: Props) => {
-
   return (
     <div className="student-profile">
       <div className="image-box">

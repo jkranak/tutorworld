@@ -6,10 +6,11 @@ import { FaSignOutAlt, FaUser } from 'react-icons/fa';
 import LogoLink from '../components/LogoLink';
 import { useDispatch, useSelector } from 'react-redux';
 import { authenticate } from '../redux/actions/authenticate';
+import { RootState } from '../redux/store/store';
 
 
 export const Landing: FC = () => {
-  const auth = useSelector((state: any) => state.authenticate);
+  const auth = useSelector((state: RootState) => state.authenticate);
   const [toggle, setToggle] = useState<string>('home');
   const history = useHistory();
   const dispatch = useDispatch();

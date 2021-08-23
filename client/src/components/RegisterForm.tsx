@@ -15,7 +15,7 @@ export const RegisterForm: FC<Props> = ({setToggle}: Props) => {
   const dispatch = useDispatch();
   const [newUser, setNewUser] = useState<User>(emptyUser)
 
-  const handleChange =  (event: any) => {
+  const handleChange =  (event: {target: {name: string, value: string}}) => {
     setNewUser(user => ({...user, [event.target.name]: event.target.value}))
   }
   const handleSubmit = async (event: FormEvent) => {

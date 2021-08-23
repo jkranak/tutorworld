@@ -6,7 +6,7 @@ import 'react-day-picker/lib/style.css';
 import {getOneTutorAvailability} from '../services/apiUser';
 import { useSelector } from 'react-redux';
 import { dayNames } from '../assets/times';
-
+import { RootState } from '../redux/store/store';
 
 export const ScheduleSession: FC = () => {
   const [selectedDay, setSelectedDay] = useState(new Date(0));
@@ -14,7 +14,7 @@ export const ScheduleSession: FC = () => {
   const [timesArr, setTimesArr] = useState(['']);
   const [selectedHour, setSelectedHour] = useState('');
   const [selectedTopic, setSelectedTopic] = useState('');
-  const user = useSelector((state: any )=> state.currentTutorInfo);
+  const user = useSelector((state: RootState )=> state.currentTutorInfo);
 
   const daysAhead = 69 - new Date().getDay();
   const endDate = new Date(Date.now() + 86400000 * daysAhead);
@@ -34,6 +34,15 @@ export const ScheduleSession: FC = () => {
     }
   }, [selectedDay, user.id])
 
+interface Days {
+  daysOfWeek: number[]
+}
+
+interface BeforeAfter {
+  before: Date
+  after: Date
+}
+
   const unavailableDays = () => {
     let daysOfWeek: number[] = [];
     for (let day in user.availability) {
@@ -41,16 +50,15 @@ export const ScheduleSession: FC = () => {
         daysOfWeek.push(dayNames.indexOf(day))
       }
     }
-    const disabledDays: any[] = [{daysOfWeek}]
-    disabledDays.push({before: new Date(), after: endDate})
+    const disabledDays: [Days, BeforeAfter] = [{daysOfWeek}, {before: new Date(), after: endDate}]
     return disabledDays
   }
 
-  const handleHourChange = (event: {target: {value: any}}) => {
+  const handleHourChange = (event: {target: {value: string}}) => {
     setSelectedHour(event.target.value);
   }
 
-  const handleTopicChange = (event: {target: {value: any}}) => {
+  const handleTopicChange = (event: {target: {value: string}}) => {
     setSelectedTopic(event.target.value);
   }
   
@@ -71,11 +79,11 @@ export const ScheduleSession: FC = () => {
           ))}
         </select>
       </form> : <></>}
-       {pickTime && timesArr.length === 0 ? <button disabled>All Slots Booked</button> : <></>}
+      {pickTime && timesArr.length === 0 ? <button disabled>All Slots Booked</button> : <></>}
       {selectedHour.length > 0 && <form>
         <select name="subject" defaultValue="" onChange={handleTopicChange} >
           <option value="" disabled hidden>Choose subject</option>
-          {user.subjectLevels.map((subject: any) => (
+          {user.subjectLevels.map((subject: string) => (
             <option key={subject} value={subject}>{subject}</option>
           ))}
         </select>

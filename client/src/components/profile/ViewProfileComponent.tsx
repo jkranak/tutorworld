@@ -23,7 +23,7 @@ export const ViewProfileComponent: FC<Props> = ({tutorDetails}: Props) => {
         }
       }
     })
-  }, [])
+  }, [tutorDetails.TutorId])
 
   const handleAddClick = async () => {
     const res = await addFavTutor(tutorDetails.TutorId);

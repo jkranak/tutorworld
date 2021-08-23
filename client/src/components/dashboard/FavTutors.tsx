@@ -1,25 +1,11 @@
 import { FC, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { getFavTutors } from '../../services/apiUser';
-import { currentTutorInfo } from '../../redux/actions/currentTutorInfo';
 import { TutorWithAvailability, emptyTutorWithAvailability } from '../../interfaces/Tutor';
-
+import { FavTutorsEntry } from './FavTutorsEntry';
+import { v4 as uuidv4 } from 'uuid';
 export const FavTutors: FC = () => {
   const [favTutors, setFavTutors] = useState([emptyTutorWithAvailability]);
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  const handleSchedule = (index: number) => {
-    dispatch(currentTutorInfo(favTutors[index]));
-    history.push('/schedule');
-  }
-
-  const handleProfile = (index: number) => {
-    dispatch(currentTutorInfo(favTutors[index]));
-    history.push('/viewprofile');
-  }
-
+  
   useEffect(() => {
     getFavTutors().then(res => {
       setFavTutors(res);
@@ -27,10 +13,13 @@ export const FavTutors: FC = () => {
   }, [])
 
   return (
-    <div>
-      {favTutors.map((tutor: TutorWithAvailability, index: number) => (
-        <p key={tutor.TutorId}><img src={tutor.imageUrl} height="40px" alt={`${tutor.firstName} ${tutor.lastName}`}/>{tutor.firstName} {tutor.lastName} <button onClick={() => handleSchedule(index)}>Schedule</button> Message <button onClick={() => handleProfile(index)}>Profile</button></p>
-      ))}
+    <div className="dashboard__content--display--info">
+      <h1 className="dashboard__content--display--title">Favorite Tutors</h1>
+      <div className="dashboard__content--display--sessions">
+        {favTutors.map((tutor: TutorWithAvailability) => (
+          <FavTutorsEntry tutor={tutor} key={uuidv4()}/>
+        ))}
+      </div>
     </div>
   )
 }

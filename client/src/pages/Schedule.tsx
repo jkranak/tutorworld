@@ -10,11 +10,15 @@ export const Schedule: FC = () => {
   const user = useSelector((state: RootState )=> state.currentTutorInfo);
 
   return (
-    <div>
+    <div className="schedule">
       <Navbar />
-      <Sidebar />
-      <h2>Schedule a Session</h2>
-      {user ? <ScheduleSession /> : <Link to={"/dashboard"}>Back</Link>}
+      <div className="schedule__content">
+        <Sidebar />
+        <div className="schedule__content--right">
+          <h2 className="schedule__content--title">Schedule a Session</h2>
+          {user ? <ScheduleSession /> : <Link to={"/dashboard"} className="btn btn--blue">Back</Link>}
+        </div>
+      </div>    
     </div>
   )
 }

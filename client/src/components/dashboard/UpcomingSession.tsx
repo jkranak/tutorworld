@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {useEffect, FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { emptySessionComplex, SessionComplex } from '../../interfaces/Session';
@@ -16,12 +17,13 @@ export const UpcomingSession: FC = () => {
   }, [])
   
   return (
-    <div>
-      <ol>
-      {sessionList.map((session: SessionComplex) => (
-        <li key={session.createdAt}><SessionEntry session={session} user={user}/></li>
-      ))}
-      </ol>
+    <div className="dashboard__content--display--info">
+      <h1 className="dashboard__content--display--title">Upcoming Sessions <div className="dashboard__content--display--title--number">{sessionList.length}</div></h1>
+      <div className="dashboard__content--display--sessions" >
+        {sessionList.sort((a: any, b: any) => moment(a.createdAt).diff(b.createdAt)).map((session: SessionComplex) => (
+          <SessionEntry session={session} user={user} key={session.createdAt}/>
+        ))}
+      </div>
     </div>
   )
 }

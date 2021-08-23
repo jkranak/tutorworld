@@ -1,0 +1,44 @@
+.schedule {
+  height: 100vh;
+  max-width: 100vw;
+  &__content {
+    background-color: $light-background;
+    height: 90vh;
+    @include flex-row;
+    &--right {
+      width: 87%;
+      height: 100%;
+      @include flex-column;
+      justify-content: flex-start;
+      padding-top: 5rem;
+    }
+    &--title {
+      font-size: 3rem;
+      padding-bottom: 4rem;
+    }
+    &--scheduler{
+      @include flex-row;
+      align-items: flex-start;
+      justify-content: flex-start;
+      width: 60%;
+      .edit-form {
+        width: 50%;
+        .select-input {
+          width: 70%;
+          background-color: $font-light;
+        }
+      }
+      .pay {
+        font-size: 1.8rem;
+        text-decoration: underline;
+      }
+    }
+  }
+  .DayPicker{
+    background-color: $font-light;
+    margin-right: 2rem;
+    &-wrapper {
+      font-size: 2rem;
+    }
+  }
+}

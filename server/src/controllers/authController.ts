@@ -40,22 +40,24 @@ export const login = async (req:any, res:any) => {
   if (!email || !password) return res.status(400).send({ message: 'Please enter all fields.' });
 
   let tutor;
-
+  let SenderId;
   try {
     const student = await Models.Student.findOne({where: {email}});
     if (!student) {
       tutor = await Models.Tutor.findOne({where: {email}});
+      SenderId = await Models.Sender.findOne({where: {UserId: tutor.id, role: 'tutor'}})
       if (!tutor) return res.status(403).send({ message: 'Cannot find account.' });
     }
-
     const user = student || tutor;
-
+    
     if (await bcrypt.compare(password, user.password)) {
+      SenderId = await Models.Sender.findOne({where: {UserId: student.id, role: 'student'}})
       res.status(200).send(
         {
           user: {
             id: user.id,
             role: user===student? 'student':'tutor',
+            SenderId: SenderId.id
           },
           token: generateToken(user.id, user===student? 'student':'tutor'),
         },
@@ -64,6 +66,7 @@ export const login = async (req:any, res:any) => {
       res.status(403).send({ message: 'Wrong password' });
     }
   } catch (error) {
+    console.log( `Could not login: ${error}`)
     res.status(500).send(error);
   }
 };
@@ -101,7 +104,8 @@ export const verifyUser = async (req: any, res: any) => {
       const student = await Models.Student.findOne({where: {id}});
       if (student) {
         const sender = await Models.Sender.findOne({where: {UserId: id, role}})
-        res.status(200).send({user: {id, role, SenderId: sender.id} })
+        res.status(200)
+        res.send({user: {id, role, SenderId: sender.id} })
       } else {
         console.log(`Could not find student`);
       }
@@ -109,7 +113,8 @@ export const verifyUser = async (req: any, res: any) => {
       const tutor = await Models.Tutor.findOne({where: {id}});
       if (tutor) {
         const sender = await Models.Sender.findOne({where: {UserId: id, role}})
-        res.status(200).send({user: {id, role, SenderId: sender.id} })
+        res.status(200);
+        res.send({user: {id, role, SenderId: sender.id} });
       } else {
         console.log(`Could not find tutor`);
       }

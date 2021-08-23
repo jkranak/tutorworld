@@ -1,15 +1,14 @@
 import {FC, useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { getBasicUserInfo } from '../../services/apiUser';
 import {starRatingWhole} from '../../services/starRating';
-import { HistoryI } from '../../interfaces/Session';
+import { HistoryComplex } from '../../interfaces/Session';
 import {UserRole, emptyUserNameImage} from '../../interfaces/User';
 import noPhotoUser from '../../assets/no_photo_user.png';
 import {BsStarFill, BsStar} from 'react-icons/bs'
 
 interface Props {
-  session: HistoryI
+  session: HistoryComplex
   user: UserRole
 }
 
@@ -24,22 +23,19 @@ export const HistoryEntry: FC<Props> = ({session, user}: Props) => {
       review: session.review ? session.review : ''
     }
 
-  useEffect(() => {
-    if (session.StudentId && session.TutorId) {
-      const otherId = user.role === 'tutor' ? session.StudentId : session.TutorId;
-      const otherRole = user.role === 'tutor' ? 'student' : 'tutor';
-      getBasicUserInfo(otherId, otherRole).then(res => {
-        setOtherUserInfo(res);
-      })
-    }
-  }, [])
+    useEffect(() => {
+      const firstName = user.role === 'tutor' ? session.Student.firstName : session.Tutor.firstName;
+      const lastName = user.role === 'tutor' ? session.Student.lastName : session.Tutor.lastName;
+      const imageUrl = user.role === 'tutor' ? session.Student.imageUrl : session.Tutor.TutorInfo.imageUrl;
+      setOtherUserInfo({firstName, lastName, imageUrl})
+    }, [])
 
   return (
     <div>
       <p>{otherUserInfo.imageUrl 
           ? <img src={otherUserInfo.imageUrl} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />
           : <img src={noPhotoUser} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />}
-        {otherUserInfo.firstName} {otherUserInfo.lastName} - {session.date}, {session.time} - Price: ${session.cost} - 
+        {otherUserInfo.firstName} {otherUserInfo.lastName} - {session.date}, {session.time} - 
         {user.role === 'student' ? <Link to={{
             pathname:'/review', 
             state: reviewState

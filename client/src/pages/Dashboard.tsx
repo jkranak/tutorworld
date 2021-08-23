@@ -1,14 +1,24 @@
-import {FC} from 'react';
+import {FC, useEffect, useState} from 'react';
 import { useSelector } from 'react-redux';
+import { getUserHistory } from '../services/apiUser';
 import { Navbar } from '../components/Navbar';
 import { Sidebar } from '../components/Sidebar';
 import { UpcomingSession } from '../components/dashboard/UpcomingSession';
 import { History } from '../components/dashboard/History';
 import { FavTutors } from '../components/dashboard/FavTutors';
+import { Earnings } from '../components/dashboard/Earnings';
+import { emptyHistoryComplex } from '../interfaces/Session';
 
 
 export const Dashboard: FC = () => {
   const user = useSelector((state: any) => state.authenticate);
+  const [historyList, setHistoryList] = useState([emptyHistoryComplex]);
+
+  useEffect(() => {
+    getUserHistory().then(res => {
+      setHistoryList(res);
+    })
+  }, [])
 
   // TO-DO create component for repeated code
   return (
@@ -36,14 +46,14 @@ export const Dashboard: FC = () => {
               <div className="dashboard__content--display--info">
                 <h1 className="dashboard__content--display--title">History</h1>
                 <div className="dashboard__content--display--top--box">
-                  <History />
+                  <History historyList={historyList} />
                 </div>
               </div>
 
               <div className="dashboard__content--display--info">
-                <h1 className="dashboard__content--display--title">Earnings Owned</h1>
+                <h1 className="dashboard__content--display--title">Earnings</h1>
                 <div className="dashboard__content--display--bottom--box">
-                  <p>earnings</p>
+                  <Earnings historyList={historyList}/>
                 </div>
               </div>
             </div>
@@ -52,7 +62,7 @@ export const Dashboard: FC = () => {
               <div className="dashboard__content--display--info">
                 <h1 className="dashboard__content--display--title">History</h1> 
                 <div className="dashboard__content--display--bottom--box">
-                <History />
+                <History historyList={historyList} />
                 </div>
               </div>
               <div className="dashboard__content--display--info">

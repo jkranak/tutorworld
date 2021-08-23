@@ -1,13 +1,13 @@
 import express from 'express';
 import { createStudent, createTutor, login, verifyUser } from '../controllers/authController';
-import { updateTutorInfo, getStudentInfo, updateStudentInfo, getEveryTutorsInfo, getAllTutorsInfoAvail, getTutorInfoAvail, getBasicUserInfo } from '../controllers/infoController';
+import { updateTutorInfo, getStudentInfo, updateStudentInfo, getEveryTutorsInfo, getAllTutorsInfoAvail, getTutorInfoAvail } from '../controllers/infoController';
 import { changeStudentPassword, changeTutorPassword } from '../controllers/passwordController';
 import { addUpcomingSessions, getHistorySessions, getUpcomingSessions, updateHistoryUpcomingSessions } from '../controllers/sessionsController';
 import { getAllTutorsAvail, getTutorAvail, getTutorAvailByDate, updateTutorAvail } from '../controllers/tutorAvailController';
 import { authMiddleware } from '../middlewares/authMiddleware';
 import { studentMiddleware, tutorMiddleware } from '../middlewares/roleMiddleware';
 import {stripePayment} from '../controllers/paymentController';
-import { addFavTutor, getAllFavTutors, removeFavTutor } from '../controllers/favTutorsController';
+import { addFavTutor, getAllFavTutors, removeFavTutor, getAllFavTutorsLess } from '../controllers/favTutorsController';
 import { updateRating } from '../controllers/ratingController';
 import { connectToRoom, retrieveMessagesByRoom, retrieveSenderId, retrieveUserRooms, sendMessage } from '../controllers/chatController';
 const router = express.Router();
@@ -32,7 +32,6 @@ router.put('/students/student/info', authMiddleware, studentMiddleware, updateSt
 router.get('/search', authMiddleware, getAllTutorsInfoAvail); //search array of objects with allTutorsInfo and avalabilty combined for easy filtering
 // router.get('/tutors/tutor/allInfo', authMiddleware, tutorMiddleware, getAllTutorInfo);//may be redundent since above takes userId as paramater
 // router.get('/tutors/allInfo', authMiddleware, getEveryTutorsInfo); //can be used by both student and tutor
-router.get('/user/:id/:role/info', authMiddleware, getBasicUserInfo);
 
 //change password routes
 router.put('/tutors/tutor/password', authMiddleware, tutorMiddleware, changeTutorPassword);
@@ -58,6 +57,7 @@ router.put('/submitRating', authMiddleware, studentMiddleware, updateRating);
 router.get('/students/student/favTutors', authMiddleware, studentMiddleware, getAllFavTutors); //gets only first name, last name, tutorId, image Url
 router.post('/students/student/favTutors', authMiddleware, studentMiddleware, addFavTutor);
 router.delete('/students/student/favTutors/:TutorId', authMiddleware, studentMiddleware, removeFavTutor);
+router.get('/students/student/favTutorsLess', authMiddleware, studentMiddleware, getAllFavTutorsLess);
 
 //Stripe payment
 router.post('/payment', stripePayment);

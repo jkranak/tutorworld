@@ -30,8 +30,7 @@ export const createStudent = async (req:any, res:any) => {
     });
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 };
 
@@ -65,8 +64,7 @@ export const login = async (req:any, res:any) => {
       res.status(403).send({ message: 'Wrong password' });
     }
   } catch (error) {
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 };
 
@@ -91,8 +89,7 @@ export const createTutor = async (req:any, res:any) => {
     res.status(201).send('Tutor account created!');
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 };
 
@@ -118,7 +115,6 @@ export const verifyUser = async (req: any, res: any) => {
       }
     }
   } catch (error) {
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 };

@@ -9,8 +9,7 @@ export const getTutorAvail = async (req:any, res:any) => {
     else res.status(200).send(tutorAvail);
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -50,23 +49,17 @@ export const updateTutorAvail = async (req:any, res:any) => {
 
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
 export const getAllTutorsAvail = async (req:any, res:any) => {
   try {
     const allTutorsAvail = await Models.TutorAvailability.findAll();
-
-    res.send(allTutorsAvail);
-    res.status(200);
-
-
+    res.status(200).send(allTutorsAvail);
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -91,14 +84,10 @@ export const getTutorAvailByDate = async (req:any, res:any) => {
     for (let i=0; i<timeSlotsTaken.length; i++){
       delete tutorAvailForDay[timeSlotsTaken[i].time]; //delete all the times from the day availability that is already taken
     }
-
     const availTimes = Object.keys(tutorAvailForDay); //send back an array of all the available times for that day
     res.status(200).send(availTimes);
-
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
-
 }

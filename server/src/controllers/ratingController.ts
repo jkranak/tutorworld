@@ -4,10 +4,9 @@ export const updateRating = async (req:any, res:any) => {
 //Only update review and star rating if given: need to update the starrating inside of tutor info wiht the new reviews star rating
   try {
     const { id } = req.body.user;
-    const { review, starRating } = req.body
-
+    const { review, starRating, date, time } = req.body
     //update review and starRating to historySession
-    const historySessionInstance = await Models.HistorySession.findOne({where:{StudentId: id}, order: [['createdAt', 'DESC']]}); //finds latest history session entry for that student since they just finsihed session
+    const historySessionInstance = await Models.HistorySession.findOne({where:{StudentId: id, date, time}}); //finds latest history session entry for that student since they just finsihed session
     const historySession = historySessionInstance.get({plain: true });
     const TutorId = historySession.TutorId;
     const historySessionId = historySession.id;
@@ -31,8 +30,7 @@ export const updateRating = async (req:any, res:any) => {
 
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 
 }

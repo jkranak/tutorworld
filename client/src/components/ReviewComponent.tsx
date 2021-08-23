@@ -4,8 +4,17 @@ import { BsStarFill, BsStar } from 'react-icons/bs';
 import { starRatingWhole } from '../services/starRating';
 import { updateRating } from '../services/apiUser';
 
-export const ReviewComponent: FC = () => {
-  const sessionInfo = window.history.state.state;
+interface Props {
+  sessionInfo: {
+    date: string
+    time: string
+    name: string
+    rating: number
+    review: string
+  }
+}
+
+export const ReviewComponent: FC<Props> = ({sessionInfo}: Props) => {
   const [rating, setRating] = useState(sessionInfo.rating);
   const [review, setReview] = useState(sessionInfo.review);
   const [starArr, setStarArr] = useState(starRatingWhole(rating));

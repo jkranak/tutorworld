@@ -1,0 +1,32 @@
+.payment {
+  // height: 90vh;
+  width: 40%;
+  @include flex-column;
+  justify-content: flex-start;
+  margin-top: 3rem;
+  padding: 1rem;
+  border: 1px solid $light-grey;
+  border-radius: 5px;
+  &__title {
+    padding: 3rem;
+    font-size: 3rem;
+  }
+  &__details {
+    p {
+      font-size: 2rem;
+      padding: 2rem;
+      border-bottom: 1px solid $light-grey;
+      &:before {
+        content: "•  "
+      }
+    }
+    &--additional {
+      label {
+        padding-top: 2rem;
+        display: inline-block;
+        font-size: 1.8rem;
+      }
+    }
+
+  }
+}

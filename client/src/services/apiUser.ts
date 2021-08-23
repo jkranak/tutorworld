@@ -73,6 +73,18 @@ export const updateTutor = async (user: TutorUpdate) => {
   }
 }
 
+export const updatePassword = async (role: string, oldPassword: string, newPassword: string) => {
+  try {
+    const response = role === 'tutor' 
+      ? await api.put('/tutors/tutor/password', {oldPassword, newPassword})
+      : await api.put('/students/student/password', {oldPassword, newPassword});
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+}
+
 export const getAllTutors = async () => {
   try {
     const response = await api.get('/search');

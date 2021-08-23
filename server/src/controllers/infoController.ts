@@ -27,8 +27,7 @@ export const updateTutorInfo = async (req:any, res:any) => {
 
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -67,12 +66,10 @@ export const getStudentInfo = async (req:any, res:any) => {
 
     const studentInfo = await Models.Student.findOne({attributes: {exclude: ['password']}, where:{id}});
 
-    res.send(studentInfo);
-    res.status(200);
+    res.send(studentInfo).status(200);
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -85,8 +82,7 @@ export const updateStudentInfo = async (req:any, res:any) => {
     res.status(201).send('Student updated');
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -101,15 +97,12 @@ export const getEveryTutorsInfo = async (req:any, res:any) => {
       delete cleanTutorInfo.TutorInfo;
       return cleanTutorInfo;
     });
-
-    res.send(cleanTutorsInfo);
-    res.status(200);
+    res.status(200).send(cleanTutorsInfo);
 
 
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -125,15 +118,12 @@ export const getAllTutorsInfoAvail = async (req:any, res:any) => {
       delete cleanAllTutorInfoAvail.TutorAvailability;
       return cleanAllTutorInfoAvail;
     });
-
-    res.send(cleanAllTutorsInfoAvail);
-    res.status(200);
+    res.status(200).send(cleanAllTutorsInfoAvail);
 
 
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }
 
@@ -150,20 +140,12 @@ export const getTutorInfoAvail = async (req:any, res:any) => {
       const cleanTutorInfoAvail = {...tutorInfoAvail, ...tutorInfoAvail.TutorInfo, availability: {...tutorInfoAvail.TutorAvailability}};
       delete cleanTutorInfoAvail.TutorInfo;
       delete cleanTutorInfoAvail.TutorAvailability;
-
-
-      res.send(cleanTutorInfoAvail);
-      res.status(200);
-
+      res.status(200).send(cleanTutorInfoAvail);
     } else {
-      res.send('Tutor does not exist ');
-      res.status(400);
+      res.status(400).send('Tutor does not exist ');
     }
-
-
   } catch (error) {
     console.log(error)
-    res.status(500);
-    res.send(error);
+    res.status(500).send(error);
   }
 }

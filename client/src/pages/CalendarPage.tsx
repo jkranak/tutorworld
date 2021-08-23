@@ -9,7 +9,6 @@ import enUS from 'date-fns/locale/en-US';
 import '../sass/calendar/styles.scss';
 import { getUserSessions } from '../services/apiUser';
 import { SessionComplex } from '../interfaces/Session';
-import {UserRole } from '../interfaces/User';
 import { Navbar } from '../components/Navbar';
 
 const localizer = dateFnsLocalizer({

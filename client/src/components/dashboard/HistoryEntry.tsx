@@ -6,7 +6,6 @@ import { HistoryComplex } from '../../interfaces/Session';
 import {UserRole, emptyUserNameImage} from '../../interfaces/User';
 import noPhotoUser from '../../assets/no_photo_user.png';
 import {BsStarFill, BsStar, BsFillInfoCircleFill} from 'react-icons/bs'
-import moment from 'moment';
 
 interface Props {
   session: HistoryComplex
@@ -57,7 +56,7 @@ export const HistoryEntry: FC<Props> = ({session, user}: Props) => {
         <div 
         className="dashboard__content--display--session--left-box">
           <h2>{otherUserInfo.firstName} {otherUserInfo.lastName}</h2>
-          <span>{moment(session.date).format('YYYY MMM DD')}</span>
+          <span>{new Date(`${session.date}T00:00:00`).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}</span>
           <span>{session.time}</span>
         </div>
         

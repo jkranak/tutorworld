@@ -22,7 +22,6 @@ export const ProfileTutorView: FC<Props> = ({tutorDetails}: Props) => {
         <h1 className="tutor-profile--title">{tutorDetails.firstName} {tutorDetails.lastName}</h1>
         <p className="tutor-profile--details">{tutorDetails.description}</p>
         <p className="tutor-profile--sub-title">Rate: ${tutorDetails.price}/hour</p>
-
       </section>
       <section className="tutor-profile__right-box">
         <div className="tutor-profile__info-wrapper">

@@ -3,9 +3,10 @@ import { useSelector } from 'react-redux';
 import { emptySessionComplex, SessionComplex } from '../../interfaces/Session';
 import { getUserSessions } from '../../services/apiUser';
 import { SessionEntry } from './SessionEntry';
+import { RootState } from '../../redux/store/store';
 
 export const UpcomingSession: FC = () => {
-  const user = useSelector((state: any) => state.authenticate);
+  const user = useSelector((state: RootState) => state.authenticate);
   const [sessionList, setSessionList] = useState([emptySessionComplex]);
 
   useEffect(() => {
@@ -14,7 +15,6 @@ export const UpcomingSession: FC = () => {
     })
   }, [])
   
-
   return (
     <div>
       <ol>

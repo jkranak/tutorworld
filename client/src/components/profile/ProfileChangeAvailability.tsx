@@ -1,4 +1,4 @@
-import { useState, FC } from 'react';
+import { useState, FC, FormEvent } from 'react';
 import { hours, dayNames, capitalDayNames } from '../../assets/times';
 import { AvailabilityDays, Availability } from '../../interfaces/Availability';
 import { TutorWithAvailability } from '../../interfaces/Tutor';
@@ -34,13 +34,14 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
 
   const handleHourChange = (event: {target: {options: any}}) => {
     let selectedHours: string[] = [];
+    console.log(event.target.options)
     for (let option of event.target.options) {
       if (option.selected) selectedHours.push(option.value);
     }
     setChooseHours(selectedHours);
   }
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const updatedAvail = deepCopy(newAvailability);
     for (let hour of chooseHours) {
@@ -57,7 +58,7 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
     setSaveMessage(true);
   }
 
-  const handleSave = async (event: any) => {
+  const handleSave = async (event: FormEvent) => {
     event.preventDefault();
     const res = await updateAvailability(newAvailability);
     if (res === 201) {

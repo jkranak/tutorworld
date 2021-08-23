@@ -18,10 +18,11 @@ import { Messages } from './pages/Messages';
 import { ViewProfile } from './pages/ViewProfile';
 import { Review } from './pages/Review';
 import { CalendarPage } from './pages/CalendarPage';
+import {RootState} from './redux/store/store'
 
 function App() {
   const dispatch = useDispatch();
-  const auth = useSelector((state: any) => state.authenticate);
+  const auth = useSelector((state: RootState) => state.authenticate);
 
   useEffect(() => {
     verifyUser().then(res => {

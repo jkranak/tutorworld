@@ -51,16 +51,16 @@ export const ReviewComponent: FC = () => {
       {starArr.map((el, index) => (
           <span key={index} className="tutor-card__middle-box--star">{el === 2 
             ? <button onClick={() => handleRating(index)} onMouseEnter={() => handleHover(index)} ><BsStarFill className="normalstar" /></button>
-              : el === 1 ? <button onClick={() => handleRating(index)} onMouseEnter={() => handleHover(index)} className="hoverstar" onMouseLeave={handleMouseLeave}><BsStarFill /></button>
+            : el === 1 
+              ? <button onClick={() => handleRating(index)} onMouseEnter={() => handleHover(index)} className="hoverstar" onMouseLeave={handleMouseLeave}><BsStarFill /></button>
               : <button onClick={() => handleRating(index)} onMouseEnter={() => handleHover(index)}><BsStar className="normalstar" /></button>
           }</span>
-        ))}
-        <form onSubmit={handleSubmit}>
-          <input type="text" id="review" onChange={handleChange} value={review} placeholder="Enter your review here" className="text-input text-input--blue" />
-          {error && <h3>Please rate the session between 1 and 5 stars</h3>}
-          <button type="submit" className="btn btn--blue form--btn">Submit</button>
-          
-        </form>
+      ))}
+      <form onSubmit={handleSubmit}>
+        <input type="text" id="review" onChange={handleChange} value={review} placeholder="Enter your review here" className="text-input text-input--blue" />
+        {error && <h3>Please rate the session between 1 and 5 stars</h3>}
+        <button type="submit" className="btn btn--blue form--btn">Submit</button>
+      </form>
     </div>
   )
 }

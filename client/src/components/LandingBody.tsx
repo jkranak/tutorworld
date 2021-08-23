@@ -8,8 +8,8 @@ export const LandingBody: FC = () => {
   return (
     <div className="landing-body">
       <div className="landing-body--box">
-          <img src={chalkboard} alt="teacher at chalkboard" width="350px"></img>
-          <h2>Find tutors on any subject</h2>
+        <img src={chalkboard} alt="teacher at chalkboard" width="350px"></img>
+        <h2>Find tutors on any subject</h2>
         </div>
         <div className="landing-body--box">
           <h2>Online tutoring with video and whiteboard</h2>

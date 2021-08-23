@@ -24,7 +24,7 @@ export const Application: FC = () => {
     }
   }
 
-  const handleChange = (event: {target: {name: string, value: any}}) => {
+  const handleChange = (event: {target: {name: string, value: string}}) => {
     setNewApplicant(current => ({...current, [event.target.name]: event.target.value}))
   }
 
@@ -89,7 +89,7 @@ export const Application: FC = () => {
               ))}
           </select>
           <div className="form--multi-select">
-            {newApplicant.languages.map((language, index): any => 
+            {newApplicant.languages.map((language, index) => 
             <div key={language} className="form--select-tag">
               <span className="before-icon">
                 {language}

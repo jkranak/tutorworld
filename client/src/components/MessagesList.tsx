@@ -3,6 +3,7 @@ import { FiChevronRight } from 'react-icons/fi'
 import { useSelector } from 'react-redux'
 import { MessageCompleteI } from '../interfaces/Message'
 import { v4 as uuidv4 } from 'uuid';
+import { RootState } from '../redux/store/store';
 
 interface Props {
   messagesList: MessageCompleteI[],
@@ -11,8 +12,7 @@ interface Props {
 
 export const MessagesList = ({ messagesList, sendMessage }: Props) => {
   // retrieve messages
-  // TO-DO fix typescript any
-  const user = useSelector((state: any) => state.authenticate);
+  const user = useSelector((state: RootState) => state.authenticate);
   const [message, setMessage] = useState<string>('');
 
   const handleMessage = () => {
@@ -28,18 +28,18 @@ export const MessagesList = ({ messagesList, sendMessage }: Props) => {
 
   return (
     <div className="messages__content--right-box">
-          <div className="messages__content--messages-list">
-            {messagesList && messagesList.map(message => 
-              <div className={`messages__content--message--${message.SenderId === user.SenderId ? 'right' : 'left'}`} key={uuidv4()}>
-                <span>{message.content}</span>
-                <span>{message.createdAt}</span>
-              </div>
-            )}
+      <div className="messages__content--messages-list">
+        {messagesList && messagesList.map(message => 
+          <div className={`messages__content--message--${message.SenderId === user.SenderId ? 'right' : 'left'}`} key={uuidv4()}>
+            <span>{message.content}</span>
+            <span>{message.createdAt}</span>
           </div>
-          <div className="messages__content--send-message">
-            <input type="text" name="message" value={message} onChange={(event) => setMessage(event.target.value)}/>
-            <button onClick={handleMessage}><FiChevronRight /></button>
-          </div>
-        </div>
+        )}
+      </div>
+      <div className="messages__content--send-message">
+        <input type="text" name="message" value={message} onChange={(event) => setMessage(event.target.value)}/>
+        <button onClick={handleMessage}><FiChevronRight /></button>
+      </div>
+    </div>
   )
 }

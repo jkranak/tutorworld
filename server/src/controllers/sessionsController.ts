@@ -1,5 +1,6 @@
 import Models from '../../models';
 import {Session} from '../interfaces/Session';
+import { Request, Response } from 'express';
 
 
 const timeConvert = (date: string, time: string) => {
@@ -14,7 +15,7 @@ const timeConvert = (date: string, time: string) => {
   return Number(dateRes);
 }
 
-export const getUpcomingSessions = async (req:any, res:any) => {
+export const getUpcomingSessions = async (req:Request, res:Response) => {
   try {
     const { id, role } = req.body.user;
 
@@ -35,7 +36,7 @@ export const getUpcomingSessions = async (req:any, res:any) => {
   }
 }
 
-export const addUpcomingSessions = async (req:any, res:any) => {
+export const addUpcomingSessions = async (req:Request, res:Response) => {
   //format for date: 2021-12-22 or 2021-09-09 given to me
   //formt for time given: 3:00 PM
   try {
@@ -51,7 +52,7 @@ export const addUpcomingSessions = async (req:any, res:any) => {
   }
 }
 
-export const getHistorySessions = async (req:any, res:any) => {
+export const getHistorySessions = async (req:Request, res:Response) => {
   try {
     const { id, role } = req.body.user;
 
@@ -70,7 +71,7 @@ export const getHistorySessions = async (req:any, res:any) => {
 }
 
 
-export const updateHistoryUpcomingSessions = async (req:any, res:any) => {
+export const updateHistoryUpcomingSessions = async (req:Request, res:Response) => {
   try {
     //need upcomingSessionId to delete and copy over the contents to hsitory session
     const { upcomingSessionId } = req.body;

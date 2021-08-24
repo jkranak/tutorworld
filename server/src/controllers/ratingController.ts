@@ -1,6 +1,7 @@
 import Models from '../../models';
+import { Request, Response } from 'express';
 
-export const updateRating = async (req:any, res:any) => {
+export const updateRating = async (req:Request, res:Response) => {
 //Only update review and star rating if given: need to update the starrating inside of tutor info wiht the new reviews star rating
   try {
     const { id } = req.body.user;

@@ -1,6 +1,7 @@
 import Models from '../../models';
+import { Request, Response } from 'express';
 
-export const addFavTutor = async (req:any, res:any) => {
+export const addFavTutor = async (req:Request, res:Response) => {
   try {
     const { id  } = req.body.user;
 
@@ -24,7 +25,7 @@ export const addFavTutor = async (req:any, res:any) => {
 
 }
 
-export const removeFavTutor = async (req:any, res:any) => {
+export const removeFavTutor = async (req:Request, res:Response) => {
   try {
     const { id  } = req.body.user;
 
@@ -47,7 +48,7 @@ export const removeFavTutor = async (req:any, res:any) => {
 
 }
 
-export const getAllFavTutors = async (req:any, res:any) => {
+export const getAllFavTutors = async (req:Request, res:Response) => {
   try {
     const { id  } = req.body.user;
 
@@ -86,7 +87,7 @@ export const getAllFavTutors = async (req:any, res:any) => {
 
 }
 
-export const getAllFavTutorsLess = async (req:any, res:any) => {
+export const getAllFavTutorsLess = async (req:Request, res:Response) => {
   try {
     const { id  } = req.body.user;
     const allFavTutorsInstance = await Models.FavTutor.findAll({where: {StudentId: id}});

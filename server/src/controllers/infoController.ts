@@ -83,7 +83,6 @@ export const getTutorInfoAvail = async (req:any, res:any) => {
 
     const { tutor } = req.params;
     const tutorsInfoAvailInstance = await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id:tutor}, include: [Models.TutorInfo, Models.TutorAvailability]});
-
     // spread operator and remove the TutorInfo property, removes all duplicates
 
     if (tutorsInfoAvailInstance){

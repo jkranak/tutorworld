@@ -51,13 +51,16 @@
   }
   .me {
     background-color: $dark-grey;
-    font-weight: 600;
+    font-weight: 300;
     &:hover {
       cursor: default;
     }
+    .btn {
+      margin: 0;
+    }
     .image-box {
-      height: 7vh;
-      width: 7vh;
+      min-height: 7vh;
+      min-width: 7vh;
     }
     &__name {
       padding-left: 2rem;
@@ -88,7 +91,7 @@
 
   &--message {
     &--right {
-      background-color: $light-pink;
+      background-color: $very-light-pink;
       align-self: flex-end;
       padding: 1rem 2rem;
       font-size: 2rem;
@@ -99,7 +102,7 @@
       }
     }
     &--left {
-      background-color: $light-beige;
+      background-color: $very-light-blue;
       margin-bottom: 1rem;
       font-size: 2rem;
       padding: 1rem 2rem;

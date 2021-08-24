@@ -22,7 +22,7 @@ export const Navbar: FC = () => {
       <div className="navbar--left-box">
         <LogoLink />
         <Link to='/dashboard' className="btn btn--clear">Dashboard</Link>
-        <Link to={'/messages'}className="btn btn--clear">Conversations</Link>
+        <Link to={'/messages'}className="btn btn--clear">Messages</Link>
         <Link to={'/calendar'} className="btn btn--clear">Calendar</Link>
         {user.role === 'student' && <Link to={'/search'} className="btn btn--clear">Find a Tutor</Link>}
         {user.role !== 'tutor' && <Link to={'/application'} className="btn btn--clear">Apply to be a tutor</Link>}

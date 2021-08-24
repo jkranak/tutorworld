@@ -155,6 +155,17 @@ export const getUserHistory = async () => {
   }
 }
 
+export const deleteSession = async (id: string) => {
+  try {
+    const response = await api.delete(`/upcomingSessions/${id}`);
+    return response.status;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+//'/upcomingSessions/:sessionId'
+
 export const getFavTutors = async () => {
   try {
     const response = await api.get('/students/student/favTutors');

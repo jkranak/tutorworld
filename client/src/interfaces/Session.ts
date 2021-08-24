@@ -59,6 +59,7 @@ export const emptyHistoryComplex: HistoryComplex = {
 
 export interface SessionDetail {
   type: string
+  id: string
   name: string
   image: string
   date: string

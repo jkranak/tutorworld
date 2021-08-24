@@ -2,7 +2,7 @@ import express from 'express';
 import { createStudent, createTutor, login, verifyUser } from '../controllers/authController';
 import { updateTutorInfo, getStudentInfo, updateStudentInfo, getAllTutorsInfoAvail, getTutorInfoAvail } from '../controllers/infoController';
 import { changeStudentPassword, changeTutorPassword } from '../controllers/passwordController';
-import { addUpcomingSessions, getHistorySessions, getUpcomingSessions, updateHistoryUpcomingSessions } from '../controllers/sessionsController';
+import { addUpcomingSessions, getHistorySessions, getUpcomingSessions, updateHistoryUpcomingSessions, deleteUpcomingSession } from '../controllers/sessionsController';
 import { getAllTutorsAvail, getTutorAvailByDate, updateTutorAvail } from '../controllers/tutorAvailController';
 import { authMiddleware } from '../middlewares/authMiddleware';
 import { studentMiddleware, tutorMiddleware } from '../middlewares/roleMiddleware';
@@ -48,6 +48,7 @@ router.get('/upcomingSessions', authMiddleware, getUpcomingSessions);
 router.post('/upcomingSessions', authMiddleware, studentMiddleware, addUpcomingSessions);
 router.get('/historySessions', authMiddleware, getHistorySessions);
 router.put('/endSession', authMiddleware, updateHistoryUpcomingSessions); //deletes from upcoming session and adds it to history session
+router.delete('/upcomingSessions/:sessionId', authMiddleware, deleteUpcomingSession);
 
 //when student submits a rating
 router.put('/submitRating', authMiddleware, studentMiddleware, updateRating);

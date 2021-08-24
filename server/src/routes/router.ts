@@ -10,6 +10,7 @@ import {stripePayment} from '../controllers/paymentController';
 import { addFavTutor, getAllFavTutors, removeFavTutor, getAllFavTutorsLess } from '../controllers/favTutorsController';
 import { updateRating } from '../controllers/ratingController';
 import { connectToRoom, retrieveMessagesByRoom, retrieveSenderId, retrieveUserRooms, sendMessage } from '../controllers/chatController';
+import { addLibrary, addTutorLibrary, getAllLibraries, getAllLibrariesTutor, getLibraryAllTutors } from '../controllers/mapController';
 const router = express.Router();
 
 
@@ -63,12 +64,18 @@ router.get('/students/student/favTutorsLess', authMiddleware, studentMiddleware,
 router.post('/payment', stripePayment);
 
 // Chat
-
 router.post('/message/send', authMiddleware, sendMessage);
 router.post('/room', authMiddleware, connectToRoom);
 router.get('/room/all', authMiddleware, retrieveUserRooms);
 router.get('/room/messages/:RoomId', authMiddleware, retrieveMessagesByRoom);
 router.get('/sender/:id/:role', authMiddleware, retrieveSenderId);
+
+//maps
+router.post('/tutors/tutor/libraries', authMiddleware, tutorMiddleware, addTutorLibrary);//adds a libray to a tutor (used in tutor profile to add a library to there list)
+router.post('/libraries', addLibrary); //adds a library to list of libraries available on app (used for us to easily input data in database)
+router.get('/libraries', authMiddleware, getAllLibraries);//get all libraries available on app
+router.get('/libraries/:library/allTutors', authMiddleware, getLibraryAllTutors); //get all tutors that teach at a specfic library
+router.get('/tutors/:tutor/libraries', authMiddleware, getAllLibrariesTutor)//get all libraries of a specific tutor (used for tutorProfile)
 
 
 export default router;

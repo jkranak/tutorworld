@@ -1,7 +1,7 @@
 import { useState, useEffect, FC } from 'react';
 import { Navbar } from '../components/Navbar';
 import { SearchResult } from '../components/SearchResult';
-import Location from '../components/Location';
+import Map from '../components/Map';
 import { languages, subjects } from '../assets/subjects_languages';
 import { getAllTutors } from '../services/apiUser';
 import { TutorWithAvailability } from '../interfaces/Tutor';
@@ -147,7 +147,7 @@ export const Search: FC = () => {
           </main>
         :
       <div>
-        <Location/>
+        <Map/>
         <button onClick={()=>setSearch(false)}>Go back</button>
       </div>}
       </div>

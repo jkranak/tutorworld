@@ -2,12 +2,15 @@
 import React, {useState, useEffect} from 'react';
 import { GoogleMap, Marker, LoadScript, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
 import {getAllLibraries, getLibraryAllTutors} from '../services/apiMaps';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
+
 
 const containerStyle = {
-  width: '800px',
-  height: '800px'
+  width: '600px',
+  height: '600px'
 };
-
 
 const Map = () => {
 
@@ -17,6 +20,9 @@ const Map = () => {
   const [librarys, setLibraries] = useState([]);
   const [selectedLibrary, setSelectedLibrary] = useState(null);
   const [libraryAllTutors, setLibraryAllTutors] = useState(null);
+
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const onLoad = (ref:any) => setSearchBox(ref);
 
@@ -33,6 +39,16 @@ const Map = () => {
       setLibraryAllTutors(libraryTutors);
     })
     setSelectedLibrary(library);
+  }
+
+  const handleSchedule = (libraryAllTutor) => {
+    dispatch(currentTutorInfo(libraryAllTutor));
+    history.push('/schedule');
+  }
+
+  const handleProfile = (libraryAllTutor) => {
+    dispatch(currentTutorInfo(libraryAllTutor));
+    history.push('/viewprofile');
   }
 
   useEffect(() => {
@@ -94,6 +110,8 @@ const Map = () => {
                         {subjectLevel}
                       </div>
                     )}
+                    <button className="btn btn--blue" onClick={()=> handleSchedule(libraryAllTutor)}>Schedule</button>
+                    <button className="btn btn--blue" onClick={()=> handleProfile(libraryAllTutor)}>Profile</button>
                   </div>
                 )}
               </div>

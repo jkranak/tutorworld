@@ -1,0 +1,6 @@
+.calendar {
+  &__content {
+    height: 90vh;
+    @include flex-row;
+  }
+}

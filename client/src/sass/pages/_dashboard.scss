@@ -59,8 +59,8 @@
         @include flex-row;
         justify-content: flex-start;
         .image-box {
-          height: 6rem;
-          width: 6rem;
+          height: 6vh;
+          width: 6vh;
           overflow: hidden;
           border-radius: 50%;
           img {

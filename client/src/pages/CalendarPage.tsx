@@ -11,6 +11,7 @@ import { getUserSessions } from '../services/apiUser';
 import { SessionComplex } from '../interfaces/Session';
 import { Navbar } from '../components/Navbar';
 import { RootState } from '../redux/store/store';
+import { Sidebar } from '../components/Sidebar';
 
 const localizer = dateFnsLocalizer({
   format,
@@ -82,23 +83,26 @@ export const CalendarPage: FC = () => {
 
 
   return (
-    <div>
+    <div className="calendar">
     <Navbar />
-    <Calendar
-      localizer={localizer}
-      events={dateArr}
-      startAccessor="start"
-      endAccessor="end"
-      style={{ height: 700 }}
-      defaultView={Views.WEEK}
-      views={['week', 'month', 'agenda']}
-      components={{
-        event: Event,
-        agenda: {
-          event: EventAgenda,
-        },
-      }}
-    />
+    <div className="calendar__content">
+      <Sidebar />
+      <Calendar
+        localizer={localizer}
+        events={dateArr}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: '100%', width: '87%', padding: '2rem'}}
+        defaultView={Views.WEEK}
+        views={['week', 'month', 'agenda']}
+        components={{
+          event: Event,
+          agenda: {
+            event: EventAgenda,
+          },
+        }}
+      />
+    </div>
   </div>
   )
 }

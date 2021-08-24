@@ -82,8 +82,21 @@ const Map = () => {
         {selectedLibrary && libraryAllTutors && (
           <InfoWindow position={{lat: selectedLibrary.lat,lng: selectedLibrary.lng }} onCloseClick={()=>{setSelectedLibrary(null)}}>
             <div>
-              <div>Library Name: {selectedLibrary.name}<br></br>Address: {selectedLibrary.address} </div>
-              <div>{libraryAllTutors[0].firstName}</div>
+              <h3>Library Name: {selectedLibrary.name}<br></br>Address: {selectedLibrary.address} </h3>
+              <div>
+                {libraryAllTutors.map((libraryAllTutor, index)=>
+                  <div>
+                    <h5>
+                      {`Tutor ${index+1}: ${libraryAllTutor.firstName} ${libraryAllTutor.lastName} ${libraryAllTutor.rating}`}
+                    </h5>
+                    {libraryAllTutor.subjectLevels.map((subjectLevel)=>
+                      <div>
+                        {subjectLevel}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </InfoWindow>
         )}

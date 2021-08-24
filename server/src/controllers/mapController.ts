@@ -65,15 +65,15 @@ export const getLibraryAllTutors = async (req:any, res:any) => {
 
     const LibraryAllTutorsInfoInstances = LibraryAllTutors[0].TutorLibraries.map(async (LibraryTutor:any)=>{
       const TutorId = LibraryTutor.TutorId;
-      return await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id: TutorId}, include: [Models.TutorInfo]});
+      return await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id: TutorId}, include: [Models.TutorInfo, Models.TutorAvailability]});
     });
 
     Promise.all(LibraryAllTutorsInfoInstances).then((values)=>{
       const LibraryAllTutorsInfo = values.map((LibraryTutorInfoInstances:any)=>{
         const LibraryTutorInfo =  LibraryTutorInfoInstances.get({plain: true });
-        console.log(LibraryTutorInfo);
-        const cleanLibraryTutorInfo = {...LibraryTutorInfo, ...LibraryTutorInfo.TutorInfo}
+        const cleanLibraryTutorInfo = {...LibraryTutorInfo, ...LibraryTutorInfo.TutorInfo, availability: {...LibraryTutorInfo.TutorAvailability}}
         delete cleanLibraryTutorInfo.TutorInfo;
+        delete cleanLibraryTutorInfo.TutorAvailability;
         return cleanLibraryTutorInfo;
       })
 

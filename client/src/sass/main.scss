@@ -1,6 +1,7 @@
 @import 'abstracts/mixins';
 @import 'abstracts/variables';
 
+@import 'base/animations';
 @import 'base/base';
 @import 'base/typography';
 @import 'base/utilities';
@@ -22,6 +23,7 @@
 @import 'components/video';
 
 @import 'pages/application';
+@import 'pages/calendar';
 @import 'pages/checkout';
 @import 'pages/dashboard';
 @import 'pages/landing';
@@ -30,3 +32,4 @@
 @import 'pages/profile';
 @import 'pages/schedule';
 @import 'pages/search';
+@import 'pages/sessions';

@@ -58,6 +58,7 @@
       width: 100%;
       input {
         width: 50%;
+        background-color: $font-light;
       }
     }
   }
@@ -65,10 +66,10 @@
     width: 75%;
     min-height: 90vh;
     @include flex-column;
-    padding: 3rem;
+    padding: 1rem;
     .board-container {
       width: 100%;
-      min-height: 80vh;
+      min-height: 85vh;
       background: white;
       border-radius: 2rem;
       .sketch {

@@ -6,7 +6,7 @@ import { getStudentDetails, getTutorDetails } from '../services/apiUser';
 import { v4 as uuidv4 } from 'uuid';
 import { MessagesList } from "./MessagesList";
 import { currentRoom } from "../redux/actions/currentRoom";
-import { FiSearch } from "react-icons/fi";
+import { FiPhone, FiSearch } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { RootState } from '../redux/store/store';
 interface Props {
@@ -47,6 +47,7 @@ export const MessagesContainer = ({ messagesList, sendMessage, rooms }: Props) =
               <img src={userDetails?.imageUrl ? userDetails?.imageUrl : noPhotoUser} alt={`${userDetails?.firstName} ${userDetails?.lastName}`} />
             </div>
             <span className="me__name">{`${userDetails?.firstName} ${userDetails?.lastName}`}</span>
+            <Link to={'/call'} className="btn btn--blue"><FiPhone /></Link>
           </div>
           {/* <div>search</div> TO-DO filter contacts*/}
           {rooms && rooms.map(currRoom => 

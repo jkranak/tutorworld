@@ -16,7 +16,7 @@ const Map = () => {
   const [lat, setLat] = useState(43.256531);
   const [librarys, setLibraries] = useState([]);
   const [selectedLibrary, setSelectedLibrary] = useState(null);
-  const [libraryAllTutors, setLibraryAllTutors] = useState([]);
+  const [libraryAllTutors, setLibraryAllTutors] = useState(null);
 
   const onLoad = (ref:any) => setSearchBox(ref);
 
@@ -35,13 +35,14 @@ const Map = () => {
     setSelectedLibrary(library);
   }
 
-  console.log(libraryAllTutors);
   useEffect(() => {
     getAllLibraries().then((allLibraries) => {
       setLibraries(allLibraries);
     }
     )
   }, [])
+
+
 
   return (
     <LoadScript
@@ -78,9 +79,12 @@ const Map = () => {
           />
         </StandaloneSearchBox>
         {librarys.map((library:any) => <Marker key={library.id} position={{lat: library.lat,lng: library.lng }} onClick={()=> {handleClick(library)}}/>)}
-        {selectedLibrary && (
+        {selectedLibrary && libraryAllTutors && (
           <InfoWindow position={{lat: selectedLibrary.lat,lng: selectedLibrary.lng }} onCloseClick={()=>{setSelectedLibrary(null)}}>
-            <div>Library Name: {selectedLibrary.name}<br></br>Address: {selectedLibrary.address} </div>
+            <div>
+              <div>Library Name: {selectedLibrary.name}<br></br>Address: {selectedLibrary.address} </div>
+              <div>{libraryAllTutors[0].firstName}</div>
+            </div>
           </InfoWindow>
         )}
       </GoogleMap>

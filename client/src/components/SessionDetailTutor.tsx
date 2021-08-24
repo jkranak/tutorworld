@@ -12,7 +12,7 @@ export const SessionDetailTutor: FC<Props> = ({sessionInfo}: Props) => {
   const starArr = starRatingWhole(sessionInfo.rating);
 
   return (
-    <div>
+    <div className="session-details__right-box">
       <p>Student Name: {sessionInfo.name}</p>
       {sessionInfo.image 
         ? <img src={sessionInfo.image} alt={sessionInfo.name} height="100px"/>

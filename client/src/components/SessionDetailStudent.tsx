@@ -42,13 +42,19 @@ export const SessionDetailStudent: FC<Props> = ({sessionInfo}: Props) => {
   }
 
   return (
-    <div>
-      <p>Tutor Name: {sessionInfo.name}</p>
-      <img src={sessionInfo.image} alt={sessionInfo.name} height="100px"/>
-      <p>Date: {new Date(`${sessionInfo.date}T00:00:00`).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}</p>
-      <p>Time: {sessionInfo.time}</p>
-      <p>Price: ${sessionInfo.cost}</p>
-      <p>{sessionInfo.context}</p>
+    <div className="session-details__right-box">
+      <section className="session-details--left">
+        <div className="image-box">
+          <img src={sessionInfo.image} alt={sessionInfo.name}/>
+        </div>
+        <h1>Tutor Name: {sessionInfo.name}</h1>
+      </section>
+      <section className="session-details--right">
+        <p>Date: {new Date(`${sessionInfo.date}T00:00:00`).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}</p>
+        <p>Time: {sessionInfo.time}</p>
+        <p>Price: ${sessionInfo.cost}</p>
+        <p>{sessionInfo.context}</p>
+      </section>
       {sessionInfo.type === 'history' ? 
          <>
         <p>Review:</p>

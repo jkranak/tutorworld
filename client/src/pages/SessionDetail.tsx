@@ -11,14 +11,16 @@ export const SessionDetail: FC = () => {
   const user = useSelector((state: RootState) => state.authenticate);
   
   return (
-    <div>
+    <div className="session-details">
       <Navbar />
-      <Sidebar />
-      {window.history.state 
-        ? user.role === 'tutor' 
-          ? <SessionDetailTutor sessionInfo={window.history.state.state}/>
-          : <SessionDetailStudent sessionInfo={window.history.state.state} />
-        : <Link to={"/dashboard"}>Back</Link>}
+      <div className="session-details__content">
+        <Sidebar />
+        {window.history.state 
+          ? user.role === 'tutor' 
+            ? <SessionDetailTutor sessionInfo={window.history.state.state}/>
+            : <SessionDetailStudent sessionInfo={window.history.state.state} />
+          : <Link to={"/dashboard"}>Back</Link>}
+      </div>
     </div>
   )
 }

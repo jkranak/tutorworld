@@ -1,0 +1,33 @@
+.session-details{
+  &__content {
+    height: 90vh;
+    @include flex-row;
+  }
+  &__right-box {
+    width: 87%;
+    height: 100%;
+    background-color:cadetblue;
+    @include flex-row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 10rem 0 0 5rem;
+  }
+  &--left {
+    background-color: blue;
+    width: 20%;
+    .image-box {
+      height: 20vh;
+      width: 20vh;
+      overflow: hidden;
+      border-radius: 50%;
+      img {
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+
+  &--right {
+    background-color: red;
+  }
+}

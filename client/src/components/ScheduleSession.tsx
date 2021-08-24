@@ -83,7 +83,7 @@ interface BeforeAfter {
       {selectedHour.length > 0 && 
         <select name="subject" defaultValue="" onChange={handleTopicChange} className="select-input select-input--blue">
           <option value="" disabled>Choose subject</option>
-          {user.subjectLevels.map((subject: any) => (
+          {user.subjectLevels.map((subject: string) => (
             <option key={subject} value={subject}>{subject}</option>
             ))}
           </select>}

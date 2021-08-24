@@ -1,6 +1,7 @@
 import { FC } from 'react';
+import {Link} from 'react-router-dom';
 import chalkboard from '../assets/chalkboard.jpg';
-import remote from '../assets/remote.png';
+import remote from '../assets/remote.jpg';
 import book from '../assets/book.jpg';
 
 export const LandingBody: FC = () => {
@@ -11,12 +12,12 @@ export const LandingBody: FC = () => {
           <img src={chalkboard} alt="teacher at chalkboard"></img>
         </div>
         <div className="landing__body--text">
-          <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet blanditiis pariatur laborum! Beatae, officia distinctio! Aliquam illum itaque porro unde? Modi possimus eum, esse pariatur maiores dolorum odit recusandae excepturi!</h2>
+          <h2>At TutorWorld you can find tutors ready to help you on many different subjects and at all levels.</h2>
         </div>
       </div>
         <div className="landing__body--box">
           <div className="landing__body--text">
-            <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam assumenda reprehenderit corporis laboriosam fugit voluptas eligendi! Sequi iure, aut voluptatibus debitis, quos eligendi aspernatur, ratione atque earum delectus consequatur blanditiis.</h2>
+            <h2>Connect with tutors online through our interactive classroom, which includes both video and whiteboard.</h2>
           </div>
           <div className="image-box">
             <img src={remote} alt="student learning online"></img>
@@ -27,7 +28,7 @@ export const LandingBody: FC = () => {
             <img src={book} alt="book and glasses"></img>
           </div>
           <div className="landing__body--text">
-            <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam provident recusandae dicta asperiores, alias officiis, voluptatem vel aspernatur vitae quae nobis. Fugit delectus, cupiditate quisquam totam praesentium consequatur temporibus repudiandae!</h2>
+            <h2>Do you have the knowledge and skills to be a tutor yourself? <Link to={'/application'}>Apply to be a Tutor</Link>, and you can earn money, while being able to set your own rates and hours.</h2>
           </div>
         </div>
         {/* <img src={logo} alt="tutor world logo" className="logo-box__image"/> */}

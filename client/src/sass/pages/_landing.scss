@@ -18,7 +18,7 @@
     @include flex-column;
     &--box {
       width: 60%;
-      padding: 3rem;
+      padding: 1.5rem;
       @include flex-row;
       justify-content: space-between;
     }

@@ -27,6 +27,10 @@ export interface UserRole {
   role: string
 }
 
+export interface UserAuth extends UserRole {
+  SenderId: string
+}
+
 export interface UserNameImage {
   firstName: string
   lastName: string

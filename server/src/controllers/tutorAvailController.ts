@@ -1,17 +1,5 @@
 import Models from '../../models';
 
-export const getTutorAvail = async (req:any, res:any) => {
-  try {
-    const { tutorId } = req.params;
-
-    const tutorAvail = await Models.TutorAvailability.findOne({where:{id: tutorId}});
-    if (!tutorAvail) res.status(404).send('Tutor availability does not exist!')
-    else res.status(200).send(tutorAvail);
-  } catch (error) {
-    console.log(error)
-    res.status(500).send(error);
-  }
-}
 
 
 export const updateTutorAvail = async (req:any, res:any) => {

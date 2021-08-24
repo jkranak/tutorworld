@@ -4,19 +4,36 @@ import io from 'socket.io-client';
 import { useEffect, useState } from 'react';
 import { getMessages, getRooms, sendNewMessage } from '../services/apiChat';
 import { RoomI } from '../interfaces/Room';
-import { MessageCompleteI } from '../interfaces/Message';
+import { MessageCompleteI, emptyMessageCompleteI } from '../interfaces/Message';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { currentRoom } from '../redux/actions/currentRoom';
 import { RootState } from '../redux/store/store';
 
-let socket: any;
+interface Sender {
+  id: string
+  createdAt: string
+  updatedAt: string
+  RoomId: string
+  SenderId: string
+}
+
+interface CurrRoom {
+  room: string
+  senders: Sender[]
+}
+
+let socket: {
+  emit: (join: string, room: CurrRoom) => void
+  on: (msgStr: string, cb: (msg: MessageCompleteI) => void) => void
+};
+
 const CONNECTION_PORT = process.env.REACT_APP_API_URL || '';
 
 export const Messages = () => {
   //TO-DO fix typescript anys
   const [ rooms, setRooms ] = useState<RoomI[]>([]);
-  const [ messagesList, setMessagesList ] = useState<any>([]);
+  const [ messagesList, setMessagesList ] = useState([emptyMessageCompleteI]);
   const location: any = useLocation();
   const currRoom = useSelector((state: RootState) => state.currentRoom);
   const dispatch = useDispatch();
@@ -27,7 +44,7 @@ export const Messages = () => {
     if (location.state) dispatch(currentRoom(location.state))
     });
   }, [dispatch, location.state]);
-  
+
   useEffect(() => {
     if (currRoom) {
       socket.emit('join_room', currRoom.room);
@@ -40,7 +57,7 @@ export const Messages = () => {
   useEffect(() => {      
     socket.on('receive_message', (incomingMessage: MessageCompleteI) => {
       if (currRoom && incomingMessage.RoomId === currRoom.room) {
-        setMessagesList((current: any) => ([...current, incomingMessage]))
+        setMessagesList((current: MessageCompleteI[]) => ([...current, incomingMessage]))
       }
     })
   }, [currRoom])
@@ -49,7 +66,7 @@ export const Messages = () => {
     if (currRoom) {
       const newMessage = await sendNewMessage({content: message, SenderId, RoomId: currRoom.room})
       socket.emit('send_message', newMessage);
-      setMessagesList((current: any )=> ([...current, newMessage]))
+      setMessagesList((current: MessageCompleteI[])=> ([...current, newMessage]))
     }
   }
   

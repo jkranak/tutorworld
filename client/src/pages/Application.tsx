@@ -104,7 +104,7 @@ export const Application: FC = () => {
               ))}
           </select>
           <div className="form--multi-select">
-            {newApplicant.subjects.map((subject, index): any => 
+            {newApplicant.subjects.map((subject, index) => 
             <div key={subject} className="form--select-tag">
               <span className="before-icon">
                 {subject}

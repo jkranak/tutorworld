@@ -5,8 +5,7 @@ import {starRatingWhole} from '../../services/starRating';
 import { HistoryComplex } from '../../interfaces/Session';
 import {UserRole, emptyUserNameImage} from '../../interfaces/User';
 import noPhotoUser from '../../assets/no_photo_user.png';
-import {BsStarFill, BsStar} from 'react-icons/bs'
-import moment from 'moment';
+import {BsStarFill, BsStar, BsFillInfoCircleFill} from 'react-icons/bs'
 
 interface Props {
   session: HistoryComplex
@@ -31,18 +30,36 @@ export const HistoryEntry: FC<Props> = ({session, user}: Props) => {
       setOtherUserInfo({firstName, lastName, imageUrl})
     }, [session.Student.firstName, session.Student.imageUrl, session.Student.lastName, session.Tutor.TutorInfo.imageUrl, session.Tutor.firstName, session.Tutor.lastName, user.role])
 
+    const sessionDetailState = {
+      type: 'history',
+      name: `${otherUserInfo.firstName} ${otherUserInfo.lastName}`,
+      image: otherUserInfo.imageUrl,
+      date: session.date,
+      time: session.time,
+      cost: session.cost,
+      context: session.sessionContext,
+      rating: session.starRating ? session.starRating : 0,
+      review: session.review ? session.review : ''
+    }
+
   return (
+    
     <div className="dashboard__content--display--session">
-      <div className="image-box">
-        <img src={otherUserInfo.imageUrl ? otherUserInfo.imageUrl : noPhotoUser} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} />
-      </div>
+      
+        <div className="image-box">
+          {otherUserInfo.imageUrl 
+            ? <img src={otherUserInfo.imageUrl} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />
+            : <img src={noPhotoUser} alt={`${otherUserInfo.firstName} ${otherUserInfo.lastName}`} height="40px" />}
+        </div>
+      
       <div className="dashboard__content--display--session-details">
         <div 
         className="dashboard__content--display--session--left-box">
           <h2>{otherUserInfo.firstName} {otherUserInfo.lastName}</h2>
-          <span>{moment(session.date).format('YYYY MMM DD')}</span>
+          <span>{new Date(`${session.date}T00:00:00`).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}</span>
           <span>{session.time}</span>
         </div>
+        
         <div className="dashboard__content--display--session--right-box">
           <div>
             <h2>Price: ${session.cost}</h2>
@@ -53,17 +70,16 @@ export const HistoryEntry: FC<Props> = ({session, user}: Props) => {
                 el === 2 ? <BsStarFill key={uuidv4()} className="tutor-profile__info--star"/> : <BsStar key={uuidv4()} className="tutor-profile__info--star"/>
               ))}</span> : user.role === 'tutor' ? <span>No ratings yet</span> : <Link to={{
                 pathname:'/review', 
-                state:{
-                  date: session.date,
-                  time: session.time,
-                  name: `${otherUserInfo.firstName} ${otherUserInfo.lastName}`,
-                  rating: session.starRating ? session.starRating : 0,
-                  review: session.review ? session.review : ''
-                }
+                state: reviewState
               }}>Review this session</Link>}
           </div>
         </div>
       </div>
+      <Link to={{
+      pathname:'/session', 
+      state: sessionDetailState
+      }}><BsFillInfoCircleFill className="dashboard__content--display--title--number" /></Link>
     </div>
+    
   )
 }

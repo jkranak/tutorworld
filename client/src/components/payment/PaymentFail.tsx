@@ -9,10 +9,13 @@ interface Props {
 export const PaymentFail: FC<Props> = ({setPaymentAttempt}: Props) => {
 
   return (
-    <div>
-      <AiFillWarning/><h1>Payment Failed</h1>
-      <button onClick={() => setPaymentAttempt(false)}>Return to checkout</button>
-      <Link to={'/dashboard'}>Go to home</Link>
+    <div className="payment__status">
+      <div className="payment__message--text">
+        <h1>Payment Failed</h1>
+        <AiFillWarning className="payment--icon-fail"/>
+      </div>
+      <button onClick={() => setPaymentAttempt(false)} className="btn btn--clear">Return to checkout</button>
+      <Link to={'/dashboard'} className="btn btn--blue form--btn">Go to home</Link>
     </div>
   )
 }

@@ -31,4 +31,30 @@
       font-size: 2rem;
     }
   }
+  .fieldset {
+    width: 100%;
+    padding: 1rem;
+  }
+  &__status {
+    margin-top: 5rem;
+    @include flex-column;
+  }
+  &__message--text {
+    @include flex-column;
+    font-size: 3rem;
+    margin-bottom: 5rem;
+    h1 {
+      padding: 3rem 0;
+    }
+  }
+  &--icon-success {
+    font-size: 6rem;
+    color: green;
+  }
+  &--icon-fail {
+    font-size: 6rem;
+    color: red;
+  }
 }
+
+

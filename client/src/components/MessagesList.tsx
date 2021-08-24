@@ -37,7 +37,7 @@ export const MessagesList = ({ messagesList, sendMessage }: Props) => {
       </div>
         <div className="messages__content--send-message">
           <input type="text" name="message" value={message} onChange={(event) => setMessage(event.target.value)}/>
-          <button onClick={handleMessage}><FiChevronRight /></button>
+          <button ><FiChevronRight onClick={handleMessage}/></button>
         </div>
     </div>
   )

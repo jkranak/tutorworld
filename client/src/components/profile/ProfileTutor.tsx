@@ -1,9 +1,9 @@
 import { useEffect, useState, FC } from 'react';
 import { getTutorDetails } from '../../services/apiUser';
 import { ChangePassword } from '../ChangePassword';
-import {ProfileTutorView} from './ProfileTutorView';
-import {ProfileTutorEdit} from './ProfileTutorEdit';
-import {emptyTutorWithAvailability} from '../../interfaces/Tutor';
+import { ProfileTutorView } from './ProfileTutorView';
+import { ProfileTutorEdit } from './ProfileTutorEdit';
+import { emptyTutorWithAvailability } from '../../interfaces/Tutor';
 
 interface Props {
   id: number

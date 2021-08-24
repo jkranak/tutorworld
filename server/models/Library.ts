@@ -3,60 +3,47 @@ import {
   Model
 } from 'sequelize';
 module.exports = (sequelize:any, DataTypes:any) => {
-  class TutorInfo extends Model {
+  class Library extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({Tutor}:any) {
+    static associate({TutorLibrary}:any) {
       // define association here
-      this.belongsTo(Tutor)
+      this.hasMany(TutorLibrary, { foreignKey: {
+        allowNull: false
+      }})
 
     }
   };
-  TutorInfo.init({
+  Library.init({
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.BIGINT
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    experience: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    imageUrl: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    rating: {
-      type: DataTypes.REAL,
-    },
-    education: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    price: {
+    lat: {
       type: DataTypes.REAL,
       allowNull: false,
     },
-    subjectLevels: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+    lng: {
+      type: DataTypes.REAL,
       allowNull: false,
     },
-    languages: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+    address: {
+      type: DataTypes.STRING,
       allowNull: false,
     }
   }, {
     sequelize,
-    modelName: 'TutorInfo',
-    tableName: 'tutorsInfo',
+    modelName: 'Library',
+    tableName: 'libraries',
   });
-  return TutorInfo;
+  return Library;
 };

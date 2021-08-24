@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, {useState, useEffect} from 'react';
 import { GoogleMap, Marker, LoadScript, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
-import {getAllLibraries} from '../services/apiMaps';
+import {getAllLibraries, getLibraryAllTutors} from '../services/apiMaps';
 
 const containerStyle = {
   width: '800px',
@@ -16,6 +16,7 @@ const Map = () => {
   const [lat, setLat] = useState(43.256531);
   const [librarys, setLibraries] = useState([]);
   const [selectedLibrary, setSelectedLibrary] = useState(null);
+  const [libraryAllTutors, setLibraryAllTutors] = useState([]);
 
   const onLoad = (ref:any) => setSearchBox(ref);
 
@@ -26,6 +27,15 @@ const Map = () => {
     setLat((searchBox.getPlaces()[0].geometry.location.lat)());
   }
 
+  const handleClick = (library:any) => {
+    const LibraryId = library.id;
+    getLibraryAllTutors(LibraryId).then((libraryTutors)=>{
+      setLibraryAllTutors(libraryTutors);
+    })
+    setSelectedLibrary(library);
+  }
+
+  console.log(libraryAllTutors);
   useEffect(() => {
     getAllLibraries().then((allLibraries) => {
       setLibraries(allLibraries);
@@ -67,10 +77,10 @@ const Map = () => {
             }}
           />
         </StandaloneSearchBox>
-        {librarys.map((library:any) => <Marker key={library.id} position={{lat: library.lat,lng: library.lng }} onClick={()=> {setSelectedLibrary(library)}}/>)}
+        {librarys.map((library:any) => <Marker key={library.id} position={{lat: library.lat,lng: library.lng }} onClick={()=> {handleClick(library)}}/>)}
         {selectedLibrary && (
-          <InfoWindow position={{lat: selectedLibrary.lat,lng: selectedLibrary.lng }}>
-            <div>library and tutors details</div>
+          <InfoWindow position={{lat: selectedLibrary.lat,lng: selectedLibrary.lng }} onCloseClick={()=>{setSelectedLibrary(null)}}>
+            <div>Library Name: {selectedLibrary.name}<br></br>Address: {selectedLibrary.address} </div>
           </InfoWindow>
         )}
       </GoogleMap>

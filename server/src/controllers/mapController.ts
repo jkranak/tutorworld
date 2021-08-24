@@ -54,11 +54,31 @@ export const getLibraryAllTutors = async (req:any, res:any) => {
 
     const { LibraryId } = req.params;
 
-    const LibraryAllTutors = await Models.Library.findAll({where: {id: LibraryId}, include: [Models.TutorLibrary]});
+    const LibraryAllTutorsInstance = await Models.Library.findAll({where: {id: LibraryId}, include: [Models.TutorLibrary]});
 
-    if (!LibraryAllTutors.length) return res.status(400).send('LibraryId does not exist');
+    if (!LibraryAllTutorsInstance.length) return res.status(400).send('LibraryId does not exist');
 
-    res.status(200).send(LibraryAllTutors);
+    const LibraryAllTutors = LibraryAllTutorsInstance.map((LibraryTutorInstance:any) => {
+      const LibraryTutor =  LibraryTutorInstance.get({plain: true });
+      return LibraryTutor;
+    });
+
+    const LibraryAllTutorsInfoInstances = LibraryAllTutors[0].TutorLibraries.map(async (LibraryTutor:any)=>{
+      const TutorId = LibraryTutor.TutorId;
+      return await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id: TutorId}, include: [Models.TutorInfo]});
+    });
+
+    Promise.all(LibraryAllTutorsInfoInstances).then((values)=>{
+      const LibraryAllTutorsInfo = values.map((LibraryTutorInfoInstances:any)=>{
+        const LibraryTutorInfo =  LibraryTutorInfoInstances.get({plain: true });
+        console.log(LibraryTutorInfo);
+        const cleanLibraryTutorInfo = {...LibraryTutorInfo, ...LibraryTutorInfo.TutorInfo}
+        delete cleanLibraryTutorInfo.TutorInfo;
+        return cleanLibraryTutorInfo;
+      })
+
+      res.status(200).send(LibraryAllTutorsInfo);
+    })
 
 
   } catch (error) {
@@ -78,7 +98,7 @@ export const getAllLibrariesTutor = async (req:any, res:any) => {
       const LibraryTutor =  LibraryTutorInstance.get({plain: true });
       return LibraryTutor;
     });
-    
+
     const allLibraryInfoTutorInstances = allLibraryTutor.map(async (LibraryTutor:any)=>{
       const LibraryId = LibraryTutor.LibraryId;
       return await Models.Library.findOne({where: {id: LibraryId}});

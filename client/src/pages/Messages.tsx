@@ -53,7 +53,7 @@ export const Messages = () => {
       })
     }    
   }, [currRoom])
-  // TO-DO sometimes when receiving a message it is inserted a few times in the messagesList, the database only receives it once
+  // TO-DO sometimes when receiving a message it is inserted a few times in the messagesList
   useEffect(() => {      
     socket.on('receive_message', (incomingMessage: MessageCompleteI) => {
       if (currRoom && incomingMessage.RoomId === currRoom.room) {

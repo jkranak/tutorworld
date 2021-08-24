@@ -1,26 +1,24 @@
 import Models from '../../models';
+import { Request, Response } from 'express';
+
+export const getTutorAvail = async (req:Request, res:Response) => {
+  try {
+    const { tutorId } = req.params;
+
+    const tutorAvail = await Models.TutorAvailability.findOne({where:{id: tutorId}});
+    if (!tutorAvail) res.status(404).send('Tutor availability does not exist!')
+    else res.status(200).send(tutorAvail);
+  } catch (error) {
+    console.log(error)
+    res.status(500).send(error);
+  }
+}
 
 
-
-export const updateTutorAvail = async (req:any, res:any) => {
+export const updateTutorAvail = async (req:Request, res:Response) => {
   try {
     const { id  } = req.body.user;
-    //front end provides an availability object like:
-    // req.body =  {
-    //   monday: {
-    //   "3:00 PM": true,
-    //   "4:00 PM": true
-    //    },
-    //   tuesday: {
-    //    "6:00 PM": true,
-    //    "7:00 PM": true
-    //   },
-    //   wednesday: {
-    //    "9:00 AM": true,
-    //    "1:00 PM": true
-    //   }
-    //    **OTHER 4 DAYS TOO
-    // }
+
     const availability = req.body;
 
     const tutorAvail = await Models.TutorAvailability.findOne({where:{TutorId: id}});
@@ -41,7 +39,7 @@ export const updateTutorAvail = async (req:any, res:any) => {
   }
 }
 
-export const getAllTutorsAvail = async (req:any, res:any) => {
+export const getAllTutorsAvail = async (req:Request, res:Response) => {
   try {
     const allTutorsAvail = await Models.TutorAvailability.findAll();
     res.status(200).send(allTutorsAvail);
@@ -53,7 +51,7 @@ export const getAllTutorsAvail = async (req:any, res:any) => {
 
 const dayOfWeekArray = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
-export const getTutorAvailByDate = async (req:any, res:any) => {
+export const getTutorAvailByDate = async (req:Request, res:Response) => {
 
   try {
     // format for date: 2021-12-22 or 2021-09-09 given to me
@@ -66,7 +64,7 @@ export const getTutorAvailByDate = async (req:any, res:any) => {
     //find upcoming sessions for the tutor
     const timeSlotsTakenInstance = await Models.UpcomingSession.findAll({attributes: ['time'], where:{TutorId: tutorId, date}});
     const timeSlotsTaken = timeSlotsTakenInstance.map((timeSlotTakenInstance:any) => timeSlotTakenInstance.get({plain: true })); //just the data so we can use it to cross reference
-    
+
     //cross reference the timeSlotsTaken for that date with the tuorAvailability for that date to get what slots are available then send that array back
     for (let i=0; i<timeSlotsTaken.length; i++){
       delete tutorAvailForDay[timeSlotsTaken[i].time]; //delete all the times from the day availability that is already taken

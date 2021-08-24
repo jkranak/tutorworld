@@ -22,6 +22,7 @@ export const SessionEntry: FC<Props> = ({session, user}: Props) => {
 
     const sessionDetailState = {
       type: 'upcoming',
+      id: session.id,
       name: `${otherUserInfo.firstName} ${otherUserInfo.lastName}`,
       image: otherUserInfo.imageUrl,
       date: session.date,
@@ -31,7 +32,6 @@ export const SessionEntry: FC<Props> = ({session, user}: Props) => {
       rating: 0,
       review: ''
     }
-
 
   return (
     <div className="dashboard__content--display--session">

@@ -7,9 +7,6 @@ import { SessionDetailStudent } from '../components/SessionDetailStudent';
 import { SessionDetailTutor } from '../components/SessionDetailTutor';
 import {RootState} from '../redux/store/store';
 
-
-
-
 export const SessionDetail: FC = () => {
   const user = useSelector((state: RootState) => state.authenticate);
   

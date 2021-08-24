@@ -1,7 +1,8 @@
 import Models from '../../models';
 import bcrypt from 'bcrypt';
+import { Request, Response } from 'express';
 
-export const changeTutorPassword = async (req: any, res: any) => {
+export const changeTutorPassword = async (req: Request, res: Response) => {
   try {
     const { id } = req.body.user;
     const { oldPassword, newPassword } = req.body;
@@ -21,7 +22,7 @@ export const changeTutorPassword = async (req: any, res: any) => {
   }
 }
 
-export const changeStudentPassword = async (req: any, res: any) => {
+export const changeStudentPassword = async (req: Request, res: Response) => {
   try {
     const { id } = req.body.user;
     const { oldPassword, newPassword } = req.body;

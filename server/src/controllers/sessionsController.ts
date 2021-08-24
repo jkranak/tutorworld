@@ -1,20 +1,35 @@
 import Models from '../../models';
 import {Session} from '../interfaces/Session';
+import { Request, Response } from 'express';
 
+const hours = [
+  '12:00 AM',
+  '1:00 AM',
+  '2:00 AM',
+  '3:00 AM',
+  '4:00 AM',
+  '5:00 AM',
+  '6:00 AM',
+  '7:00 AM',
+  '8:00 AM',
+  '9:00 AM',
+  '10:00 AM',
+  '11:00 AM',
+  '12:00 PM',
+  '1:00 PM',
+  '2:00 PM',
+  '3:00 PM',
+  '4:00 PM',
+  '5:00 PM',
+  '6:00 PM',
+  '7:00 PM',
+  '8:00 PM',
+  '9:00 PM',
+  '10:00 PM',
+  '11:00 PM' 
+]
 
-const timeConvert = (date: string, time: string) => {
-  let dateRes;
-  let timeArr = time.match(/([0-9]+):([0-9]+) ([A-Z]+)/);
-  if (timeArr![1] === '12' && timeArr![3] === 'AM') dateRes = new Date(`${date} 00:${timeArr![2]}`)
-  else if (timeArr![1] === '12') dateRes = new Date(`${date} 12:${timeArr![2]}`)
-  else if (timeArr![3] === 'PM') {
-    dateRes = new Date(`${date} ${(Number(timeArr![1]) + 12).toString()}:${timeArr![2]}`);
-  }
-  else dateRes = new Date(`${date} ${timeArr![1]}:${timeArr![2]}`);
-  return Number(dateRes);
-}
-
-export const getUpcomingSessions = async (req:any, res:any) => {
+export const getUpcomingSessions = async (req:Request, res:Response) => {
   try {
     const { id, role } = req.body.user;
 
@@ -25,7 +40,7 @@ export const getUpcomingSessions = async (req:any, res:any) => {
       upcomingSessions = await Models.UpcomingSession.findAll({where: {StudentId: id}, include: [{model: Models.Tutor, include: [Models.TutorInfo], attributes: {exclude: ['password']}}, {model: Models.Student, attributes: {exclude: ['password']}}]});
     }
     upcomingSessions.forEach((session: Session) => {
-      session['sortDate'] = timeConvert(session.date, session.time);
+      session['sortDate'] = Number(new Date(`${session.date} ${hours.indexOf(session.time)}:00`));
     })
     upcomingSessions.sort((a: Session, b: Session) => a.sortDate! - b.sortDate!);
     res.status(200).send(upcomingSessions);
@@ -35,7 +50,7 @@ export const getUpcomingSessions = async (req:any, res:any) => {
   }
 }
 
-export const addUpcomingSessions = async (req:any, res:any) => {
+export const addUpcomingSessions = async (req:Request, res:Response) => {
   //format for date: 2021-12-22 or 2021-09-09 given to me
   //formt for time given: 3:00 PM
   try {
@@ -51,7 +66,7 @@ export const addUpcomingSessions = async (req:any, res:any) => {
   }
 }
 
-export const getHistorySessions = async (req:any, res:any) => {
+export const getHistorySessions = async (req:Request, res:Response) => {
   try {
     const { id, role } = req.body.user;
 
@@ -69,8 +84,7 @@ export const getHistorySessions = async (req:any, res:any) => {
   }
 }
 
-
-export const updateHistoryUpcomingSessions = async (req:any, res:any) => {
+export const updateHistoryUpcomingSessions = async (req:Request, res:Response) => {
   try {
     //need upcomingSessionId to delete and copy over the contents to hsitory session
     const { upcomingSessionId } = req.body;
@@ -89,5 +103,23 @@ export const updateHistoryUpcomingSessions = async (req:any, res:any) => {
     console.log(error)
     res.status(500).send(error);
     }
+}
 
+export const deleteUpcomingSession = async (req:Request, res:Response) => {
+  try {
+    const { id } = req.body.user;
+    const { sessionId } = req.params;
+    const sessionToDelete = await Models.UpcomingSession.findOne({where: {id: sessionId, StudentId: id}})
+    if (!sessionToDelete) {
+      res.status(404).send('Session doesn\'t exist');
+      return;
+    } else {
+    await sessionToDelete.destroy();
+    res.status(204).send('Session deleted')
+  }
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
 }

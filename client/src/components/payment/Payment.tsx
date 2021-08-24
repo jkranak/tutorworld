@@ -19,14 +19,14 @@ interface Props {
 const CARD_OPTIONS = {
 	style: {
 		base: {
-			iconColor: "#EA4C89",
-			color: "#EA4C89",
+			iconColor: "#001420",
+			color: "#001420",
 			fontWeight: 500,
 			fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
 			fontSize: "16px",
 			fontSmoothing: "antialiased",
-			":-webkit-autofill": { color: "#2B516C" },
-			"::placeholder": { color: "#F082AC" }
+			":-webkit-autofill": { color: "#001420" },
+			"::placeholder": { color: "#001420" }
 		},
 		invalid: {
 			iconColor: "#ffc7ee",

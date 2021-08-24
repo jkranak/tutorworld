@@ -24,7 +24,9 @@ const app = express();
   const io = socket(server);
 
   io.on('connection', (socket: Socket) => {
-
+  console.log('socket id', socket.id)
+  socket.emit("me", socket.id);
+  
   socket.on('join_room', (room) => {
     socket.join(room);
   })
@@ -37,5 +39,21 @@ const app = express();
   socket.on('disconnect', () => {
     console.log('user disconnected')
   })
+
+  socket.on('canvas-data', (data) => {
+		socket.broadcast.emit('canvas-data', data);
+	})
+
+	socket.on("callUser", ({ userToCall, signalData, from}) => {
+		io.to(userToCall).emit("callUser", { signal: signalData, from});
+	});
+
+	socket.on("answerCall", (data) => {
+		io.to(data.to).emit("callAccepted", data.signal)
+	});
+
+	socket.on('join-room', room => {
+		socket.join(room);
+	})
   
 })

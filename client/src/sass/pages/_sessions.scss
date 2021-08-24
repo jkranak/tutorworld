@@ -1,0 +1,52 @@
+.session-details{
+  &__content {
+    height: 90vh;
+    @include flex-row;
+  }
+  &__right-box {
+    width: 87%;
+    height: 100%;
+    @include flex-row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 10rem 0 0 5rem;
+  }
+  &--left {
+    width: 15%;
+    height: 25vh;
+    @include flex-column;
+    .image-box {
+      height: 20vh;
+      width: 20vh;
+      overflow: hidden;
+      border-radius: 50%;
+      img {
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+    h1 {
+      padding-top: 1rem;
+      font-size: 1.8rem;
+    }
+  }
+
+  &--right {
+    min-height: 25vh;
+    @include flex-column;
+    align-items: flex-start;
+    font-size: 2rem;
+    padding: 0 3rem;
+    border-left: 1px solid $light-grey;
+    .btn {
+      margin: 2rem 0;
+    }
+    p {
+      padding-top: 1rem;
+    }
+    .cant-cancel {
+      font-size: 1.3rem;
+      color: $grey;
+    }
+  }
+}

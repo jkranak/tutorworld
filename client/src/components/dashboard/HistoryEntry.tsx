@@ -15,6 +15,7 @@ interface Props {
 export const HistoryEntry: FC<Props> = ({session, user}: Props) => {
   const [otherUserInfo, setOtherUserInfo] = useState(emptyUserNameImage);
   const starArr: number[] = starRatingWhole(session.starRating);
+
   const reviewState = {
       date: session.date,
       time: session.time,
@@ -32,6 +33,7 @@ export const HistoryEntry: FC<Props> = ({session, user}: Props) => {
 
     const sessionDetailState = {
       type: 'history',
+      id: session.id,
       name: `${otherUserInfo.firstName} ${otherUserInfo.lastName}`,
       image: otherUserInfo.imageUrl,
       date: session.date,

@@ -62,7 +62,7 @@ const Map = () => {
 
   return (
     <LoadScript
-      googleMapsApiKey="AIzaSyBnYtRUEC--MMTK25JkUdkVM15khupjeZA"
+      googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}
       libraries={["places"]}
     >
       <GoogleMap
@@ -103,7 +103,7 @@ const Map = () => {
                 {libraryAllTutors.map((libraryAllTutor, index)=>
                   <div>
                     <h5>
-                      {`Tutor ${index+1}: ${libraryAllTutor.firstName} ${libraryAllTutor.lastName} ${libraryAllTutor.rating}`}
+                      {`Tutor ${index+1}: ${libraryAllTutor.firstName} ${libraryAllTutor.lastName} - ${libraryAllTutor.rating === null ? 'No ratings' : 'rating: ' + libraryAllTutor.rating}`}
                     </h5>
                     {libraryAllTutor.subjectLevels.map((subjectLevel)=>
                       <div>

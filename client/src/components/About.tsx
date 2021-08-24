@@ -6,6 +6,7 @@ import josephImg from '../assets/joseph.jpg'
 export const About: FC = () => {
   return (
     <div className="landing__body">
+      <h1>We are three coding musketeers with skills on both back end and front end. Our page includes many different technologies: The front end is done in React with Redux. The back end uses express with Sequelize. We also used Socket.io to create live video, a whiteboard, and live chat. We also include Google maps and Stripe integration.</h1>
       <div className="landing__body--box">
         <div className="image-box">
           <img src={biancaImg} alt="bianca"></img>

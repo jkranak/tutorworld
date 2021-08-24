@@ -41,7 +41,7 @@ export const getAllLibraries = async (req:any, res:any) => {
 
     const allLibraries= await Models.Library.findAll();
 
-    return res.status(200).send(allLibraries);
+    res.status(200).send(allLibraries);
 
   } catch (error) {
     console.log(error)
@@ -52,8 +52,13 @@ export const getAllLibraries = async (req:any, res:any) => {
 export const getLibraryAllTutors = async (req:any, res:any) => {
   try {
 
+    const { LibraryId } = req.params;
 
+    const allLibraryAllTutors = await Models.Library.findAll({where: {id: LibraryId}, include: [Models.TutorLibrary]});
 
+    if (!allLibraryAllTutors.length) return res.status(400).send('LibraryId does not exist');
+
+    res.status(200).send(allLibraryAllTutors);
 
 
   } catch (error) {

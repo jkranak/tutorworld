@@ -1,0 +1,85 @@
+.color-picker-container {
+  text-align: center;
+  display: inline;
+  color: white;
+}
+
+.brushsize-container {
+  display: inline;
+  color: white;
+  margin-left: 12px;
+}
+
+.tools-section {
+  text-align: center;
+}
+
+.call {
+  height: 100vh;
+  max-width: 100vw;
+  @include flex-column;
+  &__content {
+    @include flex-row;
+    max-height: 90vh;
+    width: 100vw;
+    background-color: $light-grey;
+  }
+  &__right-box {
+    width: 25%;
+    height: 90vh;
+    @include flex-column;
+    padding: 2rem 0;
+    justify-content: flex-start;
+    .btn {
+      font-size: 2rem;
+    }
+    .video {
+      background-color: brown;
+      @include flex-column;
+      &--me{
+        border-radius: 2rem;
+        background-color: blueviolet;
+        width: 90%;
+      }
+      &--other {
+        background-color: $light-grey;
+        background-image: url('../../assets/video-off.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 2rem;
+        width: 90%;
+
+      }
+    }
+    &--options {
+      @include flex-column;
+      height: 30%;
+      width: 100%;
+      input {
+        width: 50%;
+      }
+    }
+  }
+  .container {
+    width: 75%;
+    min-height: 90vh;
+    @include flex-column;
+    padding: 3rem;
+    .board-container {
+      width: 100%;
+      min-height: 80vh;
+      background: white;
+      border-radius: 2rem;
+      .sketch {
+        min-width: 100%;
+        min-height: 100%;
+        .board {
+          min-height: 80vh;
+          max-width: 100%;
+          border-radius: 2rem;
+        }
+      }
+    }
+  }
+}

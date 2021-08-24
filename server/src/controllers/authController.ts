@@ -50,7 +50,7 @@ export const login = async (req:any, res:any) => {
     }
     const user = student || tutor;
     if (student) SenderId = await Models.Sender.findOne({where: {UserId: student.id, role: 'student'}})
-    
+
     if (await bcrypt.compare(password, user.password)) {
       res.status(200).send(
         {
@@ -74,7 +74,7 @@ export const login = async (req:any, res:any) => {
 export const createTutor = async (req:any, res:any) => {
   const { email, firstName, lastName, password, confirmPassword, imageUrl } = req.body;
 
-  if (!email || !firstName || !lastName || !password ||!confirmPassword || !imageUrl) return res.status(400).send({ message: 'Please provide all fields.' });
+  if (!email || !firstName || !lastName || !password ||!confirmPassword ) return res.status(400).send({ message: 'Please provide all fields.' });
 
   try {
     const user = await Models.Tutor.findOne({where: {email}});

@@ -13,7 +13,7 @@ export const updateTutorInfo = async (req:any, res:any) => {
     const tutorInfo = await Models.TutorInfo.findOne({where:{TutorId: id}});
 
     await Models.Tutor.update(updatedTutor, {where: {id}});
-    await Models.Sender.update({where: {UserId: id}, firstName: updatedtutorInfo.firstName, lastName: updatedtutorInfo.lastName, imageUrl: updatedtutorInfo.imageUrl})
+    await Models.Sender.update({firstName: updatedtutorInfo.firstName, lastName: updatedtutorInfo.lastName, imageUrl: updatedtutorInfo.imageUrl}, {where: {UserId: id}})
 
     if(tutorInfo){
       //updating maybe a single column

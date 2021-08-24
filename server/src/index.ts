@@ -24,7 +24,6 @@ const app = express();
   const io = socket(server);
 
   io.on('connection', (socket: Socket) => {
-  console.log('socket id', socket.id)
 
   socket.on('join_room', (room) => {
     socket.join(room);

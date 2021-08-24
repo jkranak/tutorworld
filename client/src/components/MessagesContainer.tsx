@@ -10,8 +10,10 @@ import { currentRoom } from "../redux/actions/currentRoom";
 import { FiSearch } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { RootState } from '../redux/store/store';
+import { MessageCompleteI } from '../interfaces/Message';
+
 interface Props {
-  messagesList: []
+  messagesList: MessageCompleteI[]
   sendMessage: Function
   rooms: RoomI[],
 }

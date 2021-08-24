@@ -31,35 +31,6 @@ export const updateTutorInfo = async (req:any, res:any) => {
   }
 }
 
-// export const getAllTutorInfo = async (req:any, res:any) => {
-
-//   try {
-//     const { id } = req.body.user;
-
-//     const tutorInfoInstance = await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id}, include: Models.TutorInfo});
-
-//     if (tutorInfoInstance===null) {
-//       // spread operator and remove the TutorInfo property, removes all duplicates
-//       const tutorInfo = tutorInfoInstance.get({plain: true });
-//       const cleanTutorInfo = {...tutorInfo, ...tutorInfo.TutorInfo};
-//       delete cleanTutorInfo.TutorInfo;
-
-//       res.send(cleanTutorInfo);
-//       res.status(200);
-
-//     } else {
-//       res.send('Tutor has not created thier profile');
-//       res.status(204);
-//     }
-
-
-//   } catch (error) {
-//     console.log(error)
-//     res.status(500);
-//     res.send(error);
-//   }
-// }
-
 export const getStudentInfo = async (req:any, res:any) => {
   try {
     const { id } = req.body.user;
@@ -80,26 +51,6 @@ export const updateStudentInfo = async (req:any, res:any) => {
     await Models.Student.update({ id, email, firstName, lastName, imageUrl }, {where: {id}});
     await Models.Sender.update({where: {UserId: id}, firstName, lastName, imageUrl})
     res.status(201).send('Student updated');
-  } catch (error) {
-    console.log(error)
-    res.status(500).send(error);
-  }
-}
-
-export const getEveryTutorsInfo = async (req:any, res:any) => {
-  try {
-    const tutorsInfoInstance = await Models.Tutor.findAll({attributes: {exclude: ['password']}, include: Models.TutorInfo});
-
-    // spread operator and remove the TutorInfo property, removes all duplicates
-    const cleanTutorsInfo = tutorsInfoInstance.map((tutorInfoInstance:any) => {
-      const tutorInfo = tutorInfoInstance.get({plain: true });
-      const cleanTutorInfo = {...tutorInfo, ...tutorInfo.TutorInfo};
-      delete cleanTutorInfo.TutorInfo;
-      return cleanTutorInfo;
-    });
-    res.status(200).send(cleanTutorsInfo);
-
-
   } catch (error) {
     console.log(error)
     res.status(500).send(error);

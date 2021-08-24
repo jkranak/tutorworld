@@ -25,23 +25,19 @@ function deepCopy (availObj: AvailabilityDays) {
 
 export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDetails, setChangeAvail}: Props) => {
   const [chooseDay, setChooseDay] = useState('');
-  const [chooseHours, setChooseHours] = useState<string[]>([]);
+  const [chooseHours, setChooseHours] = useState(['']);
   const [newAvailability, setNewAvailability] = useState(deepCopy(tutorDetails.availability));
   const [saveMessage, setSaveMessage] = useState(false);
+  const [hourPicked, setHourPicked] = useState(false);
 
   const handleDayChange = (event: {target: {value: string}}) => {
     setChooseDay(event.target.value);
   }
 
   const handleHourChange = (event: {target: {value: string}}) => {
-    setChooseHours(current => ([...current, event.target.value]));
-  // const handleHourChange = (event: {target: {options: any}}) => {
-  //   let selectedHours: string[] = [];
-  //   console.log(event.target.options)
-  //   for (let option of event.target.options) {
-  //     if (option.selected) selectedHours.push(option.value);
-  //   }
-  //   setChooseHours(selectedHours);
+    if (chooseHours[0]?.length === 0) setChooseHours([event.target.value]);
+    else setChooseHours(current => ([...current, event.target.value]));
+    setHourPicked(true);
   }
 
   const handleSubmit = (event: any) => {
@@ -52,6 +48,7 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
     }
     setNewAvailability(updatedAvail);
     setSaveMessage(true);
+    setHourPicked(false);
   }
 
   const deleteHour = (day: string, hour: string) => {
@@ -62,8 +59,10 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
   }
 
   const removeHours = (hour: any) => {
-    if (chooseHours.length === 1) setChooseHours(['']);
-    else {
+    if (chooseHours.length === 1) {
+      setChooseHours(['']);
+      setHourPicked(false);
+    } else {
       const newSubjectList = chooseHours.filter((h)=> h !== hour );
       setChooseHours(newSubjectList);
     }
@@ -79,7 +78,8 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
       const newTutorAvail: Availability = Object.assign(newTutorDetails.availability, deepCopy(newAvailability));
       newTutorDetails.availability = newTutorAvail;
       setTutorDetails(newTutorDetails);
-      setChangeAvail(false)
+      setChangeAvail(false);
+      setHourPicked(false);
     }
   }
 
@@ -101,21 +101,23 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
             ))}
           </select>
           <div className="form--multi-select">
-            {chooseHours.length && chooseHours.map((hour) => 
+            {hourPicked && chooseHours.map((hour) => 
               <div key={hour} className="form--select-tag">
                 <span className="before-icon">{hour}</span>
                 <FiX onClick={() => removeHours(hour)} className="lib-icon link"/>
               </div>)}
         </div>
         </> : null}
-        <button type="submit" className="btn btn--blue form--btn">Add selected hours</button>
+        {hourPicked && <button type="submit" className="btn btn--blue form--btn">Add selected hours</button>}
       </form>
       <h1>Delete Availability</h1>
       <div className="form--multi-select multi-select-availability">
           {dayNames.map((day, index) => (
             <div key={day} className="hello">
               <span className="form--select-title">{capitalDayNames[index]}: </span>
-              {Object.keys(newAvailability[day]).map(hour => (
+              {Object.keys(newAvailability[day])
+              .sort((a, b) => hours.indexOf(a) - hours.indexOf(b))
+              .map(hour => (
               <div className="form--select-tag" key={hour}>
                 <span className="before-icon">{hour}</span>
                 <FiX className="lib-icon link" onClick={() => deleteHour(day, hour)}/>

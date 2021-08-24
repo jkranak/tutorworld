@@ -1,6 +1,7 @@
 import Models from '../../models';
+import { Request, Response } from 'express';
 
-export const updateTutorInfo = async (req:any, res:any) => {
+export const updateTutorInfo = async (req:Request, res:Response) => {
   try {
     const { id  } = req.body.user;
 
@@ -60,7 +61,7 @@ export const updateTutorInfo = async (req:any, res:any) => {
 //   }
 // }
 
-export const getStudentInfo = async (req:any, res:any) => {
+export const getStudentInfo = async (req:Request, res:Response) => {
   try {
     const { id } = req.body.user;
 
@@ -73,7 +74,7 @@ export const getStudentInfo = async (req:any, res:any) => {
   }
 }
 
-export const updateStudentInfo = async (req:any, res:any) => {
+export const updateStudentInfo = async (req:Request, res:Response) => {
   try {
     const { id, email, firstName, lastName, imageUrl } = req.body;
 
@@ -86,7 +87,7 @@ export const updateStudentInfo = async (req:any, res:any) => {
   }
 }
 
-export const getEveryTutorsInfo = async (req:any, res:any) => {
+export const getEveryTutorsInfo = async (req:Request, res:Response) => {
   try {
     const tutorsInfoInstance = await Models.Tutor.findAll({attributes: {exclude: ['password']}, include: Models.TutorInfo});
 
@@ -106,7 +107,7 @@ export const getEveryTutorsInfo = async (req:any, res:any) => {
   }
 }
 
-export const getAllTutorsInfoAvail = async (req:any, res:any) => {
+export const getAllTutorsInfoAvail = async (req:Request, res:Response) => {
   try {
     const allTutorsInfoAvailInstance = await Models.Tutor.findAll({attributes: {exclude: ['password']}, include: [Models.TutorInfo, Models.TutorAvailability]});
 
@@ -127,7 +128,7 @@ export const getAllTutorsInfoAvail = async (req:any, res:any) => {
   }
 }
 
-export const getTutorInfoAvail = async (req:any, res:any) => {
+export const getTutorInfoAvail = async (req:Request, res:Response) => {
   try {
 
     const { tutor } = req.params;

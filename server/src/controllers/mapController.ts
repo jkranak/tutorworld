@@ -1,6 +1,7 @@
 import Models from '../../models';
+import { Request, Response } from 'express';
 
-export const addTutorLibrary = async (req:any, res:any) => {
+export const addTutorLibrary = async (req:Request, res:Response) => {
   try {
     const { id  } = req.body.user;
 
@@ -20,7 +21,7 @@ export const addTutorLibrary = async (req:any, res:any) => {
   }
 }
 
-export const removeTutorLibrary = async (req:any, res:any) => {
+export const removeTutorLibrary = async (req:Request, res:Response) => {
   try {
     const { id  } = req.body.user;
 
@@ -42,7 +43,7 @@ export const removeTutorLibrary = async (req:any, res:any) => {
   }
 }
 
-export const addLibrary = async (req:any, res:any) => {
+export const addLibrary = async (req:Request, res:Response) => {
   try {
     const {name, lat, lng, address} = req.body;
 
@@ -58,7 +59,7 @@ export const addLibrary = async (req:any, res:any) => {
   }
 }
 
-export const getAllLibraries = async (req:any, res:any) => {
+export const getAllLibraries = async (req:Request, res:Response) => {
   try {
 
     const allLibraries= await Models.Library.findAll();
@@ -71,7 +72,7 @@ export const getAllLibraries = async (req:any, res:any) => {
   }
 }
 
-export const getLibraryAllTutors = async (req:any, res:any) => {
+export const getLibraryAllTutors = async (req:Request, res:Response) => {
   try {
 
     const { LibraryId } = req.params;
@@ -109,7 +110,7 @@ export const getLibraryAllTutors = async (req:any, res:any) => {
   }
 }
 
-export const getAllLibrariesTutor = async (req:any, res:any) => {
+export const getAllLibrariesTutor = async (req:Request, res:Response) => {
   try {
 
     const { TutorId } = req.params;

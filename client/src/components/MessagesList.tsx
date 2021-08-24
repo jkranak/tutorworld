@@ -29,16 +29,16 @@ export const MessagesList = ({ messagesList, sendMessage }: Props) => {
           <div className={`messages__content--message--${message.SenderId === user.SenderId ? 'right' : 'left'}`} key={uuidv4()}>
             <span>{message.content}</span>
             <span>{new Date(message.createdAt).toLocaleDateString() !== new Date().toLocaleDateString() 
-              ? `${new Date(message.createdAt).toLocaleDateString('en-US', {month: 'numeric', day: 'numeric'})}, ${new Date(message.createdAt).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit', hour12: true})}` 
+              ? `${new Date(message.createdAt).toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}, ${new Date(message.createdAt).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit', hour12: true})}` 
               : new Date(message.createdAt).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit', hour12: true})}</span>
             <span></span>
           </div>
         )}
+      </div>
         <div className="messages__content--send-message">
           <input type="text" name="message" value={message} onChange={(event) => setMessage(event.target.value)}/>
-          <button onClick={handleMessage}><FiChevronRight /></button>
+          <button ><FiChevronRight onClick={handleMessage}/></button>
         </div>
-      </div>
     </div>
   )
 }

@@ -5,7 +5,8 @@ import {getAllLibraries, getLibraryAllTutors} from '../services/apiMaps';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
-
+import dotenv from 'dotenv';
+dotenv.config();
 
 const containerStyle = {
   width: '600px',

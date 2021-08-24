@@ -72,7 +72,7 @@ router.get('/sender/:id/:role', authMiddleware, retrieveSenderId);
 
 //maps
 router.post('/tutors/tutor/libraries', authMiddleware, tutorMiddleware, addTutorLibrary);//adds a libray to a tutor (used in tutor profile to add a library to there list)
-router.post('/libraries', addLibrary); //adds a library to list of libraries available on app (used for us to easily input data in database)
+router.post('/libraries', addLibrary); //adds a library to list of libraries available on app (used for backend only, for us to easily input libraries in database)
 router.get('/libraries', authMiddleware, getAllLibraries);//get all libraries available on app
 router.get('/libraries/:LibraryId/allTutors', authMiddleware, getLibraryAllTutors); //get all tutors that teach at a specfic library
 router.get('/tutors/:TutorId/libraries', authMiddleware, getAllLibrariesTutor)//get all libraries of a specific tutor (used for tutorProfile)

@@ -10,7 +10,7 @@ import {stripePayment} from '../controllers/paymentController';
 import { addFavTutor, getAllFavTutors, removeFavTutor, getAllFavTutorsLess } from '../controllers/favTutorsController';
 import { updateRating } from '../controllers/ratingController';
 import { connectToRoom, retrieveMessagesByRoom, retrieveSenderId, retrieveUserRooms, sendMessage } from '../controllers/chatController';
-import { addLibrary, addTutorLibrary, getAllLibraries, getAllLibrariesTutor, getLibraryAllTutors } from '../controllers/mapController';
+import { addLibrary, addTutorLibrary, getAllLibraries, getAllLibrariesTutor, getLibraryAllTutors, removeTutorLibrary } from '../controllers/mapController';
 const router = express.Router();
 
 
@@ -76,6 +76,7 @@ router.post('/libraries', addLibrary); //adds a library to list of libraries ava
 router.get('/libraries', authMiddleware, getAllLibraries);//get all libraries available on app
 router.get('/libraries/:LibraryId/allTutors', authMiddleware, getLibraryAllTutors); //get all tutors that teach at a specfic library
 router.get('/tutors/:TutorId/libraries', authMiddleware, getAllLibrariesTutor)//get all libraries of a specific tutor (used for tutorProfile)
+router.delete('/tutors/tutor/:LibraryId', authMiddleware, tutorMiddleware, removeTutorLibrary); //when tutor wants to remove a library from thier options
 
 
 export default router;

@@ -39,3 +39,13 @@ export const getAllLibrariesTutor = async (TutorId: any) => {
     return error;
   }
 }
+
+export const removeTutorLibrary = async (LibraryId: any) => {
+  try {
+    const response = await api.delete(`/tutors/tutor/${LibraryId}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}

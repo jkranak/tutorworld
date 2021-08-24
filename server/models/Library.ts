@@ -29,11 +29,11 @@ module.exports = (sequelize:any, DataTypes:any) => {
       allowNull: false,
     },
     lat: {
-      type: DataTypes.REAL,
+      type: DataTypes.DOUBLE,
       allowNull: false,
     },
     lng: {
-      type: DataTypes.REAL,
+      type: DataTypes.DOUBLE,
       allowNull: false,
     },
     address: {

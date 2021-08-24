@@ -20,6 +20,28 @@ export const addTutorLibrary = async (req:any, res:any) => {
   }
 }
 
+export const removeTutorLibrary = async (req:any, res:any) => {
+  try {
+    const { id  } = req.body.user;
+
+    const { LibraryId  } = req.params;
+
+    const locationToDelete = await Models.TutorLibrary.findOne({where:{LibraryId, TutorId: id}});
+
+    if (!locationToDelete) {
+      res.status(404).send('The location is already not an option for this tutor');
+      return;
+    }
+    await locationToDelete.destroy();
+
+    res.status(200).send('Removed location from tutor option')
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).send(error);
+  }
+}
+
 export const addLibrary = async (req:any, res:any) => {
   try {
     const {name, lat, lng, address} = req.body;

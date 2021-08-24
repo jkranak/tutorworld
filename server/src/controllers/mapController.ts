@@ -54,11 +54,11 @@ export const getLibraryAllTutors = async (req:any, res:any) => {
 
     const { LibraryId } = req.params;
 
-    const allLibraryAllTutors = await Models.Library.findAll({where: {id: LibraryId}, include: [Models.TutorLibrary]});
+    const LibraryAllTutors = await Models.Library.findAll({where: {id: LibraryId}, include: [Models.TutorLibrary]});
 
-    if (!allLibraryAllTutors.length) return res.status(400).send('LibraryId does not exist');
+    if (!LibraryAllTutors.length) return res.status(400).send('LibraryId does not exist');
 
-    res.status(200).send(allLibraryAllTutors);
+    res.status(200).send(LibraryAllTutors);
 
 
   } catch (error) {
@@ -70,8 +70,28 @@ export const getLibraryAllTutors = async (req:any, res:any) => {
 export const getAllLibrariesTutor = async (req:any, res:any) => {
   try {
 
+    const { TutorId } = req.params;
 
+    const allLibraryTutorInstance = await Models.TutorLibrary.findAll({where: {TutorId}});
 
+    const allLibraryTutor = allLibraryTutorInstance.map((LibraryTutorInstance:any) => {
+      const LibraryTutor =  LibraryTutorInstance.get({plain: true });
+      return LibraryTutor;
+    });
+    
+    const allLibraryInfoTutorInstances = allLibraryTutor.map(async (LibraryTutor:any)=>{
+      const LibraryId = LibraryTutor.LibraryId;
+      return await Models.Library.findOne({where: {id: LibraryId}});
+    });
+
+    Promise.all(allLibraryInfoTutorInstances).then((values)=>{
+      const allLibraryInfoTutor = values.map((LibraryInfoTutorInstances:any)=>{
+        const LibraryInfo =  LibraryInfoTutorInstances.get({plain: true });
+        return LibraryInfo;
+      })
+
+      res.status(200).send(allLibraryInfoTutor);
+    })
 
 
   } catch (error) {

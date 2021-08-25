@@ -10,14 +10,13 @@ import { dayNames } from '../assets/times';
 
 export const Search: FC = () => {
   const [allTutors, setAllTutors] = useState<TutorWithAvailability[]>([]);
-  // TO-DO fix typescript anys
   const [filteredTutors, setFilteredTutors] = useState<TutorWithAvailability[]>(deepCopyTutorAvail(allTutors));
   const [subject, setSubject] = useState('');
   const [language, setLanguage] = useState('');
   const [weekday, setWeekday] = useState<string>('');
   const [hour, setHour] = useState('');
   const [search, setSearch] = useState(false);
-console.log(allTutors)
+
   useEffect(() => {
     getAllTutors().then(res => {
       setAllTutors(res);

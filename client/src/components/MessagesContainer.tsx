@@ -5,10 +5,10 @@ import { RoomI } from '../interfaces/Room';
 import { emptyUserNameImage } from '../interfaces/User';
 import { getStudentDetails, getTutorDetails } from '../services/apiUser';
 import { v4 as uuidv4 } from 'uuid';
-import { MessagesList } from "./MessagesList";
-import { currentRoom } from "../redux/actions/currentRoom";
-import { FiPhone, FiSearch } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { MessagesList } from './MessagesList';
+import { currentRoom } from '../redux/actions/currentRoom';
+import { FiPhone, FiSearch } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import { RootState } from '../redux/store/store';
 import { MessageCompleteI } from '../interfaces/Message';
 

@@ -1,5 +1,7 @@
+import {TutorWithAvailability} from '../../interfaces/Tutor';
+
 export interface IReduxBaseAction {
-  payload: any;
+  payload: TutorWithAvailability;
   type: EReduxActionTypes;
 }
 

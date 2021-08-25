@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {TutorComplete} from '../interfaces/Tutor';
+import {TutorWithAvailability} from '../interfaces/Tutor';
 import {starRating} from '../services/starRating';
 import { enterRoom, getSenderId } from '../services/apiChat';
 import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
@@ -10,7 +10,7 @@ import { currentRoom } from '../redux/actions/currentRoom';
 import { RootState } from '../redux/store/store';
 
 interface Props {
-  tutor: TutorComplete
+  tutor: TutorWithAvailability
 }
 
 export const SearchResult: FC<Props> = ({tutor}: Props) => {

@@ -4,9 +4,14 @@ import { io } from 'socket.io-client';
 import Peer from 'simple-peer';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FaCopy } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 
 const CONNECTION_PORT = process.env.REACT_APP_API_URL || '';
 const socket = io(CONNECTION_PORT, { transports : ['websocket'] });
+let socketId:any;
+socket.on('me', (id) => {
+  socketId = id;
+});
 
 const VideoPlayer = () => {
 
@@ -16,11 +21,11 @@ const VideoPlayer = () => {
   const [callEnded, setCallEnded] = useState(false);
   const [stream, setStream] = useState();
   const [call, setCall] = useState<any>({});
-  const [me, setMe] = useState('');
-
+  const [me, setMe] = useState(socketId);
   const myVideo: any = useRef();
   const userVideo: any = useRef();
   const connectionRef: any = useRef();
+  const history = useHistory();
 
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true, audio: true })
@@ -31,7 +36,6 @@ const VideoPlayer = () => {
       });
 
     socket.on('me', (id) => {
-      console.log("socket id", id);
       setMe(id)
     });
 
@@ -84,7 +88,7 @@ const VideoPlayer = () => {
 
     connectionRef.current.destroy();
 
-    window.location.reload();
+    history.push('/dashboard');
   };
 
   return (
@@ -110,12 +114,12 @@ const VideoPlayer = () => {
               </button>
             )}
         {call.isReceivingCall && !callAccepted && (
-            <button type="button" onClick={answerCall} className="btn btn--blue">
+            <button type="button" className="btn btn--blue" onClick={answerCall}>
               Answer this call
             </button>
         )}
         </div>
-            
+
         {callAccepted && !callEnded && (
           <video className="video--other" playsInline ref={userVideo} autoPlay/>
         )}

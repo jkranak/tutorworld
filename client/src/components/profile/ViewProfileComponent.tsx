@@ -4,7 +4,7 @@ import { BsStarFill, BsStar, BsStarHalf, BsCheckCircle, BsCircle } from 'react-i
 import { starRating } from '../../services/starRating';
 import {getFavTutorsLess, addFavTutor, removeFavTutor} from '../../services/apiUser';
 import { v4 as uuidv4 } from 'uuid';
-import { hours, dayNames, capitalDayNames } from '../../assets/times';
+import { hoursSpace, dayNames, capitalDayNames } from '../../assets/times';
 import { TutorWithAvailability} from '../../interfaces/Tutor';
 
 interface Props {
@@ -85,7 +85,7 @@ export const ViewProfileComponent: FC<Props> = ({tutorDetails}: Props) => {
           <p className="tutor-profile--sub-title">Weekly Availability</p>
           <div className="tutor-profile__info--availability-list">
             {dayNames.map((day, index) => (
-              <li className="tutor-profile__info--availability" key={day}>{capitalDayNames[index]}: {Object.keys(tutorDetails.availability[day]).sort((a, b) => hours.indexOf(a) - hours.indexOf(b)).join(', ')}</li>
+              <li className="tutor-profile__info--availability" key={day}>{capitalDayNames[index]}: {Object.keys(tutorDetails.availability[day]).sort((a, b) => hoursSpace.indexOf(a) - hoursSpace.indexOf(b)).join(', ')}</li>
             ))}
           </div>
         </div>

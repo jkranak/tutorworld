@@ -1,17 +1,16 @@
 import {FC} from 'react';
-// import { RootState } from 'app/redux/store';
-import {TutorComplete} from '../interfaces/Tutor';
-import {starRating} from '../services/starRating';
-import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux';
-import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
 import { useHistory } from 'react-router-dom';
+import {TutorWithAvailability} from '../interfaces/Tutor';
+import {starRating} from '../services/starRating';
 import { enterRoom, getSenderId } from '../services/apiChat';
+import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
+import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
 import { currentRoom } from '../redux/actions/currentRoom';
 import { RootState } from '../redux/store/store';
 
 interface Props {
-  tutor: TutorComplete
+  tutor: TutorWithAvailability
 }
 
 export const SearchResult: FC<Props> = ({tutor}: Props) => {
@@ -57,9 +56,12 @@ export const SearchResult: FC<Props> = ({tutor}: Props) => {
             <span>{tutor?.education}</span>
           </div>
           <div className="tutor-card__middle-box--rating">
-            {tutor.rating === null ? <span className="tutor-card__middle-box--no-ratings">No ratings yet</span> : starArr.map((el, index) => (
-              <span key={index} className="tutor-card__middle-box--star">{el === 2 ? <BsStarFill/> : el === 1 ? <BsStarHalf/> : <BsStar/>}</span>
-            ))}
+            {tutor.rating ? starArr.map((el, index) => (
+              <span key={index} className="tutor-card__middle-box--star">{el === 2 ? <BsStarFill/> : el === 1 ? <BsStarHalf/> : <BsStar/>}</span> 
+              ))
+              :
+              <span className="tutor-card__middle-box--no-ratings">No ratings yet</span>
+            }
           </div>
           <div className="tutor-card__middle-box--details">
               <h3>Rate: </h3>

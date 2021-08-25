@@ -48,7 +48,7 @@ export const ProfileTutorEdit: FC<Props> = ({tutorDetails, setTutorDetails, setE
   }
 
   const removeLanguage = (language: string) => {
-    if (tutorLanguages.length === 1) setTutorLanguages(['']);
+    if (tutorLanguages.length === 1) setTutorLanguages([]);
     else {
       const newLanguageList = tutorLanguages.filter((lang)=> lang !== language);
       setTutorLanguages(newLanguageList);
@@ -62,7 +62,7 @@ export const ProfileTutorEdit: FC<Props> = ({tutorDetails, setTutorDetails, setE
   }
 
   const removeSubject = (subject: string) => {
-    if (tutorSubjectLevels.length === 1) setTutorSubjectLevels(['']);
+    if (tutorSubjectLevels.length === 1) setTutorSubjectLevels([]);
     else {
       const newSubjectList = tutorSubjectLevels.filter((subj)=> subj !== subject);
       setTutorSubjectLevels(newSubjectList)

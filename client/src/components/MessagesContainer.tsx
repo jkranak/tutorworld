@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import noPhotoUser from '../assets/no_photo_user.png';
 import { RoomI } from '../interfaces/Room';
-import { emptyUserNameImage } from '../interfaces/User';
+import { emptyUserNameImage, UserAuth } from '../interfaces/User';
 import { getStudentDetails, getTutorDetails } from '../services/apiUser';
 import { v4 as uuidv4 } from 'uuid';
 import { MessagesList } from './MessagesList';
@@ -19,7 +19,7 @@ interface Props {
 }
 
 export const MessagesContainer = ({ messagesList, sendMessage, rooms }: Props) => {
-  const user = useSelector((state: RootState) => state.authenticate);
+  const user: UserAuth = useSelector((state: RootState) => state.authenticate);
   const room = useSelector((state: RootState) => state.currentRoom);
   const [userDetails, setUserDetails] = useState(emptyUserNameImage);
   const dispatch = useDispatch();

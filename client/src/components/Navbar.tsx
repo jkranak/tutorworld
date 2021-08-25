@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authenticate } from '../redux/actions/authenticate';
 import LogoLink from './LogoLink';
 import { RootState } from '../redux/store/store';
+import { UserAuth } from '../interfaces/User';
 
 export const Navbar = () => {
-  const user = useSelector((state: RootState) => state.authenticate)
+  const user: UserAuth = useSelector((state: RootState) => state.authenticate)
   const history = useHistory();
   const dispatch = useDispatch();
 

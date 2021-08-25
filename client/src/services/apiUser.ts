@@ -43,7 +43,7 @@ export const getStudentDetails = async () => {
   }
 }
 
-export const getTutorDetails = async (id: number) => {
+export const getTutorDetails = async (id: string) => {
   try {
     const response = await api.get(`/tutors/${id}/allInfo`);
     return response.data;

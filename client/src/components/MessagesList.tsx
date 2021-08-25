@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { MessageCompleteI } from '../interfaces/Message'
 import { v4 as uuidv4 } from 'uuid';
 import { RootState } from '../redux/store/store';
+import { UserAuth } from '../interfaces/User';
 
 interface Props {
   messagesList: MessageCompleteI[],
@@ -12,7 +13,7 @@ interface Props {
 
 export const MessagesList = ({ messagesList, sendMessage }: Props) => {
   // retrieve messages
-  const user = useSelector((state: RootState) => state.authenticate);
+  const user: UserAuth = useSelector((state: RootState) => state.authenticate);
   const [message, setMessage] = useState<string>('');
 
   const handleMessage = () => {

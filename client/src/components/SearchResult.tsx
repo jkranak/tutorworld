@@ -8,6 +8,7 @@ import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
 import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
 import { currentRoom } from '../redux/actions/currentRoom';
 import { RootState } from '../redux/store/store';
+import { UserAuth } from '../interfaces/User';
 
 interface Props {
   tutor: TutorWithAvailability
@@ -17,7 +18,7 @@ export const SearchResult: FC<Props> = ({tutor}: Props) => {
   const starArr: number[] = starRating(tutor?.rating);
   const dispatch = useDispatch();
   const history = useHistory();
-  const user = useSelector((state: RootState) => state.authenticate)
+  const user: UserAuth = useSelector((state: RootState) => state.authenticate)
 
   const handleSchedule = () => {
     dispatch(currentTutorInfo(tutor));

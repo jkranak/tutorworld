@@ -15,7 +15,6 @@ export const Search: FC = () => {
   const [language, setLanguage] = useState('');
   const [weekday, setWeekday] = useState<string>('');
   const [hour, setHour] = useState('');
-  const [search, setSearch] = useState(false);
 
   useEffect(() => {
     getAllTutors().then(res => {

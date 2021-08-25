@@ -28,12 +28,6 @@ export const Dashboard: FC = () => {
       <div className="dashboard__content">
         <Sidebar/>
         <main className="dashboard__content--display">
-            {/* <div className="dashboard__content--display--info">
-              <h1 className="dashboard__content--display--title">Unread Messages</h1>
-              <div className="dashboard__content--display--top--box">
-              <p>messages</p>
-              </div>
-            </div> */}
             <UpcomingSession />
             <History historyList={historyList}/>
           {user.role === 'tutor' ? 
@@ -46,5 +40,3 @@ export const Dashboard: FC = () => {
     </div>
   )
 }
-
-

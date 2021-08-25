@@ -3,7 +3,7 @@ import { BsStarFill, BsStar, BsStarHalf } from 'react-icons/bs'
 import { v4 as uuidv4 } from 'uuid';
 import { starRating } from '../../services/starRating';
 import {TutorWithAvailability} from '../../interfaces/Tutor';
-import {hours, dayNames, capitalDayNames} from '../../assets/times';
+import {hoursSpace, dayNames, capitalDayNames} from '../../assets/times';
 
 interface Props {
   tutorDetails: TutorWithAvailability
@@ -55,7 +55,7 @@ export const ProfileTutorView: FC<Props> = ({tutorDetails}: Props) => {
           <p className="tutor-profile--sub-title">Weekly Availability</p>
             <div>
               {tutorDetails.availability.TutorId && dayNames.map((day, index) => (
-                <li className="tutor-profile__info--availability" key={day}>{capitalDayNames[index]}: {Object.keys(tutorDetails?.availability[day]).sort((a, b) => hours.indexOf(a) - hours.indexOf(b)).join(', ')}</li>
+                <li className="tutor-profile__info--availability" key={day}>{capitalDayNames[index]}: {Object.keys(tutorDetails?.availability[day]).sort((a, b) => hoursSpace.indexOf(a) - hoursSpace.indexOf(b)).join(', ')}</li>
               ))}
             </div>
         </div>

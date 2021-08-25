@@ -5,7 +5,7 @@ export const updateTutorInfo = async (req:Request, res:Response) => {
   try {
     const { id  } = req.body.user;
 
-    const {email, firstName, lastName, description, experience, imageUrl, education, price, subjectLevels, languages  } = req.body;
+    const { email, firstName, lastName, description, experience, imageUrl, education, price, subjectLevels, languages  } = req.body;
 
     const updatedTutor = {email, firstName, lastName};
 

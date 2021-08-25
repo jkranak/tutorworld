@@ -26,7 +26,7 @@ const hours = [
   '8:00 PM',
   '9:00 PM',
   '10:00 PM',
-  '11:00 PM' 
+  '11:00 PM'
 ]
 
 export const getUpcomingSessions = async (req:Request, res:Response) => {
@@ -107,9 +107,8 @@ export const updateHistoryUpcomingSessions = async (req:Request, res:Response) =
 
 export const deleteUpcomingSession = async (req:Request, res:Response) => {
   try {
-    const { id } = req.body.user;
     const { sessionId } = req.params;
-    const sessionToDelete = await Models.UpcomingSession.findOne({where: {id: sessionId, StudentId: id}})
+    const sessionToDelete = await Models.UpcomingSession.findOne({where: {id: sessionId}})
     if (!sessionToDelete) {
       res.status(404).send('Session doesn\'t exist');
       return;

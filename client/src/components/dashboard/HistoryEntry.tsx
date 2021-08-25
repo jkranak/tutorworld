@@ -73,7 +73,7 @@ export const HistoryEntry: FC<Props> = ({session, user}: Props) => {
               ))}</span> : user.role === 'tutor' ? <span>No review given</span> : <Link to={{
                 pathname:'/review',
                 state: reviewState
-              }}>Review this session</Link>}
+              }} className="session-review">Review this session</Link>}
           </div>
         </div>
       </div>

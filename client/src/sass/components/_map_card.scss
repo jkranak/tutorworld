@@ -1,0 +1,49 @@
+.map-card {
+  
+  .tutor-card {
+    @include flex-row;
+    height: auto;
+    &__left-box {
+      @include flex-column;
+      border-right: none;
+      .image-box {
+        height: 6vh;
+        width: 6vh;
+      }
+    }
+    &__name {
+      font-size: 1.7rem;
+      height: 25%;
+    }
+  
+    &__middle-box {
+      border-left: 1px solid $light-grey;
+      padding: 0 2rem;
+      &--details {
+        font-size: 1.4rem;
+      }
+    }
+  
+    &__right-box {
+      &--description {
+        font-size: 1.4rem;
+        width: 40%;
+      }
+      &--buttons {
+        @include flex-column;
+        width: 60%;
+        .btn {
+          margin-top: 1rem;
+        }
+      }
+    }
+  }
+}
+
+.pop-up {
+  text-align: center;
+  &__title {
+    width: 100%;
+    font-size: 1.8rem;
+  }
+}

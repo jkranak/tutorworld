@@ -4,9 +4,10 @@ import { emptySessionComplex, SessionComplex } from '../../interfaces/Session';
 import { getUserSessions } from '../../services/apiUser';
 import { SessionEntry } from './SessionEntry';
 import { RootState } from '../../redux/store/store';
+import { UserAuth } from '../../interfaces/User';
 
 export const UpcomingSession: FC = () => {
-  const user = useSelector((state: RootState) => state.authenticate);
+  const user: UserAuth = useSelector((state: RootState) => state.authenticate);
   const [sessionList, setSessionList] = useState([emptySessionComplex]);
 
   useEffect(() => {

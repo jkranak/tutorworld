@@ -59,13 +59,13 @@ export const ViewProfileComponent: FC<Props> = ({tutorDetails}: Props) => {
         </div>
         <div className="tutor-profile__info-wrapper">
           <p className="tutor-profile--sub-title">Subjects:</p>
-          <div>
+          <div className="tutor-profile__info--tag-wrapper">
           {tutorDetails.subjectLevels?.map((subject: string) => (<span key={uuidv4()} className="tutor-profile__info--tag">{subject}</span>))}
           </div>
         </div>
         <div className="tutor-profile__info-wrapper">
           <p className="tutor-profile--sub-title">Languages:</p>
-          <div>
+          <div className="tutor-profile__info--tag-wrapper">
             {tutorDetails.languages?.map((language: string) => (<span key={uuidv4()} className="tutor-profile__info--tag">{language}</span>))}
           </div>
         </div>
@@ -73,7 +73,7 @@ export const ViewProfileComponent: FC<Props> = ({tutorDetails}: Props) => {
           <p className="tutor-profile--sub-title">Rating</p>
           {tutorDetails.rating > 0 ? <span>{starArr?.map(el => (
             el === 2 ? <BsStarFill key={uuidv4()} className="tutor-profile__info--star"/> : el === 1 ? <BsStarHalf key={uuidv4()} className="tutor-profile__info--star"/> : <BsStar key={uuidv4()} className="tutor-profile__info--star"/>
-          ))}</span> : <span>No ratings yet</span>}
+          ))}</span> : <span className="tutor-profile--details">No ratings yet</span>}
         </div>
         <div className="tutor-profile__info-wrapper">
           <p className="tutor-profile--sub-title">Experience</p>
@@ -81,13 +81,15 @@ export const ViewProfileComponent: FC<Props> = ({tutorDetails}: Props) => {
             {tutorDetails.experience}
           </p>
         </div>
-        <div>
-          <p>Weekly Availability</p>
-          {dayNames.map((day, index) => (
-            <li key={day}>{capitalDayNames[index]}: {Object.keys(tutorDetails.availability[day]).sort((a, b) => hoursSpace.indexOf(a) - hoursSpace.indexOf(b)).join(', ')}</li>
-          ))}
-          <p>Some slots may already be booked. Click on Schedule to see up-to-date availability.</p>
+        <div className="tutor-profile__info-wrapper--avail">
+          <p className="tutor-profile--sub-title">Weekly Availability</p>
+          <div className="tutor-profile__info--availability-list">
+            {dayNames.map((day, index) => (
+              <li className="tutor-profile__info--availability" key={day}>{capitalDayNames[index]}: {Object.keys(tutorDetails.availability[day]).sort((a, b) => hoursSpace.indexOf(a) - hoursSpace.indexOf(b)).join(', ')}</li>
+            ))}
+          </div>
         </div>
+        <p className="tutor-profile--details">Some slots may already be booked. Click on Schedule to see up-to-date availability.</p>
       </section>
     </div>
     </>

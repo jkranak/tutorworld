@@ -21,12 +21,20 @@
        box-shadow: $box-shadow;
 
        .earnings {
+        padding: 1rem 0;
         .dashboard__content--display--session--left-box {
           border: none;
         }
         &__total {
-          font-size: 3rem;
-          padding: 2rem 4rem;
+          font-size: 2rem;
+          padding: 2rem 2rem;
+        }
+        &-date {
+          font-size: 1.7rem;
+          font-weight: 300;
+        }
+        &-cost {
+          font-size: 1.7rem;
         }
        }
       }
@@ -99,6 +107,13 @@
           }
           button {
             display: inline-block;
+          }
+          .session-review {
+            font-size: 1.4rem;
+            transition: all .5s;
+            &:hover{
+              color: $pink;
+            }
           }
         }
       }

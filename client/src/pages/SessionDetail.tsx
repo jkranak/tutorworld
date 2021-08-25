@@ -6,9 +6,10 @@ import { Sidebar } from '../components/Sidebar';
 import { SessionDetailStudent } from '../components/SessionDetailStudent';
 import { SessionDetailTutor } from '../components/SessionDetailTutor';
 import {RootState} from '../redux/store/store';
+import { UserAuth } from '../interfaces/User';
 
 export const SessionDetail: FC = () => {
-  const user = useSelector((state: RootState) => state.authenticate);
+  const user: UserAuth = useSelector((state: RootState) => state.authenticate);
   
   return (
     <div className="session-details">

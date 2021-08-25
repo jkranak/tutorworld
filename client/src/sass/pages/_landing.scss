@@ -101,6 +101,7 @@
         font-size: 1.6rem;
         line-height: 1.5;
         padding: 2rem 3rem 2rem 1rem;
+        @include flex-row;
       }
     }
   }

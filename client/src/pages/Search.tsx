@@ -1,12 +1,12 @@
 import { useState, useEffect, FC } from 'react';
 import { Navbar } from '../components/Navbar';
 import { SearchResult } from '../components/SearchResult';
-import Map from '../components/Map';
 import { languages, subjects } from '../assets/subjects_languages';
 import { getAllTutors } from '../services/apiUser';
 import {deepCopyTutorAvail} from '../services/deepCopy';
 import { TutorWithAvailability } from '../interfaces/Tutor';
 import { dayNames } from '../assets/times';
+import { Link } from 'react-router-dom';
 
 export const Search: FC = () => {
   const [allTutors, setAllTutors] = useState<TutorWithAvailability[]>([]);
@@ -15,7 +15,6 @@ export const Search: FC = () => {
   const [language, setLanguage] = useState('');
   const [weekday, setWeekday] = useState<string>('');
   const [hour, setHour] = useState('');
-  const [search, setSearch] = useState(false);
 
   useEffect(() => {
     getAllTutors().then(res => {
@@ -96,63 +95,60 @@ export const Search: FC = () => {
     setFilteredTutors([...sorted]);
   }
   return (
-    <>
-      <div className="search">
-        <Navbar />
-        {!search?
-          <main className="search__content">
-            <section className="search__filters">
-              <div className="search__filters--inputs">
-                <select name="subjects" onChange={filterBySubject} value={subject} className="select-input" >
-                  <option value="" disabled>Subject/level</option>
-                  {subjects.map((subject: string, index) => (
-                    <option key={index} value={subject}>{subject}</option>
-                  ))}
-                </select>
-
-                <select name="languages" onChange={filterByLanguage} value={language} className="select-input">
-                  <option value="" disabled >Language</option>
-                  {languages.map((language: string, index) => (
-                    <option key={index} value={language}>{language}</option>
-                  ))}
-                </select>
-
-                <select name="weekday-availability" onChange={filterAvailability} value={weekday} className="select-input">
-                  <option value="" disabled >Weekday Availability</option>
-                  {dayNames.map((day: string, index) => (
-                    <option key={index} value={day}>{day}</option>
-                  ))}
-                </select>
-                {
-                  weekday &&
-                    <select name="hour-availability" onChange={filterByHour} value={hour} className="select-input">
-                      <option value="" disabled >Hour Availability</option>
-                      {displayHourlyAvailability().map((hour: string, index) => (
-                      <option key={index} value={hour}>{hour}</option>
-                      ))}
-                  </select>
-                }
-                <button onClick={resetSearch} className="btn btn--clear">Reset Search</button>
-                <button onClick={()=>setSearch(true)} className="btn btn--clear">Search by location</button>
-              </div>
-              <select onChange={handleSort} className="sort-input">
-                <option value="rating">Sort by Rating</option>
-                <option value="rate-highest">Sort by Highest Rate</option>
-                <option value="rate-lowest">Sort by Lowest Rate</option>
+    <div className="search">
+      <Navbar />
+        <main className="search__content">
+          <section className="search__filters">
+            <div className="search__filters--inputs">
+              <select name="subjects" onChange={filterBySubject} value={subject} className="select-input" >
+                <option value="" disabled>Subject/level</option>
+                {subjects.map((subject: string, index) => (
+                  <option key={index} value={subject}>{subject}</option>
+                ))}
               </select>
-            </section>
-            <section className="search__results">
-              {filteredTutors.map((tutor: TutorWithAvailability) => (
-                <SearchResult key={tutor.id} tutor={tutor} />
-              ))}
-            </section>
-          </main>
-        :
-      <div>
-        <Map/>
-        <button onClick={()=>setSearch(false)}>Go back</button>
-      </div>}
-      </div>
-    </>
+
+              <select name="languages" onChange={filterByLanguage} value={language} className="select-input">
+                <option value="" disabled >Language</option>
+                {languages.map((language: string, index) => (
+                  <option key={index} value={language}>{language}</option>
+                ))}
+              </select>
+
+              <select name="weekday-availability" onChange={filterAvailability} value={weekday} className="select-input">
+                <option value="" disabled >Weekday Availability</option>
+                {dayNames.map((day: string, index) => (
+                  <option key={index} value={day}>{day}</option>
+                ))}
+              </select>
+              {
+                weekday &&
+                  <select name="hour-availability" onChange={filterByHour} value={hour} className="select-input">
+                    <option value="" disabled >Hour Availability</option>
+                    {displayHourlyAvailability().map((hour: string, index) => (
+                    <option key={index} value={hour}>{hour}</option>
+                    ))}
+                </select>
+              }
+              <button onClick={resetSearch} className="btn btn--clear">Reset Search</button>
+              <Link to={'/map'} className="search-by-location">Search by location</Link>
+            </div>
+            <select onChange={handleSort} className="sort-input">
+              <option value="rating">Sort by Rating</option>
+              <option value="rate-highest">Sort by Highest Rate</option>
+              <option value="rate-lowest">Sort by Lowest Rate</option>
+            </select>
+            <select onChange={handleSort} className="sort-input">
+              <option value="rating">Sort by Rating</option>
+              <option value="rate-highest">Sort by Highest Rate</option>
+              <option value="rate-lowest">Sort by Lowest Rate</option>
+            </select>
+          </section>
+        <section className="search__results">
+          {filteredTutors.map((tutor: TutorWithAvailability) => (
+            <SearchResult key={tutor.id} tutor={tutor} />
+          ))}
+        </section>
+      </main>
+  </div>
   )
 }

@@ -6,6 +6,7 @@ import { languages, subjects } from '../assets/subjects_languages';
 import { getAllTutors } from '../services/apiUser';
 import { TutorWithAvailability } from '../interfaces/Tutor';
 import { dayNames } from '../assets/times';
+import { Link } from 'react-router-dom';
 
 export const Search: FC = () => {
   const [allTutors, setAllTutors] = useState<TutorWithAvailability[]>([]);
@@ -93,62 +94,56 @@ export const Search: FC = () => {
   }
   return (
     <div className="search">
-      <Navbar />
-      {!search?
-        <main className="search__content">
-          <section className="search__filters">
-            <div className="search__filters--inputs">
-              <select name="subjects" onChange={filterBySubject} defaultValue="" className="select-input" >
-                <option value="" disabled>Subject/level</option>
-                <option value="all">All Subjects</option>
-                {subjects.map((subject: string, index) => (
-                  <option key={index} value={subject}>{subject}</option>
-                ))}
-              </select>
-
-              <select name="languages" onChange={filterByLanguage} defaultValue="" className="select-input">
-                <option value="" disabled >Language</option>
-                <option value="all">All Languages</option>
-                {languages.map((language: string, index) => (
-                  <option key={index} value={language}>{language}</option>
-                ))}
-              </select>
-
-              <select name="weekday-availability" onChange={filterAvailability} defaultValue="" className="select-input">
-                <option value="" disabled >Weekday Availability</option>
-                <option value="all">All days</option>
-                {dayNames.map((day: string, index) => (
-                  <option key={index} value={day}>{day}</option>
-                ))}
-              </select>
-              <div onClick={()=>setSearch(true)} className="search-by-location">Search by location</div>
-              {
-                weekday &&
-                  <select name="hour-availability" onChange={filterByHour} defaultValue="" className="select-input">
-                    <option value="" disabled >Hour Availability</option>
-                    {displayHourlyAvailability().map((hour: string, index) => (
-                    <option key={index} value={hour}>{hour}</option>
-                    ))}
-                </select>
-              }
-            </div>
-            <select onChange={handleSort} className="sort-input">
-              <option value="rating">Sort by Rating</option>
-              <option value="rate-highest">Sort by Highest Rate</option>
-              <option value="rate-lowest">Sort by Lowest Rate</option>
+      <Navbar/>
+      <main className="search__content">
+        <section className="search__filters">
+          <div className="search__filters--inputs">
+            <select name="subjects" onChange={filterBySubject} defaultValue="" className="select-input" >
+              <option value="" disabled>Subject/level</option>
+              <option value="all">All Subjects</option>
+              {subjects.map((subject: string, index) => (
+                <option key={index} value={subject}>{subject}</option>
+              ))}
             </select>
-          </section>
-          <section className="search__results">
-            {filteredTutors.map((tutor: TutorWithAvailability) => (
-              <SearchResult key={tutor.id} tutor={tutor} />
-            ))}
-          </section>
-        </main>
-      :
-    <div>
-      <Map/>
-      <button onClick={()=>setSearch(false)}>Go back</button>
-    </div>}
+
+            <select name="languages" onChange={filterByLanguage} defaultValue="" className="select-input">
+              <option value="" disabled >Language</option>
+              <option value="all">All Languages</option>
+              {languages.map((language: string, index) => (
+                <option key={index} value={language}>{language}</option>
+              ))}
+            </select>
+
+            <select name="weekday-availability" onChange={filterAvailability} defaultValue="" className="select-input">
+              <option value="" disabled >Weekday Availability</option>
+              <option value="all">All days</option>
+              {dayNames.map((day: string, index) => (
+                <option key={index} value={day}>{day}</option>
+              ))}
+            </select>
+            <Link to={'/map'} className="search-by-location">Search by location</Link>
+            {
+              weekday &&
+                <select name="hour-availability" onChange={filterByHour} defaultValue="" className="select-input">
+                  <option value="" disabled >Hour Availability</option>
+                  {displayHourlyAvailability().map((hour: string, index) => (
+                  <option key={index} value={hour}>{hour}</option>
+                  ))}
+              </select>
+            }
+          </div>
+          <select onChange={handleSort} className="sort-input">
+            <option value="rating">Sort by Rating</option>
+            <option value="rate-highest">Sort by Highest Rate</option>
+            <option value="rate-lowest">Sort by Lowest Rate</option>
+          </select>
+        </section>
+        <section className="search__results">
+          {filteredTutors.map((tutor: TutorWithAvailability) => (
+            <SearchResult key={tutor.id} tutor={tutor} />
+          ))}
+        </section>
+      </main>
   </div>
   )
 }

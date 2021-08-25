@@ -9,8 +9,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const containerStyle = {
-  width: '600px',
-  height: '600px'
+  width: '100%',
+  height: '100%'
 };
 
 const Map = () => {
@@ -62,65 +62,67 @@ const Map = () => {
 
 
   return (
-    <LoadScript
-      googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}
-      libraries={["places"]}
-    >
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={{
-          lat,
-          lng
-        }}
-        zoom={10}
+    <div className="map">
+      <LoadScript
+        googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}
+        libraries={["places"]}
       >
-        <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
-          <input
-            type="text"
-            placeholder="Customized your placeholder"
-            style={{
-              boxSizing: `border-box`,
-              border: `1px solid transparent`,
-              width: `240px`,
-              height: `32px`,
-              padding: `0 12px`,
-              borderRadius: `3px`,
-              boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-              fontSize: `14px`,
-              outline: `none`,
-              textOverflow: `ellipses`,
-              position: "absolute",
-              left: "50%",
-              marginLeft: "-120px"
-            }}
-          />
-        </StandaloneSearchBox>
-        {librarys.map((library:any) => <Marker key={library.id} position={{lat: library.lat,lng: library.lng }} onClick={()=> {handleClick(library)}}/>)}
-        {selectedLibrary && libraryAllTutors && (
-          <InfoWindow position={{lat: selectedLibrary.lat,lng: selectedLibrary.lng }} onCloseClick={()=>{setSelectedLibrary(null)}}>
-            <div>
-              <h3>Library Name: {selectedLibrary.name}<br></br>Address: {selectedLibrary.address} </h3>
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={{
+            lat,
+            lng
+          }}
+          zoom={10}
+        >
+          <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
+            <input
+              type="text"
+              placeholder="Search Google Maps"
+              style={{
+                boxSizing: `border-box`,
+                border: `1px solid transparent`,
+                width: `240px`,
+                height: `32px`,
+                padding: `0 12px`,
+                borderRadius: `3px`,
+                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                fontSize: `14px`,
+                outline: `none`,
+                textOverflow: `ellipses`,
+                position: "absolute",
+                left: "50%",
+                marginLeft: "-120px"
+              }}
+            />
+          </StandaloneSearchBox>
+          {librarys.map((library:any) => <Marker key={library.id} position={{lat: library.lat,lng: library.lng }} onClick={()=> {handleClick(library)}}/>)}
+          {selectedLibrary && libraryAllTutors && (
+            <InfoWindow position={{lat: selectedLibrary.lat,lng: selectedLibrary.lng }} onCloseClick={()=>{setSelectedLibrary(null)}}>
               <div>
-                {libraryAllTutors.map((libraryAllTutor, index)=>
-                  <div>
-                    <h5>
-                      {`Tutor ${index+1}: ${libraryAllTutor.firstName} ${libraryAllTutor.lastName} - ${libraryAllTutor.rating === null ? 'No ratings' : 'rating: ' + libraryAllTutor.rating}`}
-                    </h5>
-                    {libraryAllTutor.subjectLevels.map((subjectLevel)=>
-                      <div>
-                        {subjectLevel}
-                      </div>
-                    )}
-                    <button className="btn btn--blue" onClick={()=> handleSchedule(libraryAllTutor)}>Schedule</button>
-                    <button className="btn btn--blue" onClick={()=> handleProfile(libraryAllTutor)}>Profile</button>
-                  </div>
-                )}
+                <h3>Library Name: {selectedLibrary.name}<br></br>Address: {selectedLibrary.address} </h3>
+                <div>
+                  {libraryAllTutors.map((libraryAllTutor, index)=>
+                    <div>
+                      <h5>
+                        {`Tutor ${index+1}: ${libraryAllTutor.firstName} ${libraryAllTutor.lastName} - ${libraryAllTutor.rating === null ? 'No ratings' : 'rating: ' + libraryAllTutor.rating}`}
+                      </h5>
+                      {libraryAllTutor.subjectLevels.map((subjectLevel)=>
+                        <div>
+                          {subjectLevel}
+                        </div>
+                      )}
+                      <button className="btn btn--blue" onClick={()=> handleSchedule(libraryAllTutor)}>Schedule</button>
+                      <button className="btn btn--blue" onClick={()=> handleProfile(libraryAllTutor)}>Profile</button>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          </InfoWindow>
-        )}
-      </GoogleMap>
-    </LoadScript>
+            </InfoWindow>
+          )}
+        </GoogleMap>
+      </LoadScript>
+    </div>
   )
 }
 

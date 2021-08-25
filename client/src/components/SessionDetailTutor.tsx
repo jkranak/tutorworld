@@ -5,7 +5,8 @@ import { BsStarFill, BsStar } from 'react-icons/bs';
 import { starRatingWhole } from '../services/starRating';
 import { Link, useHistory } from 'react-router-dom';
 import {hoursSpace} from '../assets/times';
-import { deleteSession } from '../services/apiUser';
+import { deleteSession, updateHistoryUpcomingSessions } from '../services/apiUser';
+
 
 interface Props {
   sessionInfo: SessionDetail
@@ -14,6 +15,7 @@ interface Props {
 export const SessionDetailTutor: FC<Props> = ({sessionInfo}: Props) => {
   const [error, setError] = useState(false);
   const [tooLate, setTooLate] = useState(false);
+  const [datePassed, setDatePassed] = useState(false);
   const starArr = starRatingWhole(sessionInfo.rating);
   const history = useHistory();
 
@@ -31,6 +33,10 @@ export const SessionDetailTutor: FC<Props> = ({sessionInfo}: Props) => {
     const twentyFourHours = 24 * 60 * 60 * 1000;
     if ((Number(date) - Number(today)) < twentyFourHours) {
       setTooLate(true);
+    if ((Number(date) - Number(today)) <= 0) {
+      setDatePassed(true);
+      console.log('Session date has passed')
+    }
     }
   }, [sessionInfo.date, sessionInfo.time])
 
@@ -38,6 +44,14 @@ export const SessionDetailTutor: FC<Props> = ({sessionInfo}: Props) => {
     console.log(sessionInfo.id);
     const res = await deleteSession(sessionInfo.id);
     if (res === 204){
+      history.push('/dashboard')
+    } else setError(true);
+  }
+
+  const handleComplete = async () => {
+    console.log(sessionInfo.id);
+    const res = await updateHistoryUpcomingSessions(sessionInfo.id);
+    if (res === 200){
       history.push('/dashboard')
     } else setError(true);
   }
@@ -70,6 +84,7 @@ export const SessionDetailTutor: FC<Props> = ({sessionInfo}: Props) => {
                   state: reviewState
                 }}>Update Review</Link>
         </div> : (!tooLate && <button onClick={handleDelete} disabled={tooLate} className="btn btn--blue" >Cancel Session</button>)}
+        {sessionInfo.type !== 'history' && datePassed && <button onClick={handleComplete} disabled={!datePassed} className="btn btn--blue" >Complete Session</button>}
         {tooLate && <p className="cant-cancel">Sessions cannot be cancelled less than 24 hours before start time.</p>}
         {error && <p>Error cancelling session</p>}
       </section>

@@ -33,8 +33,8 @@ export const ProfileTutorEdit: FC<Props> = ({tutorDetails, setTutorDetails, setE
     education: tutorDetails.education, 
     price: tutorDetails.price,
   });
-    const [tutorLanguages, setTutorLanguages] = useState([...tutorDetails.languages]);
-    const [tutorSubjectLevels, setTutorSubjectLevels] = useState([...tutorDetails.subjectLevels]);
+    const [tutorLanguages, setTutorLanguages] = useState(tutorDetails.languages ? [...tutorDetails.languages] : []);
+    const [tutorSubjectLevels, setTutorSubjectLevels] = useState(tutorDetails.subjectLevels ? [...tutorDetails.subjectLevels] : []);
     const [changeAvail, setChangeAvail] = useState(false);
 
   const handleTutorChange = (event: {target: {name: string, value: string}}) => {
@@ -97,7 +97,8 @@ export const ProfileTutorEdit: FC<Props> = ({tutorDetails, setTutorDetails, setE
 
         <label>Email</label>
         <input type="email" id="email" name="email" onChange={handleTutorChange} defaultValue={tutorDetails.email} placeholder="Email" required className="text-input text-input--blue"/>
-
+        <label>Profile Image URL</label>
+        <input type="text" id="imageUrl" name="imageUrl" onChange={handleTutorChange} defaultValue={tutorDetails.imageUrl} placeholder="Image URL" required className="text-input text-input--blue" />
         <label>Description</label>
         <input type="text" className="text-input text-input--blue" id="description" name="description" onChange={handleTutorChange} defaultValue={tutorDetails.description} placeholder="Description" required/>
 

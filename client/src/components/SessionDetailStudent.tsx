@@ -70,7 +70,7 @@ export const SessionDetailStudent: FC<Props> = ({sessionInfo}: Props) => {
                 }}>Update Review</Link>
         </div> : <button onClick={handleDelete} disabled={tooLate} className="btn btn--blue" >Cancel Session</button>}
         {tooLate && <p className="cant-cancel">Sessions cannot be cancelled less than 24 hours before start time.</p>}
-        {error && <p>Error deleting session</p>}
+        {error && <p>Error cancelling session</p>}
       </section>
     </div>
   )

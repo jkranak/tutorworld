@@ -17,7 +17,7 @@ const VideoPlayer = () => {
   const [stream, setStream] = useState();
   const [call, setCall] = useState<any>({});
   const [me, setMe] = useState('');
-
+console.log(me)
   const myVideo: any = useRef();
   const userVideo: any = useRef();
   const connectionRef: any = useRef();
@@ -111,7 +111,7 @@ const VideoPlayer = () => {
               </button>
             )}
         {call.isReceivingCall && !callAccepted && (
-            <button type="button" onClick={answerCall}>
+            <button type="button" className="btn btn--blue" onClick={answerCall}>
               Answer this call
             </button>
         )}

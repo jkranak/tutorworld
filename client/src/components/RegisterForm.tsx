@@ -79,4 +79,3 @@ export const RegisterForm: FC<Props> = ({setToggle}: Props) => {
     </div>
   )
 }
-

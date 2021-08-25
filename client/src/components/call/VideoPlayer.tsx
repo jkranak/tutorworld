@@ -4,6 +4,7 @@ import { io } from 'socket.io-client';
 import Peer from 'simple-peer';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FaCopy } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 
 const CONNECTION_PORT = process.env.REACT_APP_API_URL || '';
 const socket = io(CONNECTION_PORT, { transports : ['websocket'] });
@@ -24,6 +25,7 @@ const VideoPlayer = () => {
   const myVideo: any = useRef();
   const userVideo: any = useRef();
   const connectionRef: any = useRef();
+  const history = useHistory();
 
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true, audio: true })
@@ -86,7 +88,7 @@ const VideoPlayer = () => {
 
     connectionRef.current.destroy();
 
-    window.location.reload();
+    history.push('/dashboard');
   };
 
   return (

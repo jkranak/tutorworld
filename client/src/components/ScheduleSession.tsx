@@ -5,7 +5,7 @@ import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import {getOneTutorAvailability} from '../services/apiUser';
 import { useSelector } from 'react-redux';
-import { dayNames, hours } from '../assets/times';
+import { dayNames, hoursSpace } from '../assets/times';
 import { RootState } from '../redux/store/store';
 
 export const ScheduleSession: FC = () => {
@@ -27,7 +27,7 @@ export const ScheduleSession: FC = () => {
       const dateStr = selectedDay.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
       getOneTutorAvailability(user.id, dateStr).then(res => {
         setPickTime(false);
-        res.sort((a: string, b: string) => hours.indexOf(a) - hours.indexOf(b))
+        res.sort((a: string, b: string) => hoursSpace.indexOf(a) - hoursSpace.indexOf(b))
         setTimesArr(res);
         setPickTime(true);
         setSelectedHour('');

@@ -1,6 +1,6 @@
 import { useState, FC, FormEvent } from 'react';
 import { FiX } from 'react-icons/fi';
-import { hours, dayNames, capitalDayNames } from '../../assets/times';
+import { hoursSpace, dayNames, capitalDayNames } from '../../assets/times';
 import { Availability } from '../../interfaces/Availability';
 import { TutorWithAvailability } from '../../interfaces/Tutor';
 import { updateAvailability } from '../../services/apiUser';
@@ -87,7 +87,7 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
         {chooseDay.length ? <>
           <select name="selecthour" defaultValue="" onChange={handleHourChange} className="select-input select-input--blue">
             <option value="" disabled>Choose hour(s)</option>
-            {hours.map(hour => (
+            {hoursSpace.map(hour => (
               <option key={hour} value={hour}>{hour}</option>
             ))}
           </select>
@@ -107,7 +107,7 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
             <div key={day} className="hello">
               <span className="form--select-title">{capitalDayNames[index]}: </span>
               {Object.keys(newAvailability[day])
-              .sort((a, b) => hours.indexOf(a) - hours.indexOf(b))
+              .sort((a, b) => hoursSpace.indexOf(a) - hoursSpace.indexOf(b))
               .map(hour => (
               <div className="form--select-tag" key={hour}>
                 <span className="before-icon">{hour}</span>

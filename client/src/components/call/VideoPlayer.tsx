@@ -95,7 +95,6 @@ const VideoPlayer = () => {
           <video className="video--me" playsInline muted ref={myVideo} autoPlay/>
         )}
         <div className="call__right-box--options">
-        <div>ID: {me}</div>
         <CopyToClipboard text={me} >
           <div className="btn btn--clear">
             <span className="before-icon">Copy Your ID</span>

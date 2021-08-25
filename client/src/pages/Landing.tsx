@@ -46,7 +46,8 @@ export const Landing: FC = () => {
             <div className="btn btn--clear" onClick={handleLogout} ><FaSignOutAlt/></div>
           </div>
           :
-            <Link to={'/login'} className="btn btn--blue">
+            <Link to={{pathname:'/login', 
+              state: {toggle: 'login'}}} className="btn btn--blue">
               <span className="before-icon">SIGN IN</span>
               <FaUser className="lib-icon"/>
             </Link>
@@ -58,4 +59,3 @@ export const Landing: FC = () => {
     </div>
   )
 }
-

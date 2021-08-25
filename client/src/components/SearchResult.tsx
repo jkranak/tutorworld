@@ -1,12 +1,11 @@
 import {FC} from 'react';
-// import { RootState } from 'app/redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {TutorComplete} from '../interfaces/Tutor';
 import {starRating} from '../services/starRating';
-import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
-import { useDispatch, useSelector } from 'react-redux';
-import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
-import { useHistory } from 'react-router-dom';
 import { enterRoom, getSenderId } from '../services/apiChat';
+import {BsStarFill, BsStar, BsStarHalf} from 'react-icons/bs'
+import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
 import { currentRoom } from '../redux/actions/currentRoom';
 import { RootState } from '../redux/store/store';
 

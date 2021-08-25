@@ -93,13 +93,12 @@ const VideoPlayer = () => {
           <video className="video--me" playsInline muted ref={myVideo} autoPlay/>
         )}
         <div className="call__right-box--options">
-        <CopyToClipboard text={me} >
-          <div className="btn btn--clear">
-            <span className="before-icon">Copy Your ID</span>
-            <FaCopy/>
-          </div>
-        </CopyToClipboard>
-
+          <CopyToClipboard text={me} >
+            <div className="btn btn--clear">
+              <span className="before-icon">Copy Your ID</span>
+              <FaCopy/>
+            </div>
+          </CopyToClipboard>
             <input type="text" placeholder="ID to call" value={idToCall} onChange={(e) => setIdToCall(e.target.value)} className="text-input text-input--blue"/>
             {callAccepted && !callEnded ? (
               <button onClick={leaveCall} className="btn btn--blue" >
@@ -111,7 +110,7 @@ const VideoPlayer = () => {
               </button>
             )}
         {call.isReceivingCall && !callAccepted && (
-            <button type="button" onClick={answerCall}>
+            <button type="button" onClick={answerCall} className="btn btn--blue">
               Answer this call
             </button>
         )}

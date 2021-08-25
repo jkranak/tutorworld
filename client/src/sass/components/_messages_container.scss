@@ -21,6 +21,7 @@
   &--right-box {
     width: 70%;
     height: 100%;
+    padding: 2rem;
     &--find-tutor{
       height: 100%;
       width: 100%;
@@ -81,7 +82,7 @@
   }
 
   &--messages-list {
-    height: 90%;
+    max-height: 90%;
     padding: 3rem;
     // TO-DO fix scroll
     overflow-y: scroll;

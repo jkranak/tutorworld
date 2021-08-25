@@ -7,6 +7,10 @@ import { FaCopy } from 'react-icons/fa';
 
 const CONNECTION_PORT = process.env.REACT_APP_API_URL || '';
 const socket = io(CONNECTION_PORT, { transports : ['websocket'] });
+let socketId:any;
+socket.on('me', (id) => {
+  socketId = id;
+});
 
 const VideoPlayer = () => {
 
@@ -16,8 +20,7 @@ const VideoPlayer = () => {
   const [callEnded, setCallEnded] = useState(false);
   const [stream, setStream] = useState();
   const [call, setCall] = useState<any>({});
-  const [me, setMe] = useState('');
-console.log(me)
+  const [me, setMe] = useState(socketId);
   const myVideo: any = useRef();
   const userVideo: any = useRef();
   const connectionRef: any = useRef();
@@ -31,7 +34,6 @@ console.log(me)
       });
 
     socket.on('me', (id) => {
-      console.log("socket id", id);
       setMe(id)
     });
 
@@ -93,6 +95,7 @@ console.log(me)
           <video className="video--me" playsInline muted ref={myVideo} autoPlay/>
         )}
         <div className="call__right-box--options">
+        <div>ID: {me}</div>
         <CopyToClipboard text={me} >
           <div className="btn btn--clear">
             <span className="before-icon">Copy Your ID</span>
@@ -116,7 +119,7 @@ console.log(me)
             </button>
         )}
         </div>
-            
+
         {callAccepted && !callEnded && (
           <video className="video--other" playsInline ref={userVideo} autoPlay/>
         )}

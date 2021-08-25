@@ -21,4 +21,21 @@
   .select-input {
     text-transform: capitalize;
   }
+  .search-by-location {
+    height: 6rem;
+    width: 70%;
+    padding: 2rem;
+    @include flex-row;
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: $main-font;
+    border-radius: .5rem;
+    color: $font-light;
+    background-color: $grey;
+    transition: all .5s;
+    &:hover {
+      background-color: $dark-grey;
+      cursor: pointer;
+    }
+  }
 }

@@ -1,7 +1,6 @@
 import { useState, useEffect, FC } from 'react';
 import { Navbar } from '../components/Navbar';
 import { SearchResult } from '../components/SearchResult';
-import Map from '../components/Map';
 import { languages, subjects } from '../assets/subjects_languages';
 import { getAllTutors } from '../services/apiUser';
 import { TutorWithAvailability } from '../interfaces/Tutor';
@@ -13,7 +12,6 @@ export const Search: FC = () => {
   // TO-DO fix typescript anys
   const [filteredTutors, setFilteredTutors] = useState<TutorWithAvailability[]>([]);
   const [ weekday, setWeekday ] = useState<string>('');
-  const [search, setSearch] = useState(false);
 
   useEffect(() => {
     getAllTutors().then(res => {

@@ -2,11 +2,9 @@
 import React, {useState, useEffect} from 'react';
 import { GoogleMap, Marker, LoadScript, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
 import {getAllLibraries, getLibraryAllTutors} from '../services/apiMaps';
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { currentTutorInfo } from '../redux/actions/currentTutorInfo';
 import dotenv from 'dotenv';
 import { Navbar } from '../components/Navbar';
+import { SearchResult } from '../components/SearchResult';
 dotenv.config();
 
 const containerStyle = {
@@ -23,9 +21,6 @@ const Map = () => {
   const [selectedLibrary, setSelectedLibrary] = useState(null);
   const [libraryAllTutors, setLibraryAllTutors] = useState(null);
 
-  const dispatch = useDispatch();
-  const history = useHistory();
-
   const onLoad = (ref:any) => setSearchBox(ref);
 
   const onPlacesChanged = () => {
@@ -41,16 +36,6 @@ const Map = () => {
       setLibraryAllTutors(libraryTutors);
     })
     setSelectedLibrary(library);
-  }
-
-  const handleSchedule = (libraryAllTutor) => {
-    dispatch(currentTutorInfo(libraryAllTutor));
-    history.push('/schedule');
-  }
-
-  const handleProfile = (libraryAllTutor) => {
-    dispatch(currentTutorInfo(libraryAllTutor));
-    history.push('/viewprofile');
   }
 
   useEffect(() => {
@@ -85,16 +70,16 @@ const Map = () => {
                 style={{
                   boxSizing: `border-box`,
                   border: `1px solid transparent`,
-                  width: `240px`,
-                  height: `32px`,
+                  width: `24rem`,
+                  height: `4rem`,
                   padding: `0 12px`,
-                  borderRadius: `3px`,
                   boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                  fontSize: `14px`,
+                  fontSize: `1.6rem`,
                   outline: `none`,
                   textOverflow: `ellipses`,
                   position: "absolute",
                   left: "50%",
+                  top: "1.4rem",
                   marginLeft: "-120px"
                 }}
               />
@@ -102,22 +87,15 @@ const Map = () => {
             {librarys.map((library:any) => <Marker key={library.id} position={{lat: library.lat,lng: library.lng }} onClick={()=> {handleClick(library)}}/>)}
             {selectedLibrary && libraryAllTutors && (
               <InfoWindow position={{lat: selectedLibrary.lat,lng: selectedLibrary.lng }} onCloseClick={()=>{setSelectedLibrary(null)}}>
-                <div>
-                  <h3>Library Name: {selectedLibrary.name}<br></br>Address: {selectedLibrary.address} </h3>
+                <div className="pop-up">
+                  <div className="pop-up__title">
+                    <h3>Library Name: {selectedLibrary.name}<br></br>Address: {selectedLibrary.address} </h3>
+                  </div>
                   <div>
-                    {libraryAllTutors.map((libraryAllTutor, index)=>
-                      <div>
-                        <h5>
-                          {`Tutor ${index+1}: ${libraryAllTutor.firstName} ${libraryAllTutor.lastName} - ${libraryAllTutor.rating === null ? 'No ratings' : 'rating: ' + libraryAllTutor.rating}`}
-                        </h5>
-                        {libraryAllTutor.subjectLevels.map((subjectLevel)=>
-                          <div>
-                            {subjectLevel}
-                          </div>
-                        )}
-                        <button className="btn btn--blue" onClick={()=> handleSchedule(libraryAllTutor)}>Schedule</button>
-                        <button className="btn btn--blue" onClick={()=> handleProfile(libraryAllTutor)}>Profile</button>
-                      </div>
+                    {libraryAllTutors.map((libraryAllTutor)=>
+                    <div className="map-card">
+                      <SearchResult tutor={libraryAllTutor}/>
+                    </div>
                     )}
                   </div>
                 </div>

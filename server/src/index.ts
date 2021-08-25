@@ -24,7 +24,7 @@ const app = express();
   const io = socket(server);
 
   io.on('connection', (socket: Socket) => {
-  console.log('socket id', socket.id)
+  console.log('socket id', socket.id);
   socket.emit("me", socket.id);
   
   socket.on('join_room', (room) => {

@@ -80,8 +80,6 @@ export const CalendarPage: FC = () => {
     )
   }
 
-
-
   return (
     <div className="calendar">
     <Navbar />

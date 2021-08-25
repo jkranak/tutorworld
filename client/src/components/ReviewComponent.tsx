@@ -56,7 +56,7 @@ export const ReviewComponent: FC<Props> = ({sessionInfo}: Props) => {
   
   return (
     <div>
-      <h2>Rate and review your session from {sessionInfo.time} on {new Date(`${sessionInfo.date}T00:00:00`).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})} with {sessionInfo.name}</h2>
+      <h3 className="before-icon">Rate and review your session from {sessionInfo.time} on {new Date(`${sessionInfo.date}T00:00:00`).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})} with {sessionInfo.name}</h3>
       {starArr.map((el, index) => (
           <span key={index} className="tutor-card__middle-box--star">{el === 2 
             ? <button onClick={() => handleRating(index)} onMouseEnter={() => handleHover(index)} ><BsStarFill className="normalstar" /></button>
@@ -66,7 +66,7 @@ export const ReviewComponent: FC<Props> = ({sessionInfo}: Props) => {
           }</span>
       ))}
       <form onSubmit={handleSubmit}>
-        <input type="text" id="review" onChange={handleChange} value={review} placeholder="Enter your review here" className="text-input text-input--blue" />
+        <input type="text" id="reviewinput" onChange={handleChange} value={review} placeholder="Enter your review here" className="text-input text-input--textarea"  />
         {error && <h3>Please rate the session between 1 and 5 stars</h3>}
         <button type="submit" className="btn btn--blue form--btn">Submit</button>
       </form>

@@ -120,7 +120,8 @@ export const Application: FC = () => {
           </div>
           <button type="submit" className="btn btn--blue form--btn">Apply</button>
         </form>
-        <p>Already have an account? Login <Link to={'/login'}>here</Link></p>
+        <p>Already have an account? Login <Link to={{pathname:'/login', 
+              state: {toggle: 'login'}}}>here</Link></p>
       </div>
     </div>
   )

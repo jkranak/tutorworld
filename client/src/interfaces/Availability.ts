@@ -12,7 +12,6 @@ export interface Availability extends AvailabilityDays {
   TutorId: string
   createdAt: string
   id: string
-
   updatedAt: string
 }
 

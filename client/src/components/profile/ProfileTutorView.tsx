@@ -17,9 +17,9 @@ export const ProfileTutorView: FC<Props> = ({tutorDetails}: Props) => {
       <section className="tutor-profile__left-box">
         <div className="image-box">
           {/* not making this optional because tutors are required a photo */}
-          <img src={tutorDetails.imageUrl} alt={`${tutorDetails.firstName} ${tutorDetails.lastName}`} />
+          <img src={tutorDetails?.imageUrl} alt={`${tutorDetails?.firstName} ${tutorDetails?.lastName}`} />
         </div>
-        <h1 className="tutor-profile--title">{tutorDetails.firstName} {tutorDetails.lastName}</h1>
+        <h1 className="tutor-profile--title">{tutorDetails?.firstName} {tutorDetails?.lastName}</h1>
         {tutorDetails.rating > 0 ? <span>{starArr?.map(el => (
           el === 2 ? <BsStarFill key={uuidv4()} className="tutor-profile__info--star"/> : el === 1 ? <BsStarHalf key={uuidv4()} className="tutor-profile__info--star"/> : <BsStar key={uuidv4()} className="tutor-profile__info--star"/>
         ))}</span> : <span>No ratings yet</span>}
@@ -28,34 +28,34 @@ export const ProfileTutorView: FC<Props> = ({tutorDetails}: Props) => {
       <section className="tutor-profile__right-box">
         <div className="tutor-profile__info-wrapper">
           <p className="tutor-profile--sub-title">Education:</p>
-          <p className="tutor-profile--details">{tutorDetails.education}</p>
+          <p className="tutor-profile--details">{tutorDetails?.education}</p>
         </div>
         <div className="tutor-profile__info-wrapper">
           <p className="tutor-profile--sub-title">Subjects:</p>
           <div>
-          {tutorDetails.subjectLevels?.map(subject => (<span key={uuidv4()} className="tutor-profile__info--tag">{subject}</span>))}
+          {tutorDetails?.subjectLevels?.map(subject => (<span key={uuidv4()} className="tutor-profile__info--tag">{subject}</span>))}
           </div>
         </div>
         <div className="tutor-profile__info-wrapper">
           <p className="tutor-profile--sub-title">Languages:</p>
           <div>
-            {tutorDetails.languages?.map(language => (<span key={uuidv4()} className="tutor-profile__info--tag">{language}</span>))}
+            {tutorDetails?.languages?.map(language => (<span key={uuidv4()} className="tutor-profile__info--tag">{language}</span>))}
           </div>
         </div>
         <div className="tutor-profile__info-wrapper">
-          <p className="tutor-profile--sub-title">Rate: ${tutorDetails.price}/hour</p>
+          <p className="tutor-profile--sub-title">Rate: ${tutorDetails?.price}/hour</p>
         </div>
         <div className="tutor-profile__info-wrapper">
           <p className="tutor-profile--sub-title">Experience</p>
           <p className="tutor-profile--details">
-            {tutorDetails.experience}
+            {tutorDetails?.experience}
           </p>
         </div>
         <div className="tutor-profile__info-wrapper">
           <p className="tutor-profile--sub-title">Weekly Availability</p>
             <div>
-              {dayNames.map((day, index) => (
-                <li className="tutor-profile__info--availability" key={day}>{capitalDayNames[index]}: {Object.keys(tutorDetails.availability[day]).sort((a, b) => hours.indexOf(a) - hours.indexOf(b)).join(', ')}</li>
+              {tutorDetails.availability.TutorId && dayNames.map((day, index) => (
+                <li className="tutor-profile__info--availability" key={day}>{capitalDayNames[index]}: {Object.keys(tutorDetails?.availability[day]).sort((a, b) => hours.indexOf(a) - hours.indexOf(b)).join(', ')}</li>
               ))}
             </div>
         </div>

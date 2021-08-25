@@ -12,7 +12,10 @@ export const Search: FC = () => {
   // TO-DO fix typescript anys
   const [filteredTutors, setFilteredTutors] = useState<TutorWithAvailability[]>([]);
   const [ weekday, setWeekday ] = useState<string>('');
+  const [subjectLevel, setSubjectLevel] = useState('');
+  const [language, setLanguage] = useState('');
   const [search, setSearch] = useState(false);
+console.log(allTutors)
 
   useEffect(() => {
     getAllTutors().then(res => {
@@ -25,8 +28,8 @@ export const Search: FC = () => {
     if (event.target.value === 'all') {
       setFilteredTutors(allTutors);
     } else {
-      const filteredTutors = allTutors.filter((tutor: TutorWithAvailability) => tutor?.subjectLevels.includes(event.target.value));
-      setFilteredTutors([...filteredTutors]);
+      const newFilteredTutors = allTutors.filter((tutor: TutorWithAvailability) => tutor?.subjectLevels?.includes(event.target.value));
+      setFilteredTutors([...newFilteredTutors]);
     }
   }
 
@@ -34,8 +37,8 @@ export const Search: FC = () => {
     if (event.target.value === 'all') {
       setFilteredTutors(allTutors);
     } else {
-      const filteredTutors = allTutors.filter((tutor: TutorWithAvailability) => tutor?.languages.includes(event.target.value.toLowerCase()));
-      setFilteredTutors([...filteredTutors]);
+      const newFilteredTutors = allTutors.filter((tutor: TutorWithAvailability) => tutor?.languages?.includes(event.target.value.toLowerCase()));
+      setFilteredTutors([...newFilteredTutors]);
     }
   }
 

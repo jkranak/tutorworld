@@ -51,9 +51,9 @@ export const ProfileTutorView: FC<Props> = ({tutorDetails}: Props) => {
             {tutorDetails.experience}
           </p>
         </div>
-        <div className="tutor-profile__info-wrapper">
+        <div className="tutor-profile__info-wrapper--avail">
           <p className="tutor-profile--sub-title">Weekly Availability</p>
-            <div>
+            <div className="tutor-profile__info--availability-list">
               {dayNames.map((day, index) => (
                 <li className="tutor-profile__info--availability" key={day}>{capitalDayNames[index]}: {Object.keys(tutorDetails.availability[day]).sort((a, b) => hours.indexOf(a) - hours.indexOf(b)).join(', ')}</li>
               ))}

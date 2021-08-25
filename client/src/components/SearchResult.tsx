@@ -56,7 +56,7 @@ export const SearchResult: FC<Props> = ({tutor}: Props) => {
             <span>{tutor?.education}</span>
           </div>
           <div className="tutor-card__middle-box--rating">
-            {tutor.rating === null ? <span>No ratings yet</span> : starArr.map((el, index) => (
+            {tutor.rating && starArr.map((el, index) => (
               <span key={index} className="tutor-card__middle-box--star">{el === 2 ? <BsStarFill/> : el === 1 ? <BsStarHalf/> : <BsStar/>}</span>
             ))}
           </div>

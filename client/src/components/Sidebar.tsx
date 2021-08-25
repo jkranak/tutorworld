@@ -2,10 +2,11 @@ import { FC } from 'react';
 import { FaAlignJustify, FaCalendar, FaClock, FaComment, FaUserAlt } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { UserAuth } from '../interfaces/User';
 import { RootState } from '../redux/store/store';
 
 export const Sidebar: FC = () => {
-  const user = useSelector((state: RootState) => state.authenticate)
+  const user: UserAuth = useSelector((state: RootState) => state.authenticate)
 
   return (
     <div className="sidebar">

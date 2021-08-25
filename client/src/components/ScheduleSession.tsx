@@ -7,6 +7,7 @@ import {getOneTutorAvailability} from '../services/apiUser';
 import { useSelector } from 'react-redux';
 import { dayNames, hoursSpace } from '../assets/times';
 import { RootState } from '../redux/store/store';
+import { TutorWithAvailability } from '../interfaces/Tutor';
 
 export const ScheduleSession: FC = () => {
   const [selectedDay, setSelectedDay] = useState(new Date(0));
@@ -14,7 +15,7 @@ export const ScheduleSession: FC = () => {
   const [timesArr, setTimesArr] = useState(['']);
   const [selectedHour, setSelectedHour] = useState('');
   const [selectedTopic, setSelectedTopic] = useState('');
-  const user = useSelector((state: RootState )=> state.currentTutorInfo);
+  const user: TutorWithAvailability  = useSelector((state: RootState )=> state.currentTutorInfo);
 
   const daysAhead = 69 - new Date().getDay();
   const endDate = new Date(Date.now() + 86400000 * daysAhead);

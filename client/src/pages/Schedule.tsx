@@ -8,7 +8,7 @@ import { RootState } from '../redux/store/store';
 
 export const Schedule: FC = () => {
   const user = useSelector((state: RootState )=> state.currentTutorInfo);
-
+ 
   return (
     <div className="schedule">
       <Navbar />

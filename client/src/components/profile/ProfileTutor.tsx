@@ -6,7 +6,7 @@ import { ProfileTutorEdit } from './ProfileTutorEdit';
 import { emptyTutorWithAvailability } from '../../interfaces/Tutor';
 
 interface Props {
-  id: number
+  id: string
 }
 
 export const ProfileTutor: FC<Props> = ({id}: Props) => {

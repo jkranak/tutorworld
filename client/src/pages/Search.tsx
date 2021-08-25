@@ -137,11 +137,6 @@ export const Search: FC = () => {
               <option value="rate-highest">Sort by Highest Rate</option>
               <option value="rate-lowest">Sort by Lowest Rate</option>
             </select>
-            <select onChange={handleSort} className="sort-input">
-              <option value="rating">Sort by Rating</option>
-              <option value="rate-highest">Sort by Highest Rate</option>
-              <option value="rate-lowest">Sort by Lowest Rate</option>
-            </select>
           </section>
         <section className="search__results">
           {filteredTutors.map((tutor: TutorWithAvailability) => (

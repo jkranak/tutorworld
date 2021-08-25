@@ -1,14 +1,14 @@
 .messages__content {
   height: 90vh;
   @include flex-row;
-  background-color: $light-background;
-
+  // background-color: $very-light-pink;
+  
   &--box {
     width: 70%;
     height: 85vh;
     @include flex-row;
+    background-color: $light-background;
     box-shadow: $box-shadow;
-    background-color: $font-light;
     border-radius: 5px;
   }
   &--left-box {
@@ -21,6 +21,7 @@
   &--right-box {
     width: 70%;
     height: 100%;
+    padding: 2rem;
     &--find-tutor{
       height: 100%;
       width: 100%;
@@ -38,7 +39,7 @@
     text-transform: capitalize;
     @include flex-row;
     justify-content: flex-start;
-    border-bottom: 1px solid $dark-grey;
+    border-bottom: 1px solid $light-grey-secondary;
     font-size: 1.8rem;
     font-weight: 300;
     span {
@@ -91,25 +92,54 @@
 
   &--message {
     &--right {
-      background-color: $very-light-pink;
+      background-color: $pink;
       align-self: flex-end;
       padding: 1rem 2rem;
       font-size: 2rem;
-      border-radius: 1rem 1rem 0 1rem;
       margin-bottom: 1rem;
+      position: relative;
+      border-radius: .4em;
+      color: $font-light;
       span {
         display: block;
       }
+      &::after{
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 0;
+        height: 0;
+        border: 17px solid transparent;
+        border-left-color: $pink;
+        border-right: 0;
+        margin-top: -17px;
+        margin-right: -17px;
+      }
     }
     &--left {
-      background-color: $very-light-blue;
+      background-color: $font-light;
+      align-self: flex-start;
       margin-bottom: 1rem;
       font-size: 2rem;
       padding: 1rem 2rem;
-      align-self: flex-start;
-      border-radius: 1rem 1rem 1rem 0;
+      position: relative;
+      border-radius: .4em;
       span {
         display: block;
+      }
+      &::after{
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 0;
+        height: 0;
+        border: 17px solid transparent;
+        border-right-color: $font-light;
+        border-left: 0;
+        margin-top: -17px;
+        margin-left: -17px;
       }
     }
   } 
@@ -118,7 +148,6 @@
     height: 10%;
     font-size: 3rem;
     @include flex-row;
-    border-top: 1px solid $light-grey;
     input {
       height: 70%;
       width: 50%;
@@ -140,5 +169,6 @@
 }
 
 .selected {
-  background-color: $pink;
+  background-color: $very-light-pink;
+  color: $font-dark;
 }

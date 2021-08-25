@@ -21,6 +21,7 @@ import { CalendarPage } from './pages/CalendarPage';
 import {RootState} from './redux/store/store'
 import { Call } from './pages/Call';
 import { SessionDetail } from './pages/SessionDetail';
+import Map from './pages/Map';
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ function App() {
         <PrivateRoute path="/calendar" exact component={CalendarPage}/>
         <PrivateRoute path="/call" exact component={Call}/>
         <PrivateRoute path="/session" exact component={SessionDetail}/>
+        <PrivateRoute path="/map" exact component={Map}/>
       </Switch>
     </BrowserRouter>
   );

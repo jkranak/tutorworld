@@ -5,7 +5,7 @@ export const updateTutorInfo = async (req:Request, res:Response) => {
   try {
     const { id  } = req.body.user;
 
-    const {email, firstName, lastName, description, experience, imageUrl, education, price, subjectLevels, languages  } = req.body;
+    const { email, firstName, lastName, description, experience, imageUrl, education, price, subjectLevels, languages  } = req.body;
 
     const updatedTutor = {email, firstName, lastName};
 
@@ -47,10 +47,12 @@ export const getStudentInfo = async (req:any, res:any) => {
 
 export const updateStudentInfo = async (req:Request, res:Response) => {
   try {
-    const { id, email, firstName, lastName, imageUrl } = req.body;
+    const { id } = req.body.user;
+
+    const { email, firstName, lastName, imageUrl } = req.body;
 
     await Models.Student.update({ id, email, firstName, lastName, imageUrl }, {where: {id}});
-    await Models.Sender.update({where: {UserId: id}, firstName, lastName, imageUrl})
+    await Models.Sender.update({firstName, lastName, imageUrl}, {where: {UserId: id}})
     res.status(201).send('Student updated');
   } catch (error) {
     console.log(error)

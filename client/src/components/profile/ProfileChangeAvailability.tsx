@@ -1,9 +1,10 @@
 import { useState, FC, FormEvent } from 'react';
 import { FiX } from 'react-icons/fi';
-import { hours, dayNames, capitalDayNames } from '../../assets/times';
-import { AvailabilityDays, Availability } from '../../interfaces/Availability';
+import { hoursSpace, dayNames, capitalDayNames } from '../../assets/times';
+import { Availability } from '../../interfaces/Availability';
 import { TutorWithAvailability } from '../../interfaces/Tutor';
 import { updateAvailability } from '../../services/apiUser';
+import {deepCopyAvail} from '../../services/deepCopy';
 
 interface Props {
   tutorDetails: TutorWithAvailability
@@ -11,26 +12,16 @@ interface Props {
   setChangeAvail: (change: boolean) => void
 }
 
-function deepCopy (availObj: AvailabilityDays) {
-  return {
-    sunday: {...availObj.sunday},
-    monday: {...availObj.monday},
-    tuesday: {...availObj.tuesday},
-    wednesday: {...availObj.wednesday},
-    thursday: {...availObj.thursday},
-    friday: {...availObj.friday},
-    saturday: {...availObj.saturday},
-  }
-}
-
 export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDetails, setChangeAvail}: Props) => {
   const [chooseDay, setChooseDay] = useState('');
   const [chooseHours, setChooseHours] = useState(['']);
-  const [newAvailability, setNewAvailability] = useState(deepCopy(tutorDetails.availability));
+  const [newAvailability, setNewAvailability] = useState(deepCopyAvail(tutorDetails.availability));
   const [saveMessage, setSaveMessage] = useState(false);
   const [hourPicked, setHourPicked] = useState(false);
 
   const handleDayChange = (event: {target: {value: string}}) => {
+    setChooseHours(['']);
+    setHourPicked(false);
     setChooseDay(event.target.value);
   }
 
@@ -40,9 +31,9 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
     setHourPicked(true);
   }
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    const updatedAvail = deepCopy(newAvailability);
+    const updatedAvail = deepCopyAvail(newAvailability);
     for (let hour of chooseHours) {
       updatedAvail[chooseDay][hour] = true;
     }
@@ -52,13 +43,13 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
   }
 
   const deleteHour = (day: string, hour: string) => {
-    const updatedAvail = deepCopy(newAvailability);
+    const updatedAvail = deepCopyAvail(newAvailability);
     delete updatedAvail[day][hour];
     setNewAvailability(updatedAvail);
     setSaveMessage(true);
   }
 
-  const removeHours = (hour: any) => {
+  const removeHours = (hour: string) => {
     if (chooseHours.length === 1) {
       setChooseHours(['']);
       setHourPicked(false);
@@ -75,7 +66,7 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
       setChooseDay('');
       setChooseHours([''])
       const newTutorDetails = {...tutorDetails};
-      const newTutorAvail: Availability = Object.assign(newTutorDetails.availability, deepCopy(newAvailability));
+      const newTutorAvail: Availability = Object.assign(newTutorDetails.availability, deepCopyAvail(newAvailability));
       newTutorDetails.availability = newTutorAvail;
       setTutorDetails(newTutorDetails);
       setChangeAvail(false);
@@ -96,7 +87,7 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
         {chooseDay.length ? <>
           <select name="selecthour" defaultValue="" onChange={handleHourChange} className="select-input select-input--blue">
             <option value="" disabled>Choose hour(s)</option>
-            {hours.map(hour => (
+            {hoursSpace.map(hour => (
               <option key={hour} value={hour}>{hour}</option>
             ))}
           </select>
@@ -116,7 +107,7 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
             <div key={day} className="hello">
               <span className="form--select-title">{capitalDayNames[index]}: </span>
               {Object.keys(newAvailability[day])
-              .sort((a, b) => hours.indexOf(a) - hours.indexOf(b))
+              .sort((a, b) => hoursSpace.indexOf(a) - hoursSpace.indexOf(b))
               .map(hour => (
               <div className="form--select-tag" key={hour}>
                 <span className="before-icon">{hour}</span>
@@ -128,7 +119,7 @@ export const ProfileChangeAvailability: FC<Props> = ({tutorDetails, setTutorDeta
       </div>
           {saveMessage && <>
             <span>Changes have not been saved. To save press Save All Changes</span>
-            <button onClick={() => setNewAvailability(deepCopy(tutorDetails.availability))}>Revert all changes</button>
+            <button onClick={() => setNewAvailability(deepCopyAvail(tutorDetails.availability))}>Revert all changes</button>
           </>}
           <button onClick={handleSave}>Save All Changes</button>
     </div>

@@ -4,9 +4,14 @@ import { io } from 'socket.io-client';
 import Peer from 'simple-peer';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FaCopy } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 
 const CONNECTION_PORT = process.env.REACT_APP_API_URL || '';
 const socket = io(CONNECTION_PORT, { transports : ['websocket'] });
+let socketId:any;
+socket.on('me', (id) => {
+  socketId = id;
+});
 
 const VideoPlayer = () => {
 
@@ -16,11 +21,11 @@ const VideoPlayer = () => {
   const [callEnded, setCallEnded] = useState(false);
   const [stream, setStream] = useState();
   const [call, setCall] = useState<any>({});
-  const [me, setMe] = useState('');
-
+  const [me, setMe] = useState(socketId);
   const myVideo: any = useRef();
   const userVideo: any = useRef();
   const connectionRef: any = useRef();
+  const history = useHistory();
 
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true, audio: true })
@@ -31,7 +36,6 @@ const VideoPlayer = () => {
       });
 
     socket.on('me', (id) => {
-      console.log("socket id", id);
       setMe(id)
     });
 
@@ -84,7 +88,7 @@ const VideoPlayer = () => {
 
     connectionRef.current.destroy();
 
-    window.location.reload();
+    history.push('/dashboard');
   };
 
   return (
@@ -93,13 +97,12 @@ const VideoPlayer = () => {
           <video className="video--me" playsInline muted ref={myVideo} autoPlay/>
         )}
         <div className="call__right-box--options">
-        <CopyToClipboard text={me} >
-          <div className="btn btn--clear">
-            <span className="before-icon">Copy Your ID</span>
-            <FaCopy/>
-          </div>
-        </CopyToClipboard>
-
+          <CopyToClipboard text={me} >
+            <div className="btn btn--clear">
+              <span className="before-icon">Copy Your ID</span>
+              <FaCopy/>
+            </div>
+          </CopyToClipboard>
             <input type="text" placeholder="ID to call" value={idToCall} onChange={(e) => setIdToCall(e.target.value)} className="text-input text-input--blue"/>
             {callAccepted && !callEnded ? (
               <button onClick={leaveCall} className="btn btn--blue" >
@@ -111,12 +114,12 @@ const VideoPlayer = () => {
               </button>
             )}
         {call.isReceivingCall && !callAccepted && (
-            <button type="button" onClick={answerCall}>
+            <button type="button" className="btn btn--blue" onClick={answerCall}>
               Answer this call
             </button>
         )}
         </div>
-            
+
         {callAccepted && !callEnded && (
           <video className="video--other" playsInline ref={userVideo} autoPlay/>
         )}

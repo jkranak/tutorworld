@@ -12,6 +12,7 @@ import { SessionComplex } from '../interfaces/Session';
 import { Navbar } from '../components/Navbar';
 import { RootState } from '../redux/store/store';
 import { Sidebar } from '../components/Sidebar';
+import { UserAuth } from '../interfaces/User';
 
 const localizer = dateFnsLocalizer({
   format,
@@ -55,7 +56,7 @@ const timeConvert = (session: SessionComplex, role: string): dateObj => {
 
 export const CalendarPage: FC = () => {
   const [dateArr, setDateArr] = useState([]);
-  const user = useSelector((state: RootState) => state.authenticate);
+  const user: UserAuth = useSelector((state: RootState) => state.authenticate);
 
   useEffect(() => {
     getUserSessions().then(res => {
@@ -79,8 +80,6 @@ export const CalendarPage: FC = () => {
       </span>
     )
   }
-
-
 
   return (
     <div className="calendar">

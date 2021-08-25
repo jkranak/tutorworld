@@ -43,4 +43,66 @@
       animation-fill-mode: backwards;
     }
   }
+
+  &__about {
+    height: 90vh;
+    width: 75vw;
+    padding: 5vh 0 0 18vw;
+    font-family: $landing-font;
+    &--description {
+      @include flex-column;
+      text-align: center;
+      padding-bottom: 5vh;
+      h1 {
+        width: 70%;
+        font-size: 3.5rem;
+        line-height: 1.1;
+        padding-bottom: 2.5rem;
+      }
+      h3 {
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 1.5;
+      }
+    }
+    &--content {
+      @include flex-row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    &--card {
+      @include flex-row;
+      height: 25vh;
+      width: 48%;
+      margin-top: 3rem;
+      border: solid 1px $light-grey;
+      &--left{
+        width: 40%;
+        height: 100%;
+        @include flex-column;
+        .image-box {
+          width: 15vh;
+          height: 15vh;
+          overflow: hidden;
+          border-radius: 50%;
+          img {
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+      }
+      &--name {
+        font-size: 1.8rem;
+        padding-top: 1rem;
+      }
+      &--right {
+        height: 100%;
+        width: 60%;
+        font-size: 1.6rem;
+        line-height: 1.5;
+        padding: 2rem 3rem 2rem 1rem;
+        @include flex-row;
+      }
+    }
+  }
 }

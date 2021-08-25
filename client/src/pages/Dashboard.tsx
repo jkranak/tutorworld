@@ -9,10 +9,11 @@ import { FavTutors } from '../components/dashboard/FavTutors';
 import { Earnings } from '../components/dashboard/Earnings';
 import { emptyHistoryComplex } from '../interfaces/Session';
 import { RootState } from '../redux/store/store';
+import { UserAuth } from '../interfaces/User';
 
 
 export const Dashboard: FC = () => {
-  const user = useSelector((state: RootState) => state.authenticate);
+  const user: UserAuth = useSelector((state: RootState) => state.authenticate);
   const [historyList, setHistoryList] = useState([emptyHistoryComplex]);
 
   useEffect(() => {
@@ -28,12 +29,6 @@ export const Dashboard: FC = () => {
       <div className="dashboard__content">
         <Sidebar/>
         <main className="dashboard__content--display">
-            {/* <div className="dashboard__content--display--info">
-              <h1 className="dashboard__content--display--title">Unread Messages</h1>
-              <div className="dashboard__content--display--top--box">
-              <p>messages</p>
-              </div>
-            </div> */}
             <UpcomingSession />
             <History historyList={historyList}/>
           {user.role === 'tutor' ? 
@@ -46,5 +41,3 @@ export const Dashboard: FC = () => {
     </div>
   )
 }
-
-

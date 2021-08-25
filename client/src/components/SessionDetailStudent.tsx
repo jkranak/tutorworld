@@ -38,7 +38,7 @@ export const SessionDetailStudent: FC<Props> = ({sessionInfo}: Props) => {
     const res = await deleteSession(sessionInfo.id);
     if (res === 204){
       history.push('/dashboard')
-    } else setError(true); 
+    } else setError(true);
   }
 
   return (
@@ -54,23 +54,23 @@ export const SessionDetailStudent: FC<Props> = ({sessionInfo}: Props) => {
         <p>Time: {sessionInfo.time}</p>
         <p>Price: ${sessionInfo.cost}</p>
         <p>{sessionInfo.context}</p>
-        {sessionInfo.type === 'history' ? 
-          <div>
+        {sessionInfo.type === 'history' ?
+        <div>
           <p>Review:</p>
           {starArr.map((el, index) => (
             <span key={index} className="tutor-card__middle-box--star">
-              {el === 2 
+              {el === 2
                 ? <BsStarFill className="normalstar" />
                 : <BsStar className="normalstar" />}
             </span>))}
           <p>{sessionInfo.review}</p>
           <Link className="btn btn--clear" to={{
-                  pathname:'/review', 
+                  pathname:'/review',
                   state: reviewState
                 }}>Update Review</Link>
-        </div> : <button onClick={handleDelete} disabled={tooLate} className="btn btn--blue" >Cancel Session</button>}
+        </div> : (!tooLate && <button onClick={handleDelete} disabled={tooLate} className="btn btn--blue" >Cancel Session</button>)}
         {tooLate && <p className="cant-cancel">Sessions cannot be cancelled less than 24 hours before start time.</p>}
-        {error && <p>Error deleting session</p>}
+        {error && <p>Error cancelling session</p>}
       </section>
     </div>
   )

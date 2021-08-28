@@ -43,14 +43,16 @@ This is an example of how to list things you need to use the software and how to
 * [Google Maps](https://developers.google.com/maps/apis-by-platform)
 * [Formspark](https://www.formspark.io/)
 * [Uploadcare](https://uploadcare.com/api-refs/upload-api/)
-3. You will need a Postgres server running on [AWS RDS](https://aws.amazon.com/rds/).
+3. You will need a Postgres database running.
 2. Clone the repo
    ```sh
    git clone https://github.com/your_username_/tutorworld.git
    ```
-3. Install NPM packages
+3. Install NPM packages in both client and server folders:
    ```sh
-   npm install
+   tutorworld/client % npm install
+
+   tutorworld/server % npm install
    ```
 4. Create `server/.env` using `server/.env.example` as a template.
 

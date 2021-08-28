@@ -61,10 +61,10 @@ export const ReviewComponent: FC<Props> = ({sessionInfo}: Props) => {
         <div>
           {starArr.map((el, index) => (
               <span key={index} className="tutor-card__middle-box--star">{el === 2 
-                ? <button onClick={() => handleRating(index)} onMouseEnter={() => handleHover(index)} ><BsStarFill className="normalstar" /></button>
+                ? <button type="button" onClick={() => handleRating(index)} onMouseEnter={() => handleHover(index)} ><BsStarFill className="normalstar" /></button>
                 : el === 1 
-                  ? <button onClick={() => handleRating(index)} onMouseEnter={() => handleHover(index)} className="hoverstar" onMouseLeave={handleMouseLeave}><BsStarFill /></button>
-                  : <button onClick={() => handleRating(index)} onMouseEnter={() => handleHover(index)}><BsStar className="normalstar" /></button>
+                  ? <button type="button" onClick={() => handleRating(index)} onMouseEnter={() => handleHover(index)} className="hoverstar" onMouseLeave={handleMouseLeave}><BsStarFill /></button>
+                  : <button type="button" onClick={() => handleRating(index)} onMouseEnter={() => handleHover(index)}><BsStar className="normalstar" /></button>
               }</span>
           ))}
         </div>

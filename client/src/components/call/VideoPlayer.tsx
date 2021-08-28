@@ -14,9 +14,7 @@ socket.on('me', (id) => {
 });
 
 const VideoPlayer = () => {
-
   const [idToCall, setIdToCall] = useState('');
-  // TO-DO fix typescript any
   const [callAccepted, setCallAccepted] = useState<boolean>(false);
   const [callEnded, setCallEnded] = useState(false);
   const [stream, setStream] = useState();
@@ -49,7 +47,6 @@ const VideoPlayer = () => {
 
     const peer = new Peer({ initiator: false, trickle: false, stream });
 
-    //when a signal happens, we get a data
     peer.on('signal', (data) => {
       socket.emit('answerCall', { signal: data, to: call.from });
     });

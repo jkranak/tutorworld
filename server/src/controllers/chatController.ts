@@ -17,14 +17,12 @@ export const sendMessage = async (req: Request, res: Response) => {
 export const connectToRoom = async (req: Request, res: Response) => {
   try {  
     const { mySenderId, otherUserSenderId } = req.body;
-    // looking for a room that contains both users
     console.log('mysenderid', mySenderId)
     console.log('othersenderid', otherUserSenderId)
     const existentRoom = await Models.sequelize.query(`SELECT Room."RoomId" FROM public."room_senders" AS Room WHERE 
     EXISTS (SELECT * FROM public."room_senders" as RS WHERE Room."RoomId" = RS."RoomId" AND "SenderId" = ${mySenderId}) AND
     EXISTS (SELECT * FROM public."room_senders" as RS WHERE Room."RoomId" = RS."RoomId" AND "SenderId" = ${otherUserSenderId}) GROUP BY Room."RoomId"`)
     if (existentRoom[0].length) {
-      // room already exists so connect to it
       const room = existentRoom[0][0].RoomId;
       const senders = await Models.sequelize.query(`SELECT * FROM "Rooms"
       INNER JOIN
@@ -34,7 +32,6 @@ export const connectToRoom = async (req: Request, res: Response) => {
       res.status(200);
       res.send({room, senders});
     } else {
-      // creating a new room and adding both senders
       const newRoom = await Models.Room.create({id: uuidv4()});
       await newRoom.addSender(mySenderId);
       await newRoom.addSender(otherUserSenderId);
@@ -54,13 +51,8 @@ export const connectToRoom = async (req: Request, res: Response) => {
 
 export const retrieveUserRooms = async (req: Request, res: Response) => {
   try {
-    // retrieve all rooms that contain messages
     const { id, role } = req.body.user;
-    // get user sender Id
     const sender = await Models.Sender.findOne({where: {UserId: id, role}});
-    // get all rooms from that sender
-    // TO-DO filter if the room has messages, if not then do not pass it to front end
-    // TO-DO convert into sequelize query
     const rooms = await Models.sequelize.query(`SELECT * FROM "Rooms"
     INNER JOIN
      room_senders ON room_senders."RoomId" = "Rooms".id

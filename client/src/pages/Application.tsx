@@ -43,15 +43,12 @@ export const Application: FC = () => {
   
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    // TO-DO include about
     const { firstName, lastName, email, languages, subjects, resume } = newApplicant;
     if (firstName && lastName && email && languages && subjects && resume) {
       const application = await submitForm(newApplicant);
       if (application.error) {
-        // form did not post
         alert(`not successful`)
       } else {
-        // reset form information to default
         setNewApplicant(emptyApplication);
         setSubmitted(true);
       }

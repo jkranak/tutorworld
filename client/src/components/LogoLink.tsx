@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import logo from '../assets/tutor_world.svg';
 
 export default function LogoLink(): ReactElement {
-  // if authenticated the logo link will be dashboard
-  // if not the link will be to landing page
   const [isAuthenticated] = useState<boolean>(false)
   return (
     <Link to={isAuthenticated ? "/dashboard" : "/"} className="logo-box">

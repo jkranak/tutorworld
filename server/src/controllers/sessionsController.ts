@@ -51,13 +51,10 @@ export const getUpcomingSessions = async (req:Request, res:Response) => {
 }
 
 export const addUpcomingSessions = async (req:Request, res:Response) => {
-  //format for date: 2021-12-22 or 2021-09-09 given to me
-  //formt for time given: 3:00 PM
+  //date format: 2021-12-22, time format: 3:00 PM
   try {
     const { id  } = req.body.user;
-
     const { TutorId, date, time, cost, sessionContext  } = req.body;
-    //TutorId, date, time, cost, sessionContext
     await Models.UpcomingSession.create({TutorId, date, time, cost, sessionContext, StudentId: id});
     res.status(201).send('New tutoring session created!');
   } catch (error) {
@@ -86,23 +83,19 @@ export const getHistorySessions = async (req:Request, res:Response) => {
 
 export const updateHistoryUpcomingSessions = async (req:Request, res:Response) => {
   try {
-    //need upcomingSessionId to delete and copy over the contents to hsitory session
     const { upcomingSessionId } = req.body;
-    //grab and store session object from upcomingSession table
     const sessionInfoInstance = await Models.UpcomingSession.findOne({attributes: {exclude: ['createdAt', 'updatedAt']}, where:{id: upcomingSessionId}});
-    const sessionInfo = sessionInfoInstance.get({plain: true }); //get tutorId from sessionInfo
-    //add upcomingSession to historySessions table
+    const sessionInfo = sessionInfoInstance.get({plain: true });
     const sessionInfoDeepCopy = { ...sessionInfo};
-    delete sessionInfoDeepCopy.id; //remove id from sessionInfo
+    delete sessionInfoDeepCopy.id; 
     const newHistorySession = await Models.HistorySession.create({...sessionInfoDeepCopy});
-    //delete the object from upcomingSession table
     await sessionInfoInstance.destroy();
     res.status(200).send('Moved UpcomingSession to HistorySession in database');
 
   } catch (error) {
     console.log(error)
     res.status(500).send(error);
-    }
+  }
 }
 
 export const deleteUpcomingSession = async (req:Request, res:Response) => {

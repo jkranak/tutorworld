@@ -2,7 +2,7 @@
 
 <p align="center">
 <img src="./client/public/logo192.png"<br />
-  <h3 align="center">Tutorworld</h3>
+  <h3 align="center">Tutor World</h3>
 
   <p align="center">
     A website for tutors and students to connect

@@ -42,20 +42,20 @@ The technologies we used in the development of this project:
 * [Google Maps](https://developers.google.com/maps/apis-by-platform)
 * [Formspark](https://www.formspark.io/)
 * [Uploadcare](https://uploadcare.com/api-refs/upload-api/)
-3. You will need a Postgres database running.
-2. Clone the repo
+2. You will need a Postgres database running.
+3. Clone the repo
    ```sh
    git clone https://github.com/your_username_/tutorworld.git
    ```
-2. Install NPM packages in both client and server folders:
+4. Install NPM packages in both client and server folders:
    ```sh
    tutorworld/client % npm install
 
    tutorworld/server % npm install
    ```
-3. Create `server/.env` using `server/.env.example` as a template.
+5. Create `server/.env` using `server/.env.example` as a template.
 
-4. Create `client/.env` using `client/.env.example` as a template.
+6. Create `client/.env` using `client/.env.example` as a template.
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew

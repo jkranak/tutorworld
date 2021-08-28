@@ -20,12 +20,15 @@ Tutor World aim is to offer you the best platform to be able to learn from top-r
 * Rahmat Yousufi [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/rahmatyousufi/)
 * Bianca Procopio [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/bianca-procopio/)
 
-### Built With
+## Built With
 The technologies we used in the development of this project:
 * Front End: [React](https://reactjs.org/), [Redux](https://redux.js.org/), [TypeScript](https://www.typescriptlang.org/), [Saas](https://www.npmjs.com/package/sass), [Axios](https://axios-http.com/)
 * Back End: [PostgreSQL](https://www.postgresql.org/), [Sequelize](https://sequelize.org/), [NodeJS](https://nodejs.org/en/), [Express](http://expressjs.com/), [AWS RDS](https://aws.amazon.com/rds/)
 * Others: [JWT](https://jwt.io/), [PeerJS](https://peerjs.com/), [Socket.io](https://socket.io/), [Google Maps API](https://developers.google.com/maps/apis-by-platform), [Stripe](https://stripe.com/docs/api)
-
+## ScreenShots
+![PreviewImage1](./preview_images/TutorWorld-preview1.png)
+![PreviewImage2](./preview_images/TutorWorld-preview2.png)
+![PreviewImage3](./preview_images/TutorWorld-preview3.png)
 ## Getting Started
 
 ### Prerequisites

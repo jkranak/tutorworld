@@ -1,10 +1,3 @@
-## Contributors
-* Joseph Kranak [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/joseph-kranak/)
-* Rahmat Yousufi [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/rahmatyousufi/)
-* Bianca Procopio [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/bianca-procopio/)
-
-
-
 ![Tutorworld Logo](./client/src/assets/tutor_world.svg)
 <br />
 <p align="center">
@@ -17,20 +10,21 @@
   </p>
 </p>
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Tutor Worlds aim is to offer you the best platform to be able to learn from top-rated tutors. Not only are we able to host in-app online tutoring sessions, but you can also find tutors that are available at your local libraries. 
+Tutor World aim is to offer you the best platform to be able to learn from top-rated tutors. Not only are we able to host in-app online tutoring sessions, but you can also find tutors that are available at your local libraries. 
+
+## Contributors
+* Joseph Kranak [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/joseph-kranak/)
+* Rahmat Yousufi [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/rahmatyousufi/)
+* Bianca Procopio [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/bianca-procopio/)
 
 ### Built With
-
 The technologies we used in the development of this project:
 * Front End: [React](https://reactjs.org/), [Redux](https://redux.js.org/), [TypeScript](https://www.typescriptlang.org/), [Saas](https://www.npmjs.com/package/sass), [Axios](https://axios-http.com/)
 * Back End: [PostgreSQL](https://www.postgresql.org/), [Sequelize](https://sequelize.org/), [NodeJS](https://nodejs.org/en/), [Express](http://expressjs.com/), [AWS RDS](https://aws.amazon.com/rds/)
 * Others: [JWT](https://jwt.io/), [PeerJS](https://peerjs.com/), [Socket.io](https://socket.io/), [Google Maps API](https://developers.google.com/maps/apis-by-platform), [Stripe](https://stripe.com/docs/api)
-
 
 ## Getting Started
 
@@ -65,3 +59,4 @@ This is an example of how to list things you need to use the software and how to
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png
+

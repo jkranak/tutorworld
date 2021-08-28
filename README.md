@@ -9,7 +9,16 @@ This section should list any major frameworks that you built your project using.
 * [React](https://getbootstrap.com)
 * [Redux](https://jquery.com)
 * [TypeScript](https://laravel.com)
+* [Saas]
+* [PostgreSQL](https://getbootstrap.com)
+* [Sequelize](https://jquery.com)
+* [AWS RDS](https://laravel.com)
+* [NodeJS]
+* [Express]
+* [Socket.io]
+* [PeerJS]
 * 
+
 
 
 

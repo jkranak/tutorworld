@@ -35,13 +35,11 @@ export const SessionDetailTutor: FC<Props> = ({sessionInfo}: Props) => {
       setTooLate(true);
     if ((Number(date) - Number(today)) <= 0) {
       setDatePassed(true);
-      console.log('Session date has passed')
     }
     }
   }, [sessionInfo.date, sessionInfo.time])
 
   const handleDelete = async () => {
-    console.log(sessionInfo.id);
     const res = await deleteSession(sessionInfo.id);
     if (res === 204){
       history.push('/dashboard')
@@ -49,7 +47,6 @@ export const SessionDetailTutor: FC<Props> = ({sessionInfo}: Props) => {
   }
 
   const handleComplete = async () => {
-    console.log(sessionInfo.id);
     const res = await updateHistoryUpcomingSessions(sessionInfo.id);
     if (res === 200){
       history.push('/dashboard')

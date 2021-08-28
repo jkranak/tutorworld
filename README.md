@@ -6,17 +6,9 @@ Tutor Worlds aim is to offer you the best platform to be able to learn from top-
 ### Built With
 
 This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-* React * Redux * TypeScript * Saas
-* [PostgreSQL](https://getbootstrap.com)
-* [Sequelize](https://jquery.com)
-* [AWS RDS](https://laravel.com)
-* [NodeJS]
-* [Express]
-* [Socket.io]
-* [PeerJS]
-* Stripe
-* Google maps API
-
+Front End: React, Redux, TypeScript, Saas, Axios
+Back End: PostgreSQL, Sequelize, NodeJS, Express, AWS RDS
+Others: JWT, PeerJS, Socket.io, Google Maps API, Stripe
 
 
 

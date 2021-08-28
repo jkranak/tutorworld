@@ -1,8 +1,7 @@
 
-![Tutorworld Logo](./client/public/logo192.png)
-<br />
-<p align="center">
 
+<p align="center">
+<img src="./client/public/logo192.png"<br />
   <h3 align="center">Tutorworld</h3>
 
   <p align="center">

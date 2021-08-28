@@ -47,15 +47,15 @@ The technologies we used in the development of this project:
    ```sh
    git clone https://github.com/your_username_/tutorworld.git
    ```
-3. Install NPM packages in both client and server folders:
+2. Install NPM packages in both client and server folders:
    ```sh
    tutorworld/client % npm install
 
    tutorworld/server % npm install
    ```
-4. Create `server/.env` using `server/.env.example` as a template.
+3. Create `server/.env` using `server/.env.example` as a template.
 
-5. Create `client/.env` using `client/.env.example` as a template.
+4. Create `client/.env` using `client/.env.example` as a template.
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew

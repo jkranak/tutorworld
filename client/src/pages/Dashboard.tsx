@@ -22,7 +22,6 @@ export const Dashboard: FC = () => {
     })
   }, [])
 
-  // TO-DO create component for repeated code
   return (
     <div className="dashboard">
       <Navbar/>

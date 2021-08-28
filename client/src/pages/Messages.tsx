@@ -31,7 +31,6 @@ let socket: {
 const CONNECTION_PORT = process.env.REACT_APP_API_URL || '';
 
 export const Messages = () => {
-  //TO-DO fix typescript anys
   const [ rooms, setRooms ] = useState<RoomI[]>([]);
   const [ messagesList, setMessagesList ] = useState([emptyMessageCompleteI]);
   const location: any = useLocation();
@@ -53,7 +52,7 @@ export const Messages = () => {
       })
     }    
   }, [currRoom])
-  // TO-DO sometimes when receiving a message it is inserted a few times in the messagesList
+  
   useEffect(() => {      
     socket.on('receive_message', (incomingMessage: MessageCompleteI) => {
       if (currRoom && incomingMessage.RoomId === currRoom.room) {

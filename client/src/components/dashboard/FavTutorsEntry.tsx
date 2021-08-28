@@ -28,7 +28,6 @@ export const FavTutorsEntry = ({ tutor }: Props) => {
   }
 
   const handleMessage = async () => {
-    // check if there is already a room with this tutor, if not create a new room
     const { SenderId } = await getSenderId(tutor.TutorId, 'tutor');
     const room = await enterRoom({mySenderId: user.SenderId, otherUserSenderId: SenderId})
     dispatch(currentRoom(room));

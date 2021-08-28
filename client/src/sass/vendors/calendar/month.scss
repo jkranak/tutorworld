@@ -38,7 +38,7 @@
   user-select: none;
   -webkit-user-select: none;
 
-  height: 100%; // ie-fix
+  height: 100%;
 }
 
 .rbc-month-header {
@@ -50,7 +50,7 @@
   display: flex;
   position: relative;
   flex-direction: column;
-  flex: 1 0 0; // postcss will remove the 0px here hence the duplication below
+  flex: 1 0 0;
   flex-basis: 0px;
   overflow: hidden;
 

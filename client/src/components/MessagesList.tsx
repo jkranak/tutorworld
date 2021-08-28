@@ -12,7 +12,6 @@ interface Props {
 }
 
 export const MessagesList = ({ messagesList, sendMessage }: Props) => {
-  // retrieve messages
   const user: UserAuth = useSelector((state: RootState) => state.authenticate);
   const [message, setMessage] = useState<string>('');
 

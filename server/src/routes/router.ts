@@ -13,70 +13,55 @@ import { connectToRoom, retrieveMessagesByRoom, retrieveSenderId, retrieveUserRo
 import { addLibrary, addTutorLibrary, getAllLibraries, getAllLibrariesTutor, getLibraryAllTutors, removeTutorLibrary } from '../controllers/mapController';
 const router = express.Router();
 
-
-//test route
 router.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-//auth routes
 router.post('/students', createStudent);
 router.post('/users/login', login);
 router.post('/tutors', createTutor);
 router.get('/user/verify', authMiddleware, verifyUser);
 
-//info routes
 router.put('/tutors/tutor/info', authMiddleware, tutorMiddleware, updateTutorInfo);
-router.get('/tutors/:tutor/allInfo', authMiddleware, getTutorInfoAvail); //gets all tutor info and availabilty
+router.get('/tutors/:tutor/allInfo', authMiddleware, getTutorInfoAvail); 
 router.get('/students/student/info', authMiddleware, studentMiddleware, getStudentInfo);
 router.put('/students/student/info', authMiddleware, studentMiddleware, updateStudentInfo);
-router.get('/search', authMiddleware, getAllTutorsInfoAvail); //search array of objects with allTutorsInfo and avalabilty combined for easy filtering
-// router.get('/tutors/tutor/allInfo', authMiddleware, tutorMiddleware, getAllTutorInfo);//may be redundent since above takes userId as paramater
+router.get('/search', authMiddleware, getAllTutorsInfoAvail); 
 
-//change password routes
 router.put('/tutors/tutor/password', authMiddleware, tutorMiddleware, changeTutorPassword);
 router.put('/students/student/password', authMiddleware, studentMiddleware, changeStudentPassword);
 
-//tutorAvail
 router.put('/tutors/tutor/tutorAvail', authMiddleware, tutorMiddleware, updateTutorAvail);
-router.get('/tutors/allTutorsAvail', authMiddleware, getAllTutorsAvail); //can be used by both student and tutor
-router.get('/tutors/:tutorId/tutorAvail/:date', authMiddleware, studentMiddleware, getTutorAvailByDate); //used by student to find tutor availibity for given date
+router.get('/tutors/allTutorsAvail', authMiddleware, getAllTutorsAvail); 
+router.get('/tutors/:tutorId/tutorAvail/:date', authMiddleware, studentMiddleware, getTutorAvailByDate); 
 
-
-//upcoming/history sessions routes
 router.get('/upcomingSessions', authMiddleware, getUpcomingSessions);
 router.post('/upcomingSessions', authMiddleware, studentMiddleware, addUpcomingSessions);
 router.get('/historySessions', authMiddleware, getHistorySessions);
-router.put('/endSession', authMiddleware, updateHistoryUpcomingSessions); //deletes from upcoming session and adds it to history session
+router.put('/endSession', authMiddleware, updateHistoryUpcomingSessions); 
 router.delete('/upcomingSessions/:sessionId', authMiddleware, deleteUpcomingSession);
 
-//when student submits a rating
 router.put('/submitRating', authMiddleware, studentMiddleware, updateRating);
 
-//favTutor routes
-router.get('/students/student/favTutors', authMiddleware, studentMiddleware, getAllFavTutors); //gets only first name, last name, tutorId, image Url
+router.get('/students/student/favTutors', authMiddleware, studentMiddleware, getAllFavTutors); 
 router.post('/students/student/favTutors', authMiddleware, studentMiddleware, addFavTutor);
 router.delete('/students/student/favTutors/:TutorId', authMiddleware, studentMiddleware, removeFavTutor);
 router.get('/students/student/favTutorsLess', authMiddleware, studentMiddleware, getAllFavTutorsLess);
 
-//Stripe payment
 router.post('/payment', stripePayment);
 
-// Chat
 router.post('/message/send', authMiddleware, sendMessage);
 router.post('/room', authMiddleware, connectToRoom);
 router.get('/room/all', authMiddleware, retrieveUserRooms);
 router.get('/room/messages/:RoomId', authMiddleware, retrieveMessagesByRoom);
 router.get('/sender/:id/:role', authMiddleware, retrieveSenderId);
 
-//maps
-router.post('/tutors/tutor/libraries', authMiddleware, tutorMiddleware, addTutorLibrary);//adds a libray to a tutor (used in tutor profile to add a library to there list)
-router.post('/libraries', addLibrary); //adds a library to list of libraries available on app (used for backend only, for us to easily input libraries in database)
-router.get('/libraries', authMiddleware, getAllLibraries);//get all libraries available on app
-router.get('/libraries/:LibraryId/allTutors', authMiddleware, getLibraryAllTutors); //get all tutors that teach at a specfic library
-router.get('/tutors/:TutorId/libraries', authMiddleware, getAllLibrariesTutor)//get all libraries of a specific tutor (used for tutorProfile)
-router.delete('/tutors/tutor/:LibraryId', authMiddleware, tutorMiddleware, removeTutorLibrary); //when tutor wants to remove a library from thier options
-
+router.post('/tutors/tutor/libraries', authMiddleware, tutorMiddleware, addTutorLibrary);
+router.post('/libraries', addLibrary); 
+router.get('/libraries', authMiddleware, getAllLibraries);
+router.get('/libraries/:LibraryId/allTutors', authMiddleware, getLibraryAllTutors); 
+router.get('/tutors/:TutorId/libraries', authMiddleware, getAllLibrariesTutor)
+router.delete('/tutors/tutor/:LibraryId', authMiddleware, tutorMiddleware, removeTutorLibrary);
 
 export default router;
 

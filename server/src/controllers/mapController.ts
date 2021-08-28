@@ -9,7 +9,7 @@ export const addTutorLibrary = async (req:Request, res:Response) => {
 
     const libraryInfo = await Models.TutorLibrary.findOne({where:{LibraryId, TutorId: id}});
 
-    if (libraryInfo) { //check if library is or not already a library for tutor
+    if (libraryInfo) {
       res.status(409).send('Already a library option for this tutor');
     } else {
       const newTutorLibrary = await Models.TutorLibrary.create({LibraryId, TutorId: id});

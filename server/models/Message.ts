@@ -5,16 +5,10 @@ import {
 import { MessageI } from '../src/interfaces/Message';
 module.exports = (sequelize: any, DataTypes: any) => {
   class Message extends Model<MessageI> implements MessageI {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     id!: number;
     content!: string;
 
     static associate(models: any) {
-      // define association here
       Message.belongsTo(models.Sender);
       Message.belongsTo(models.Room);
     }

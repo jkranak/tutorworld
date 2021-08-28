@@ -8,16 +8,16 @@ const Board = () => {
     let timeout;
     const socket = io(CONNECTION_PORT, { transports : ['websocket'] });
 
-    let ctx = { 
+    let ctx = {
         strokeStyle: '#000000',
         lineWidth: '3'
     };
     let isDrawing = false;
 
 
-    socket.on("canvas-data", function(data){
+    socket.on("canvas-data", function(data) {
 
-        var interval = setInterval(function(){
+        var interval = setInterval(function() {
             if(isDrawing) return;
             isDrawing = true;
             clearInterval(interval);
@@ -51,7 +51,6 @@ const Board = () => {
         var mouse = {x: 0, y: 0};
         var last_mouse = {x: 0, y: 0};
 
-        /* Mouse Capturing Work */
         canvas.addEventListener('mousemove', function(e) {
             last_mouse.x = mouse.x;
             last_mouse.y = mouse.y;
@@ -60,8 +59,6 @@ const Board = () => {
             mouse.y = e.pageY - this.offsetTop;
         }, false);
 
-
-        /* Drawing on Paint App */
         ctx.lineWidth = '3';
         ctx.lineJoin = 'round';
         ctx.lineCap = 'round';
@@ -89,7 +86,7 @@ const Board = () => {
             }, 1000)
         };
     }
-    
+
     return (
         <div className="sketch" id="sketch">
             <canvas className="board" id="board"></canvas>

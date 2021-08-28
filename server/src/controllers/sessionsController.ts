@@ -51,7 +51,6 @@ export const getUpcomingSessions = async (req:Request, res:Response) => {
 }
 
 export const addUpcomingSessions = async (req:Request, res:Response) => {
-  //date format: 2021-12-22, time format: 3:00 PM
   try {
     const { id  } = req.body.user;
     const { TutorId, date, time, cost, sessionContext  } = req.body;
@@ -87,7 +86,7 @@ export const updateHistoryUpcomingSessions = async (req:Request, res:Response) =
     const sessionInfoInstance = await Models.UpcomingSession.findOne({attributes: {exclude: ['createdAt', 'updatedAt']}, where:{id: upcomingSessionId}});
     const sessionInfo = sessionInfoInstance.get({plain: true });
     const sessionInfoDeepCopy = { ...sessionInfo};
-    delete sessionInfoDeepCopy.id; 
+    delete sessionInfoDeepCopy.id;
     const newHistorySession = await Models.HistorySession.create({...sessionInfoDeepCopy});
     await sessionInfoInstance.destroy();
     res.status(200).send('Moved UpcomingSession to HistorySession in database');

@@ -62,7 +62,6 @@ This is an example of how to list things you need to use the software and how to
 
 5. Create `client/.env` using `client/.env.example` as a template.
 
-
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png

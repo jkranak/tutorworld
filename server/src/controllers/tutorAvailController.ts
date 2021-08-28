@@ -51,11 +51,10 @@ const dayOfWeekArray = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 
 export const getTutorAvailByDate = async (req:Request, res:Response) => {
 
   try {
-    // format for date: 2021-12-22
     const { date, tutorId } = req.params;
     const dayOfWeek = dayOfWeekArray[new Date(`${date} 00:00`).getDay()];
     const tutorAvailForDayInstance = await Models.TutorAvailability.findOne({where: {TutorId: tutorId}});
-    if (!tutorAvailForDayInstance) res.status(404).send('Tutor availability does not exist!'); 
+    if (!tutorAvailForDayInstance) res.status(404).send('Tutor availability does not exist!');
     let tutorAvailForDay = tutorAvailForDayInstance.get({plain: true })[dayOfWeek];
     const timeSlotsTakenInstance = await Models.UpcomingSession.findAll({attributes: ['time'], where:{TutorId: tutorId, date}});
     const timeSlotsTaken = timeSlotsTakenInstance.map((timeSlotTakenInstance:any) => timeSlotTakenInstance.get({plain: true }));

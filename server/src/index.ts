@@ -8,23 +8,23 @@ import { Socket } from 'socket.io';
 const socket = require('socket.io');
 const app = express();
 
-  app.use(cors());// allows server to interact with the client side
-  app.use(express.json());// parses(analyzing) incoming requests with JSON
-  app.use(express.urlencoded({ extended: true }));
-  
-  app.use(router);
+app.use(cors());// allows server to interact with the client side
+app.use(express.json());// parses(analyzing) incoming requests with JSON
+app.use(express.urlencoded({ extended: true }));
 
-  const server = app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
-  
-  (() => {
-    db.sequelize.sync({alter: true}).then(() => console.log('Database Connected'));
-  })()
+app.use(router);
+
+const server = app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+
+(() => {
+  db.sequelize.sync({alter: true}).then(() => console.log('Database Connected'));
+})()
 
 
-  const io = socket(server);
+const io = socket(server);
 
-  io.on('connection', (socket: Socket) => {
-  console.log('socket id', socket.id)
+io.on('connection', (socket: Socket) => {
+  socket.emit("me", socket.id);
 
   socket.on('join_room', (room) => {
     socket.join(room);
@@ -38,5 +38,21 @@ const app = express();
   socket.on('disconnect', () => {
     console.log('user disconnected')
   })
-  
+
+  socket.on('canvas-data', (data) => {
+    socket.broadcast.emit('canvas-data', data);
+  })
+
+  socket.on("callUser", ({ userToCall, signalData, from}) => {
+    io.to(userToCall).emit("callUser", { signal: signalData, from});
+  });
+
+  socket.on("answerCall", (data) => {
+    io.to(data.to).emit("callAccepted", data.signal)
+  });
+
+  socket.on('join-room', room => {
+    socket.join(room);
+  })
+
 })

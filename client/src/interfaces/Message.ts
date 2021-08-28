@@ -9,3 +9,12 @@ export interface MessageCompleteI extends MessageI{
   id: string
   updatedAt: string
 }
+
+export const emptyMessageCompleteI: MessageCompleteI = {
+  RoomId: '',
+  SenderId: '',
+  content: '',
+  createdAt: '',
+  id: '',
+  updatedAt: ''
+}

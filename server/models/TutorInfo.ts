@@ -9,7 +9,7 @@ module.exports = (sequelize:any, DataTypes:any) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({Tutor, Language, Subject, subjectTutorInfo}:any) {
+    static associate({Tutor}:any) {
       // define association here
       this.belongsTo(Tutor)
 
@@ -28,30 +28,30 @@ module.exports = (sequelize:any, DataTypes:any) => {
     },
     experience: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
     imageUrl: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     rating: {
       type: DataTypes.REAL,
     },
     education: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
     price: {
       type: DataTypes.REAL,
-      allowNull: false,
+      allowNull: true,
     },
     subjectLevels: {
       type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: false,
+      allowNull: true,
     },
     languages: {
       type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: false,
+      allowNull: true,
     }
   }, {
     sequelize,

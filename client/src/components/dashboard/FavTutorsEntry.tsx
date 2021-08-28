@@ -4,6 +4,8 @@ import { TutorWithAvailability } from "../../interfaces/Tutor";
 import { currentRoom } from "../../redux/actions/currentRoom";
 import { currentTutorInfo } from "../../redux/actions/currentTutorInfo";
 import { enterRoom, getSenderId } from "../../services/apiChat";
+import { RootState } from '../../redux/store/store';
+import { UserAuth } from "../../interfaces/User";
 
 interface Props {
   tutor: TutorWithAvailability
@@ -13,7 +15,7 @@ export const FavTutorsEntry = ({ tutor }: Props) => {
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const user = useSelector((state: any) => state.authenticate)
+  const user: UserAuth = useSelector((state: RootState) => state.authenticate)
 
   const handleSchedule = () => {
     dispatch(currentTutorInfo(tutor));

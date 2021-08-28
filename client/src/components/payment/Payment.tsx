@@ -19,14 +19,14 @@ interface Props {
 const CARD_OPTIONS = {
 	style: {
 		base: {
-			iconColor: "#EA4C89",
-			color: "#EA4C89",
+			iconColor: "#001420",
+			color: "#001420",
 			fontWeight: 500,
 			fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
 			fontSize: "16px",
 			fontSmoothing: "antialiased",
-			":-webkit-autofill": { color: "#2B516C" },
-			"::placeholder": { color: "#F082AC" }
+			":-webkit-autofill": { color: "#001420" },
+			"::placeholder": { color: "#001420" }
 		},
 		invalid: {
 			iconColor: "#ffc7ee",
@@ -82,7 +82,7 @@ export const Payment: FC<Props> = ({sessionInfo, setPaymentSuccess, setPaymentAt
         <p>with {sessionInfo.name}</p>
         <form onSubmit={handleSubmit}>
           <div className="payment__details--additional">
-            <label>Additional indivation on what you want to cover during your session</label>
+            <label>Additional information on what you want to cover during your session</label>
             <textarea id="additionalInfo" name="additionalInfo" onChange={handleChange} value={additionalInfo}  className="text-input text-input--blue"/>
           </div>
           <fieldset className="fieldset">

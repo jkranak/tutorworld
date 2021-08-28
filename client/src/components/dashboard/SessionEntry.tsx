@@ -4,7 +4,6 @@ import { SessionComplex } from '../../interfaces/Session';
 import {UserRole, emptyUserNameImage} from '../../interfaces/User';
 import noPhotoUser from '../../assets/no_photo_user.png';
 import { BsFillInfoCircleFill} from 'react-icons/bs'
-import moment from 'moment';
 
 interface Props {
   session: SessionComplex
@@ -23,14 +22,16 @@ export const SessionEntry: FC<Props> = ({session, user}: Props) => {
 
     const sessionDetailState = {
       type: 'upcoming',
+      id: session.id,
       name: `${otherUserInfo.firstName} ${otherUserInfo.lastName}`,
       image: otherUserInfo.imageUrl,
       date: session.date,
       time: session.time,
       cost: session.cost,
-      context: session.sessionContext
+      context: session.sessionContext,
+      rating: 0,
+      review: ''
     }
-
 
   return (
     <div className="dashboard__content--display--session">
@@ -42,7 +43,7 @@ export const SessionEntry: FC<Props> = ({session, user}: Props) => {
       <div className="dashboard__content--display--session-details">
         <div className="dashboard__content--display--session--left-box">
           <h2>{otherUserInfo.firstName} {otherUserInfo.lastName}</h2>
-          <span>{moment(session.date).format('YYYY MMM DD')}</span>
+          <span>{new Date(`${session.date}T00:00:00`).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}</span>
           <span>{session.time}</span>
         </div>
         <div className="dashboard__content--display--session--right-box">

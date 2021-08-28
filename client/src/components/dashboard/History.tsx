@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux';
 import { HistoryComplex } from '../../interfaces/Session';
 import { HistoryEntry } from './HistoryEntry';
 import { RootState } from '../../redux/store/store';
+import { UserAuth } from '../../interfaces/User';
 
 interface Props {
   historyList: HistoryComplex[]
 }
 
 export const History: FC<Props> = ({historyList}: Props) => {
-  const user = useSelector((state: RootState) => state.authenticate);
+  const user: UserAuth = useSelector((state: RootState) => state.authenticate);
   
   return (
     <div className="dashboard__content--display--info">

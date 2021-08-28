@@ -43,7 +43,7 @@ export const getStudentDetails = async () => {
   }
 }
 
-export const getTutorDetails = async (id: number) => {
+export const getTutorDetails = async (id: string) => {
   try {
     const response = await api.get(`/tutors/${id}/allInfo`);
     return response.data;
@@ -75,7 +75,7 @@ export const updateTutor = async (user: TutorUpdate) => {
 
 export const updatePassword = async (role: string, oldPassword: string, newPassword: string) => {
   try {
-    const response = role === 'tutor' 
+    const response = role === 'tutor'
       ? await api.put('/tutors/tutor/password', {oldPassword, newPassword})
       : await api.put('/students/student/password', {oldPassword, newPassword});
       return response;
@@ -149,6 +149,27 @@ export const getUserHistory = async () => {
   try {
     const response = await api.get('/historySessions');
     return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const deleteSession = async (id: string) => {
+  try {
+    const response = await api.delete(`/upcomingSessions/${id}`);
+    return response.status;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+//'/upcomingSessions/:sessionId'
+
+export const updateHistoryUpcomingSessions = async (upcomingSessionId: string) => {
+  try {
+    const response = await api.put('/endSession', {upcomingSessionId});
+    return response.status;
   } catch (error) {
     console.log(error);
     return error;

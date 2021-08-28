@@ -1,0 +1,34 @@
+.review {
+  height: 60vh;
+  @include flex-column;
+  form {
+    @include flex-column;
+    width: 40%;
+    padding: 3rem;
+    border-radius: 1rem;
+    border: 1px solid $light-grey;
+    h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      line-height: 2;
+      padding-bottom: 2rem;
+    }
+    textarea {
+      height: 20vh;
+    }
+  }
+}
+
+.normalstar {
+  font-size: 2.5rem;
+  color: #FFC65A;
+}
+
+.hoverstar {
+  font-size: 2.5rem;
+  color: #ffc55a6a;
+}
+
+#reviewcontainer {
+  margin: 0 10vw;
+}

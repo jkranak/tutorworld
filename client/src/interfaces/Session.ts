@@ -56,3 +56,16 @@ export const emptyHistoryComplex: HistoryComplex = {
   starRating: 0,
   review: ''
 }
+
+export interface SessionDetail {
+  type: string
+  id: string
+  name: string
+  image: string
+  date: string
+  time: string
+  cost: number
+  context: string
+  rating: number
+  review: string
+}

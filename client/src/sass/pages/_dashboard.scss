@@ -19,6 +19,24 @@
        margin-bottom: 2rem;
        border-radius: .5rem;
        box-shadow: $box-shadow;
+
+       .earnings {
+        padding: 1rem 0;
+        .dashboard__content--display--session--left-box {
+          border: none;
+        }
+        &__total {
+          font-size: 2rem;
+          padding: 2rem 2rem;
+        }
+        &-date {
+          font-size: 1.7rem;
+          font-weight: 300;
+        }
+        &-cost {
+          font-size: 1.7rem;
+        }
+       }
       }
       &--title {
         width: 100%;
@@ -49,8 +67,8 @@
         @include flex-row;
         justify-content: flex-start;
         .image-box {
-          height: 6rem;
-          width: 6rem;
+          height: 6vh;
+          width: 6vh;
           overflow: hidden;
           border-radius: 50%;
           img {
@@ -89,6 +107,13 @@
           }
           button {
             display: inline-block;
+          }
+          .session-review {
+            font-size: 1.4rem;
+            transition: all .5s;
+            &:hover{
+              color: $pink;
+            }
           }
         }
       }

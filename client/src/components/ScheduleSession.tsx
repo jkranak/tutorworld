@@ -5,8 +5,9 @@ import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import {getOneTutorAvailability} from '../services/apiUser';
 import { useSelector } from 'react-redux';
-import { dayNames } from '../assets/times';
+import { dayNames, hoursSpace } from '../assets/times';
 import { RootState } from '../redux/store/store';
+import { TutorWithAvailability } from '../interfaces/Tutor';
 
 export const ScheduleSession: FC = () => {
   const [selectedDay, setSelectedDay] = useState(new Date(0));
@@ -14,7 +15,7 @@ export const ScheduleSession: FC = () => {
   const [timesArr, setTimesArr] = useState(['']);
   const [selectedHour, setSelectedHour] = useState('');
   const [selectedTopic, setSelectedTopic] = useState('');
-  const user = useSelector((state: RootState )=> state.currentTutorInfo);
+  const user: TutorWithAvailability  = useSelector((state: RootState )=> state.currentTutorInfo);
 
   const daysAhead = 69 - new Date().getDay();
   const endDate = new Date(Date.now() + 86400000 * daysAhead);
@@ -27,6 +28,7 @@ export const ScheduleSession: FC = () => {
       const dateStr = selectedDay.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
       getOneTutorAvailability(user.id, dateStr).then(res => {
         setPickTime(false);
+        res.sort((a: string, b: string) => hoursSpace.indexOf(a) - hoursSpace.indexOf(b))
         setTimesArr(res);
         setPickTime(true);
         setSelectedHour('');
@@ -83,7 +85,7 @@ interface BeforeAfter {
       {selectedHour.length > 0 && 
         <select name="subject" defaultValue="" onChange={handleTopicChange} className="select-input select-input--blue">
           <option value="" disabled>Choose subject</option>
-          {user.subjectLevels.map((subject: any) => (
+          {user.subjectLevels.map((subject: string) => (
             <option key={subject} value={subject}>{subject}</option>
             ))}
           </select>}

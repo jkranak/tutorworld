@@ -1,8 +1,9 @@
 import bcrypt from 'bcrypt';
 import Models from '../../models';
 import { generateToken } from '../generateToken';
+import { Request, Response } from 'express';
 
-export const createStudent = async (req:any, res:any) => {
+export const createStudent = async (req:Request, res:Response) => {
   const { email, firstName, lastName, password, confirmPassword, imageUrl } = req.body;
 
   if (!email || !firstName || !lastName || !password ||!confirmPassword) return res.status(400).send({ message: 'Please enter all fields.' });
@@ -34,7 +35,7 @@ export const createStudent = async (req:any, res:any) => {
   }
 };
 
-export const login = async (req:any, res:any) => {
+export const login = async (req:Request, res:Response) => {
   const { email, password } = req.body;
 
   if (!email || !password) return res.status(400).send({ message: 'Please enter all fields.' });
@@ -50,7 +51,7 @@ export const login = async (req:any, res:any) => {
     }
     const user = student || tutor;
     if (student) SenderId = await Models.Sender.findOne({where: {UserId: student.id, role: 'student'}})
-    
+
     if (await bcrypt.compare(password, user.password)) {
       res.status(200).send(
         {
@@ -71,10 +72,10 @@ export const login = async (req:any, res:any) => {
   }
 };
 
-export const createTutor = async (req:any, res:any) => {
+export const createTutor = async (req:Request, res:Response) => {
   const { email, firstName, lastName, password, confirmPassword, imageUrl } = req.body;
 
-  if (!email || !firstName || !lastName || !password ||!confirmPassword || !imageUrl) return res.status(400).send({ message: 'Please provide all fields.' });
+  if (!email || !firstName || !lastName || !password ||!confirmPassword ) return res.status(400).send({ message: 'Please provide all fields.' });
 
   try {
     const user = await Models.Tutor.findOne({where: {email}});
@@ -96,7 +97,7 @@ export const createTutor = async (req:any, res:any) => {
   }
 };
 
-export const verifyUser = async (req: any, res: any) => {
+export const verifyUser = async (req: Request, res: Response) => {
   const { id, role } = req.body.user;
 
   try {

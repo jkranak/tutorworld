@@ -43,15 +43,22 @@
     padding: 2rem 0;
   }
   &__info-wrapper {
-    // text-align: center;
     @include flex-row;
+    &--avail {
+      @include flex-column;
+    }
   }
   &__info {
+    &--tag-wrapper {
+      @include flex-row;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
     &--tag {
       background-color: $grey;
       font-size: 1.6rem;
       padding: 1rem 2rem;
-      margin-right: 1rem;
+      margin: 1rem 1rem 0 0;
       border-radius: 1rem;
       color: $font-light;
       text-transform: capitalize;
@@ -61,8 +68,16 @@
       color: $rating;
     }
     &--availability {
-      font-size: 1.5rem;
-      padding-left: 2rem;
+      font-size: 2rem;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid $light-grey;
     }
+    &--availability-list {
+      border: 1px solid $light-grey;
+      border-radius: .5rem;
+    }
+  }
+  .btn--blue {
+    margin-top: 1rem;
   }
 }

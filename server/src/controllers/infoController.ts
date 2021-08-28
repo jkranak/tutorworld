@@ -1,10 +1,11 @@
 import Models from '../../models';
+import { Request, Response } from 'express';
 
-export const updateTutorInfo = async (req:any, res:any) => {
+export const updateTutorInfo = async (req:Request, res:Response) => {
   try {
     const { id  } = req.body.user;
 
-    const {email, firstName, lastName, description, experience, imageUrl, education, price, subjectLevels, languages  } = req.body;
+    const { email, firstName, lastName, description, experience, imageUrl, education, price, subjectLevels, languages  } = req.body;
 
     const updatedTutor = {email, firstName, lastName};
 
@@ -13,7 +14,7 @@ export const updateTutorInfo = async (req:any, res:any) => {
     const tutorInfo = await Models.TutorInfo.findOne({where:{TutorId: id}});
 
     await Models.Tutor.update(updatedTutor, {where: {id}});
-    await Models.Sender.update({where: {UserId: id}, firstName: updatedtutorInfo.firstName, lastName: updatedtutorInfo.lastName, imageUrl: updatedtutorInfo.imageUrl})
+    await Models.Sender.update({firstName: updatedtutorInfo.firstName, lastName: updatedtutorInfo.lastName, imageUrl: updatedtutorInfo.imageUrl}, {where: {UserId: id}})
 
     if(tutorInfo){
       //updating maybe a single column
@@ -31,35 +32,6 @@ export const updateTutorInfo = async (req:any, res:any) => {
   }
 }
 
-// export const getAllTutorInfo = async (req:any, res:any) => {
-
-//   try {
-//     const { id } = req.body.user;
-
-//     const tutorInfoInstance = await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id}, include: Models.TutorInfo});
-
-//     if (tutorInfoInstance===null) {
-//       // spread operator and remove the TutorInfo property, removes all duplicates
-//       const tutorInfo = tutorInfoInstance.get({plain: true });
-//       const cleanTutorInfo = {...tutorInfo, ...tutorInfo.TutorInfo};
-//       delete cleanTutorInfo.TutorInfo;
-
-//       res.send(cleanTutorInfo);
-//       res.status(200);
-
-//     } else {
-//       res.send('Tutor has not created thier profile');
-//       res.status(204);
-//     }
-
-
-//   } catch (error) {
-//     console.log(error)
-//     res.status(500);
-//     res.send(error);
-//   }
-// }
-
 export const getStudentInfo = async (req:any, res:any) => {
   try {
     const { id } = req.body.user;
@@ -73,12 +45,14 @@ export const getStudentInfo = async (req:any, res:any) => {
   }
 }
 
-export const updateStudentInfo = async (req:any, res:any) => {
+export const updateStudentInfo = async (req:Request, res:Response) => {
   try {
-    const { id, email, firstName, lastName, imageUrl } = req.body;
+    const { id } = req.body.user;
+
+    const { email, firstName, lastName, imageUrl } = req.body;
 
     await Models.Student.update({ id, email, firstName, lastName, imageUrl }, {where: {id}});
-    await Models.Sender.update({where: {UserId: id}, firstName, lastName, imageUrl})
+    await Models.Sender.update({firstName, lastName, imageUrl}, {where: {UserId: id}})
     res.status(201).send('Student updated');
   } catch (error) {
     console.log(error)
@@ -86,7 +60,7 @@ export const updateStudentInfo = async (req:any, res:any) => {
   }
 }
 
-export const getEveryTutorsInfo = async (req:any, res:any) => {
+export const getEveryTutorsInfo = async (req:Request, res:Response) => {
   try {
     const tutorsInfoInstance = await Models.Tutor.findAll({attributes: {exclude: ['password']}, include: Models.TutorInfo});
 
@@ -106,7 +80,7 @@ export const getEveryTutorsInfo = async (req:any, res:any) => {
   }
 }
 
-export const getAllTutorsInfoAvail = async (req:any, res:any) => {
+export const getAllTutorsInfoAvail = async (req:Request, res:Response) => {
   try {
     const allTutorsInfoAvailInstance = await Models.Tutor.findAll({attributes: {exclude: ['password']}, include: [Models.TutorInfo, Models.TutorAvailability]});
 
@@ -127,12 +101,11 @@ export const getAllTutorsInfoAvail = async (req:any, res:any) => {
   }
 }
 
-export const getTutorInfoAvail = async (req:any, res:any) => {
+export const getTutorInfoAvail = async (req:Request, res:Response) => {
   try {
 
     const { tutor } = req.params;
     const tutorsInfoAvailInstance = await Models.Tutor.findOne({attributes: {exclude: ['password']}, where: {id:tutor}, include: [Models.TutorInfo, Models.TutorAvailability]});
-
     // spread operator and remove the TutorInfo property, removes all duplicates
 
     if (tutorsInfoAvailInstance){

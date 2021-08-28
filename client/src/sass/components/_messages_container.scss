@@ -84,7 +84,6 @@
   &--messages-list {
     height: 90%;
     padding: 3rem;
-    // TO-DO fix scroll
     overflow-y: scroll;
     @include flex-column;
     justify-content: flex-end;

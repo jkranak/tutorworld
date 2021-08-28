@@ -4,16 +4,13 @@ export interface ApplicationI {
   email: string,
   languages: number[],
   subjects: number[],
-  // about: string,
   resume: string
 }
-// TO-DO verify typescript type for files
 export const emptyApplication: ApplicationI = {
   firstName: '',
   lastName: '',
   email: '',
   languages: [],
   subjects: [],
-  // about: '',
   resume: ''
 }

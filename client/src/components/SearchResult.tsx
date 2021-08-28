@@ -26,10 +26,8 @@ export const SearchResult: FC<Props> = ({tutor}: Props) => {
   }
 
   const handleMessage = async () => {
-    // check if there is already a room with this tutor, if not create a new room
     const { SenderId } = await getSenderId(tutor.TutorId, 'tutor');
     const room = await enterRoom({mySenderId: user.SenderId, otherUserSenderId: SenderId})
-    // my sender id, tutor sender id,
     dispatch(currentRoom(room));
     history.push({
       pathname: '/messages',

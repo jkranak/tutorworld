@@ -8,8 +8,8 @@ import { Socket } from 'socket.io';
 const socket = require('socket.io');
 const app = express();
 
-app.use(cors());// allows server to interact with the client side
-app.use(express.json());// parses(analyzing) incoming requests with JSON
+app.use(cors());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(router);
@@ -31,7 +31,6 @@ io.on('connection', (socket: Socket) => {
   })
 
   socket.on('send_message', (message) => {
-    // send message to room and emit to people listening to this room
     socket.to(message.RoomId).emit('receive_message', message);
   })
 

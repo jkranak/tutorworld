@@ -43,8 +43,6 @@ const Map = () => {
     )
   }, [])
 
-
-
   return (
     <div>
       <Navbar />

@@ -7,7 +7,6 @@ interface Props {
 }
 
 export const ChangePassword: FC<Props> = ({setChangePassword, role}: Props) => {
-  // TO-DO we should probably have the user type their current password to verify it before changing it
   const [password, setPassword] = useState({oldPassword: '', password: '', verify: ''});
   const [match, setMatch] = useState(true);
   const [noChange, setNoChange] = useState(false);

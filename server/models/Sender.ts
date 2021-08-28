@@ -5,11 +5,7 @@ import {
 import { SenderI } from '../src/interfaces/Sender';
 module.exports = (sequelize: any, DataTypes: any) => {
   class Sender extends Model<SenderI> implements SenderI {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+
     id!: number;
     role!: string;
     firstName!: string;
@@ -18,7 +14,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
     imageUrl!: string
 
     static associate(models: any) {
-      // define association here
       Sender.hasMany(models.Message, {
         foreignKey: {
           allowNull: false

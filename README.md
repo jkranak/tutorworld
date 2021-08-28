@@ -61,3 +61,10 @@ The technologies we used in the development of this project:
 [linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png
 
+7. Running the application
+   ```sh
+   tutorworld/client % npm start
+
+   tutorworld/server/src % node index.js
+   ```
+

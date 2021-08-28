@@ -26,6 +26,7 @@ Tutor Worlds aim is to offer you the best platform to be able to learn from top-
 
 ### Built With
 
+
 * [React](https://getbootstrap.com)
 * [Redux](https://jquery.com)
 * [TypeScript](https://laravel.com)
@@ -37,10 +38,11 @@ Tutor Worlds aim is to offer you the best platform to be able to learn from top-
 * [Express]
 * [Socket.io]
 * [PeerJS]
-* 
 
-
-
+This section lists the technologies we used in the development of this project:
+* Front End: React, Redux, TypeScript, Saas, Axios
+* Back End: PostgreSQL, Sequelize, NodeJS, Express, AWS RDS
+* Others: JWT, PeerJS, Socket.io, Google Maps API, Stripe
 
 <!-- GETTING STARTED -->
 ## Getting Started

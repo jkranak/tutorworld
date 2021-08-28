@@ -21,20 +21,15 @@ export const LoginForm: FC<Props> = ({setToggle}: Props) => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const { email, password } = userLogin;
-    // confirming if fields aren't empty
     if (password && email) {
       const res = await login({ email, password })
       if (res.error) {
         alert(`${res.message}`)
         setUserLogin(emptyUserLogin);
       } else {
-        // getting token from back-end
         const { token, user } = res;
-        // setting token to header
         localStorage.setItem('x-auth-token', token);
-        // set global state to authenticated
         dispatch(authenticate(user));
-        // redirect to dashboard
         history.push('/dashboard');
       }
     } else alert(`Please insert your e-mail and password.`);

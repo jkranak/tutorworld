@@ -164,7 +164,6 @@ export const deleteSession = async (id: string) => {
     return error;
   }
 }
-//'/upcomingSessions/:sessionId'
 
 export const updateHistoryUpcomingSessions = async (upcomingSessionId: string) => {
   try {
@@ -199,7 +198,7 @@ export const getFavTutorsLess = async () => {
 export const addFavTutor = async (id: string) => {
   try {
     const response = await api.post('/students/student/favTutors', {TutorId: id});
-    return (response.status); //201 or 409
+    return (response.status);
   } catch (error) {
     console.log(error);
     return error;
@@ -209,7 +208,7 @@ export const addFavTutor = async (id: string) => {
 export const removeFavTutor = async (id: string) => {
   try {
     const response = await api.delete(`/students/student/favTutors/${id}`);
-    return (response.status); //200 or 404
+    return (response.status);
   } catch (error) {
     console.log(error);
     return error;

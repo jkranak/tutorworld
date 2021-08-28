@@ -24,9 +24,7 @@ const Map = () => {
   const onLoad = (ref:any) => setSearchBox(ref);
 
   const onPlacesChanged = () => {
-    // @ts-ignore
     setLng((searchBox.getPlaces()[0].geometry.location.lng)());
-    // @ts-ignore
     setLat((searchBox.getPlaces()[0].geometry.location.lat)());
   }
 
@@ -44,8 +42,6 @@ const Map = () => {
     }
     )
   }, [])
-
-
 
   return (
     <div>

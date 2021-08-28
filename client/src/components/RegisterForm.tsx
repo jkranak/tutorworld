@@ -21,21 +21,15 @@ export const RegisterForm: FC<Props> = ({setToggle}: Props) => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const { firstName, lastName, email, password, confirmPassword } = newUser;
-
-    // confirming is passwords match
     if (password === confirmPassword) {
       const res = await createUser({ firstName, lastName, email, password, confirmPassword })
       if (res.error) {
         alert(`${res.message}`)
         setNewUser(emptyUser);
       } else {
-        // getting token from back-end
         const { token, user } = res;
-        // setting token to header
         localStorage.setItem('x-auth-token', token);
-        // TO-DO set global state to authenticated
         dispatch(authenticate(user));
-        // redirect to dashboard
         history.push('/dashboard');
       }
     } else alert(`Passwords do not match, try again.`);

@@ -5,7 +5,7 @@ dotenv.config();
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 })
-api.interceptors.request.use((req) => { // attach token to all headers in all requests
+api.interceptors.request.use((req) => {
   const token = localStorage.getItem('x-auth-token');
   if (token) {
     axios.defaults.headers.Authorization = token;

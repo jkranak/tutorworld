@@ -27,7 +27,7 @@ export const sendNewMessage = async (message: MessageI) => {
     return error;
   }
 }
-// TO-DO fix any typescripts
+
 export const enterRoom = async (users: any) => {
   try {
     const response = await api.post(`/room`, users);
@@ -45,5 +45,3 @@ export const getSenderId = async (id: string, role: string) => {
     return error;
   }
 }
-
-// if a room with both of them already exists

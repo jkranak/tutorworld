@@ -4,7 +4,9 @@ import LogoLink from '../components/LogoLink'
 import { RegisterForm } from '../components/RegisterForm'
 
 export const Login: FC = () => {
+  
   const [toggle, setToggle] = useState<string>(window.history.state.state.toggle)
+
   return (
     <div className="login">
       <header>

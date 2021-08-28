@@ -10,8 +10,6 @@
   </p>
 </p>
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
@@ -23,13 +21,11 @@ Tutor World aim is to offer you the best platform to be able to learn from top-r
 * Bianca Procopio [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/bianca-procopio/)
 
 ### Built With
+The technologies we used in the development of this project:
+* Front End: [React](https://reactjs.org/), [Redux](https://redux.js.org/), [TypeScript](https://www.typescriptlang.org/), [Saas](https://www.npmjs.com/package/sass), [Axios](https://axios-http.com/)
+* Back End: [PostgreSQL](https://www.postgresql.org/), [Sequelize](https://sequelize.org/), [NodeJS](https://nodejs.org/en/), [Express](http://expressjs.com/), [AWS RDS](https://aws.amazon.com/rds/)
+* Others: [JWT](https://jwt.io/), [PeerJS](https://peerjs.com/), [Socket.io](https://socket.io/), [Google Maps API](https://developers.google.com/maps/apis-by-platform), [Stripe](https://stripe.com/docs/api)
 
-This section lists the technologies we used in the development of this project:
-* Front End: React, Redux, TypeScript, Saas, Axios
-* Back End: PostgreSQL, Sequelize, NodeJS, Express, AWS RDS
-* Others: JWT, PeerJS, Socket.io, Google Maps API, Stripe
-
-<!-- GETTING STARTED -->
 ## Getting Started
 
 ### Prerequisites
@@ -42,7 +38,12 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. You will need api keys from
+* [Stripe](https://stripe.com/docs/api) 
+* [Google Maps](https://developers.google.com/maps/apis-by-platform)
+* [Formspark](https://www.formspark.io/)
+* [Uploadcare](https://uploadcare.com/api-refs/upload-api/)
+3. You will need a Postgres server running on [AWS RDS](https://aws.amazon.com/rds/).
 2. Clone the repo
    ```sh
    git clone https://github.com/your_username_/tutorworld.git
@@ -51,8 +52,11 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```JS
-   const API_KEY = 'ENTER YOUR API';
-   ```
+4. Create `server/.env` using `server/.env.example` as a template.
+
+5. Create `client/.env` using `client/.env.example` as a template.
+
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/othneildrew
+[product-screenshot]: images/screenshot.png
 

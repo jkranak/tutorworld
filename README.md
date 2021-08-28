@@ -1,7 +1,7 @@
-![Tutorworld Logo](./client/src/assets/tutor_world.svg)
-<br />
-<p align="center">
 
+<p align="center">
+![Tutorworld Logo](./client/public/logo192.png)
+<br />
   <h3 align="center">Tutorworld</h3>
 
   <p align="center">

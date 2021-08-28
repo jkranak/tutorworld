@@ -1,7 +1,7 @@
 // @ts-nocheck
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { GoogleMap, Marker, LoadScript, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
-import {getAllLibraries, getLibraryAllTutors} from '../services/apiMaps';
+import { getAllLibraries, getLibraryAllTutors } from '../services/apiMaps';
 import dotenv from 'dotenv';
 import { Navbar } from '../components/Navbar';
 import { SearchResult } from '../components/SearchResult';
@@ -21,7 +21,7 @@ const Map = () => {
   const [selectedLibrary, setSelectedLibrary] = useState(null);
   const [libraryAllTutors, setLibraryAllTutors] = useState(null);
 
-  const onLoad = (ref:any) => setSearchBox(ref);
+  const onLoad = (ref: any) => setSearchBox(ref);
 
   const onPlacesChanged = () => {
     setLng((searchBox.getPlaces()[0].geometry.location.lng)());

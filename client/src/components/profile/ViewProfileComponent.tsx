@@ -1,11 +1,16 @@
 import { FC, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { BsStarFill, BsStar, BsStarHalf, BsCheckCircle, BsCircle } from 'react-icons/bs'
 import { starRating } from '../../services/starRating';
 import {getFavTutorsLess, addFavTutor, removeFavTutor} from '../../services/apiUser';
 import { v4 as uuidv4 } from 'uuid';
 import { hoursSpace, dayNames, capitalDayNames } from '../../assets/times';
 import { TutorWithAvailability} from '../../interfaces/Tutor';
+import { enterRoom, getSenderId } from '../../services/apiChat';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserAuth } from '../../interfaces/User';
+import { RootState } from '../../redux/store/store';
+import { currentRoom } from '../../redux/actions/currentRoom';
 
 interface Props {
   tutorDetails: TutorWithAvailability
@@ -14,7 +19,10 @@ interface Props {
 export const ViewProfileComponent: FC<Props> = ({tutorDetails}: Props) => {
   const starArr: number[] = tutorDetails && starRating(tutorDetails.rating!);
   const [favorite, setFavorite] = useState(false);
-  
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const user: UserAuth = useSelector((state: RootState) => state.authenticate)
+
   useEffect(() => {
     getFavTutorsLess().then(res => {
       for (let tutor of res) {
@@ -38,6 +46,18 @@ export const ViewProfileComponent: FC<Props> = ({tutorDetails}: Props) => {
     }
   }
 
+  const handleMessage = async () => {
+    // check if there is already a room with this tutor, if not create a new room
+    const { SenderId } = await getSenderId(tutorDetails.TutorId, 'tutor');
+    const room = await enterRoom({mySenderId: user.SenderId, otherUserSenderId: SenderId})
+    // my sender id, tutor sender id,
+    dispatch(currentRoom(room));
+    history.push({
+      pathname: '/messages',
+      state: room
+    });
+  }
+
   return (
     <>
     <div className="tutor-profile">
@@ -49,7 +69,7 @@ export const ViewProfileComponent: FC<Props> = ({tutorDetails}: Props) => {
         <p className="tutor-profile--details">{tutorDetails.description}</p>
         <p className="tutor-profile--sub-title">Rate: ${tutorDetails.price}/hour</p>
         <Link to={'/schedule'} className="btn btn--blue">Schedule</Link>
-        <button className="btn btn--blue">Message</button>
+        <button className="btn btn--blue" onClick={handleMessage}>Message</button>
         {favorite ? <button onClick={handleRemoveClick} className="btn btn--clear">Favorite <BsCheckCircle /></button> : <button onClick={handleAddClick} className="btn btn--clear">Favorite <BsCircle /></button>}
       </section>
       <section className="tutor-profile__right-box">

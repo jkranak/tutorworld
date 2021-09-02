@@ -15,11 +15,6 @@
 
 Tutor World aim is to offer you the best platform to be able to learn from top-rated tutors. Not only are we able to host in-app online tutoring sessions, but you can also find tutors that are available at your local libraries. 
 
-## Contributors
-* Joseph Kranak [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/joseph-kranak/)
-* Rahmat Yousufi [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/rahmatyousufi/)
-* Bianca Procopio [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/bianca-procopio/)
-
 ## Built With
 The technologies we used in the development of this project:
 * Front End: [React](https://reactjs.org/), [Redux](https://redux.js.org/), [TypeScript](https://www.typescriptlang.org/), [Saas](https://www.npmjs.com/package/sass), [Axios](https://axios-http.com/)
@@ -70,4 +65,8 @@ The technologies we used in the development of this project:
 
    tutorworld/server/src % node index.js
    ```
-
+   
+## Contributors
+* Joseph Kranak [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/joseph-kranak/)
+* Rahmat Yousufi [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/rahmatyousufi/)
+* Bianca Procopio [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/bianca-procopio/)

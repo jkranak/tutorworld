@@ -1,4 +1,4 @@
-import Models from '../../models';
+import Models from '../models';
 import { Request, Response } from 'express';
 
 export const addFavTutor = async (req:Request, res:Response) => {

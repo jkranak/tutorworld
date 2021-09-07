@@ -1,4 +1,4 @@
-import Models from '../../models';
+import Models from '../models';
 import {Session} from '../interfaces/Session';
 import { Request, Response } from 'express';
 

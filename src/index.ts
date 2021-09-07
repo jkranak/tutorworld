@@ -1,17 +1,24 @@
 import express from 'express';
 import cors from 'cors';
 import router from './routes/router';
-import db from '../models';
+import db from './models';
 require('dotenv').config();
 const PORT = process.env.PORT || 5000;
 import { Socket } from 'socket.io';
 const socket = require('socket.io');
 const app = express();
+const path = require('path');
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html')); // relative path
+  });
+}
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(router);
 
 const server = app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
@@ -19,6 +26,7 @@ const server = app.listen(PORT, () => console.log(`Server listening on port ${PO
 (() => {
   db.sequelize.sync({alter: true}).then(() => console.log('Database Connected'));
 })()
+
 
 
 const io = socket(server);

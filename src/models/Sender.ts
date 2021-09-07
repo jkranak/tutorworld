@@ -2,7 +2,7 @@
 import {
   Model
 } from 'sequelize';
-import { SenderI } from '../src/interfaces/Sender';
+import { SenderI } from '../interfaces/Sender';
 module.exports = (sequelize: any, DataTypes: any) => {
   class Sender extends Model<SenderI> implements SenderI {
 

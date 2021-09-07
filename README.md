@@ -24,6 +24,7 @@ The technologies we used in the development of this project:
 ![PreviewImage1](./preview_images/TutorWorld-preview1.png)
 ![PreviewImage2](./preview_images/TutorWorld-preview2.png)
 ![PreviewImage3](./preview_images/TutorWorld-preview3.png)
+![PreviewImage4](./preview_images/preview-4.png)
 ## Getting Started
 
 ### Prerequisites

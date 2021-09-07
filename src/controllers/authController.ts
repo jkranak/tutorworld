@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import Models from '../../models';
+import Models from '../models';
 import { generateToken } from '../generateToken';
 import { Request, Response } from 'express';
 

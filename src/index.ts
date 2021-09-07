@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 5000;
 import { Socket } from 'socket.io';
 const socket = require('socket.io');
 const app = express();
+const path = require('path');
 
 app.use(cors());
 app.use(express.json());
@@ -14,11 +15,19 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(router);
 
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development') {
+  app.use(express.static('build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html')); // relative path
+  });
+}
+
 const server = app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
 
 (() => {
   db.sequelize.sync({alter: true}).then(() => console.log('Database Connected'));
 })()
+
 
 
 const io = socket(server);

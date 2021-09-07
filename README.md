@@ -6,7 +6,7 @@
 
   <p align="center">
     A website for tutors and students to connect <br />
-  <a href="https://tutorworld.herokuapp.com">Live version</a>
+  <a href="https://tutorworld.herokuapp.com">Visite Website</a>
     
   </p>
 </p>

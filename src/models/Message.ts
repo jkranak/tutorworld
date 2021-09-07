@@ -2,7 +2,7 @@
 import {
   Model
 } from 'sequelize';
-import { MessageI } from '../src/interfaces/Message';
+import { MessageI } from '../interfaces/Message';
 module.exports = (sequelize: any, DataTypes: any) => {
   class Message extends Model<MessageI> implements MessageI {
     id!: number;

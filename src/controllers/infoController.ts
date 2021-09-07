@@ -1,4 +1,4 @@
-import Models from '../../models';
+import Models from '../models';
 import { Request, Response } from 'express';
 
 export const updateTutorInfo = async (req:Request, res:Response) => {

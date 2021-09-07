@@ -1,4 +1,4 @@
-import Models from '../../models';
+import Models from '../models';
 import { Request, Response } from 'express';
 import { QueryTypes } from 'sequelize';
 import { v4 as uuidv4 } from 'uuid';

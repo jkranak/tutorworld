@@ -2,7 +2,7 @@
 import {
   Model
 } from 'sequelize';
-import { RoomI } from '../src/interfaces/Room';
+import { RoomI } from '../interfaces/Room';
 module.exports = (sequelize: any, DataTypes: any) => {
   class Room extends Model<RoomI> implements RoomI {
     id!: string;

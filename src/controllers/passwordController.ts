@@ -1,4 +1,4 @@
-import Models from '../../models';
+import Models from '../models';
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 

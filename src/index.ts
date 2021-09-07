@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import router from './routes/router';
-import db from '../models';
+import db from './models';
 require('dotenv').config();
 const PORT = process.env.PORT || 5000;
 import { Socket } from 'socket.io';
